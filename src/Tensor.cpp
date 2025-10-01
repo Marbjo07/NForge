@@ -79,6 +79,19 @@ Tensor Tensor::operator+(const Tensor& other) const {
 	return Tensor(m_impl->add(*other.m_impl));
 }
 
+Tensor Tensor::operator-(const Tensor& other) const {
+	return Tensor(m_impl->sub(*other.m_impl));
+}
+
+Tensor Tensor::operator*(const Tensor& other) const {
+	return Tensor(m_impl->mul(*other.m_impl));
+}
+
+Tensor Tensor::operator/(const Tensor& other) const {
+	return Tensor(m_impl->div(*other.m_impl));
+}
+
+
 Tensor::View Tensor::operator[](size_t idx) const {
 	Tensor::View results((Tensor&)*this, {idx});
 	return results;

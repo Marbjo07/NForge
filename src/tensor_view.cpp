@@ -4,7 +4,6 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
     : m_parent(parent), m_position(index) {
 }
 
-
 void Tensor::View::print() const {
     m_parent.print(m_position);
 }
