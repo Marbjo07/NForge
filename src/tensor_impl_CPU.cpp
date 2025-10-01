@@ -2,6 +2,9 @@
 #include "nforge/error_handler.h"
 #include "nforge/tensor_impl_CPU.h"
 
+#include <algorithm>
+#include <random>
+
 Tensor::CPUImpl::CPUImpl(const std::vector<size_t>& shape) 
 	: m_shape(shape) {
 
@@ -42,6 +45,17 @@ Tensor::CPUImpl::~CPUImpl() {
 
 void Tensor::CPUImpl::fillAll(float value) {
 	m_data.assign(m_data.size(), value);
+}
+
+void Tensor::CPUImpl::fillRand() {
+	static std::mt19937 engine(std::random_device{}());
+    static std::uniform_real_distribution<double> dist(-1.0, 1.0);
+
+	auto gen = [&]() {
+		return dist(engine);
+	};
+
+	std::generate(m_data.begin(), m_data.end(), gen);
 }
 
 void Tensor::CPUImpl::print() const {

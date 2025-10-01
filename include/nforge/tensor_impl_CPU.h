@@ -10,6 +10,8 @@ public:
 	~CPUImpl();
 
 	void fillAll(float value) override;
+	void fillRand() override;
+
 	void print() const override;
 	void print(const std::vector<size_t>& id) const override;
 

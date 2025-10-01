@@ -33,6 +33,9 @@ public:
     // Fill all elements with a value
     void fillAll(float value);
     
+    // Fill all elements with uniform real values in [-1, 1]
+    void fillRand();
+    
     // Print the tensor data
     void print() const; 
     void print(const std::vector<size_t>& idx) const;
@@ -79,6 +82,8 @@ public:
     virtual ~Impl() = default;
 
 	virtual void fillAll(float value) = 0;
+    virtual void fillRand() = 0;
+
 	virtual void print() const = 0;
     virtual void print(const std::vector<size_t>& idx) const = 0;
 

@@ -36,6 +36,10 @@ void Tensor::fillAll(float value) {
 	m_impl->fillAll(value);
 }
 
+void Tensor::fillRand() {
+	m_impl->fillRand();
+}
+
 void Tensor::print() const {
 	m_impl->print();
 }
