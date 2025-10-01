@@ -34,6 +34,7 @@ public:
 	std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl& other) const override;
 	std::unique_ptr<Tensor::Impl> mul(const Tensor::Impl& other) const override;
 	std::unique_ptr<Tensor::Impl> div(const Tensor::Impl& other) const override;
+	std::unique_ptr<Tensor::Impl> pow(unsigned int exponent) const override;
 
 	bool operator==(const Tensor::Impl& other) const override;
 	bool operator!=(const Tensor::Impl& other) const override;

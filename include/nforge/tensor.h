@@ -58,6 +58,9 @@ public:
     // Set the indexed block to another tensor
     void set(const std::vector<size_t>& idx, const Tensor& other);
 
+    // Returns the tensor raised to a positive integer value
+    Tensor pow(unsigned int exponent) const;
+
     // Overloaded operators
     Tensor operator+(const Tensor& other) const;
     Tensor operator-(const Tensor& other) const;
@@ -106,6 +109,7 @@ public:
 	virtual std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl& other) const = 0;
 	virtual std::unique_ptr<Tensor::Impl> mul(const Tensor::Impl& other) const = 0;
 	virtual std::unique_ptr<Tensor::Impl> div(const Tensor::Impl& other) const = 0;
+    virtual std::unique_ptr<Tensor::Impl> pow(unsigned int exponent) const = 0;
 
     virtual bool operator==(const Tensor::Impl& other) const = 0;
     virtual bool operator!=(const Tensor::Impl& other) const = 0;

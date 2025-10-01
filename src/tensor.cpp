@@ -77,6 +77,10 @@ void Tensor::set(const std::vector<size_t>& idx, const Tensor& other) {
 	m_impl->set(idx, *other.m_impl);
 }
 
+Tensor Tensor::pow(unsigned int exponent) const {
+	return Tensor(m_impl->pow(exponent));
+}
+
 Tensor Tensor::operator+(const Tensor& other) const {
 	return Tensor(m_impl->add(*other.m_impl));
 }

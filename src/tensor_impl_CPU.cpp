@@ -305,6 +305,27 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const Tensor::Impl& other) co
 	return std::unique_ptr<Tensor::Impl>(results);
 }
 
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::pow(unsigned int exponent) const {
+	auto result = std::make_unique<Tensor::CPUImpl>(this->m_shape, 1.0f);
+	auto base = std::make_unique<Tensor::CPUImpl>(*this);
+
+	while (exponent > 0) {
+		if (exponent & 1) {
+			for (size_t i = 0; i < result->m_data.size(); ++i) {
+				result->m_data[i] *= base->m_data[i];
+			}
+		}
+		exponent >>= 1;
+		if (exponent > 0) {
+			for (size_t i = 0; i < base->m_data.size(); ++i) {
+				base->m_data[i] *= base->m_data[i];
+			}
+		}
+	}
+
+	return result;
+}
+
 bool Tensor::CPUImpl::operator==(const Tensor::Impl& other) const {
 	if (m_shape != other.getShape()) return false;
 
