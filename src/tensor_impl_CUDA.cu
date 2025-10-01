@@ -1,8 +1,14 @@
 #include "pch.h"
 
-#include "Tensor.h"
-#include "TensorBackend.h"
-#include "ErrorHandler.h"
+#include "nforge/tensor.h"
+#include "nforge/tensor_backend.h"
+#include "nforge/error_handler.h"
+
+#ifdef BUILD_WITH_CUDA
+#include <cuda.h>
+#include <cuda_runtime.h>
+#include <device_launch_parameters.h>
+#endif // BUILD_WITH_CUDA
 
 __global__
 void addition_kernel(float* a, float* b, float* c, size_t size) {

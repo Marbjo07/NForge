@@ -1,8 +1,7 @@
-#pragma once
 #ifndef ERROR_HANDLER_H 
 #define ERROR_HANDLER_H
 
-#include "pch.h"
+#define LOG(x) std::cerr
 
 namespace ErrorHandler {
 	namespace Flags {
@@ -46,10 +45,13 @@ namespace ErrorHandler {
 	static void cudaSyncLog(std::string errorDescription) {
 		if (!ErrorHandler::Flags::cudaSyncLogEnabled) return;
 
+		#if 0
+
 		cudaError_t status = cudaDeviceSynchronize();
 		if (status != cudaError_t::cudaSuccess) {
 			LOG(ERROR) << "cuda error, " << errorDescription << " status: " << status;
 		}
+		#endif
 	}
 };
 

@@ -1,4 +1,6 @@
-# Pull Catch2
+cmake_minimum_required(VERSION 3.14)
+project(NForgeTests)
+
 include(FetchContent)
 FetchContent_Declare(
 	Catch2
@@ -9,9 +11,9 @@ FetchContent_MakeAvailable(Catch2)
 
 # Build test binary
 add_executable(test_nforge test_tensor.cpp)
-target_link_libraries(test_nforge PRIVATE nforge Catch2::Catch2WithMain)
+target_link_libraries(test_nforge PRIVATE NForge Catch2::Catch2WithMain)
 
-# Add Catch2 tests to CTest
+# Enable testing and add Catch2 tests to CTest
 include(CTest)
 include(Catch)
 catch_discover_tests(test_nforge)

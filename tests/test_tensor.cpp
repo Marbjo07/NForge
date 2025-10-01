@@ -1,16 +1,23 @@
 #include <catch2/catch_test_macros.hpp>
 #include "nforge/tensor.h"
 
-using namespace nforge;
+TEST_CASE("Create tensor", "[tensor]") {
 
-TEST_CASE("Tensor basic fill and get", "[tensor]") {
-	Tensor t(3);
-	t.fill(1.5f);
-	REQUIRE(t.get(0) == 1.5f);
-	REQUIRE(t.get(2) == 1.5f);
+	Tensor t({3}, 4.0f, Backend::CPU);
+
+	REQUIRE(t.getNumberOfElements() == 3);
+	REQUIRE(t.getBackendAsString() == "CPU");
 }
 
-TEST_CASE("Tensor out of bounds", "[tensor]") {
-	Tensor t(3);
-	REQUIRE_THROWS_AS(t.get(10), std::out_of_range);
-}	
+TEST_CASE("Add tensors", "[tensor]") {
+
+	Tensor a({3}, 4.0f, Backend::CPU);
+	Tensor b({3}, 1.0f, Backend::CPU);
+
+	Tensor c = a + b;
+
+	REQUIRE(c[0] == Tensor(5));
+	REQUIRE(c[0] == c[1]);
+	REQUIRE(c[1] == c[2]);
+	REQUIRE(c[0] != Tensor(3));
+}
