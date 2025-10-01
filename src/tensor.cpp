@@ -56,8 +56,6 @@ std::string Tensor::getBackendAsString() const {
 	switch (m_backend) {
 		case Backend::CPU:
 			return "CPU";
-		case Backend::CUDA:
-			return "CUDA";
 		default:
 			return "UNKNOWN";
 	}

@@ -9,7 +9,7 @@
 
 #define LOG(x) std::cerr
 
-enum class Backend { CPU, CUDA };
+enum class Backend { CPU };
 
 class Tensor {
 public:
@@ -62,7 +62,7 @@ public:
     Tensor operator+(const Tensor& other) const;
     Tensor operator-(const Tensor& other) const;
     Tensor operator*(const Tensor& other) const;
-    Tensor operator/(const Tensor& other)  const;
+    Tensor operator/(const Tensor& other) const;
 
     Tensor::View operator[](size_t idx) const;
 

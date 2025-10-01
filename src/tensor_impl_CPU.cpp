@@ -1,5 +1,4 @@
 #include "nforge/tensor.h"
-#include "nforge/error_handler.h"
 #include "nforge/tensor_impl_CPU.h"
 
 #include <algorithm>
