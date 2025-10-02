@@ -30,6 +30,9 @@ public:
 	std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
 	void set(const std::vector<size_t>& position, const Tensor::Impl& other) override;
 
+    bool compare(const std::vector<size_t>& idx, const Tensor::Impl& other) const override;
+    bool compare(const std::vector<size_t>& idx, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) const override;
+
 	std::unique_ptr<Tensor::Impl> add(const Tensor::Impl& other) const override;
 	std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl& other) const override;
 	std::unique_ptr<Tensor::Impl> mul(const Tensor::Impl& other) const override;

@@ -254,6 +254,91 @@ void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Imp
 	}
 }
 
+bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl& other) const {
+	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+	if (!o) return false;
+
+	std::vector<size_t> blockShape(m_shape.begin() + idx.size(), m_shape.end());
+	if (blockShape.empty()) {
+		blockShape.push_back(1);
+	}
+
+	if (blockShape != o->m_shape) {
+		return false;
+	}
+
+	// Calculate block size
+	size_t blockSize = 1;
+	for (size_t dim : blockShape) {
+		blockSize *= dim;
+	}
+
+	// Calulate number of blocks before this block
+	size_t numBlocks = 1;
+	for (size_t dimSize : idx) {
+		if (numBlocks == 0) numBlocks = 1;
+		numBlocks *= dimSize;
+	}
+
+	size_t offset = blockSize * numBlocks;
+	for (size_t i = 0; i < blockSize; ++i) {
+		if (m_data[offset + i] != o->m_data[i]) return false;
+	}
+	
+	return true;
+}
+
+bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) const {
+    const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+    if (!o) return false;
+
+    // Get shapes of the blocks
+    std::vector<size_t> thisBlockShape(m_shape.begin() + idx.size(), m_shape.end());
+    std::vector<size_t> otherBlockShape(o->m_shape.begin() + otherIdx.size(), o->m_shape.end());
+    
+    if (thisBlockShape.empty()) {
+        thisBlockShape.push_back(1);
+    }
+    if (otherBlockShape.empty()) {
+        otherBlockShape.push_back(1);
+    }
+
+    if (thisBlockShape != otherBlockShape) {
+        return false;
+    }
+
+    // Calculate block size same for both
+    size_t blockSize = 1;
+    for (size_t dim : thisBlockShape) {
+        blockSize *= dim;
+    }
+
+    // Calculate offsets for both tensors
+    size_t thisNumBlocks = 1;
+    for (size_t dimSize : idx) {
+        if (thisNumBlocks == 0) thisNumBlocks = 1;
+        thisNumBlocks *= dimSize;
+    }
+
+    size_t otherNumBlocks = 1;
+    for (size_t dimSize : otherIdx) {
+        if (otherNumBlocks == 0) otherNumBlocks = 1;
+        otherNumBlocks *= dimSize;
+    }
+
+    size_t thisOffset = blockSize * thisNumBlocks;
+    size_t otherOffset = blockSize * otherNumBlocks;
+
+    // Compare the blocks element by element
+    for (size_t i = 0; i < blockSize; i++) {
+        if (m_data[thisOffset + i] != o->m_data[otherOffset + i]) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const Tensor::Impl& other) const {
 	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape);
 

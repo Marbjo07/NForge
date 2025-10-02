@@ -61,6 +61,10 @@ public:
     // Returns the tensor raised to a positive integer value
     Tensor pow(unsigned int exponent) const;
 
+    // Compare some index block to another tensor
+    bool compare(const std::vector<size_t>& idx, const Tensor& other) const;
+    bool compare(const std::vector<size_t>& idx, const Tensor::View& other) const;
+
     // Overloaded operators
     Tensor operator+(const Tensor& other) const;
     Tensor operator-(const Tensor& other) const;
@@ -104,6 +108,9 @@ public:
 
     virtual std::unique_ptr<Tensor::Impl> get(size_t idx) const = 0;
     virtual void set(const std::vector<size_t>& position, const Tensor::Impl& other) = 0;
+
+    virtual bool compare(const std::vector<size_t>& idx, const Tensor::Impl& other) const = 0;
+    virtual bool compare(const std::vector<size_t>& idx, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) const = 0;
 
 	virtual std::unique_ptr<Tensor::Impl> add(const Tensor::Impl& other) const = 0;
 	virtual std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl& other) const = 0;

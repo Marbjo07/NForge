@@ -74,7 +74,15 @@ std::vector<float> Tensor::getAsVector() const {
 }
 
 void Tensor::set(const std::vector<size_t>& idx, const Tensor& other) {
-	m_impl->set(idx, *other.m_impl);
+	m_impl->set(idx, *other.m_impl.get());
+}
+
+bool Tensor::compare(const std::vector<size_t>& idx, const Tensor& other) const {
+	return m_impl->compare(idx, *other.m_impl.get());
+}
+
+bool Tensor::compare(const std::vector<size_t>& idx, const Tensor::View& other) const {
+	return m_impl->compare(idx, *other.getParent().m_impl.get(), other.getPosition());
 }
 
 Tensor Tensor::pow(unsigned int exponent) const {
@@ -97,7 +105,6 @@ Tensor Tensor::operator/(const Tensor& other) const {
 	return Tensor(m_impl->div(*other.m_impl));
 }
 
-
 Tensor::View Tensor::operator[](size_t idx) const {
 	Tensor::View results((Tensor&)*this, {idx});
 	return results;
@@ -111,7 +118,7 @@ Tensor Tensor::operator=(const Tensor& other) {
 }
 
 bool Tensor::operator==(const Tensor& other) const {
-	return m_backend != other.m_backend || *m_impl != *other.m_impl;
+	return m_backend == other.m_backend && m_impl->operator==(*other.m_impl);
 }
 
 bool Tensor::operator!=(const Tensor& other) const {
