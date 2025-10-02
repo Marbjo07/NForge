@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 4.0)
-project(NForge VERSION 1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+project(NForge)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

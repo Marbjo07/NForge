@@ -82,7 +82,7 @@ void Tensor::CPUImpl::print() const {
 	std::cout << "====================\n";
 }
 
-void Tensor::CPUImpl::print(const std::vector<size_t>& idx) const {
+void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 	std::cout << "====================\n";
 	std::cout << "Tensor[CPU], Data:\n";
 
@@ -95,18 +95,18 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& idx) const {
 	}
 
 	size_t blockSize = 1;
-	for (int i = idx.size(); i < m_shape.size(); i++) {
+	for (int i = position.size(); i < m_shape.size(); i++) {
 		blockSize *= m_shape[i];
 	}
 
 	size_t offsetCount = blockSize;
-	for (size_t i = 0; i < idx.size(); i++) {
+	for (size_t i = 0; i < position.size(); i++) {
 		// if first slice in a dim
 		if (offsetCount == 0) {
 			offsetCount = blockSize;
 		}
 
-		offsetCount *= idx[i];
+		offsetCount *= position[i];
 	}
 
 	for (size_t i = offsetCount; i < offsetCount + blockSize; i++) {
@@ -120,10 +120,10 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& idx) const {
 	std::cout << "\n";
 
 	std::string shapeAsString = "{ ";
-	for (size_t i = idx.size(); i < m_shape.size(); i++) {
+	for (size_t i = position.size(); i < m_shape.size(); i++) {
 		shapeAsString += std::to_string(m_shape[i]) + " ";
 	}
-	if (idx.size() == m_shape.size()) shapeAsString += "1 ";
+	if (position.size() == m_shape.size()) shapeAsString += "1 ";
 	shapeAsString += "}";
 
 	std::cout << "Shape: " << shapeAsString << "\n";
@@ -254,11 +254,11 @@ void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Imp
 	}
 }
 
-bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl& other) const {
+bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other) const {
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 	if (!o) return false;
 
-	std::vector<size_t> blockShape(m_shape.begin() + idx.size(), m_shape.end());
+	std::vector<size_t> blockShape(m_shape.begin() + position.size(), m_shape.end());
 	if (blockShape.empty()) {
 		blockShape.push_back(1);
 	}
@@ -275,7 +275,7 @@ bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl
 
 	// Calulate number of blocks before this block
 	size_t numBlocks = 1;
-	for (size_t dimSize : idx) {
+	for (size_t dimSize : position) {
 		if (numBlocks == 0) numBlocks = 1;
 		numBlocks *= dimSize;
 	}
@@ -288,13 +288,13 @@ bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl
 	return true;
 }
 
-bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) const {
+bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherPosition) const {
     const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
     if (!o) return false;
 
     // Get shapes of the blocks
-    std::vector<size_t> thisBlockShape(m_shape.begin() + idx.size(), m_shape.end());
-    std::vector<size_t> otherBlockShape(o->m_shape.begin() + otherIdx.size(), o->m_shape.end());
+    std::vector<size_t> thisBlockShape(m_shape.begin() + position.size(), m_shape.end());
+    std::vector<size_t> otherBlockShape(o->m_shape.begin() + otherPosition.size(), o->m_shape.end());
     
     if (thisBlockShape.empty()) {
         thisBlockShape.push_back(1);
@@ -315,13 +315,13 @@ bool Tensor::CPUImpl::compare(const std::vector<size_t>& idx, const Tensor::Impl
 
     // Calculate offsets for both tensors
     size_t thisNumBlocks = 1;
-    for (size_t dimSize : idx) {
+    for (size_t dimSize : position) {
         if (thisNumBlocks == 0) thisNumBlocks = 1;
         thisNumBlocks *= dimSize;
     }
 
     size_t otherNumBlocks = 1;
-    for (size_t dimSize : otherIdx) {
+    for (size_t dimSize : otherPosition) {
         if (otherNumBlocks == 0) otherNumBlocks = 1;
         otherNumBlocks *= dimSize;
     }
