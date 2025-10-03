@@ -10,11 +10,9 @@ public:
     void print() const;
 
     std::vector<size_t> getPosition() const;
-
     Tensor& getParent() const;
     
     Tensor operator=(const Tensor& other);
-
     Tensor::View operator[](size_t idx) const;
 
     bool operator==(const Tensor& other) const;

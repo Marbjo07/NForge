@@ -4,42 +4,19 @@
 #include <algorithm>
 #include <random>
 
-Tensor::CPUImpl::CPUImpl(const std::vector<size_t>& shape) 
+Tensor::CPUImpl::CPUImpl(const Tensor::Shape& shape) 
 	: m_shape(shape) {
-
-	if (m_shape.empty()) {
-		m_shape.push_back(1);
-	}
-
-	size_t size = 1;
-	for (size_t dimSize : shape) {
-		size *= dimSize;
-	}
-
-	m_data.assign(size, 0.0f);
+	m_data.assign(m_shape.totalSize(), 0.0f);
 }
 
-Tensor::CPUImpl::CPUImpl(const std::vector<size_t>& shape, float value) 
+Tensor::CPUImpl::CPUImpl(const Tensor::Shape& shape, float value) 
 	: m_shape(shape) {
-	
-	if (m_shape.empty()) {
-		m_shape.push_back(1);
-	}
-	
-	size_t size = 1;
-	for (size_t dimSize : shape) {
-		size *= dimSize;
-	}
-
-	m_data.assign(size, value);
+	m_data.assign(m_shape.totalSize(), value);
 }
 
 Tensor::CPUImpl::~CPUImpl() {
 	m_data.clear();
 	m_data.shrink_to_fit();
-
-	m_shape.clear();
-	m_shape.shrink_to_fit();
 }
 
 void Tensor::CPUImpl::fillAll(float value) {
@@ -61,17 +38,17 @@ void Tensor::CPUImpl::print() const {
 	std::cout << "====================\n";
 	std::cout << "Tensor[CPU], Data:\n";
 
-	std::vector<size_t> numElementsInDimsCurAndBelow(m_shape.size(), 1);
-	for (int i = static_cast<int>(m_shape.size()) - 1; i >= 0; i--) {
+	std::vector<size_t> numElementsInDimsCurAndBelow(m_shape.dims(), 1);
+	for (int i = static_cast<int>(m_shape.dims()) - 1; i >= 0; i--) {
 		numElementsInDimsCurAndBelow[i] *= m_shape[i];
-		if (i != static_cast<int>(m_shape.size()) - 1) {
+		if (i != static_cast<int>(m_shape.dims()) - 1) {
 			numElementsInDimsCurAndBelow[i] *= numElementsInDimsCurAndBelow[i + 1];
 		}
 	}
 
 	for (size_t i = 0; i < m_data.size(); i++) {
 		std::cout << m_data[i] << " ";
-		for (size_t j = 0; j < m_shape.size(); j++) {
+		for (size_t j = 0; j < m_shape.dims(); j++) {
 			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1) {
 				std::cout << "\n";
 			}
@@ -86,18 +63,15 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 	std::cout << "====================\n";
 	std::cout << "Tensor[CPU], Data:\n";
 
-	std::vector<size_t> numElementsInDimsCurAndBelow(m_shape.size(), 1);
-	for (int i = static_cast<int>(m_shape.size()) - 1; i >= 0; i--) {
+	std::vector<size_t> numElementsInDimsCurAndBelow(m_shape.dims(), 1);
+	for (int i = static_cast<int>(m_shape.dims()) - 1; i >= 0; i--) {
 		numElementsInDimsCurAndBelow[i] *= m_shape[i];
-		if (i != static_cast<int>(m_shape.size()) - 1) {
+		if (i != static_cast<int>(m_shape.dims()) - 1) {
 			numElementsInDimsCurAndBelow[i] *= numElementsInDimsCurAndBelow[i + 1];
 		}
 	}
 
-	size_t blockSize = 1;
-	for (int i = position.size(); i < m_shape.size(); i++) {
-		blockSize *= m_shape[i];
-	}
+	size_t blockSize = m_shape.slice(position.size(), m_shape.dims()).totalSize();
 
 	size_t offsetCount = blockSize;
 	for (size_t i = 0; i < position.size(); i++) {
@@ -111,7 +85,7 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 
 	for (size_t i = offsetCount; i < offsetCount + blockSize; i++) {
 		std::cout << m_data[i] << " ";
-		for (size_t j = 0; j < m_shape.size(); j++) {
+		for (size_t j = 0; j < m_shape.dims(); j++) {
 			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1) {
 				std::cout << "\n";
 			}
@@ -119,27 +93,12 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 	}
 	std::cout << "\n";
 
-	std::string shapeAsString = "{ ";
-	for (size_t i = position.size(); i < m_shape.size(); i++) {
-		shapeAsString += std::to_string(m_shape[i]) + " ";
-	}
-	if (position.size() == m_shape.size()) shapeAsString += "1 ";
-	shapeAsString += "}";
-
-	std::cout << "Shape: " << shapeAsString << "\n";
+	std::cout << "Shape: " << m_shape.slice(position.size(), m_shape.dims()).toString() << "\n";
 	std::cout << "====================\n";
 }
 
 std::string Tensor::CPUImpl::getShapeAsString() const {
-	std::string out;
-
-	out += "{ ";
-	for (size_t dimSize : m_shape) {
-		out += std::to_string(dimSize) + " ";
-	}
-	out += "}";
-
-	return out;
+	return m_shape.toString();
 }
 
 std::string Tensor::CPUImpl::getDataAsString() const {
@@ -155,15 +114,9 @@ std::string Tensor::CPUImpl::getDataAsString() const {
 }
 
 size_t Tensor::CPUImpl::getNumberOfElements() const {
-	size_t numImpliedByShape = 1;
-	for (size_t dimSize : m_shape) {
-		numImpliedByShape *= dimSize;
-	}
-
+	size_t numImpliedByShape = m_shape.totalSize();
 	size_t numInContainer = m_data.size();
-
 	assert(numImpliedByShape == numInContainer);
-
 	return numInContainer;
 }
 
@@ -171,7 +124,7 @@ std::vector<float> Tensor::CPUImpl::getAsVector() const {
 	return m_data;
 }
 
-std::vector<size_t> Tensor::CPUImpl::getShape() const {
+Tensor::Shape Tensor::CPUImpl::getShape() const {
 	return m_shape;
 }
 
@@ -189,57 +142,46 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::get(size_t idx) const {
 	// [[x, x, x, x, x], [x, x, x, x, x]], 
 	// [[x, x, x, x, x], [x, x, x, x, x]]
 
-	if (m_shape.size() == 0) {
+	if (m_shape.dims() == 0) {
 		throw std::runtime_error("Can not index tensor of zero dimensions");
 		return std::unique_ptr<Tensor::Impl>(new Tensor::CPUImpl(*this));
 	}
 
-	if (m_shape.size() == 1 && m_shape[0] == 1) {
+	if (m_shape.dims() == 1 && m_shape[0] == 1) {
 		throw std::runtime_error("Can not index tensor of one dimension and one element");
 		return std::unique_ptr<Tensor::Impl>(new Tensor::CPUImpl(*this));
 	}
 
-	std::vector<size_t> newShape{m_shape.begin() + 1, m_shape.end()};
-
+	Tensor::Shape newShape = m_shape.slice(1, m_shape.dims());
 	Tensor::CPUImpl* results = new Tensor::CPUImpl(newShape);
 
-	size_t numElementsInResults = m_data.size() / m_shape[0];
-	size_t readOffset = numElementsInResults * idx;
-	
-	for (size_t i = 0; i < numElementsInResults; i++) {
-		results->m_data[i] = m_data[i + readOffset];
+	size_t offset = newShape.totalSize() * idx;
+	for (size_t i = 0; i < newShape.totalSize(); i++) {
+		results->m_data[i] = m_data[i + offset];
 	}
 
 	return std::unique_ptr<Tensor::Impl>(results);
 }
 
 void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Impl& other) {
-	if (position.size() > m_shape.size()) {
+	if (position.size() > m_shape.dims()) {
 		throw std::runtime_error("Index specifies more dimensions than tensor has");
 		return;
 	}
-
-	std::vector<size_t> shapeOfBlock(m_shape.begin() + position.size(), m_shape.end());
-	if (shapeOfBlock.empty()) {
-		shapeOfBlock.push_back(1);
-	}
-
+	
+	Tensor::Shape shapeOfBlock = m_shape.slice(position.size(), m_shape.dims());
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 
+	if (!o) return;
 
-	// NOTE: TODO: this would be fixed with a tensor shape class
-	//if (o->m_shape != shapeOfBlock) {
-	//	throw std::runtime_error("Shape mismatch in assignment: cannot assign tensor of shape " +
-	//		other.getShapeAsString() + " to tensor of shape " + this->getShapeAsString() +
-	//		" with the " + std::to_string(shapeOfBlock.size()) + " first dimensions being indexed");
-	//	return;
-	//}
-
-	size_t numElementsChanged = 1;
-	for (size_t dimSize : shapeOfBlock) {
-		numElementsChanged *= dimSize;
+	if (o->m_shape != shapeOfBlock) {
+		throw std::runtime_error("Shape mismatch in assignment: cannot assign tensor of shape " +
+			other.getShapeAsString() + " to tensor of shape " + this->getShapeAsString() +
+			" with the " + std::to_string(shapeOfBlock.dims()) + " first dimensions being indexed");
+		return;
 	}
 
+	size_t numElementsChanged = shapeOfBlock.totalSize();
 	assert(o->m_data.size() == numElementsChanged && "assumed size of assignment tensor is wrong");
 
 	size_t numBlocks = 1;
@@ -257,21 +199,13 @@ void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Imp
 bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other) const {
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 	if (!o) return false;
-
-	std::vector<size_t> blockShape(m_shape.begin() + position.size(), m_shape.end());
-	if (blockShape.empty()) {
-		blockShape.push_back(1);
-	}
-
+	Tensor::Shape blockShape = m_shape.slice(position.size(), m_shape.dims());
 	if (blockShape != o->m_shape) {
 		return false;
 	}
 
 	// Calculate block size
-	size_t blockSize = 1;
-	for (size_t dim : blockShape) {
-		blockSize *= dim;
-	}
+	size_t blockSize = blockShape.totalSize();
 
 	// Calulate number of blocks before this block
 	size_t numBlocks = 1;
@@ -284,63 +218,52 @@ bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor:
 	for (size_t i = 0; i < blockSize; ++i) {
 		if (m_data[offset + i] != o->m_data[i]) return false;
 	}
-	
+
 	return true;
 }
 
 bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherPosition) const {
     const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
     if (!o) return false;
+	// Get shapes of the blocks
+	Tensor::Shape thisBlockShape = m_shape.slice(position.size(), m_shape.dims());
+	Tensor::Shape otherBlockShape = o->m_shape.slice(otherPosition.size(), o->m_shape.dims());
 
-    // Get shapes of the blocks
-    std::vector<size_t> thisBlockShape(m_shape.begin() + position.size(), m_shape.end());
-    std::vector<size_t> otherBlockShape(o->m_shape.begin() + otherPosition.size(), o->m_shape.end());
-    
-    if (thisBlockShape.empty()) {
-        thisBlockShape.push_back(1);
-    }
-    if (otherBlockShape.empty()) {
-        otherBlockShape.push_back(1);
-    }
+	if (thisBlockShape != otherBlockShape) {
+		return false;
+	}
 
-    if (thisBlockShape != otherBlockShape) {
-        return false;
-    }
+	// Calculate block size same for both
+	size_t blockSize = thisBlockShape.totalSize();
 
-    // Calculate block size same for both
-    size_t blockSize = 1;
-    for (size_t dim : thisBlockShape) {
-        blockSize *= dim;
-    }
+	// Calculate offsets for both tensors
+	size_t thisNumBlocks = 1;
+	for (size_t dimSize : position) {
+		if (thisNumBlocks == 0) thisNumBlocks = 1;
+		thisNumBlocks *= dimSize;
+	}
 
-    // Calculate offsets for both tensors
-    size_t thisNumBlocks = 1;
-    for (size_t dimSize : position) {
-        if (thisNumBlocks == 0) thisNumBlocks = 1;
-        thisNumBlocks *= dimSize;
-    }
+	size_t otherNumBlocks = 1;
+	for (size_t dimSize : otherPosition) {
+		if (otherNumBlocks == 0) otherNumBlocks = 1;
+		otherNumBlocks *= dimSize;
+	}
 
-    size_t otherNumBlocks = 1;
-    for (size_t dimSize : otherPosition) {
-        if (otherNumBlocks == 0) otherNumBlocks = 1;
-        otherNumBlocks *= dimSize;
-    }
+	size_t thisOffset = blockSize * thisNumBlocks;
+	size_t otherOffset = blockSize * otherNumBlocks;
 
-    size_t thisOffset = blockSize * thisNumBlocks;
-    size_t otherOffset = blockSize * otherNumBlocks;
+	// Compare the blocks element by element
+	for (size_t i = 0; i < blockSize; i++) {
+		if (m_data[thisOffset + i] != o->m_data[otherOffset + i]) {
+			return false;
+		}
+	}
 
-    // Compare the blocks element by element
-    for (size_t i = 0; i < blockSize; i++) {
-        if (m_data[thisOffset + i] != o->m_data[otherOffset + i]) {
-            return false;
-        }
-    }
-    
-    return true;
+	return true;
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape);
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
 
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 
@@ -353,7 +276,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const Tensor::Impl& other) co
 
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape);
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
 
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 
@@ -366,7 +289,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(const Tensor::Impl& other) co
 
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape);
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
 
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 
@@ -379,7 +302,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(const Tensor::Impl& other) co
 
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape);
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
 
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 
@@ -391,7 +314,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const Tensor::Impl& other) co
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::pow(unsigned int exponent) const {
-	auto result = std::make_unique<Tensor::CPUImpl>(this->m_shape, 1.0f);
+	auto result = std::make_unique<Tensor::CPUImpl>(this->m_shape.toVector(), 1.0f);
 	auto base = std::make_unique<Tensor::CPUImpl>(*this);
 
 	while (exponent > 0) {

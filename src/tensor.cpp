@@ -2,7 +2,7 @@
 #include "nforge/tensor_view.h"
 #include "nforge/tensor_impl_CPU.h"
 
-Tensor::Tensor(const std::vector<size_t>& shape, Backend backend) 
+Tensor::Tensor(const Tensor::Shape& shape, Backend backend) 
 	: m_backend(backend) {
 	if (backend == Backend::CPU) {
 		m_impl = std::make_unique<Tensor::CPUImpl>(shape);
@@ -12,13 +12,13 @@ Tensor::Tensor(const std::vector<size_t>& shape, Backend backend)
 	}
 }
 
-Tensor::Tensor(const std::vector<size_t>& shape, float value, Backend backend) 
+Tensor::Tensor(const Tensor::Shape& shape, float value, Backend backend) 
 	: Tensor(shape, backend) {
 	m_impl->fillAll(value);
 }
 
 Tensor::Tensor(float value, Backend backend) 
-	: Tensor({1}, value, backend) {
+	: Tensor(Tensor::Shape({1}), value, backend) {
 }
 
 Tensor::Tensor(const Tensor& other) 

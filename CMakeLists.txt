@@ -17,6 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(NFORGE_SRC
 	src/tensor.cpp
 	src/tensor_view.cpp
+	src/tensor_shape.cpp
 	src/tensor_impl_CPU.cpp
 )
 

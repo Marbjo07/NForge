@@ -18,10 +18,11 @@ public:
     class CUDAImpl;
     
     class View;
+    class Shape;
 
 public:
-    Tensor(const std::vector<size_t>& shape, Backend backend = Backend::CPU);
-    Tensor(const std::vector<size_t>& shape, float value, Backend backend = Backend::CPU);
+    Tensor(const Tensor::Shape& shape, Backend backend = Backend::CPU);
+    Tensor(const Tensor::Shape& shape, float value, Backend backend = Backend::CPU);
     Tensor(float value, Backend backend = Backend::CPU);
     Tensor(const Tensor& tensor);
     Tensor(std::unique_ptr<Tensor::Impl> impl);
@@ -85,5 +86,6 @@ private:
 
 #include "nforge/tensor_view.h"
 #include "nforge/tensor_impl.h"
+#include "nforge/tensor_shape.h"
 
 #endif // TENSOR_H

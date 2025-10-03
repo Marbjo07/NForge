@@ -20,7 +20,7 @@ public:
     virtual size_t getNumberOfElements() const = 0;
 
     virtual std::vector<float> getAsVector() const = 0;
-    virtual std::vector<size_t> getShape() const = 0;
+    virtual Tensor::Shape getShape() const = 0;
 
     virtual const float* getDataPointer() const = 0;
 
