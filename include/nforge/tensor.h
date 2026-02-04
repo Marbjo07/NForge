@@ -15,7 +15,6 @@ class Tensor {
 public:
     class Impl;
     class CPUImpl;
-    class CUDAImpl;
     
     class View;
     class Shape;
@@ -28,7 +27,7 @@ public:
     Tensor(std::unique_ptr<Tensor::Impl> impl);
     ~Tensor();
     
-    // Move data between CPU and CUDA
+    // Move data between backends
     void to(Backend newBackend);
     
     // Fill all elements with a value
@@ -42,19 +41,19 @@ public:
     void print(const std::vector<size_t>& position) const;
 
     // Returns the shape of the tensor as a string
-	std::string getShapeAsString() const;
+	Tensor::Shape shape() const;
 
 	// Returns the data of the tensor as a string
-    std::string getBackendAsString() const;
+    std::string backendString() const;
 
 	// Returns the data of the tensor as a string
-	std::string getDataAsString() const;
+	std::string dataString() const;
     
     // Returns the number of elements in the tensor
-    size_t getNumberOfElements() const;
+    size_t numElements() const;
     
     // Returns tensor data as a vector 
-    std::vector<float> getAsVector() const;
+    std::vector<float> toVector() const;
 
     // Set the specified block to another tensor
     void set(const std::vector<size_t>& position, const Tensor& other);

@@ -55,7 +55,7 @@ void Tensor::CPUImpl::print() const {
 		}
 	}
 
-	std::cout << "Shape: " << getShapeAsString() << "\n";
+	std::cout << "Shape: " << shape().toString() << "\n";
 	std::cout << "====================\n";
 }
 
@@ -97,11 +97,11 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 	std::cout << "====================\n";
 }
 
-std::string Tensor::CPUImpl::getShapeAsString() const {
-	return m_shape.toString();
+Tensor::Shape Tensor::CPUImpl::shape() const {
+	return m_shape;
 }
 
-std::string Tensor::CPUImpl::getDataAsString() const {
+std::string Tensor::CPUImpl::toString() const {
 	std::string out;
 
 	out += "{ ";
@@ -113,22 +113,20 @@ std::string Tensor::CPUImpl::getDataAsString() const {
 	return out;
 }
 
-size_t Tensor::CPUImpl::getNumberOfElements() const {
+size_t Tensor::CPUImpl::numElements() const {
 	size_t numImpliedByShape = m_shape.totalSize();
 	size_t numInContainer = m_data.size();
+
 	assert(numImpliedByShape == numInContainer);
+	
 	return numInContainer;
 }
 
-std::vector<float> Tensor::CPUImpl::getAsVector() const {
+std::vector<float> Tensor::CPUImpl::toVector() const {
 	return m_data;
 }
 
-Tensor::Shape Tensor::CPUImpl::getShape() const {
-	return m_shape;
-}
-
-const float* Tensor::CPUImpl::getDataPointer() const {
+const float* Tensor::CPUImpl::data() const {
 	return m_data.data();
 }
 
@@ -176,7 +174,7 @@ void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Imp
 
 	if (o->m_shape != shapeOfBlock) {
 		throw std::runtime_error("Shape mismatch in assignment: cannot assign tensor of shape " +
-			other.getShapeAsString() + " to tensor of shape " + this->getShapeAsString() +
+			other.shape().toString() + " to tensor of shape " + this->shape().toString() +
 			" with the " + std::to_string(shapeOfBlock.dims()) + " first dimensions being indexed");
 		return;
 	}
@@ -335,7 +333,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::pow(unsigned int exponent) const 
 }
 
 bool Tensor::CPUImpl::operator==(const Tensor::Impl& other) const {
-	if (m_shape != other.getShape()) return false;
+	if (m_shape != other.shape()) return false;
 
 	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
 

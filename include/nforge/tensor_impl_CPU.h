@@ -16,15 +16,12 @@ public:
 	void print() const override;
 	void print(const std::vector<size_t> &position) const override;
 
-	std::string getShapeAsString() const override;
-	std::string getDataAsString() const override;
+    size_t numElements() const override;
+    Tensor::Shape shape() const override;
 
-	size_t getNumberOfElements() const override;
-
-	std::vector<float> getAsVector() const override;
-	Tensor::Shape getShape() const override;
-
-	const float *getDataPointer() const override;
+    const float* data() const override;
+    std::vector<float> toVector() const override;
+	std::string toString() const override;
 
 	std::unique_ptr<Tensor::Impl> clone() const override;
 

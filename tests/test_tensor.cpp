@@ -5,8 +5,8 @@ TEST_CASE("Create tensor", "[tensor]") {
 
 	Tensor t({3}, 4.0f, Backend::CPU);
 
-	REQUIRE(t.getNumberOfElements() == 3);
-	REQUIRE(t.getBackendAsString() == "CPU");
+	REQUIRE(t.numElements() == 3);
+	REQUIRE(t.backendString() == "CPU");
 }
 
 TEST_CASE("Add tensors", "[tensor]") {

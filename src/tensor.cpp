@@ -48,11 +48,11 @@ void Tensor::print(const std::vector<size_t>& idx) const {
 	m_impl->print(idx);
 }
 
-std::string Tensor::getShapeAsString() const {
-	return m_impl->getShapeAsString();
+Tensor::Shape Tensor::shape() const {
+	return m_impl->shape();
 }
 
-std::string Tensor::getBackendAsString() const {
+std::string Tensor::backendString() const {
 	switch (m_backend) {
 		case Backend::CPU:
 			return "CPU";
@@ -61,16 +61,16 @@ std::string Tensor::getBackendAsString() const {
 	}
 }
 
-std::string Tensor::getDataAsString() const {
-	return m_impl->getDataAsString();
+std::string Tensor::dataString() const {
+	return m_impl->toString();
 }
 
-size_t Tensor::getNumberOfElements() const {
-	return m_impl->getNumberOfElements();
+size_t Tensor::numElements() const {
+	return m_impl->numElements();
 }
 
-std::vector<float> Tensor::getAsVector() const {
-	return m_impl->getAsVector();
+std::vector<float> Tensor::toVector() const {
+	return m_impl->toVector();
 }
 
 void Tensor::set(const std::vector<size_t>& position, const Tensor& other) {

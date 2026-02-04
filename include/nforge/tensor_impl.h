@@ -14,15 +14,12 @@ public:
 	virtual void print() const = 0;
     virtual void print(const std::vector<size_t>& position) const = 0;
 
-	virtual std::string getShapeAsString() const = 0;
-	virtual std::string getDataAsString() const = 0;
-	
-    virtual size_t getNumberOfElements() const = 0;
-
-    virtual std::vector<float> getAsVector() const = 0;
-    virtual Tensor::Shape getShape() const = 0;
-
-    virtual const float* getDataPointer() const = 0;
+    virtual size_t numElements() const = 0;
+    virtual Tensor::Shape shape() const = 0;
+    
+    virtual const float* data() const = 0;
+    virtual std::vector<float> toVector() const = 0;
+	virtual std::string toString() const = 0;
 
     virtual std::unique_ptr<Tensor::Impl> clone() const = 0;
 

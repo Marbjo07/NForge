@@ -4,7 +4,7 @@ Tensor is a lightweight multi-dimensional array type for numerical computation. 
 
 - Creation from shapes (scalars, vectors, matrices and higher-rank tensors)
 - Element-wise arithmetic (+, -, *, /)
-- Indexing that returns a view into the parent tensor (assigning into an index updates the parent)
+- Indexing that returns a view into the parent tensor
 - Views that can be assigned to (e.g. `a[0] = Tensor({m}, 1.0f)` sets the first row of `a` to all ones)
 
 ## Build
