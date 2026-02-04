@@ -1,8 +1,8 @@
 #ifndef TENSOR_IMPL_CPU_H
 #define TENSOR_IMPL_CPU_H
 
-#include "nforge/tensor.h"
-#include "nforge/tensor_shape.h"
+#include "nforge/core/tensor.h"
+#include "nforge/core/tensor_shape.h"
 
 class Tensor::CPUImpl : public Tensor::Impl {
 public:

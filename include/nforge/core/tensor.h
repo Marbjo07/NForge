@@ -83,8 +83,8 @@ private:
     std::unique_ptr<Impl> m_impl;
 };
 
-#include "nforge/tensor_view.h"
-#include "nforge/tensor_impl.h"
-#include "nforge/tensor_shape.h"
+#include "nforge/core/tensor_shape.h"
+#include "nforge/core/tensor_view.h"
+#include "nforge/backend/tensor_impl.h"
 
 #endif // TENSOR_H

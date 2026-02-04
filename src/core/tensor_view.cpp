@@ -1,4 +1,4 @@
-#include "nforge/tensor_view.h"
+#include "nforge/core/tensor_view.h"
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& index) 
     : m_parent(parent), m_position(index) {

@@ -1,4 +1,4 @@
-#include "nforge/tensor_shape.h"
+#include "nforge/core/tensor_shape.h"
 
 #include <numeric>
 #include <algorithm>

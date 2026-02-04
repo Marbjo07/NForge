@@ -1,7 +1,7 @@
 #ifndef TENSOR_VIEW_H
 #define TENSOR_VIEW_H
 
-#include "nforge/tensor.h"
+#include "nforge/core/tensor.h"
 
 class Tensor::View {
 public:

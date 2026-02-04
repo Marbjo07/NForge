@@ -1,5 +1,5 @@
-#include "nforge/tensor.h"
-#include "nforge/tensor_impl_CPU.h"
+#include "nforge/core/tensor.h"
+#include "nforge/backend/cpu/tensor_impl_CPU.h"
 
 #include <algorithm>
 #include <random>

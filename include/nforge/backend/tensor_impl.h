@@ -1,7 +1,7 @@
 #ifndef TENSOR_IMPL_H
 #define TENSOR_IMPL_H
 
-#include "nforge/tensor.h"
+#include "nforge/core/tensor.h"
 
 class Tensor::Impl {
 public:

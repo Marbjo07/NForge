@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "nforge/tensor.h"
+#include "nforge/core/tensor.h"
 
 class Tensor::Shape {
 public:

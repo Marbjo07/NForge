@@ -1,6 +1,6 @@
-#include "nforge/tensor.h"
-#include "nforge/tensor_view.h"
-#include "nforge/tensor_impl_CPU.h"
+#include "nforge/core/tensor.h"
+#include "nforge/core/tensor_view.h"
+#include "nforge/backend/cpu/tensor_impl_CPU.h"
 
 Tensor::Tensor(const Tensor::Shape& shape, Backend backend) 
 	: m_backend(backend) {
