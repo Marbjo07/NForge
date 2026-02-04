@@ -57,6 +57,7 @@ public:
 
     // Set the specified block to another tensor
     void set(const std::vector<size_t>& position, const Tensor& other);
+    void set(const std::vector<size_t>& position, const Tensor::View& other);
 
     // Compare the specified block to another tensor
     bool compare(const std::vector<size_t>& position, const Tensor& other) const;

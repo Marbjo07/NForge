@@ -21,6 +21,11 @@ Tensor Tensor::View::operator=(const Tensor& other) {
     return m_parent;
 }
 
+Tensor Tensor::View::operator=(const Tensor::View& other) {
+    m_parent.set(m_position, other);
+    return m_parent;
+}
+
 Tensor::View Tensor::View::operator[](size_t idx) const {
     std::vector<size_t> position = m_position;
     position.push_back(idx);

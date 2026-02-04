@@ -36,6 +36,7 @@ public:
     // Assignments and indexing
 	std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
 	void set(const std::vector<size_t> &position, const Tensor::Impl &other) override;
+	void set(const std::vector<size_t> &position, const Tensor::Impl &other, const std::vector<size_t> &otherPosition) override;
 
 
 	// Comparisons

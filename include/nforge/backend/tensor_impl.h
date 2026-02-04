@@ -34,6 +34,7 @@ public:
     // Assignments and indexing
     virtual std::unique_ptr<Tensor::Impl> get(size_t idx) const = 0;
     virtual void set(const std::vector<size_t>& position, const Tensor::Impl& other) = 0;
+    virtual void set(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) = 0;
 
 
     // Comparisons

@@ -48,21 +48,53 @@ TEST_CASE("Broadcast scalar add", "[tensor]") {
 }
 
 TEST_CASE("2D tensor shape and indexing", "[tensor]") {
-    auto n = GENERATE(1, 4, 10);
-    auto m = GENERATE(1, 10, 50);
-	auto x = GENERATE(-1000, 0.32, 122.9);
+	auto rows = GENERATE(1uz, 4uz, 10uz);
+	auto cols = GENERATE(1uz, 10uz, 50uz);
+	auto val = GENERATE(-1001.0f, 0.32f, 122.9f);
 
-    DYNAMIC_SECTION("n=" << n << " m=" << m << " val=" << x) {
-		Tensor a({(size_t)n, (size_t)m}, x, Backend::CPU);
+	DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {
+		Tensor a({rows, cols}, val, Backend::CPU);
 
-    	REQUIRE(a.numElements() == n * m);
-		REQUIRE(a[0] == Tensor({(size_t)m}, x, Backend::CPU));
-    	REQUIRE(a[0][0] == Tensor(x));
-    	REQUIRE(a[0][0] != Tensor(x - 1));   
-    	
-		REQUIRE_FALSE(a[0][0] != Tensor(x));
-		REQUIRE_FALSE(a[0][0] == Tensor(x - 1));
+		// Check number of elements
+		REQUIRE(a.numElements() == rows * cols);
 
-    	REQUIRE(a[0] == a[n - 1]);
+
+		// Compare slices
+		REQUIRE(a[0] == Tensor({cols}, val, Backend::CPU));
+		REQUIRE(a[0][0] == Tensor(val));
+		REQUIRE(a[0][0] != Tensor(val - 1));
+
+		REQUIRE_FALSE(a[0][0] != Tensor(val));
+		REQUIRE_FALSE(a[0][0] == Tensor(val - 1));
+
+		REQUIRE(a[0] == a[rows - 1]);
+	}
+}
+
+TEST_CASE("Tensor slice assign", "[tensor]") {
+	auto rows = GENERATE(1uz, 2uz, 3uz);
+	auto cols = GENERATE(1uz, 4uz, 8uz);
+	auto val = GENERATE(0.0f, 1.5f);
+
+	DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {
+		
+		// Create A and random B
+		Tensor A({rows, cols}, val, Backend::CPU);
+		Tensor B({rows, cols}, Backend::CPU);
+		B.fillRand();
+		
+		// Slice copy
+		for (size_t i = 0; i < rows; i++) {
+			A[i] = B[i];
+		}
+
+		// Element wise compare
+		for (size_t i = 0; i < rows; i++) {
+			for (size_t j = 0; j < cols; j++) {
+				REQUIRE(A[i][j] == B[i][j]);
+			}
+		}
+
+		REQUIRE(A == B);
 	}
 }
