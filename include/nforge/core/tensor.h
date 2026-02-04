@@ -58,9 +58,6 @@ public:
     // Set the specified block to another tensor
     void set(const std::vector<size_t>& position, const Tensor& other);
 
-    // Returns the tensor raised to a positive integer value
-    Tensor pow(unsigned int exponent) const;
-
     // Compare the specified block to another tensor
     bool compare(const std::vector<size_t>& position, const Tensor& other) const;
     bool compare(const std::vector<size_t>& position, const Tensor::View& other) const;

@@ -260,78 +260,6 @@ bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor:
 	return true;
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
-
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-
-	for (size_t i = 0; i < m_data.size(); i++) {
-		results->m_data[i] = m_data[i] + o->m_data[i];
- 	}
-
-	return std::unique_ptr<Tensor::Impl>(results);
-}
-
-
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
-
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-
-	for (size_t i = 0; i < m_data.size(); i++) {
-		results->m_data[i] = m_data[i] - o->m_data[i];
- 	}
-
-	return std::unique_ptr<Tensor::Impl>(results);
-}
-
-
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
-
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-
-	for (size_t i = 0; i < m_data.size(); i++) {
-		results->m_data[i] = m_data[i] * o->m_data[i];
- 	}
-
-	return std::unique_ptr<Tensor::Impl>(results);
-}
-
-
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const Tensor::Impl& other) const {
-	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
-
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-
-	for (size_t i = 0; i < m_data.size(); i++) {
-		results->m_data[i] = m_data[i] / o->m_data[i];
- 	}
-
-	return std::unique_ptr<Tensor::Impl>(results);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::pow(unsigned int exponent) const {
-	auto result = std::make_unique<Tensor::CPUImpl>(this->m_shape.toVector(), 1.0f);
-	auto base = std::make_unique<Tensor::CPUImpl>(*this);
-
-	while (exponent > 0) {
-		if (exponent & 1) {
-			for (size_t i = 0; i < result->m_data.size(); ++i) {
-				result->m_data[i] *= base->m_data[i];
-			}
-		}
-		exponent >>= 1;
-		if (exponent > 0) {
-			for (size_t i = 0; i < base->m_data.size(); ++i) {
-				base->m_data[i] *= base->m_data[i];
-			}
-		}
-	}
-
-	return result;
-}
-
 bool Tensor::CPUImpl::operator==(const Tensor::Impl& other) const {
 	if (m_shape != other.shape()) return false;
 
@@ -349,3 +277,111 @@ bool Tensor::CPUImpl::operator==(const Tensor::Impl& other) const {
 bool Tensor::CPUImpl::operator!=(const Tensor::Impl& other) const {
 	return !operator==(other);
 }
+
+
+///////////////////////////////////////////
+// Element wise binary tensor operations //
+///////////////////////////////////////////
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] + o->m_data[i];
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] - o->m_data[i];
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] * o->m_data[i];
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] / o->m_data[i];
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+
+//////////////////////////////////////////////////
+// Element wise binary tensor-scalar operations //
+//////////////////////////////////////////////////
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::addScalar(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	float scalar = other.toVector()[0];
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] + scalar;
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::subScalar(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	float scalar = other.toVector()[0];
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] - scalar;
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mulScalar(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	float scalar = other.toVector()[0];
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] * scalar;
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::divScalar(const Tensor::Impl& other) const {
+	Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
+
+	float scalar = other.toVector()[0];
+
+	for (size_t i = 0; i < m_data.size(); i++) {
+		results->m_data[i] = m_data[i] / scalar;
+ 	}
+
+	return std::unique_ptr<Tensor::Impl>(results);
+}
+

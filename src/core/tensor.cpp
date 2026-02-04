@@ -85,23 +85,31 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& ot
 	return m_impl->compare(position, *other.getParent().m_impl.get(), other.getPosition());
 }
 
-Tensor Tensor::pow(unsigned int exponent) const {
-	return Tensor(m_impl->pow(exponent));
-}
-
 Tensor Tensor::operator+(const Tensor& other) const {
+	if (other.shape().isScalar()) {
+		return Tensor(m_impl->addScalar(*other.m_impl));
+	}
 	return Tensor(m_impl->add(*other.m_impl));
 }
 
 Tensor Tensor::operator-(const Tensor& other) const {
+	if (other.shape().isScalar()) {
+		return Tensor(m_impl->subScalar(*other.m_impl));
+	}
 	return Tensor(m_impl->sub(*other.m_impl));
 }
 
 Tensor Tensor::operator*(const Tensor& other) const {
+	if (other.shape().isScalar()) {
+		return Tensor(m_impl->mulScalar(*other.m_impl));
+	}
 	return Tensor(m_impl->mul(*other.m_impl));
 }
 
 Tensor Tensor::operator/(const Tensor& other) const {
+	if (other.shape().isScalar()) {
+		return Tensor(m_impl->divScalar(*other.m_impl));
+	}
 	return Tensor(m_impl->div(*other.m_impl));
 }
 
