@@ -16,14 +16,17 @@ public:
     bool operator!=(const Tensor::Shape &other) const;
 
     // Access and properties
-    size_t dims() const;
-    size_t operator[](size_t index) const;
-    size_t totalSize() const;
+    size_t getNumDims() const;
+    size_t getNumElements() const;
+    size_t getDim(size_t idx) const; // return size of indexed dimension
     bool isScalar() const;
+
+    Tensor::Shape operator[](size_t index) const;
+    Tensor::Shape operator[](const std::vector<size_t>& position) const;
 
     // Shape modifications
     Tensor::Shape removeLeadingDimension() const;
-    Tensor::Shape slice(size_t start, size_t end) const;
+    Tensor::Shape getSlice(size_t start, size_t end) const;
 
     // Utility methods
     std::string toString() const;

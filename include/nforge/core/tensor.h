@@ -40,7 +40,7 @@ public:
     void print() const; 
     void print(const std::vector<size_t>& position) const;
 
-    // Returns the shape of the tensor as a string
+    // Returns the shape of the tensor
 	Tensor::Shape shape() const;
 
 	// Returns the data of the tensor as a string

@@ -8,12 +8,28 @@ void Tensor::View::print() const {
     m_parent.print(m_position);
 }
 
+Tensor& Tensor::View::getParent() const {
+    return m_parent;
+}
+
 std::vector<size_t> Tensor::View::getPosition() const {
     return m_position;
 }
 
-Tensor& Tensor::View::getParent() const {
-    return m_parent;
+size_t Tensor::View::getOffset() const {
+    Tensor::Shape blockShape = getShape();
+    size_t blockSize = blockShape.getNumElements();
+
+    size_t blockOffset = 1;
+    for (size_t d : m_position) {
+        blockOffset *= d;
+    }
+
+    return blockOffset * blockSize;
+}
+
+Tensor::Shape Tensor::View::getShape() const {
+    return m_parent.shape()[m_position];
 }
 
 Tensor Tensor::View::operator=(const Tensor& other) {

@@ -9,8 +9,17 @@ public:
 
     void print() const;
 
+    // refrenced tensor
     Tensor& getParent() const;
+
+    // position of this view in the tensor it refrences
     std::vector<size_t> getPosition() const;
+
+    // number of elements preceding this view
+    size_t getOffset() const;
+    
+    // shape of the view
+    Tensor::Shape getShape() const;
     
     Tensor operator=(const Tensor& other);
     Tensor operator=(const Tensor::View& other);
