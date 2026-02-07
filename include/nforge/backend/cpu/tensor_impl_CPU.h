@@ -5,60 +5,53 @@
 #include "nforge/core/tensor_shape.h"
 
 class Tensor::CPUImpl : public Tensor::Impl {
-public:
-	CPUImpl(const Tensor::Shape &shape);
-	CPUImpl(const Tensor::Shape &shape, float value);
-	~CPUImpl();
+   public:
+    CPUImpl(const Tensor::Shape& shape);
+    CPUImpl(const Tensor::Shape& shape, float value);
+    ~CPUImpl();
 
-	// Fill functions
-	void fillAll(float value) override;
-	void fillRand() override;
+    // Fill functions
+    void fillAll(float value) override;
+    void fillRand() override;
 
+    // Printing
+    void print() const override;
+    void print(const std::vector<size_t>& position) const override;
 
-	// Printing
-	void print() const override;
-	void print(const std::vector<size_t> &position) const override;
-
-
-	// Tensor shape
+    // Tensor shape
     size_t numElements() const override;
     Tensor::Shape shape() const override;
 
-
-	// Data transforms
+    // Data transforms
     const float* data() const override;
     std::vector<float> toVector() const override;
-	std::string toString() const override;
+    std::string toString() const override;
 
-	std::unique_ptr<Tensor::Impl> clone() const override;
-
+    std::unique_ptr<Tensor::Impl> clone() const override;
 
     // Assignments and indexing
-	std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
-	void set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) override;
+    std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
+    void set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) override;
 
+    // Comparisons
+    bool compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
 
-	// Comparisons
-	bool compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
+    // Element wise binary tensor operations
+    std::unique_ptr<Tensor::Impl> add(const Tensor::Impl& other) const override;
+    std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl& other) const override;
+    std::unique_ptr<Tensor::Impl> mul(const Tensor::Impl& other) const override;
+    std::unique_ptr<Tensor::Impl> div(const Tensor::Impl& other) const override;
 
-
-	// Element wise binary tensor operations
-	std::unique_ptr<Tensor::Impl> add(const Tensor::Impl &other) const override;
-	std::unique_ptr<Tensor::Impl> sub(const Tensor::Impl &other) const override;
-	std::unique_ptr<Tensor::Impl> mul(const Tensor::Impl &other) const override;
-	std::unique_ptr<Tensor::Impl> div(const Tensor::Impl &other) const override;
-
-
-	// Element wise binary tensor-scalar operations
+    // Element wise binary tensor-scalar operations
     // Requires the passed Tensor::Impl to be a scalar
-	std::unique_ptr<Tensor::Impl> addScalar(const Tensor::Impl& scalar) const override;
-	std::unique_ptr<Tensor::Impl> subScalar(const Tensor::Impl& scalar) const override;
-	std::unique_ptr<Tensor::Impl> mulScalar(const Tensor::Impl& scalar) const override;
-	std::unique_ptr<Tensor::Impl> divScalar(const Tensor::Impl& scalar) const override;
+    std::unique_ptr<Tensor::Impl> addScalar(const Tensor::Impl& scalar) const override;
+    std::unique_ptr<Tensor::Impl> subScalar(const Tensor::Impl& scalar) const override;
+    std::unique_ptr<Tensor::Impl> mulScalar(const Tensor::Impl& scalar) const override;
+    std::unique_ptr<Tensor::Impl> divScalar(const Tensor::Impl& scalar) const override;
 
-private:
-	Tensor::Shape m_shape;
-	std::vector<float> m_data;
+   private:
+    Tensor::Shape m_shape;
+    std::vector<float> m_data;
 };
 
-#endif // TENSOR_IMPL_CPU_H
+#endif  // TENSOR_IMPL_CPU_H

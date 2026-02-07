@@ -1,34 +1,34 @@
 #include "nforge/core/tensor_shape.h"
 
-#include <numeric>
 #include <algorithm>
+#include <numeric>
 #include <stdexcept>
 
 Tensor::Shape::Shape(const std::vector<size_t>& dims) : m_dimensions(dims) {
     if (dims.empty()) {
-        m_dimensions.push_back(1); // scalar tensors have shape {1}
+        m_dimensions.push_back(1);  // scalar tensors have shape {1}
     }
 }
 
 Tensor::Shape::Shape(const std::initializer_list<size_t>& dims) : m_dimensions(dims) {
     if (dims.size() == 0) {
-        m_dimensions.push_back(1); // scalar tensors have shape {1}
+        m_dimensions.push_back(1);  // scalar tensors have shape {1}
     }
 }
 
-bool Tensor::Shape::operator==(const Shape &other) const {
+bool Tensor::Shape::operator==(const Shape& other) const {
     return this->withoutTrailingOnes() == other.withoutTrailingOnes();
 }
 
-bool Tensor::Shape::operator!=(const Shape &other) const {
+bool Tensor::Shape::operator!=(const Shape& other) const {
     return !(this->operator==(other));
 }
 
-size_t Tensor::Shape::getNumDims() const { 
+size_t Tensor::Shape::getNumDims() const {
     return m_dimensions.size();
 }
 
-Tensor::Shape Tensor::Shape::operator[](size_t index) const { 
+Tensor::Shape Tensor::Shape::operator[](size_t index) const {
     if (m_dimensions.size() == 1) {
         return Tensor::Shape({1});
     }
@@ -37,7 +37,7 @@ Tensor::Shape Tensor::Shape::operator[](size_t index) const {
     return Tensor::Shape(dims);
 }
 
-Tensor::Shape Tensor::Shape::operator[](const std::vector<size_t>& position) const { 
+Tensor::Shape Tensor::Shape::operator[](const std::vector<size_t>& position) const {
     size_t numIndexedDims = position.size();
     size_t remainDims = m_dimensions.size() - numIndexedDims;
     if (remainDims <= 0) {
@@ -99,7 +99,7 @@ std::vector<size_t> Tensor::Shape::withoutTrailingOnes() const {
     }
     // maintain at least one dimension
     if (result.empty()) {
-        result.push_back(1); 
+        result.push_back(1);
     }
     return result;
 }

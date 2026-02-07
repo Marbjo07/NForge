@@ -1,26 +1,22 @@
 #include "ops/semantic/semantic.h"
 
-
 namespace nforge::semantic {
 
 void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
     if (lhs.getBackend() != rhs.getBackend()) {
-        throw std::runtime_error("Can not perform binary operation on tensor on different devices " 
-            + lhs.backendString() + " and " + rhs.backendString() + " of shapes " 
-            + lhs.shape().toString() + " and " + rhs.shape().toString());
+        throw std::runtime_error("Can not perform binary operation on tensor on different devices " + lhs.backendString() + " and " + rhs.backendString() + " of shapes " + lhs.getShape().toString() + " and " + rhs.getShape().toString());
     }
 }
 
 void ensureSameShape(Tensor::Shape lhsShape, Tensor::Shape rhsShape) {
     if (lhsShape != rhsShape) {
-        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, "
-            + lhsShape.toString() + " and " + rhsShape.toString());
+        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, " + lhsShape.toString() + " and " + rhsShape.toString());
     }
 }
 
 ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
     // keep order, must match order of ShapeMatch
-    if (lhs == rhs) { 
+    if (lhs == rhs) {
         return ShapeMatch::Equal;
     }
 
@@ -42,7 +38,7 @@ ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs) 
 size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, ShapeMatch shapeMatch) {
     size_t cntLhs = lhs.getNumElements();
     size_t cntRhs = rhs.getNumElements();
-    
+
     switch (shapeMatch) {
         case ShapeMatch::Equal:
             return cntLhs;
@@ -90,5 +86,4 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::V
     return buildContext(lhs, rhs);
 }
 
-
-} // nforge::semantic
+}  // namespace nforge::semantic

@@ -5,7 +5,7 @@
 #include "ops/semantic/semantic.h"
 
 TEST_CASE("Correct return values for tensor", "[semantic]") {
-	Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CPU);
+    Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CPU);
 
     auto ctx = nforge::semantic::validateBinaryOperation(a, b);
 
@@ -15,8 +15,8 @@ TEST_CASE("Correct return values for tensor", "[semantic]") {
 }
 
 TEST_CASE("Correct return values for tensor view", "[semantic]") {
-	Tensor a({9, 8}, 4.0f, Backend::CPU), b({11, 8}, 4.0f, Backend::CPU);
-    
+    Tensor a({9, 8}, 4.0f, Backend::CPU), b({11, 8}, 4.0f, Backend::CPU);
+
     Tensor::View x = a[4];
     Tensor::View y = b[9];
 
@@ -26,7 +26,6 @@ TEST_CASE("Correct return values for tensor view", "[semantic]") {
     REQUIRE(ctx.rhsOffset == 8 * (9));
     REQUIRE(ctx.count == 8);
 }
-
 
 TEST_CASE("Throw on tensor device mismatch", "[semantic]") {
     Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CUDA);
@@ -40,7 +39,6 @@ TEST_CASE("Throw on tensor view device mismatch", "[semantic]") {
 
     Tensor::View x = a[0];
     Tensor::View y = b[0];
-
 
     REQUIRE_THROWS_AS(nforge::semantic::validateBinaryOperation(x, y), std::runtime_error);
     CHECK_THROWS_WITH(nforge::semantic::validateBinaryOperation(x, y), Catch::Matchers::ContainsSubstring("different devices"));
