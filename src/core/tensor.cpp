@@ -61,6 +61,10 @@ std::string Tensor::backendString() const {
 	}
 }
 
+Backend Tensor::getBackend() const {
+	return m_backend;
+}
+
 std::string Tensor::dataString() const {
 	return m_impl->toString();
 }

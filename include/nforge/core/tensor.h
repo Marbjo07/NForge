@@ -46,6 +46,9 @@ public:
 	// Returns the data of the tensor as a string
     std::string backendString() const;
 
+    // Returns backend enum
+    Backend getBackend() const;
+
 	// Returns the data of the tensor as a string
 	std::string dataString() const;
     
