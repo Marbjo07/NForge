@@ -6,6 +6,7 @@
 class Tensor::View {
 public:
     View(Tensor& parent, const std::vector<size_t>& index);
+    View(const Tensor& parent);
 
     void print() const;
 

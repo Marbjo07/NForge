@@ -12,9 +12,12 @@ TEST_CASE("Create tensor", "[tensor]") {
 TEST_CASE("Compare tensor", "[tensor]") {
 	Tensor a({3, 9, 7}, 19.0f, Backend::CPU);
 	Tensor b({3, 9, 7}, 19.0f, Backend::CPU);
+	Tensor c({3, 7, 9}, 19.0f, Backend::CPU);
 
 	REQUIRE(a == b);
 	REQUIRE(b == a);
+	REQUIRE(c != a);
+	REQUIRE(c != b);
 }
 
 TEST_CASE("Compare tensor views", "[tensor]") {

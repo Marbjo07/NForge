@@ -4,6 +4,10 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
     : m_parent(parent), m_position(index) {
 }
 
+Tensor::View::View(const Tensor& parent) 
+    : m_parent((Tensor&)parent), m_position({}) {
+}
+
 void Tensor::View::print() const {
     std::cout << "View at position: ";
     for (auto e : m_position) std::cout << e << " ";
@@ -20,10 +24,14 @@ std::vector<size_t> Tensor::View::getPosition() const {
 }
 
 size_t Tensor::View::getOffset() const {
+    if (m_position.empty()) {
+        return 0;
+    }
+    
     Tensor::Shape blockShape = getShape();
     size_t blockSize = blockShape.getNumElements();
 
-    size_t blockOffset = 1;
+    size_t blockOffset = 1;    
     for (size_t d : m_position) {
         blockOffset *= d;
     }
