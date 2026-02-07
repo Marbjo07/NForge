@@ -15,14 +15,18 @@ set(NFORGE_SRC
 	src/core/tensor_view.cpp
 	src/core/tensor_shape.cpp
 	src/backend/cpu/tensor_impl_CPU.cpp
+	src/ops/semantic/semantic.cpp
 )
 
 # Build as a dynamic library
 add_library(NForge SHARED ${NFORGE_SRC})
 
 # Include headers
-target_include_directories(NForge PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+target_include_directories(NForge 
+	PUBLIC
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+	PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Enable testing

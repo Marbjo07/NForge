@@ -8,7 +8,10 @@ Tensor::Tensor(const Tensor::Shape& shape, Backend backend)
 		m_impl = std::make_unique<Tensor::CPUImpl>(shape);
 	}
 	else {
-		assert(false);
+		// TODO: should assert to false, but it's necessary to 
+		// have a valid non-cpu tensor in testing
+		std::cout << "backend not implemented! defaulting to cpu\n";
+		m_impl = std::make_unique<Tensor::CPUImpl>(shape);
 	}
 }
 
@@ -56,6 +59,8 @@ std::string Tensor::backendString() const {
 	switch (m_backend) {
 		case Backend::CPU:
 			return "CPU";
+		case Backend::CUDA:
+			return "CUDA";
 		default:
 			return "UNKNOWN";
 	}

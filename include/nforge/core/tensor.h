@@ -9,7 +9,7 @@
 
 #define LOG(x) std::cerr
 
-enum class Backend { CPU };
+enum class Backend { CPU, CUDA };
 
 class Tensor {
 public:

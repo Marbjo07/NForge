@@ -1,9 +1,9 @@
-#include "src/ops/semantic/semantic.h"
+#include "ops/semantic/semantic.h"
 
 
 namespace nforge::semantic {
 
-    
+
 BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs) {
     // must have equal backend
     if (lhs.getBackend() != rhs.getBackend()) {
