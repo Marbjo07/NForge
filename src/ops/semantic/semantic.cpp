@@ -18,6 +18,57 @@ void ensureSameShape(Tensor::Shape lhsShape, Tensor::Shape rhsShape) {
     }
 }
 
+ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
+    // keep order, must match order of ShapeMatch
+    if (lhs == rhs) { 
+        return ShapeMatch::Equal;
+    }
+
+    if (lhs.isScalar()) {
+        return ShapeMatch::ScalarLhs;
+    }
+
+    if (rhs.isScalar()) {
+        return ShapeMatch::ScalarRhs;
+    }
+
+    if (lhs.getNumElements() == lhs.getNumElements()) {
+        return ShapeMatch::EqualCount;
+    }
+
+    return ShapeMatch::Incompatible;
+}
+
+size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, ShapeMatch shapeMatch) {
+    size_t cntLhs = lhs.getNumElements();
+    size_t cntRhs = rhs.getNumElements();
+    
+    switch (shapeMatch) {
+        case ShapeMatch::Equal:
+            return cntLhs;
+        case ShapeMatch::ScalarLhs:
+            return cntLhs;
+        case ShapeMatch::ScalarRhs:
+            return cntRhs;
+        case ShapeMatch::EqualCount:
+            return cntLhs;
+        case ShapeMatch::Incompatible:
+            return 0;
+        default:
+            return 0;
+    }
+}
+
+BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
+    BinaryOpContext ctx;
+    ctx.lhsOffset = lhs.getOffset();
+    ctx.rhsOffset = rhs.getOffset();
+    ctx.shapeMatch = getShapeRelation(lhs.getShape(), rhs.getShape());
+    ctx.count = getOperationCount(lhs.getShape(), rhs.getShape(), ctx.shapeMatch);
+
+    return ctx;
+}
+
 BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs) {
     return validateBinaryOperation(Tensor::View(lhs), Tensor::View(rhs));
 }
@@ -33,18 +84,11 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& r
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     const Tensor& lhsParent = lhs.getParent();
     const Tensor& rhsParent = rhs.getParent();
-    
+
     ensureSameBackend(lhsParent, rhsParent);
-    ensureSameShape(lhs.getShape(), rhs.getShape());
 
-    Tensor::Shape shape = rhs.getShape();
-
-    BinaryOpContext ctx;
-    ctx.lhsOffset = lhs.getOffset();
-    ctx.rhsOffset = rhs.getOffset();
-    ctx.count = shape.getNumElements();
-
-    return ctx;
+    return buildContext(lhs, rhs);
 }
+
 
 } // nforge::semantic

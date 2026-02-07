@@ -89,6 +89,11 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor& rhs) {
 
 	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
 
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+        throw std::runtime_error("Can't set position on tensors with shape mismatch, "
+            + lhs.getShape().toString() + " and " + rhs.shape().toString());
+	}
+
 	m_impl->set(
 		ctx.lhsOffset,
 		*rhs.m_impl,
@@ -102,6 +107,11 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
 
 	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
 
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+        throw std::runtime_error("Can't set position on tensors with shape mismatch, "
+            + lhs.getShape().toString() + " and " + rhs.getShape().toString());
+	}
+
 	m_impl->set(
 		ctx.lhsOffset,
 		*rhs.getParent().m_impl,
@@ -113,6 +123,10 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
 bool Tensor::compare(const Tensor& rhs) const {
 	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
 
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+		return false;
+	}
+
 	return m_impl->compare(
 		ctx.lhsOffset,
 		*rhs.m_impl,
@@ -123,6 +137,10 @@ bool Tensor::compare(const Tensor& rhs) const {
 
 bool Tensor::compare(const Tensor::View& rhs) const {
 	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+		return false;
+	}
 
 	return m_impl->compare(
 		ctx.lhsOffset,
@@ -137,6 +155,10 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor& rhs) con
 	
 	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
 
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+		return false;
+	}
+
 	return m_impl->compare(
 		ctx.lhsOffset,
 		*rhs.m_impl,
@@ -150,6 +172,10 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
 
 	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
 	
+	if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+		return false;
+	}
+
 	return m_impl->compare(
 		ctx.lhsOffset,
 		*rhs.getParent().m_impl,
