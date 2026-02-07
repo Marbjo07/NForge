@@ -4,13 +4,16 @@ namespace nforge::semantic {
 
 void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
     if (lhs.getBackend() != rhs.getBackend()) {
-        throw std::runtime_error("Can not perform binary operation on tensor on different devices " + lhs.backendString() + " and " + rhs.backendString() + " of shapes " + lhs.getShape().toString() + " and " + rhs.getShape().toString());
+        throw std::runtime_error("Can not perform binary operation on tensor on different devices " 
+            + lhs.getBackendString() + " and " + rhs.getBackendString() + " of shapes " 
+            + lhs.getShape().toString() + " and " + rhs.getShape().toString());
     }
 }
 
 void ensureSameShape(Tensor::Shape lhsShape, Tensor::Shape rhsShape) {
     if (lhsShape != rhsShape) {
-        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, " + lhsShape.toString() + " and " + rhsShape.toString());
+        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, " 
+            + lhsShape.toString() + " and " + rhsShape.toString());
     }
 }
 
@@ -43,9 +46,9 @@ size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, Sha
         case ShapeMatch::Equal:
             return cntLhs;
         case ShapeMatch::ScalarLhs:
-            return cntLhs;
-        case ShapeMatch::ScalarRhs:
             return cntRhs;
+        case ShapeMatch::ScalarRhs:
+            return cntLhs;
         case ShapeMatch::EqualCount:
             return cntLhs;
         case ShapeMatch::Incompatible:
@@ -56,11 +59,14 @@ size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, Sha
 }
 
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
+    Tensor::Shape lhsShape = lhs.getShape();
+    Tensor::Shape rhsShape = rhs.getShape();
+
     BinaryOpContext ctx;
     ctx.lhsOffset = lhs.getOffset();
     ctx.rhsOffset = rhs.getOffset();
-    ctx.shapeMatch = getShapeRelation(lhs.getShape(), rhs.getShape());
-    ctx.count = getOperationCount(lhs.getShape(), rhs.getShape(), ctx.shapeMatch);
+    ctx.shapeMatch = getShapeRelation(lhsShape, rhsShape);
+    ctx.count = getOperationCount(lhsShape, rhsShape, ctx.shapeMatch);
 
     return ctx;
 }
@@ -78,10 +84,7 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& r
 }
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
-    const Tensor& lhsParent = lhs.getParent();
-    const Tensor& rhsParent = rhs.getParent();
-
-    ensureSameBackend(lhsParent, rhsParent);
+    ensureSameBackend(lhs.getParent(), rhs.getParent());
 
     return buildContext(lhs, rhs);
 }

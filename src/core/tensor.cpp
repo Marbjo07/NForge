@@ -53,7 +53,7 @@ void Tensor::print(const std::vector<size_t>& idx) const {
 }
 
 Tensor::Shape Tensor::getShape() const {
-    return m_impl->shape();
+    return m_impl->getShape();
 }
 
 std::string Tensor::getBackendString() const {
@@ -76,7 +76,7 @@ std::string Tensor::getDataString() const {
 }
 
 size_t Tensor::getNumElements() const {
-    return m_impl->numElements();
+    return m_impl->getNumElements();
 }
 
 std::vector<float> Tensor::toVector() const {
@@ -175,32 +175,104 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
         ctx.count);
 }
 
-Tensor Tensor::operator+(const Tensor& other) const {
-    if (other.getShape().isScalar()) {
-        return Tensor(m_impl->addScalar(*other.m_impl), m_backend);
-    }
-    return Tensor(m_impl->add(*other.m_impl), m_backend);
+Tensor Tensor::operator+(const Tensor& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	std::unique_ptr<Tensor::Impl> results;
+	switch (ctx.shapeMatch) {
+		case nforge::semantic::ShapeMatch::Equal:
+			results = m_impl->add(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
+			break;
+
+		case nforge::semantic::ShapeMatch::ScalarLhs:
+			results = rhs.m_impl->addScalar(ctx.rhsOffset, *m_impl, ctx.count);
+			break;
+		
+		case nforge::semantic::ShapeMatch::ScalarRhs:
+			results = m_impl->addScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
+			break;
+		
+		default:
+			throw std::runtime_error("Can't add tensors of incompatible shapes "
+				+ getShape().toString() + " and " + rhs.getShape().toString());
+	}
+
+	return Tensor(std::move(results), m_backend);
 }
 
-Tensor Tensor::operator-(const Tensor& other) const {
-    if (other.getShape().isScalar()) {
-        return Tensor(m_impl->subScalar(*other.m_impl), m_backend);
-    }
-    return Tensor(m_impl->sub(*other.m_impl), m_backend);
+Tensor Tensor::operator-(const Tensor& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	std::unique_ptr<Tensor::Impl> results;
+	switch (ctx.shapeMatch) {
+		case nforge::semantic::ShapeMatch::Equal:
+			results = m_impl->sub(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
+			break;		
+
+		case nforge::semantic::ShapeMatch::ScalarLhs:
+			results = rhs.m_impl->subScalar(ctx.rhsOffset, *m_impl, ctx.count);
+			break;		
+		
+		case nforge::semantic::ShapeMatch::ScalarRhs:
+			results = m_impl->subScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
+			break;		
+		
+		default:
+			throw std::runtime_error("Can't sub tensors of incompatible shapes "
+				+ getShape().toString() + " and " + rhs.getShape().toString());
+	}
+
+	return Tensor(std::move(results), m_backend);
 }
 
-Tensor Tensor::operator*(const Tensor& other) const {
-    if (other.getShape().isScalar()) {
-        return Tensor(m_impl->mulScalar(*other.m_impl), m_backend);
-    }
-    return Tensor(m_impl->mul(*other.m_impl), m_backend);
+Tensor Tensor::operator*(const Tensor& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	std::unique_ptr<Tensor::Impl> results;
+	switch (ctx.shapeMatch) {
+		case nforge::semantic::ShapeMatch::Equal:
+			results = m_impl->mul(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
+			break;		
+
+		case nforge::semantic::ShapeMatch::ScalarLhs:
+			results = rhs.m_impl->mulScalar(ctx.rhsOffset, *m_impl, ctx.count);
+			break;		
+		
+		case nforge::semantic::ShapeMatch::ScalarRhs:
+			results = m_impl->mulScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
+			break;		
+		
+		default:
+			throw std::runtime_error("Can't mul tensors of incompatible shapes "
+				+ getShape().toString() + " and " + rhs.getShape().toString());
+	}
+
+	return Tensor(std::move(results), m_backend);
 }
 
-Tensor Tensor::operator/(const Tensor& other) const {
-    if (other.getShape().isScalar()) {
-        return Tensor(m_impl->divScalar(*other.m_impl), m_backend);
-    }
-    return Tensor(m_impl->div(*other.m_impl), m_backend);
+Tensor Tensor::operator/(const Tensor& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	std::unique_ptr<Tensor::Impl> results;
+	switch (ctx.shapeMatch) {
+		case nforge::semantic::ShapeMatch::Equal:
+			results = m_impl->div(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
+			break;		
+
+		case nforge::semantic::ShapeMatch::ScalarLhs:
+			results = rhs.m_impl->divScalar(ctx.rhsOffset, *m_impl, ctx.count);
+			break;		
+		
+		case nforge::semantic::ShapeMatch::ScalarRhs:
+			results = m_impl->divScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
+			break;		
+
+		default:
+			throw std::runtime_error("Can't div tensors of incompatible shapes "
+				+ getShape().toString() + " and " + rhs.getShape().toString());
+	}
+
+	return Tensor(std::move(results), m_backend);
 }
 
 Tensor::View Tensor::operator[](size_t idx) const {
@@ -208,9 +280,9 @@ Tensor::View Tensor::operator[](size_t idx) const {
     return results;
 }
 
-Tensor Tensor::operator=(const Tensor& other) {
-    this->m_impl = other.m_impl->clone();
-    this->m_backend = other.m_backend;
+Tensor Tensor::operator=(const Tensor& rhs) {
+    this->m_impl = rhs.m_impl->clone();
+    this->m_backend = rhs.m_backend;
 
     return *this;
 }
@@ -223,10 +295,10 @@ bool Tensor::operator==(const Tensor::View& rhs) const {
     return compare(rhs);
 }
 
-bool Tensor::operator!=(const Tensor& other) const {
-    return !operator==(other);
+bool Tensor::operator!=(const Tensor& rhs) const {
+    return !operator==(rhs);
 }
 
-bool Tensor::operator!=(const Tensor::View& other) const {
-    return !operator==(other);
+bool Tensor::operator!=(const Tensor::View& rhs) const {
+    return !operator==(rhs);
 }

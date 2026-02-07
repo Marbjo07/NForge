@@ -81,9 +81,18 @@ TEST_CASE("Broadcast scalar add", "[tensor]") {
     Tensor a({4}, 2.0f, Backend::CPU);
     Tensor s(3.0f);
 
-    Tensor c = a + s;
+    Tensor x = a + s;
+    Tensor y = s + a;
 
-    REQUIRE(c[2] == Tensor(5));
+	INFO("a=" + a.getDataString());
+	INFO("s=" + s.getDataString());
+	INFO("x=" + x.getDataString());
+	INFO("y=" + y.getDataString());
+
+	for (size_t i = 0; i < 4; i++) {
+		REQUIRE(x[i] == Tensor(5));
+    	REQUIRE(y[i] == Tensor(5));
+	}
 }
 
 TEST_CASE("2D tensor shape and indexing", "[tensor]") {

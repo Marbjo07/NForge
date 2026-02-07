@@ -33,10 +33,10 @@ size_t Tensor::View::getOffset() const {
 
     size_t blockOffset = 1;
     for (size_t d : m_position) {
-        blockOffset *= d;
+        blockOffset *= (d + 1);
     }
 
-    return blockOffset * blockSize;
+    return (blockOffset - 1) * blockSize;
 }
 
 Tensor::Shape Tensor::View::getShape() const {
