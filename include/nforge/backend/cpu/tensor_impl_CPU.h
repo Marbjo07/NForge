@@ -35,16 +35,11 @@ public:
 
     // Assignments and indexing
 	std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
-	void set(const std::vector<size_t> &position, const Tensor::Impl &other) override;
-	void set(const std::vector<size_t> &position, const Tensor::Impl &other, const std::vector<size_t> &otherPosition) override;
+	void set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) override;
 
 
 	// Comparisons
-	bool compare(const std::vector<size_t> &position, const Tensor::Impl &other) const override;
-	bool compare(const std::vector<size_t> &position, const Tensor::Impl &other, const std::vector<size_t> &otherPosition) const override;
-
-	bool operator==(const Tensor::Impl &other) const override;
-	bool operator!=(const Tensor::Impl &other) const override;
+	bool compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
 
 
 	// Element wise binary tensor operations

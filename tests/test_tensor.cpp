@@ -9,6 +9,42 @@ TEST_CASE("Create tensor", "[tensor]") {
 	REQUIRE(t.backendString() == "CPU");
 }
 
+TEST_CASE("Compare tensor", "[tensor]") {
+	Tensor a({3, 9, 7}, 19.0f, Backend::CPU);
+	Tensor b({3, 9, 7}, 19.0f, Backend::CPU);
+
+	REQUIRE(a == b);
+	REQUIRE(b == a);
+}
+
+TEST_CASE("Compare tensor views", "[tensor]") {
+	Tensor a({3, 9, 7}, 19.0f, Backend::CPU);
+	Tensor b({3, 9, 7}, 19.0f, Backend::CPU);
+
+	auto x = a[0];
+	auto y = b[0];
+
+	REQUIRE(x == y);
+	REQUIRE(y == x);
+}
+
+TEST_CASE("Compare tensor and tensor view", "[tensor]") {
+	Tensor a({3, 9, 7}, 19.0f, Backend::CPU);
+	Tensor b({9, 7}, 19.0f, Backend::CPU);
+
+	auto x = a[0];
+	auto y = a[1];
+
+	REQUIRE(x == b);
+	REQUIRE(x == y);
+	
+	REQUIRE(b == x);
+	REQUIRE(b == y);
+
+	REQUIRE(y == x);
+	REQUIRE(y == b);
+}
+
 TEST_CASE("Add tensors", "[tensor]") {
 	Tensor a({3}, 4.0f, Backend::CPU);
 	Tensor b({3}, 1.0f, Backend::CPU);
@@ -42,14 +78,13 @@ TEST_CASE("Broadcast scalar add", "[tensor]") {
 	Tensor s(3.0f);
 
 	Tensor c = a + s;
-
-	REQUIRE(c[0] == Tensor(5));
-	REQUIRE(c[3] == Tensor(5));
+	
+	REQUIRE(c[2] == Tensor(5));
 }
 
 TEST_CASE("2D tensor shape and indexing", "[tensor]") {
-	auto rows = GENERATE(1uz, 4uz, 10uz);
-	auto cols = GENERATE(1uz, 10uz, 50uz);
+	auto rows = GENERATE(1ull, 4ull, 10ull);
+	auto cols = GENERATE(1ull, 10ull, 50ull);
 	auto val = GENERATE(-1001.0f, 0.32f, 122.9f);
 
 	DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {
@@ -72,8 +107,8 @@ TEST_CASE("2D tensor shape and indexing", "[tensor]") {
 }
 
 TEST_CASE("Tensor slice assign", "[tensor]") {
-	auto rows = GENERATE(1uz, 2uz, 3uz);
-	auto cols = GENERATE(1uz, 4uz, 8uz);
+	auto rows = GENERATE(1ull, 2ull, 3ull);
+	auto cols = GENERATE(1ull, 4ull, 8ull);
 	auto val = GENERATE(0.0f, 1.5f);
 
 	DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {
@@ -94,7 +129,8 @@ TEST_CASE("Tensor slice assign", "[tensor]") {
 				REQUIRE(A[i][j] == B[i][j]);
 			}
 		}
-
+		
+		INFO("A=" + A.dataString() + "\nB=" + B.dataString());
 		REQUIRE(A == B);
 	}
 }

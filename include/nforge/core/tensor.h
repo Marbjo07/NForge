@@ -24,7 +24,7 @@ public:
     Tensor(const Tensor::Shape& shape, float value, Backend backend = Backend::CPU);
     Tensor(float value, Backend backend = Backend::CPU);
     Tensor(const Tensor& tensor);
-    Tensor(std::unique_ptr<Tensor::Impl> impl);
+    Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend = Backend::CPU);
     ~Tensor();
     
     // Move data between backends
@@ -62,6 +62,9 @@ public:
     void set(const std::vector<size_t>& position, const Tensor& other);
     void set(const std::vector<size_t>& position, const Tensor::View& other);
 
+    bool compare(const Tensor& other) const;
+    bool compare(const Tensor::View& other) const;
+    
     // Compare the specified block to another tensor
     bool compare(const std::vector<size_t>& position, const Tensor& other) const;
     bool compare(const std::vector<size_t>& position, const Tensor::View& other) const;
@@ -77,7 +80,9 @@ public:
     Tensor operator=(const Tensor& other);
 
     bool operator==(const Tensor& other) const;
+    bool operator==(const Tensor::View& other) const;
     bool operator!=(const Tensor& other) const;
+    bool operator!=(const Tensor::View& other) const;
 
 private:
     Backend m_backend;

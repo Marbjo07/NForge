@@ -13,9 +13,9 @@ struct BinaryOpContext {
 
 
 BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs);
-
+BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor::View& rhs);
+BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& rhs);
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
-
 
 } // nforge::semantic
 

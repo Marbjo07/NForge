@@ -2,6 +2,8 @@
 #include "nforge/core/tensor_view.h"
 #include "nforge/backend/cpu/tensor_impl_CPU.h"
 
+#include "ops/semantic/semantic.h"
+
 Tensor::Tensor(const Tensor::Shape& shape, Backend backend) 
 	: m_backend(backend) {
 	if (backend == Backend::CPU) {
@@ -28,8 +30,8 @@ Tensor::Tensor(const Tensor& other)
 	: m_backend(other.m_backend), m_impl(other.m_impl->clone()) {
 }
 
-Tensor::Tensor(std::unique_ptr<Tensor::Impl> impl)
-	: m_impl(std::move(impl)) {
+Tensor::Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend)
+	: m_impl(std::move(impl)), m_backend(backend) {
 }
 
 Tensor::~Tensor() {
@@ -82,48 +84,106 @@ std::vector<float> Tensor::toVector() const {
 	return m_impl->toVector();
 }
 
-void Tensor::set(const std::vector<size_t>& position, const Tensor& other) {
-	m_impl->set(position, *other.m_impl.get());
+void Tensor::set(const std::vector<size_t>& position, const Tensor& rhs) {
+	Tensor::View lhs = Tensor::View((Tensor&)*this, position);
+
+	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+
+	m_impl->set(
+		ctx.lhsOffset,
+		*rhs.m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
 }
 
-void Tensor::set(const std::vector<size_t>& position, const Tensor::View& other) {
-	m_impl->set(position, *other.getParent().m_impl.get(), other.getPosition());
+void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
+	Tensor::View lhs = Tensor::View((Tensor&)*this, position);
+
+	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+
+	m_impl->set(
+		ctx.lhsOffset,
+		*rhs.getParent().m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
 }
 
-bool Tensor::compare(const std::vector<size_t>& position, const Tensor& other) const {
-	return m_impl->compare(position, *other.m_impl.get());
+bool Tensor::compare(const Tensor& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	return m_impl->compare(
+		ctx.lhsOffset,
+		*rhs.m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
 }
 
-bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& other) const {
-	return m_impl->compare(position, *other.getParent().m_impl.get(), other.getPosition());
+bool Tensor::compare(const Tensor::View& rhs) const {
+	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+
+	return m_impl->compare(
+		ctx.lhsOffset,
+		*rhs.getParent().m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
+}
+
+bool Tensor::compare(const std::vector<size_t>& position, const Tensor& rhs) const {
+	Tensor::View lhs = Tensor::View((Tensor&)*this, position);
+	
+	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+
+	return m_impl->compare(
+		ctx.lhsOffset,
+		*rhs.m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
+}
+
+bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rhs) const {
+	Tensor::View lhs = Tensor::View((Tensor&)*this, position);
+
+	auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+	
+	return m_impl->compare(
+		ctx.lhsOffset,
+		*rhs.getParent().m_impl,
+		ctx.rhsOffset,
+		ctx.count
+	);
 }
 
 Tensor Tensor::operator+(const Tensor& other) const {
 	if (other.shape().isScalar()) {
-		return Tensor(m_impl->addScalar(*other.m_impl));
+		return Tensor(m_impl->addScalar(*other.m_impl), m_backend);
 	}
-	return Tensor(m_impl->add(*other.m_impl));
+	return Tensor(m_impl->add(*other.m_impl), m_backend);
 }
 
 Tensor Tensor::operator-(const Tensor& other) const {
 	if (other.shape().isScalar()) {
-		return Tensor(m_impl->subScalar(*other.m_impl));
+		return Tensor(m_impl->subScalar(*other.m_impl), m_backend);
 	}
-	return Tensor(m_impl->sub(*other.m_impl));
+	return Tensor(m_impl->sub(*other.m_impl), m_backend);
 }
 
 Tensor Tensor::operator*(const Tensor& other) const {
 	if (other.shape().isScalar()) {
-		return Tensor(m_impl->mulScalar(*other.m_impl));
+		return Tensor(m_impl->mulScalar(*other.m_impl), m_backend);
 	}
-	return Tensor(m_impl->mul(*other.m_impl));
+	return Tensor(m_impl->mul(*other.m_impl), m_backend);
 }
 
 Tensor Tensor::operator/(const Tensor& other) const {
 	if (other.shape().isScalar()) {
-		return Tensor(m_impl->divScalar(*other.m_impl));
+		return Tensor(m_impl->divScalar(*other.m_impl), m_backend);
 	}
-	return Tensor(m_impl->div(*other.m_impl));
+	return Tensor(m_impl->div(*other.m_impl), m_backend);
 }
 
 Tensor::View Tensor::operator[](size_t idx) const {
@@ -138,8 +198,12 @@ Tensor Tensor::operator=(const Tensor& other) {
 	return *this;
 }
 
-bool Tensor::operator==(const Tensor& other) const {
-	return m_backend == other.m_backend && m_impl->operator==(*other.m_impl);
+bool Tensor::operator==(const Tensor& rhs) const {
+	return compare(rhs);
+}
+
+bool Tensor::operator==(const Tensor::View& rhs) const {
+	return compare(rhs);
 }
 
 bool Tensor::operator!=(const Tensor& other) const {

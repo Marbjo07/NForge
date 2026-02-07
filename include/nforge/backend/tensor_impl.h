@@ -33,18 +33,12 @@ public:
 
     // Assignments and indexing
     virtual std::unique_ptr<Tensor::Impl> get(size_t idx) const = 0;
-    virtual void set(const std::vector<size_t>& position, const Tensor::Impl& other) = 0;
-    virtual void set(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) = 0;
+	virtual void set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) = 0;
 
 
     // Comparisons
     // Block comparisons
-    virtual bool compare(const std::vector<size_t>& position, const Tensor::Impl& other) const = 0;
-    virtual bool compare(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherIdx) const = 0;
-
-    // Tensor comparisons
-    virtual bool operator==(const Tensor::Impl& other) const = 0;
-    virtual bool operator!=(const Tensor::Impl& other) const = 0;
+	virtual bool compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const = 0;
 
 
 	// Element wise binary tensor operations

@@ -5,6 +5,9 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
 }
 
 void Tensor::View::print() const {
+    std::cout << "View at position: ";
+    for (auto e : m_position) std::cout << e << " ";
+    std::cout << "\n";
     m_parent.print(m_position);
 }
 

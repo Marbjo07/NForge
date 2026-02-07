@@ -38,6 +38,7 @@ void Tensor::CPUImpl::print() const {
 	std::cout << "====================\n";
 	std::cout << "Tensor[CPU], Data:\n";
 
+
 	std::vector<size_t> numElementsInDimsCurAndBelow(m_shape.getNumDims(), 1);
 	for (int i = static_cast<int>(m_shape.getNumDims()) - 1; i >= 0; i--) {
 		numElementsInDimsCurAndBelow[i] *= m_shape.getDim(i);
@@ -46,10 +47,12 @@ void Tensor::CPUImpl::print() const {
 		}
 	}
 
+	
 	for (size_t i = 0; i < m_data.size(); i++) {
 		std::cout << m_data[i] << " ";
 		for (size_t j = 0; j < m_shape.getNumDims(); j++) {
-			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1) {
+			// if element count of the block represented by suffix starting at j, divides i, then print a new line
+			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1 && i != m_data.size() - 1) {
 				std::cout << "\n";
 			}
 		}
@@ -86,7 +89,7 @@ void Tensor::CPUImpl::print(const std::vector<size_t>& position) const {
 	for (size_t i = offsetCount; i < offsetCount + blockSize; i++) {
 		std::cout << m_data[i] << " ";
 		for (size_t j = 0; j < m_shape.getNumDims(); j++) {
-			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1) {
+			if (i % numElementsInDimsCurAndBelow[j] == numElementsInDimsCurAndBelow[j] - 1 && i != offsetCount + blockSize - 1) {
 				std::cout << "\n";
 			}
 		}
@@ -161,151 +164,28 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::get(size_t idx) const {
 	return std::unique_ptr<Tensor::Impl>(results);
 }
 
-void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Impl& other) {
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-	if (!o) return;
+void Tensor::CPUImpl::set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) {
+	const auto& o = static_cast<const Tensor::CPUImpl&>(rhs);
+	
+	float* a = m_data.data() + lhsOffset;
+	const float* b = rhs.data() + rhsOffset;
 
-	// Verify matching shapes
-	Tensor::Shape blockShape = m_shape[position];
-	if (o->m_shape != blockShape) {
-		throw std::runtime_error("Shape mismatch in assignment: cannot assign tensor of shape " +
-			other.shape().toString() + " to tensor of shape " + blockShape.toString());
-		return;
-	}
-
-    size_t blockSize = blockShape.getNumElements();
-
-    size_t blockOffset = 1;
-    for (size_t d : position) {
-        blockOffset *= d;
-    }
-
-    size_t offset = blockOffset * blockSize;
-	for (size_t i = 0; i < blockSize; ++i) {
-		m_data[offset + i] = o->m_data[i];
+	for (size_t i = 0; i < count; i++) {
+		a[i] = b[i];
 	}
 }
 
-void Tensor::CPUImpl::set(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherPosition) {
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-	if (!o) return;
+bool Tensor::CPUImpl::compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const {
+	const auto& o = static_cast<const Tensor::CPUImpl&>(rhs);
+	
+	const float* a = m_data.data() + lhsOffset;
+	const float* b = rhs.data() + rhsOffset;
 
-	// Verify matching shapes
-	if (m_shape[position] != o->m_shape[position]) {
-		throw std::runtime_error("Shape mismatch in assignment: cannot assign tensor of shape " +
-			o->m_shape[position].toString() + " to tensor of shape " + m_shape[position].toString());
-		return;
-	}
-
-    Tensor::Shape blockShape = m_shape[position];
-    size_t blockSize = blockShape.getNumElements();
-
-	// Number of blocks before the indexed block in the this tensor
-    size_t blockOffsetThis = 1;
-    for (size_t d : position) {
-        blockOffsetThis *= d;
-    }
-
-	// Number of blocks before the indexed block in the other tensor
-	size_t blockOffsetOther = 1;
-    for (size_t d : position) {
-        blockOffsetOther *= d;
-    }
-
-	// Offsets
-	size_t thisOffset = blockSize * blockOffsetThis;
-	size_t otherOffset = blockSize * blockOffsetOther;
-
-	// Write 
-	for (size_t i = 0; i < blockSize; i++) {
-		m_data[thisOffset + i] = o->m_data[otherOffset + i];
-	}
-}
-
-
-bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other) const {
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-	if (!o) return false;
-
-	// Compare block shapes
-	Tensor::Shape blockShape = m_shape[position];
-	if (blockShape != o->m_shape) {
-		return false;
-	}
-
-	size_t blockSize = blockShape.getNumElements();
-
-	// Number of blocks before the indexed block
-	size_t blockOffset = 1;
-	for (size_t d : position) {
-		blockOffset *= d;
-	}
-
-	size_t offset = blockSize * blockOffset;
-	for (size_t i = 0; i < blockSize; ++i) {
-		if (m_data[offset + i] != o->m_data[i]) return false;
+	for (size_t i = 0; i < count; i++) {
+		if (a[i] != b[i]) return false;
 	}
 
 	return true;
-}
-
-bool Tensor::CPUImpl::compare(const std::vector<size_t>& position, const Tensor::Impl& other, const std::vector<size_t>& otherPosition) const {
-    const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-    if (!o) return false;
-
-	// Get shapes of the blocks
-	Tensor::Shape thisBlockShape = m_shape[position];
-	Tensor::Shape otherBlockShape = o->m_shape[otherPosition];
-
-	if (thisBlockShape != otherBlockShape) {
-		return false;
-	}
-
-    Tensor::Shape blockShape = m_shape[position];
-    size_t blockSize = blockShape.getNumElements();
-
-	// Number of blocks before the indexed block in the this tensor
-    size_t blockOffsetThis = 1;
-    for (size_t d : position) {
-        blockOffsetThis *= d;
-    }
-
-	// Number of blocks before the indexed block in the other tensor
-	size_t blockOffsetOther = 1;
-    for (size_t d : position) {
-        blockOffsetOther *= d;
-    }
-
-	// Offsets
-	size_t thisOffset = blockSize * blockOffsetThis;
-	size_t otherOffset = blockSize * blockOffsetOther;
-
-	// Compare the blocks element by element
-	for (size_t i = 0; i < blockSize; i++) {
-		if (m_data[thisOffset + i] != o->m_data[otherOffset + i]) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool Tensor::CPUImpl::operator==(const Tensor::Impl& other) const {
-	if (m_shape != other.shape()) return false;
-
-	const Tensor::CPUImpl* o = dynamic_cast<const Tensor::CPUImpl*>(&other);
-
-	for (size_t i = 0; i < m_data.size(); i++) {
-		if (m_data[i] != o->m_data[i]) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool Tensor::CPUImpl::operator!=(const Tensor::Impl& other) const {
-	return !operator==(other);
 }
 
 

@@ -28,6 +28,58 @@ BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs) {
     return ctx;
 }
 
+BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor::View& rhs) {
+    const Tensor& rhsParent = rhs.getParent();
+    
+    // must have equal backend
+    if (lhs.getBackend() != rhsParent.getBackend()) {
+        throw std::runtime_error("Can not perform binary operation on tensor views on different devices " 
+            + lhs.backendString() + " and " + lhs.backendString() + " of shapes " 
+            + lhs.shape().toString() + " and " + rhs.getShape().toString());
+    }
+
+
+    // must have equal shapes
+    if (lhs.shape() != rhs.getShape()) {
+        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, "
+            + lhs.shape().toString() + " and " + rhs.getShape().toString());
+    }
+
+    Tensor::Shape shape = rhs.getShape();
+
+    BinaryOpContext ctx;
+    ctx.lhsOffset = 0;
+    ctx.rhsOffset = rhs.getOffset();
+    ctx.count = shape.getNumElements();
+
+    return ctx;
+}
+
+BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& rhs) {
+    const Tensor& lhsParent = lhs.getParent();
+
+    // must have equal backend
+    if (lhsParent.getBackend() != rhs.getBackend()) {
+        throw std::runtime_error("Can not perform binary operation on tensor views on different devices " 
+            + lhsParent.backendString() + " and " + rhs.backendString() + " of shapes " 
+            + lhs.getShape().toString() + " and " + rhs.shape().toString());
+    }
+
+    // must have equal shapes
+    if (lhs.getShape() != rhs.shape()) {
+        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, "
+            + lhs.getShape().toString() + " and " + rhs.shape().toString());
+    }
+
+    Tensor::Shape shape = rhs.shape();
+
+    BinaryOpContext ctx;
+    ctx.lhsOffset = lhs.getOffset();
+    ctx.rhsOffset = 0;
+    ctx.count = shape.getNumElements();
+
+    return ctx;
+}
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     const Tensor& lhsParent = lhs.getParent();
