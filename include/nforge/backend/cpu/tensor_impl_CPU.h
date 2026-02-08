@@ -30,7 +30,6 @@ class Tensor::CPUImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> clone() const override;
 
     // Assignments and indexing
-    std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
     void set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) override;
 
     // Comparisons

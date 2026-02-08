@@ -136,33 +136,6 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::clone() const {
     return std::make_unique<CPUImpl>(*this);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::get(size_t idx) const {
-    // shape {3, 2, 5}
-    //[[[x, x, x, x, x], [x, x, x, x, x]],
-    // [[x, x, x, x, x], [x, x, x, x, x]],
-    // [[x, x, x, x, x], [x, x, x, x, x]]]
-
-    if (m_shape.getNumDims() == 0) {
-        throw std::runtime_error("Can not index tensor of zero dimensions");
-        return std::unique_ptr<Tensor::Impl>(new Tensor::CPUImpl(*this));
-    }
-
-    if (m_shape.getNumDims() == 1 && m_shape.getDim(0) == 1) {
-        throw std::runtime_error("Can not index tensor of one dimension and one element");
-        return std::unique_ptr<Tensor::Impl>(new Tensor::CPUImpl(*this));
-    }
-
-    Tensor::Shape newShape = m_shape.getSlice(1, m_shape.getNumDims());
-    Tensor::CPUImpl* results = new Tensor::CPUImpl(newShape);
-
-    size_t offset = newShape.getNumElements() * idx;
-    for (size_t i = 0; i < newShape.getNumElements(); i++) {
-        results->m_data[i] = m_data[i + offset];
-    }
-
-    return std::unique_ptr<Tensor::Impl>(results);
-}
-
 void Tensor::CPUImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) {
     const Tensor::CPUImpl* o = static_cast<const Tensor::CPUImpl*>(rhs);
 

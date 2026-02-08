@@ -27,7 +27,6 @@ class Tensor::Impl {
     virtual std::unique_ptr<Tensor::Impl> clone() const = 0;
 
     // Assignments and indexing
-    virtual std::unique_ptr<Tensor::Impl> get(size_t idx) const = 0;
     virtual void set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) = 0;
 
     // Comparisons
