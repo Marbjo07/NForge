@@ -31,27 +31,35 @@ class Tensor::CPUImpl : public Tensor::Impl {
 
     // Assignments and indexing
     std::unique_ptr<Tensor::Impl> get(size_t idx) const override;
-    void set(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) override;
+    void set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) override;
 
     // Comparisons
-    bool compare(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
+    bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
 
     // Element wise binary tensor operations
-    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, const Tensor::Impl& rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
 
     // Element wise binary tensor-scalar operations
 	// Requires  rhs to be a scalar
-    std::unique_ptr<Tensor::Impl> addScalar(size_t lhsOffset, const Tensor::Impl& rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> subScalar(size_t lhsOffset, const Tensor::Impl& rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mulScalar(size_t lhsOffset, const Tensor::Impl& rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> divScalar(size_t lhsOffset, const Tensor::Impl& rhs, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> addScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> subScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> mulScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> divScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
 
    private:
     Tensor::Shape m_shape;
     std::vector<float> m_data;
+    
+    // res[i] = lhs[i] + scalar
+    template <typename ScalarOp>
+    std::unique_ptr<Tensor::Impl> applyBinaryScalarOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t count, ScalarOp scalarOp) const;
+
+    // res[i] = lhs[i] + rhs[i]
+    template <typename BinaryOp>
+    std::unique_ptr<Tensor::Impl> applyBinaryOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, BinaryOp binaryOp) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H

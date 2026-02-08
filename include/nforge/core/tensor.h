@@ -88,6 +88,10 @@ class Tensor {
    private:
     Backend m_backend;
     std::unique_ptr<Impl> m_impl;
+
+    // used in template for all the binary operations
+    template <typename EqualOp, typename ScalarOp>
+    Tensor applyBinaryOp(const Tensor& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
 };
 
 #include "nforge/backend/tensor_impl.h"

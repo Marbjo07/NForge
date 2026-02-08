@@ -24,7 +24,7 @@ ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs) 
         return ShapeMatch::ScalarRhs;
     }
 
-    if (lhs.getNumElements() == lhs.getNumElements()) {
+    if (lhs.getNumElements() == rhs.getNumElements()) {
         return ShapeMatch::EqualCount;
     }
 
@@ -55,11 +55,13 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     Tensor::Shape lhsShape = lhs.getShape();
     Tensor::Shape rhsShape = rhs.getShape();
 
+    ShapeMatch relation = getShapeRelation(lhsShape, rhsShape);
+
     BinaryOpContext ctx;
     ctx.lhsOffset = lhs.getOffset();
     ctx.rhsOffset = rhs.getOffset();
-    ctx.shapeMatch = getShapeRelation(lhsShape, rhsShape);
-    ctx.count = getOperationCount(lhsShape, rhsShape, ctx.shapeMatch);
+    ctx.shapeMatch = relation;
+    ctx.count = getOperationCount(lhsShape, rhsShape, relation);
 
     return ctx;
 }

@@ -62,7 +62,7 @@ size_t Tensor::Shape::getDim(size_t idx) const {
 }
 
 bool Tensor::Shape::isScalar() const {
-    return getNumElements() == 1;
+    return m_dimensions.size() == 1 && m_dimensions[0] == 1;
 }
 
 Tensor::Shape Tensor::Shape::removeLeadingDimension() const {

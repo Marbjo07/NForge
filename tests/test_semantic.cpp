@@ -109,3 +109,12 @@ TEST_CASE("Throw on tensor view device mismatch", "[semantic]") {
     REQUIRE_THROWS_AS(semantic::validateBinaryOperation(x, y), std::runtime_error);
     CHECK_THROWS_WITH(semantic::validateBinaryOperation(x, y), Catch::Matchers::ContainsSubstring("different devices"));
 }
+
+TEST_CASE("Single element vs Tensor", "[semantic]") {
+    Tensor a({1, 1}, 1.0f, Backend::CPU);
+    Tensor b({3,4}, 1.0f, Backend::CPU);
+
+    auto ctx = semantic::validateBinaryOperation(a, b);
+
+    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Incompatible);
+}
