@@ -1,19 +1,12 @@
 #include "ops/semantic/semantic.h"
 
-namespace nforge::semantic {
+namespace semantic {
 
 void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
     if (lhs.getBackend() != rhs.getBackend()) {
         throw std::runtime_error("Can not perform binary operation on tensor on different devices " 
             + lhs.getBackendString() + " and " + rhs.getBackendString() + " of shapes " 
             + lhs.getShape().toString() + " and " + rhs.getShape().toString());
-    }
-}
-
-void ensureSameShape(Tensor::Shape lhsShape, Tensor::Shape rhsShape) {
-    if (lhsShape != rhsShape) {
-        throw std::runtime_error("Can not perform binary operations on tensors of different shapes, " 
-            + lhsShape.toString() + " and " + rhsShape.toString());
     }
 }
 
@@ -89,4 +82,4 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::V
     return buildContext(lhs, rhs);
 }
 
-}  // namespace nforge::semantic
+}  // namespace semantic

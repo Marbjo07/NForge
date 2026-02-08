@@ -3,7 +3,7 @@
 
 #include "nforge/core/tensor.h"
 
-namespace nforge::semantic {
+namespace semantic {
 
 // sorted by precedence, examples show shape array
 enum class ShapeMatch {
@@ -30,6 +30,6 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::V
 
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs);
 
-}  // namespace nforge::semantic
+}  // namespace semantic
 
 #endif  // SEMANTIC_H

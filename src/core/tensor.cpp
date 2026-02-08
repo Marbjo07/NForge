@@ -86,9 +86,9 @@ std::vector<float> Tensor::toVector() const {
 void Tensor::set(const std::vector<size_t>& position, const Tensor& rhs) {
     Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
-    auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         throw std::runtime_error("Can't set position on tensors with shape mismatch, " + lhs.getShape().toString() + " and " + rhs.getShape().toString());
     }
 
@@ -102,9 +102,9 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor& rhs) {
 void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
     Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
-    auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         throw std::runtime_error("Can't set position on tensors with shape mismatch, " + lhs.getShape().toString() + " and " + rhs.getShape().toString());
     }
 
@@ -116,9 +116,9 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
 }
 
 bool Tensor::compare(const Tensor& rhs) const {
-    auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+    auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         return false;
     }
 
@@ -130,9 +130,9 @@ bool Tensor::compare(const Tensor& rhs) const {
 }
 
 bool Tensor::compare(const Tensor::View& rhs) const {
-    auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+    auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         return false;
     }
 
@@ -146,9 +146,9 @@ bool Tensor::compare(const Tensor::View& rhs) const {
 bool Tensor::compare(const std::vector<size_t>& position, const Tensor& rhs) const {
     Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
-    auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         return false;
     }
 
@@ -162,9 +162,9 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor& rhs) con
 bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rhs) const {
     Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
-    auto ctx = nforge::semantic::validateBinaryOperation(lhs, rhs);
+    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
 
-    if (ctx.shapeMatch != nforge::semantic::ShapeMatch::Equal) {
+    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
         return false;
     }
 
@@ -176,19 +176,19 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
 }
 
 Tensor Tensor::operator+(const Tensor& rhs) const {
-	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
 	std::unique_ptr<Tensor::Impl> results;
 	switch (ctx.shapeMatch) {
-		case nforge::semantic::ShapeMatch::Equal:
+		case semantic::ShapeMatch::Equal:
 			results = m_impl->add(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
 			break;
 
-		case nforge::semantic::ShapeMatch::ScalarLhs:
+		case semantic::ShapeMatch::ScalarLhs:
 			results = rhs.m_impl->addScalar(ctx.rhsOffset, *m_impl, ctx.count);
 			break;
 		
-		case nforge::semantic::ShapeMatch::ScalarRhs:
+		case semantic::ShapeMatch::ScalarRhs:
 			results = m_impl->addScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
 			break;
 		
@@ -201,19 +201,19 @@ Tensor Tensor::operator+(const Tensor& rhs) const {
 }
 
 Tensor Tensor::operator-(const Tensor& rhs) const {
-	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
 	std::unique_ptr<Tensor::Impl> results;
 	switch (ctx.shapeMatch) {
-		case nforge::semantic::ShapeMatch::Equal:
+		case semantic::ShapeMatch::Equal:
 			results = m_impl->sub(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
 			break;		
 
-		case nforge::semantic::ShapeMatch::ScalarLhs:
+		case semantic::ShapeMatch::ScalarLhs:
 			results = rhs.m_impl->subScalar(ctx.rhsOffset, *m_impl, ctx.count);
 			break;		
 		
-		case nforge::semantic::ShapeMatch::ScalarRhs:
+		case semantic::ShapeMatch::ScalarRhs:
 			results = m_impl->subScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
 			break;		
 		
@@ -226,19 +226,19 @@ Tensor Tensor::operator-(const Tensor& rhs) const {
 }
 
 Tensor Tensor::operator*(const Tensor& rhs) const {
-	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
 	std::unique_ptr<Tensor::Impl> results;
 	switch (ctx.shapeMatch) {
-		case nforge::semantic::ShapeMatch::Equal:
+		case semantic::ShapeMatch::Equal:
 			results = m_impl->mul(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
 			break;		
 
-		case nforge::semantic::ShapeMatch::ScalarLhs:
+		case semantic::ShapeMatch::ScalarLhs:
 			results = rhs.m_impl->mulScalar(ctx.rhsOffset, *m_impl, ctx.count);
 			break;		
 		
-		case nforge::semantic::ShapeMatch::ScalarRhs:
+		case semantic::ShapeMatch::ScalarRhs:
 			results = m_impl->mulScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
 			break;		
 		
@@ -251,19 +251,19 @@ Tensor Tensor::operator*(const Tensor& rhs) const {
 }
 
 Tensor Tensor::operator/(const Tensor& rhs) const {
-	auto ctx = nforge::semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
 	std::unique_ptr<Tensor::Impl> results;
 	switch (ctx.shapeMatch) {
-		case nforge::semantic::ShapeMatch::Equal:
+		case semantic::ShapeMatch::Equal:
 			results = m_impl->div(ctx.lhsOffset, *rhs.m_impl, ctx.rhsOffset, ctx.count);
 			break;		
 
-		case nforge::semantic::ShapeMatch::ScalarLhs:
+		case semantic::ShapeMatch::ScalarLhs:
 			results = rhs.m_impl->divScalar(ctx.rhsOffset, *m_impl, ctx.count);
 			break;		
 		
-		case nforge::semantic::ShapeMatch::ScalarRhs:
+		case semantic::ShapeMatch::ScalarRhs:
 			results = m_impl->divScalar(ctx.lhsOffset, *rhs.m_impl, ctx.count);
 			break;		
 
