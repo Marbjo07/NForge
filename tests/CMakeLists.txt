@@ -12,13 +12,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
+
 # Add all test files
 file(GLOB TEST_SOURCES "*.cpp")
 
 
 # Build test binary
 add_executable(test_nforge ${TEST_SOURCES})
+target_include_directories(test_nforge PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(test_nforge PRIVATE NForge Catch2::Catch2WithMain)
+
 
 # Enable testing and add Catch2 tests to CTest
 include(CTest)

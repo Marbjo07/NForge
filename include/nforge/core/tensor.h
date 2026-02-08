@@ -1,63 +1,70 @@
 #ifndef TENSOR_H
 #define TENSOR_H
 
-#include <vector>
-#include <string>
+#include <cassert>
 #include <iostream>
 #include <memory>
-#include <cassert>
+#include <string>
+#include <vector>
 
-#define LOG(x) std::cerr
-
-enum class Backend { CPU };
+enum class Backend {
+    CPU,
+    CUDA
+};
 
 class Tensor {
-public:
+   public:
     class Impl;
     class CPUImpl;
-    
+
     class View;
     class Shape;
 
-public:
+   public:
     Tensor(const Tensor::Shape& shape, Backend backend = Backend::CPU);
     Tensor(const Tensor::Shape& shape, float value, Backend backend = Backend::CPU);
     Tensor(float value, Backend backend = Backend::CPU);
     Tensor(const Tensor& tensor);
-    Tensor(std::unique_ptr<Tensor::Impl> impl);
+    Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend = Backend::CPU);
     ~Tensor();
-    
-    // Move data between backends
+
+    // Switch between backends
     void to(Backend newBackend);
-    
+
     // Fill all elements with a value
     void fillAll(float value);
-    
+
     // Fill all elements with uniform real values in [-1, 1]
     void fillRand();
-    
+
     // Print the tensor data
-    void print() const; 
+    void print() const;
     void print(const std::vector<size_t>& position) const;
 
-    // Returns the shape of the tensor as a string
-	Tensor::Shape shape() const;
+    // Returns the shape of the tensor
+    Tensor::Shape getShape() const;
 
-	// Returns the data of the tensor as a string
-    std::string backendString() const;
+    // Returns the data of the tensor as a string
+    std::string getBackendString() const;
 
-	// Returns the data of the tensor as a string
-	std::string dataString() const;
-    
+    // Returns backend enum
+    Backend getBackend() const;
+
+    // Returns the data of the tensor as a string
+    std::string getDataString() const;
+
     // Returns the number of elements in the tensor
-    size_t numElements() const;
-    
-    // Returns tensor data as a vector 
+    size_t getNumElements() const;
+
+    // Returns tensor data as a vector
     std::vector<float> toVector() const;
 
     // Set the specified block to another tensor
     void set(const std::vector<size_t>& position, const Tensor& other);
     void set(const std::vector<size_t>& position, const Tensor::View& other);
+
+    bool compare(const Tensor& other) const;
+    bool compare(const Tensor::View& other) const;
 
     // Compare the specified block to another tensor
     bool compare(const std::vector<size_t>& position, const Tensor& other) const;
@@ -74,15 +81,21 @@ public:
     Tensor operator=(const Tensor& other);
 
     bool operator==(const Tensor& other) const;
+    bool operator==(const Tensor::View& other) const;
     bool operator!=(const Tensor& other) const;
+    bool operator!=(const Tensor::View& other) const;
 
-private:
+   private:
     Backend m_backend;
     std::unique_ptr<Impl> m_impl;
+
+    // used in template for all the binary operations
+    template <typename EqualOp, typename ScalarOp>
+    Tensor applyBinaryOp(const Tensor& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
 };
 
+#include "nforge/backend/tensor_impl.h"
 #include "nforge/core/tensor_shape.h"
 #include "nforge/core/tensor_view.h"
-#include "nforge/backend/tensor_impl.h"
 
-#endif // TENSOR_H
+#endif  // TENSOR_H
