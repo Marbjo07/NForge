@@ -1,6 +1,6 @@
 # NForge
 
-Tensor is a lightweight multi-dimensional array type for numerical computation. It supports:
+Nforge is a lightweight multi-dimensional array type for numerical computation. It supports:
 
 - Creation from shapes (scalars, vectors, matrices and higher-rank tensors)
 - Element-wise arithmetic (+, -, *, /)
@@ -61,5 +61,5 @@ Shape: { 4 5 }
 Unit tests are included under `tests/` (Catch2). To run tests after building with CMake:
 
 ```bash
-ctest -V
+ctest --progress
 ```
