@@ -43,13 +43,13 @@ Tensor::Shape Tensor::View::getShape() const {
     return m_parent.getShape()[m_position];
 }
 
-Tensor Tensor::View::operator=(const Tensor& other) {
-    m_parent.set(m_position, other);
+Tensor Tensor::View::operator=(const Tensor& lhs) {
+    m_parent.set(m_position, lhs);
     return m_parent;
 }
 
-Tensor Tensor::View::operator=(const Tensor::View& other) {
-    m_parent.set(m_position, other);
+Tensor Tensor::View::operator=(const Tensor::View& lhs) {
+    m_parent.set(m_position, lhs);
     return m_parent;
 }
 
@@ -61,18 +61,18 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
     return results;
 }
 
-bool Tensor::View::operator==(const Tensor& other) const {
-    return m_parent.compare(m_position, other);
+bool Tensor::View::operator==(const Tensor& lhs) const {
+    return m_parent.compare(m_position, lhs);
 }
 
-bool Tensor::View::operator==(const Tensor::View& other) const {
-    return m_parent.compare(m_position, other);
+bool Tensor::View::operator==(const Tensor::View& lhs) const {
+    return m_parent.compare(m_position, lhs);
 }
 
-bool Tensor::View::operator!=(const Tensor& other) const {
-    return !(this->operator==(other));
+bool Tensor::View::operator!=(const Tensor& lhs) const {
+    return !(this->operator==(lhs));
 }
 
-bool Tensor::View::operator!=(const Tensor::View& other) const {
-    return !(this->operator==(other));
+bool Tensor::View::operator!=(const Tensor::View& lhs) const {
+    return !(this->operator==(lhs));
 }

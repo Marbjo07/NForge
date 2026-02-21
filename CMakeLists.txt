@@ -15,6 +15,7 @@ set(NFORGE_SRC
 	src/core/tensor_view.cpp
 	src/core/tensor_shape.cpp
 	src/backend/cpu/tensor_impl_CPU.cpp
+	src/backend/cuda/tensor_impl_CUDA.cpp
 	src/ops/semantic/semantic.cpp
 )
 

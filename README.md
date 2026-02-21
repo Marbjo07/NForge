@@ -1,11 +1,12 @@
 # NForge
 
-Tensor is a lightweight multi-dimensional array type for numerical computation. It supports:
+Tensor library for C++ with a focus on simplicity and ease of use. Features include:
 
 - Creation from shapes (scalars, vectors, matrices and higher-rank tensors)
 - Element-wise arithmetic (+, -, *, /)
-- Indexing that returns a view into the parent tensor
+- Indexing that returns views (e.g. `a[0]` returns a view of the first row of `a`) and supports assignment
 - Views that can be assigned to (e.g. `a[0] = Tensor({m}, 1.0f)` sets the first row of `a` to all ones)
+- Backend abstraction allows for easy switching between CPU and CUDA implementations.
 
 ## Build
 
@@ -19,7 +20,7 @@ cmake ..
 
 ## Example
 
-A small example demonstrates building a 2D tensor and indexing into it.
+A small example, building a 2D tensor and indexing into it.
 
 ```cpp
 #include <iostream>
@@ -33,7 +34,7 @@ int main() {
         a[i] = Tensor({m}, static_cast<float>(i)); // Each row is filled with the row index
     }
 
-    // Set a single value via chained indexing
+    // Set a single value
     a[0][3] = Tensor(3.14f);
 
     a.print();
@@ -61,5 +62,5 @@ Shape: { 4 5 }
 Unit tests are included under `tests/` (Catch2). To run tests after building with CMake:
 
 ```bash
-ctest -V
+ctest --progress
 ```

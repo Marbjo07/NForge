@@ -16,6 +16,7 @@ class Tensor {
    public:
     class Impl;
     class CPUImpl;
+    class CUDAImpl;
 
     class View;
     class Shape;
