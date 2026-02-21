@@ -106,3 +106,4 @@ TEST_CASE("2D arithmetic consistency across backends", "[tensor][arith][2d]") {
         }
     }
 }
+

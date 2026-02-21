@@ -1,6 +1,6 @@
 # NForge
 
-Tensor library for C++ with a focus on simplicity and ease of use. Features include:
+A Tensor library for C++ with a focus on simplicity and ease of use. Features include:
 
 - Creation from shapes (scalars, vectors, matrices and higher-rank tensors)
 - Element-wise arithmetic (+, -, *, /)
