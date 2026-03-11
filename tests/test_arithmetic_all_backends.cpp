@@ -3,14 +3,10 @@
 
 #include "nforge/core/tensor.h"
 
-#define NFORGE_ENABLE_CUDA
-
 static Backend getBackendFromIndex(int i) {
     switch (i) {
         case 0: return Backend::CPU;
-#ifdef NFORGE_ENABLE_CUDA
         case 1: return Backend::CUDA;
-#endif
         default: return Backend::CPU;
     }
 }
@@ -18,19 +14,13 @@ static Backend getBackendFromIndex(int i) {
 static const char* backendName(Backend b) {
     switch (b) {
         case Backend::CPU:  return "CPU";
-#ifdef NFORGE_ENABLE_CUDA
         case Backend::CUDA: return "CUDA";
-#endif
         default: return "Unknown";
     }
 }
 
 TEST_CASE("Arithmetic ops behave identically on all backends", "[tensor][arith][backend]") {
-    auto backendIndex = GENERATE(0
-#ifdef NFORGE_ENABLE_CUDA
-        , 1
-#endif
-    );
+    auto backendIndex = GENERATE(0, 1);
 
     Backend backend = getBackendFromIndex(backendIndex);
 
@@ -43,44 +33,36 @@ TEST_CASE("Arithmetic ops behave identically on all backends", "[tensor][arith][
         Tensor mul = a * b;
 
         for (size_t i = 0; i < 5; i++) {
-            REQUIRE(add[i] == Tensor(5.5f));
-            REQUIRE(sub[i] == Tensor(2.5f));
-            REQUIRE(mul[i] == Tensor(6.0f));
+            REQUIRE(add[i] == Tensor(5.5f, backend));
+            REQUIRE(sub[i] == Tensor(2.5f, backend));
+            REQUIRE(mul[i] == Tensor(6.0f, backend));
         }
     }
 }
 
 TEST_CASE("Scalar broadcasting works on all backends", "[tensor][arith][broadcast]") {
-    auto backendIndex = GENERATE(0
-#ifdef NFORGE_ENABLE_CUDA
-        , 1
-#endif
-    );
+    auto backendIndex = GENERATE(0, 1);
 
     Backend backend = getBackendFromIndex(backendIndex);
 
     DYNAMIC_SECTION("Backend = " << backendName(backend)) {
         Tensor a({4}, 2.0f, backend);
-        Tensor s(3.0f);
+        Tensor s(3.0f, backend);
 
         Tensor x = a + s;
         Tensor y = s + a;
         Tensor z = a * s;
 
         for (size_t i = 0; i < 4; i++) {
-            REQUIRE(x[i] == Tensor(5.0f));
-            REQUIRE(y[i] == Tensor(5.0f));
-            REQUIRE(z[i] == Tensor(6.0f));
+            REQUIRE(x[i] == Tensor(5.0f, backend));
+            REQUIRE(y[i] == Tensor(5.0f, backend));
+            REQUIRE(z[i] == Tensor(6.0f, backend));
         }
     }
 }
 
 TEST_CASE("2D arithmetic consistency across backends", "[tensor][arith][2d]") {
-    auto backendIndex = GENERATE(0
-#ifdef NFORGE_ENABLE_CUDA
-        , 1
-#endif
-    );
+    auto backendIndex = GENERATE(0, 1);
 
     Backend backend = getBackendFromIndex(backendIndex);
 
@@ -100,10 +82,9 @@ TEST_CASE("2D arithmetic consistency across backends", "[tensor][arith][2d]") {
 
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                REQUIRE(C[i][j] == Tensor(2.5f));
-                REQUIRE(D[i][j] == Tensor(1.0f));
+                REQUIRE(C[i][j] == Tensor(2.5f, backend));
+                REQUIRE(D[i][j] == Tensor(1.0f, backend));
             }
         }
     }
 }
-
