@@ -19,8 +19,7 @@ if(NFORGE_ENABLE_CUDA)
     enable_language(CUDA)
 
     list(APPEND NFORGE_SRC
-        src/backend/cuda/kernels/elementwise.cu
-        src/backend/cuda/kernels/fill.cu
+        src/backend/cuda/kernels/kernels.cu
         src/backend/cuda/tensor_impl_CUDA.cu
     )
 

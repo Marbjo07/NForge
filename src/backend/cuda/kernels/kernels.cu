@@ -41,3 +41,15 @@ __global__ void divScalarKernel(const float* __restrict__ lhs, const float* __re
     unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < count) out[i] = lhs[i] / scalar[0];
 }
+
+
+__global__ void fillKernel(float* __restrict__ data, float value, unsigned int count) {
+    unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < count) data[i] = value;
+}
+
+
+__global__ void checkAllEqualKernel(const float* __restrict__ lhs, const float* __restrict__ rhs, int* isEqualFlag, unsigned int count) {
+    unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < count && lhs[i] != rhs[i]) *isEqualFlag = 0;
+}

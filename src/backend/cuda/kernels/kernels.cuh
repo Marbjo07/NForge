@@ -13,4 +13,6 @@ __global__ void divScalarKernel(const float* __restrict__ lhs, const float* __re
 
 __global__ void fillKernel(float* __restrict__ data, float value, unsigned int count);
 
+__global__ void checkAllEqualKernel(const float* __restrict__ lhs, const float* __restrict__ rhs, int* isEqualFlag, unsigned int count);
+
 #endif // KERNELS_CUH

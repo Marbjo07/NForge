@@ -105,8 +105,31 @@ void Tensor::CUDAImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhs
 
 // Comparisons
 bool Tensor::CUDAImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return true;
+    const Tensor::CUDAImpl* o = cast(rhs);
+
+    // init equal flag
+    int h_equalFlag = 1; 
+    int* d_equalFlag;
+    cudaMalloc(&d_equalFlag, sizeof(int));
+    cudaMemcpy(d_equalFlag, &h_equalFlag, 1, cudaMemcpyHostToDevice);
+
+    // get all data pointers
+    const float* lhsDataPtr = dataPtr() + lhsOffset;
+    const float* rhsDataPtr = o->dataPtr() + rhsOffset;
+
+    // launch kernel
+    int threads = 256;
+    int blocks = (count + threads - 1) / threads;
+    checkAllEqualKernel<<<blocks, threads>>>(lhsDataPtr, rhsDataPtr, d_equalFlag, count);
+    CUDA_CHECK(cudaGetLastError());
+
+
+    // copy flag from device
+    cudaMemcpy(&h_equalFlag, d_equalFlag, 1, cudaMemcpyDeviceToHost);
+
+    return h_equalFlag;
 }
+
 
 
 template<typename Kernel>
