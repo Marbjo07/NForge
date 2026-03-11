@@ -30,7 +30,7 @@ Tensor::CUDAImpl::~CUDAImpl() {
 void Tensor::CUDAImpl::fillAll(float value) {
     int threads = 256;
     int blocks  = max(1, ((int)m_shape.getNumElements() + threads - 1) / threads);
-    fillKernel<<<blocks, threads>>>(d_data, value, (unsigned int)m_shape.getNumElements());
+    fillKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(d_data, value, (unsigned int)m_shape.getNumElements());
 }
 
 void Tensor::CUDAImpl::fillRand() {
@@ -120,7 +120,7 @@ bool Tensor::CUDAImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t
     // launch kernel
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
-    checkAllEqualKernel<<<blocks, threads>>>(lhsDataPtr, rhsDataPtr, d_equalFlag, count);
+    checkAllEqualKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhsDataPtr, rhsDataPtr, d_equalFlag, count);
     CUDA_CHECK(cudaGetLastError());
 
 
@@ -147,7 +147,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyKernel(size_t lhsOffset, co
     // launch kernel
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
-    kernel<<<blocks, threads>>>(lhsDataPtr, rhsDataPtr, resultsDataPtr, count);
+    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhsDataPtr, rhsDataPtr, resultsDataPtr, count);
     CUDA_CHECK(cudaGetLastError());
 
     return std::unique_ptr<Tensor::Impl>(results);
@@ -171,19 +171,19 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(size_t lhsOffset, const Tens
 
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::addScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, addKernel);
+    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, addScalarKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::subScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, subKernel);
+    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, subScalarKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mulScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, mulKernel);
+    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, mulScalarKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::divScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, divKernel);
+    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, divScalarKernel);
 }
 
 const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {

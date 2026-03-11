@@ -21,7 +21,6 @@ __global__ void divKernel(const float* __restrict__ lhs, const float* __restrict
 }
 
 
-// Scalar ops
 __global__ void addScalarKernel(const float* __restrict__ lhs, const float* __restrict__ scalar, float* __restrict__ out, unsigned int count) {
     unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < count) out[i] = lhs[i] + scalar[0];
