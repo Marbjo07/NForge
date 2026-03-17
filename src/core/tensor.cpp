@@ -1,8 +1,9 @@
 #include "nforge/core/tensor.h"
-
-#include "nforge/backend/cpu/tensor_impl_CPU.h"
-#include "nforge/backend/cuda/tensor_impl_CUDA.h"
 #include "nforge/core/tensor_view.h"
+
+#include "backend/cpu/tensor_impl_CPU.h"
+#include "backend/cuda/tensor_impl_CUDA.h"
+
 #include "ops/semantic/semantic.h"
 
 Tensor::Tensor(const Tensor::Shape& shape, Backend backend)
