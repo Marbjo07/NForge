@@ -39,7 +39,6 @@ if(NFORGE_ENABLE_CUDA)
     target_link_libraries(NForge PUBLIC CUDA::cudart CUDA::curand)
 
     set_property(TARGET NForge PROPERTY CUDA_ARCHITECTURES native)
-
 endif()
 
 

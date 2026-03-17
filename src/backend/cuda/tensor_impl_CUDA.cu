@@ -1,4 +1,4 @@
-#include "nforge/backend/cuda/tensor_impl_CUDA.h"
+#include "tensor_impl_CUDA.h"
 
 #include <algorithm>
 #include <random>
