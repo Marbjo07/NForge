@@ -16,6 +16,18 @@ From the `NForge` root directory:
 mkdir build
 cd build
 cmake ..
+cmake --build .
+```
+
+## Building with CUDA support
+
+Using CMake, you can enable CUDA support by passing the `-DNFORGE_ENABLE_CUDA=on` flag when configuring the build. Ensure you have the CUDA toolkit installed and set up properly. Highly recommended to use MSbuild if building with CUDA.
+
+```bash
+mkdir build
+cd build
+cmake .. -DNFORGE_ENABLE_CUDA=on
+cmake --build .
 ```
 
 ## Example

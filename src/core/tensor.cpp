@@ -1,6 +1,7 @@
 #include "nforge/core/tensor.h"
 
 #include "nforge/backend/cpu/tensor_impl_CPU.h"
+#include "nforge/backend/cuda/tensor_impl_CUDA.h"
 #include "nforge/core/tensor_view.h"
 #include "ops/semantic/semantic.h"
 
@@ -8,9 +9,11 @@ Tensor::Tensor(const Tensor::Shape& shape, Backend backend)
     : m_backend(backend) {
     if (backend == Backend::CPU) {
         m_impl = std::make_unique<Tensor::CPUImpl>(shape);
-    } else {
-        // TODO: should assert to false, but it's currently necessary to
-        // have a valid non-cpu tensor in testing
+    } 
+    else if (backend == Backend::CUDA) {
+        m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
+    } 
+    else {
         std::cout << "backend not implemented! defaulting to cpu\n";
         m_impl = std::make_unique<Tensor::CPUImpl>(shape);
     }
@@ -178,11 +181,11 @@ Tensor Tensor::operator-(const Tensor& rhs) const {
     return applyBinaryOp(rhs, "sub", &Tensor::Impl::sub, &Tensor::Impl::subScalar);
 }
 
-Tensor Tensor::operator/(const Tensor& rhs) const {
+Tensor Tensor::operator*(const Tensor& rhs) const {
     return applyBinaryOp(rhs, "mul", &Tensor::Impl::mul, &Tensor::Impl::mulScalar);
 }
 
-Tensor Tensor::operator*(const Tensor& rhs) const {
+Tensor Tensor::operator/(const Tensor& rhs) const {
     return applyBinaryOp(rhs, "div", &Tensor::Impl::div, &Tensor::Impl::divScalar);
 }
 
