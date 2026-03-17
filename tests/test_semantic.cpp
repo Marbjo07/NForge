@@ -4,7 +4,7 @@
 #include "nforge/core/tensor.h"
 #include "ops/semantic/semantic.h"
 
-TEST_CASE("Tensor vs Tensor", "[semantic]") {
+TEST_CASE("Tensor vs Tensor", "[Semantic]") {
     Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CPU);
 
     auto ctx = semantic::validateBinaryOperation(a, b);
@@ -14,7 +14,7 @@ TEST_CASE("Tensor vs Tensor", "[semantic]") {
     REQUIRE(ctx.count == 3);
 }
 
-TEST_CASE("Tensor view vs Tensor view", "[semantic]") {
+TEST_CASE("Tensor view vs Tensor view", "[Semantic]") {
     Tensor a({9, 8}, 4.0f, Backend::CPU), b({11, 8}, 4.0f, Backend::CPU);
 
     Tensor::View x = a[4];
@@ -27,7 +27,7 @@ TEST_CASE("Tensor view vs Tensor view", "[semantic]") {
     REQUIRE(ctx.count == 8);
 }
 
-TEST_CASE("Tensor vs View", "[semantic]") {
+TEST_CASE("Tensor vs View", "[Semantic]") {
     Tensor a({9,8}, 4.0f, Backend::CPU);
     Tensor b({8}, 1.0f, Backend::CPU);
 
@@ -41,7 +41,7 @@ TEST_CASE("Tensor vs View", "[semantic]") {
     REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Equal);
 }
 
-TEST_CASE("View vs Tensor", "[semantic]") {
+TEST_CASE("View vs Tensor", "[Semantic]") {
     Tensor a({9,8}, 4.0f, Backend::CPU);
     Tensor b({8}, 1.0f, Backend::CPU);
 
@@ -55,7 +55,7 @@ TEST_CASE("View vs Tensor", "[semantic]") {
     REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Equal);
 }
 
-TEST_CASE("Scalar vs Tensor shape", "[semantic]") {
+TEST_CASE("Scalar vs Tensor shape", "[Semantic]") {
     Tensor a({3,4}, 1.0f, Backend::CPU);
     Tensor b({1}, 2.0f, Backend::CPU);
 
@@ -67,7 +67,7 @@ TEST_CASE("Scalar vs Tensor shape", "[semantic]") {
     REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::ScalarRhs);
 }
 
-TEST_CASE("Scalar vs Tensor view", "[semantic]") {
+TEST_CASE("Scalar vs Tensor view", "[Semantic]") {
     Tensor a({1}, 2.0f, Backend::CPU);
     Tensor b({3, 8, 4}, 1.0f, Backend::CPU);
 
@@ -81,7 +81,7 @@ TEST_CASE("Scalar vs Tensor view", "[semantic]") {
     REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::ScalarLhs);
 }
 
-TEST_CASE("Flat vs Shaped returns EqualCount", "[semantic]") {
+TEST_CASE("Flat vs Shaped returns EqualCount", "[Semantic]") {
     Tensor a({12}, 1.0f, Backend::CPU);
     Tensor b({3,4}, 1.0f, Backend::CPU);
 
@@ -93,14 +93,14 @@ TEST_CASE("Flat vs Shaped returns EqualCount", "[semantic]") {
     REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::EqualCount);
 }
 
-TEST_CASE("Throw on tensor device mismatch", "[semantic]") {
+TEST_CASE("Throw on tensor device mismatch", "[Semantic]") {
     Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CUDA);
 
     REQUIRE_THROWS_AS(semantic::validateBinaryOperation(a, b), std::runtime_error);
     CHECK_THROWS_WITH(semantic::validateBinaryOperation(a, b), Catch::Matchers::ContainsSubstring("different devices"));
 }
 
-TEST_CASE("Throw on tensor view device mismatch", "[semantic]") {
+TEST_CASE("Throw on tensor view device mismatch", "[Semantic]") {
     Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CUDA);
 
     Tensor::View x = a[0];
@@ -110,7 +110,7 @@ TEST_CASE("Throw on tensor view device mismatch", "[semantic]") {
     CHECK_THROWS_WITH(semantic::validateBinaryOperation(x, y), Catch::Matchers::ContainsSubstring("different devices"));
 }
 
-TEST_CASE("Single element vs Tensor", "[semantic]") {
+TEST_CASE("Single element vs Tensor", "[Semantic]") {
     Tensor a({1, 1}, 1.0f, Backend::CPU);
     Tensor b({3,4}, 1.0f, Backend::CPU);
 
