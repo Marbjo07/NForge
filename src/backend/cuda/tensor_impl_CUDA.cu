@@ -34,7 +34,8 @@ void Tensor::CUDAImpl::fillAll(float value) {
 }
 
 void Tensor::CUDAImpl::fillRand() {
-    std::cout << "not implemented\n";
+    size_t numElements = m_shape.getNumElements();
+    CURAND_CHECK(curandGenerateUniform(CudaContext::get().rng(), d_data, numElements));
 }
 
 void Tensor::CUDAImpl::print() const {
