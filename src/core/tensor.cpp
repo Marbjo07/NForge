@@ -5,14 +5,27 @@
 #include "nforge/core/tensor_view.h"
 #include "ops/semantic/semantic.h"
 
+#ifdef NFORGE_WITH_CUDA
+constexpr bool cudaEnabled = true;
+#else
+constexpr bool cudaEnabled = false;
+#endif
+
+
 Tensor::Tensor(const Tensor::Shape& shape, Backend backend)
     : m_backend(backend) {
     if (backend == Backend::CPU) {
         m_impl = std::make_unique<Tensor::CPUImpl>(shape);
     } 
     else if (backend == Backend::CUDA) {
-        m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
-    } 
+        if constexpr (!cudaEnabled) {
+            std::cout << "CUDA backend not built!";
+            m_impl = std::make_unique<Tensor::CPUImpl>(shape);
+        }
+        else {
+            m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
+        }
+    }
     else {
         std::cout << "backend not implemented! defaulting to cpu\n";
         m_impl = std::make_unique<Tensor::CPUImpl>(shape);

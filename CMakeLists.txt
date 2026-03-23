@@ -23,6 +23,8 @@ if(NFORGE_ENABLE_CUDA)
         src/backend/cuda/tensor_impl_CUDA.cu
     )
 
+    add_compile_definitions(NFORGE_WITH_CUDA)
+
     find_package(CUDAToolkit QUIET)
 endif()
 

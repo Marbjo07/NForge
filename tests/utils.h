@@ -3,7 +3,14 @@
 
 #include "nforge/core/tensor.h"
 
-static Backend backends[] = {Backend::CPU, Backend::CUDA};
+static constexpr Backend backends[] = {
+    Backend::CPU, 
+
+#ifdef NFORGE_WITH_CUDA
+    Backend::CUDA
+#endif
+
+};
 
 static std::string getBackendString(Backend backend) {
     switch (backend) {
