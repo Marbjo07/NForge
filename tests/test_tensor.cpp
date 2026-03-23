@@ -80,11 +80,11 @@ TEST_CASE("Tensor view copy and compare", "[Tensor]") {
 
         REQUIRE(a != c);
         REQUIRE(a[0] != c[0]);
-        REQUIRE(a[1] == c[1]);
+        REQUIRE(a[2] == c[1]);
 
         REQUIRE(c != a);
         REQUIRE(c[0] != a[0]);
-        REQUIRE(c[1] == a[1]);
+        REQUIRE(c[0] == a[2]);
 
 
         REQUIRE(a[1] == b);
