@@ -62,21 +62,50 @@ TEST_CASE("Compare tensor and tensor view", "[Tensor]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 9, 7}, 19.0f, backend);
-        Tensor b({9, 7}, 19.0f, backend);
+        Tensor b({9, 7}, 0.0f, backend);
 
         auto x = a[0];
         auto y = a[1];
 
-        REQUIRE(x == b);
+        REQUIRE(x != b);
         REQUIRE(x == y);
 
-        REQUIRE(b == x);
-        REQUIRE(b == y);
+        REQUIRE(b != x);
+        REQUIRE(b != y);
 
         REQUIRE(y == x);
-        REQUIRE(y == b);
+        REQUIRE(y != b);
     }
 }
+
+TEST_CASE("Tensor view copy and compare", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3, 9, 7}, 19.0f, backend);
+        Tensor b({9, 7}, 0.0f, backend);
+        Tensor c({3, 9, 7}, 19.0f, backend);
+
+        a[0] = b;
+        a[1] = b;
+
+        REQUIRE(a != c);
+        REQUIRE(a[0] != c[0]);
+        REQUIRE(a[1] == c[1]);
+
+        REQUIRE(c != a);
+        REQUIRE(c[0] != a[0]);
+        REQUIRE(c[1] == a[1]);
+
+
+        REQUIRE(a[1] == b);
+        REQUIRE(a[2] != b);
+
+        REQUIRE(b == a[1]);
+        REQUIRE(b != a[2]);
+    }
+}
+
 
 TEST_CASE("Add tensors", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
@@ -150,7 +179,7 @@ TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
             // Check number of elements
             REQUIRE(a.getNumElements() == rows * cols);
 
-            // Compare slices
+            // Compare views
             REQUIRE(a[0] == Tensor({cols}, val, backend));
             REQUIRE(a[0][0] == Tensor(val, backend));
             REQUIRE(a[0][0] != Tensor(val - 1, backend));
@@ -163,7 +192,7 @@ TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
     }
 }
 
-TEST_CASE("Tensor slice assign", "[Tensor]") {
+TEST_CASE("Tensor view assign", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -177,7 +206,7 @@ TEST_CASE("Tensor slice assign", "[Tensor]") {
             Tensor B({rows, cols}, backend);
             B.fillRand();
 
-            // Slice copy
+            // View copy
             for (size_t i = 0; i < rows; i++) {
                 A[i] = B[i];
             }
