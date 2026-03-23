@@ -100,7 +100,13 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::clone() const {
 
 // Assignments and indexing
 void Tensor::CUDAImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) {
-    std::cout << "not implemented\n";
+    const Tensor::CUDAImpl* o = cast(rhs);
+
+    float* lhsDataPtr = dataPtr() + lhsOffset;
+    float* rhsDataPtr = o->dataPtr() + rhsOffset;
+
+    cudaMemcpy(lhsDataPtr, rhsDataPtr, count * sizeof(float), cudaMemcpyDeviceToDevice);
+    CUDA_CHECK(cudaGetLastError());
 }
 
 // Comparisons
