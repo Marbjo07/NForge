@@ -34,7 +34,8 @@ void Tensor::CUDAImpl::fillAll(float value) {
 }
 
 void Tensor::CUDAImpl::fillRand() {
-    std::cout << "not implemented\n";
+    size_t numElements = m_shape.getNumElements();
+    CURAND_CHECK(curandGenerateUniform(CudaContext::get().rng(), d_data, numElements));
 }
 
 void Tensor::CUDAImpl::print() const {
@@ -100,7 +101,13 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::clone() const {
 
 // Assignments and indexing
 void Tensor::CUDAImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) {
-    std::cout << "not implemented\n";
+    const Tensor::CUDAImpl* o = cast(rhs);
+
+    float* lhsDataPtr = dataPtr() + lhsOffset;
+    float* rhsDataPtr = o->dataPtr() + rhsOffset;
+
+    cudaMemcpy(lhsDataPtr, rhsDataPtr, count * sizeof(float), cudaMemcpyDeviceToDevice);
+    CUDA_CHECK(cudaGetLastError());
 }
 
 // Comparisons

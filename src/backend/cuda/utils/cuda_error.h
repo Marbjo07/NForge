@@ -2,6 +2,7 @@
 #define CUDA_ERROR_H
 
 #include <cuda_runtime.h>
+#include <curand.h>
 
 #define CUDA_CHECK(call) \
     do { \
@@ -10,5 +11,33 @@
             throw std::runtime_error(std::string("CUDA error: ") \
                 + cudaGetErrorString(err) + " at " + __FILE__ + ":" + std::to_string(__LINE__)); \
     } while(0)
+
+#define CURAND_CHECK(call) \
+    do { \
+        curandStatus_t err = (call); \
+        if (err != CURAND_STATUS_SUCCESS) \
+            throw std::runtime_error(std::string("cuRAND error: ") \
+                + curandGetErrorString(err) + " at " + __FILE__ + ":" + std::to_string(__LINE__)); \
+    } while(0)
+
+
+inline const char* curandGetErrorString(curandStatus_t status) {
+    switch (status) {
+        case CURAND_STATUS_SUCCESS:                   return "CURAND_STATUS_SUCCESS";
+        case CURAND_STATUS_VERSION_MISMATCH:          return "CURAND_STATUS_VERSION_MISMATCH";
+        case CURAND_STATUS_NOT_INITIALIZED:           return "CURAND_STATUS_NOT_INITIALIZED";
+        case CURAND_STATUS_ALLOCATION_FAILED:         return "CURAND_STATUS_ALLOCATION_FAILED";
+        case CURAND_STATUS_TYPE_ERROR:                return "CURAND_STATUS_TYPE_ERROR";
+        case CURAND_STATUS_OUT_OF_RANGE:              return "CURAND_STATUS_OUT_OF_RANGE";
+        case CURAND_STATUS_LENGTH_NOT_MULTIPLE:       return "CURAND_STATUS_LENGTH_NOT_MULTIPLE";
+        case CURAND_STATUS_DOUBLE_PRECISION_REQUIRED: return "CURAND_STATUS_DOUBLE_PRECISION_REQUIRED";
+        case CURAND_STATUS_LAUNCH_FAILURE:            return "CURAND_STATUS_LAUNCH_FAILURE";
+        case CURAND_STATUS_PREEXISTING_FAILURE:       return "CURAND_STATUS_PREEXISTING_FAILURE";
+        case CURAND_STATUS_INITIALIZATION_FAILED:     return "CURAND_STATUS_INITIALIZATION_FAILED";
+        case CURAND_STATUS_ARCH_MISMATCH:             return "CURAND_STATUS_ARCH_MISMATCH";
+        case CURAND_STATUS_INTERNAL_ERROR:            return "CURAND_STATUS_INTERNAL_ERROR";
+        default:                                      return "CURAND_STATUS_UNKNOWN";
+    }
+}
 
 #endif // CUDA_ERROR_H
