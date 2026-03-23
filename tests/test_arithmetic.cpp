@@ -1,51 +1,36 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 #include "nforge/core/tensor.h"
+#include "utils.h"
 
-static Backend getBackendFromIndex(int i) {
-    switch (i) {
-        case 0: return Backend::CPU;
-        case 1: return Backend::CUDA;
-        default: return Backend::CPU;
-    }
-}
 
-static const char* backendName(Backend b) {
-    switch (b) {
-        case Backend::CPU:  return "CPU";
-        case Backend::CUDA: return "CUDA";
-        default: return "Unknown";
-    }
-}
+TEST_CASE("Arithmetic ops behave identically on all backends", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
 
-TEST_CASE("Arithmetic ops behave identically on all backends", "[tensor][arith][backend]") {
-    auto backendIndex = GENERATE(0, 1);
-
-    Backend backend = getBackendFromIndex(backendIndex);
-
-    DYNAMIC_SECTION("Backend = " << backendName(backend)) {
+    DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({5}, 4.0f, backend);
         Tensor b({5}, 1.5f, backend);
 
         Tensor add = a + b;
         Tensor sub = a - b;
         Tensor mul = a * b;
+        Tensor div = a / b;
 
         for (size_t i = 0; i < 5; i++) {
             REQUIRE(add[i] == Tensor(5.5f, backend));
             REQUIRE(sub[i] == Tensor(2.5f, backend));
             REQUIRE(mul[i] == Tensor(6.0f, backend));
+            REQUIRE(div[i] == Tensor(4.0f / 1.5f, backend));
         }
     }
 }
 
-TEST_CASE("Scalar broadcasting works on all backends", "[tensor][arith][broadcast]") {
-    auto backendIndex = GENERATE(0, 1);
+TEST_CASE("Scalar broadcasting works on all backends", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
 
-    Backend backend = getBackendFromIndex(backendIndex);
-
-    DYNAMIC_SECTION("Backend = " << backendName(backend)) {
+    DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4}, 2.0f, backend);
         Tensor s(3.0f, backend);
 
@@ -61,16 +46,14 @@ TEST_CASE("Scalar broadcasting works on all backends", "[tensor][arith][broadcas
     }
 }
 
-TEST_CASE("2D arithmetic consistency across backends", "[tensor][arith][2d]") {
-    auto backendIndex = GENERATE(0, 1);
-
-    Backend backend = getBackendFromIndex(backendIndex);
+TEST_CASE("2D arithmetic consistency across backends", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
 
     auto rows = GENERATE(1ull, 3ull, 7ull);
     auto cols = GENERATE(1ull, 5ull, 11ull);
 
     DYNAMIC_SECTION(
-        "Backend=" << backendName(backend)
+        "Backend=" << getBackendString(backend)
         << " rows=" << rows
         << " cols=" << cols
     ) {

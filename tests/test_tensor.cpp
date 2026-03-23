@@ -3,19 +3,8 @@
 #include <catch2/generators/catch_generators_range.hpp>
 
 #include "nforge/core/tensor.h"
+#include "utils.h"
 
-static constexpr Backend backends[] = {Backend::CPU, Backend::CUDA};
-
-std::string getBackendString(Backend backend) {
-    switch (backend) {
-        case Backend::CPU:
-            return "CPU";
-        case Backend::CUDA:
-            return "CUDA";
-        default:
-            return "UNKNOWN";
-    }
-}
 
 TEST_CASE("Create tensor", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
