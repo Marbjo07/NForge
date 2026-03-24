@@ -4,7 +4,7 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
     : m_parent(parent), m_position(index) {
 }
 
-Tensor::View::View(const Tensor& parent)
+Tensor::View::View(Tensor& parent)
     : m_parent((Tensor&)parent), m_position({}) {
 }
 
@@ -46,13 +46,13 @@ Tensor::Shape Tensor::View::getShape() const {
 Tensor Tensor::View::copy() const {
     auto shape = getShape();
     auto backend = getParent().getBackend();
-    Tensor copy(shape, backend);
+    Tensor result(shape, backend);
 
     // set the whole tensor
     std::vector<size_t> position = {};
-    copy.set(position, *this);
+    result.set(position, *this);
 
-    return copy;
+    return result;
 } 
 
 

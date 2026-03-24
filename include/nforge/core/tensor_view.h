@@ -6,7 +6,13 @@
 class Tensor::View {
    public:
     View(Tensor& parent, const std::vector<size_t>& index);
+    View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride);
+    View(Tensor& parent);
+
+    // implicit casting
     View(const Tensor& parent);
+
+    static Tensor::View broadcast(Tensor& source, const Tensor::Shape& shape);
 
     void print() const;
 
@@ -21,6 +27,8 @@ class Tensor::View {
 
     // shape of the view
     Tensor::Shape getShape() const;
+
+    std::vector<size_t> getStride() const;
 
     // creates a copy of the viewed tensor
     Tensor copy() const;

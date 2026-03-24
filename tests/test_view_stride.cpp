@@ -14,6 +14,7 @@ TEST_CASE("View shape with stride", "[View][Stride]") {
         Tensor::View b(a, {}, {1, 2, 3, 6});
 
         REQUIRE(b.getShape() == Tensor::Shape({3 / 1, 6 / 2, 6 / 3, 6 / 6}));
+        REQUIRE(b.getStride() == std::vector<size_t>({1, 2, 3, 6}));
     }
 }
 
@@ -196,7 +197,7 @@ TEST_CASE("Deeper position with stride", "[View][Stride]") {
 }
 
 // ---------------------------------------------------------------------------
-// Broadcast factory and isBroadcasted
+// Broadcast factory
 // ---------------------------------------------------------------------------
 
 TEST_CASE("Broadcast factory creates zero-strided view", "[View][Stride]") {
@@ -207,19 +208,7 @@ TEST_CASE("Broadcast factory creates zero-strided view", "[View][Stride]") {
         Tensor::View bcast = Tensor::View::broadcast(scalar, {3, 5});
 
         REQUIRE(bcast.getShape() == Tensor::Shape({3, 5}));
-        REQUIRE(bcast.isBroadcasted() == true);
-        REQUIRE(bcast.getStrides() == std::vector<size_t>{0, 0});
-    }
-}
-
-TEST_CASE("Non-broadcast view reports isBroadcasted false", "[View][Stride]") {
-    auto backend = GENERATE(from_range(backends));
-
-    DYNAMIC_SECTION(getBackendString(backend)) {
-        Tensor a({3, 4}, 1.0f, backend);
-        Tensor::View v(a, {});
-
-        REQUIRE(v.isBroadcasted() == false);
+        REQUIRE(bcast.getStride() == std::vector<size_t>{0, 0});
     }
 }
 
