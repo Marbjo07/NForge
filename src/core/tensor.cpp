@@ -203,6 +203,24 @@ Tensor Tensor::operator/(const Tensor& rhs) const {
     return applyBinaryOp(rhs, "div", &Tensor::Impl::div, &Tensor::Impl::divScalar);
 }
 
+
+Tensor Tensor::operator+(const Tensor::View& rhs) const {
+    return Tensor(1);
+}
+
+Tensor Tensor::operator-(const Tensor::View& rhs) const {
+    return Tensor(1);
+}
+
+Tensor Tensor::operator*(const Tensor::View& rhs) const {
+    return Tensor(1);
+}
+
+Tensor Tensor::operator/(const Tensor::View& rhs) const {
+    return Tensor(1);
+}
+
+
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});
     return results;

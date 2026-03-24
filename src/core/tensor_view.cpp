@@ -50,17 +50,45 @@ Tensor Tensor::View::copy() const {
 
     // set the whole tensor
     std::vector<size_t> position = {};
-
-    std::cout << "before set:\n";
-    copy.print();
-
     copy.set(position, *this);
-
-    std::cout << "after set:\n";
-    copy.print();
 
     return copy;
 } 
+
+
+Tensor Tensor::View::operator+(const Tensor& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator-(const Tensor& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator*(const Tensor& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator/(const Tensor& rhs) const {
+    return Tensor({1});
+}
+
+
+Tensor Tensor::View::operator+(const Tensor::View& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator-(const Tensor::View& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator*(const Tensor::View& rhs) const {
+    return Tensor({1});
+}
+
+Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
+    return Tensor({1});
+}
+
 
 Tensor Tensor::View::operator=(const Tensor& lhs) {
     m_parent.set(m_position, lhs);
