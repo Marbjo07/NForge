@@ -2,7 +2,7 @@
 // Tests for: Tensor and Tensor View arithmetic operations
 //
 // Covers:
-//   1. TensorView::copy() — converting a view back to an owned Tensor
+//   1. TensorView::copy() - converting a view back to an owned Tensor
 //   2. TensorView <op> TensorView arithmetic
 //   3. Tensor <op> TensorView  and  TensorView <op> Tensor arithmetic
 // =============================================================================
@@ -25,6 +25,9 @@ TEST_CASE("TensorView copy produces an independent Tensor", "[TensorView][Copy]"
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor src({3, 4}, 7.0f, backend);
+
+        std::cout << "src:\n";
+        src.print();
         auto   view = src[1];              // view of row-1 (4 elements)
         Tensor copy = view.copy();
 
@@ -38,7 +41,7 @@ TEST_CASE("TensorView copy produces an independent Tensor", "[TensorView][Copy]"
     }
 }
 
-TEST_CASE("TensorView copy is a deep copy — mutations are independent", "[TensorView][Copy]") {
+TEST_CASE("TensorView copy is a deep copy", "[TensorView][Copy]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -46,7 +49,7 @@ TEST_CASE("TensorView copy is a deep copy — mutations are independent", "[Tens
         auto   view = src[0];             // scalar view
         Tensor copy = view.copy();
 
-        // Mutate the source — copy must be unaffected
+        // Mutate the source and copy must be unaffected
         src = Tensor({4}, 99.0f, backend);
         REQUIRE(copy == Tensor(1.0f, backend));
     }
@@ -409,7 +412,7 @@ TEST_CASE("Arithmetic result does not alias the source view", "[TensorView][Arit
 
         Tensor sum = A[0] + B[0]; // should be 3.0
 
-        // Mutate A — sum must stay 3.0
+        // Mutate A - sum must stay 3.0
         A = Tensor({2, 4}, 99.0f, backend);
 
         for (size_t j = 0; j < 4; j++) {
