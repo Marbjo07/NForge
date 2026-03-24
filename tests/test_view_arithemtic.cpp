@@ -26,8 +26,6 @@ TEST_CASE("TensorView copy produces an independent Tensor", "[TensorView][Copy]"
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor src({3, 4}, 7.0f, backend);
 
-        std::cout << "src:\n";
-        src.print();
         auto   view = src[1];              // view of row-1 (4 elements)
         Tensor copy = view.copy();
 
