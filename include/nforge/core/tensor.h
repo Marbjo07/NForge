@@ -77,6 +77,12 @@ class Tensor {
     Tensor operator*(const Tensor& other) const;
     Tensor operator/(const Tensor& other) const;
 
+    Tensor operator+(const Tensor::View& other) const;
+    Tensor operator-(const Tensor::View& other) const;
+    Tensor operator*(const Tensor::View& other) const;
+    Tensor operator/(const Tensor::View& other) const;
+
+    
     Tensor::View operator[](size_t idx) const;
 
     Tensor operator=(const Tensor& other);

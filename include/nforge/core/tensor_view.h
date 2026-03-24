@@ -22,6 +22,19 @@ class Tensor::View {
     // shape of the view
     Tensor::Shape getShape() const;
 
+    // creates a copy of the viewed tensor
+    Tensor copy() const;
+
+    Tensor operator+(const Tensor& rhs) const;
+    Tensor operator-(const Tensor& rhs) const;
+    Tensor operator*(const Tensor& rhs) const;
+    Tensor operator/(const Tensor& rhs) const;
+
+    Tensor operator+(const Tensor::View& rhs) const;
+    Tensor operator-(const Tensor::View& rhs) const;
+    Tensor operator*(const Tensor::View& rhs) const;
+    Tensor operator/(const Tensor::View& rhs) const;
+
     Tensor operator=(const Tensor& other);
     Tensor operator=(const Tensor::View& other);
     Tensor::View operator[](size_t idx) const;
