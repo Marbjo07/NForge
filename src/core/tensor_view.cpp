@@ -43,6 +43,61 @@ Tensor::Shape Tensor::View::getShape() const {
     return m_parent.getShape()[m_position];
 }
 
+Tensor Tensor::View::copy() const {
+    auto shape = getShape();
+    auto backend = getParent().getBackend();
+    Tensor copy(shape, backend);
+
+    // set the whole tensor
+    std::vector<size_t> position = {};
+    copy.set(position, *this);
+
+    return copy;
+} 
+
+
+Tensor Tensor::View::operator+(const Tensor& rhs) const {
+    Tensor current = copy();
+    return current + rhs;
+}
+
+Tensor Tensor::View::operator-(const Tensor& rhs) const {
+    Tensor current = copy();
+    return current - rhs;
+}
+
+Tensor Tensor::View::operator*(const Tensor& rhs) const {
+    Tensor current = copy();
+    return current * rhs;
+}
+
+Tensor Tensor::View::operator/(const Tensor& rhs) const {
+    Tensor current = copy();
+    return current / rhs;
+}
+
+
+Tensor Tensor::View::operator+(const Tensor::View& rhs) const {
+    Tensor current = copy();
+    return current + rhs;
+}
+
+Tensor Tensor::View::operator-(const Tensor::View& rhs) const {
+    Tensor current = copy();
+    return current - rhs;
+}
+
+Tensor Tensor::View::operator*(const Tensor::View& rhs) const {
+    Tensor current = copy();
+    return current * rhs;
+}
+
+Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
+    Tensor current = copy();
+    return current / rhs;
+}
+
+
 Tensor Tensor::View::operator=(const Tensor& lhs) {
     m_parent.set(m_position, lhs);
     return m_parent;

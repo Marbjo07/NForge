@@ -42,8 +42,8 @@ Tensor::Tensor(float value, Backend backend)
     : Tensor(Tensor::Shape({1}), value, backend) {
 }
 
-Tensor::Tensor(const Tensor& other)
-    : m_backend(other.m_backend), m_impl(other.m_impl->clone()) {
+Tensor::Tensor(const Tensor& rhs)
+    : m_backend(rhs.m_backend), m_impl(rhs.m_impl->clone()) {
 }
 
 Tensor::Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend)
@@ -163,21 +163,23 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
 }
 
 template <typename EqualOp, typename ScalarOp>
-Tensor Tensor::applyBinaryOp(const Tensor& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const {
+Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const {
     auto ctx = semantic::validateBinaryOperation(*this, rhs);
+
+    std::unique_ptr<Tensor::Impl>& rhsImpl = rhs.getParent().m_impl;
 
     std::unique_ptr<Tensor::Impl> results;
     switch (ctx.shapeMatch) {
         case semantic::ShapeMatch::Equal:
-            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, rhs.m_impl.get(), ctx.rhsOffset, ctx.count);
+            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, rhsImpl.get(), ctx.rhsOffset, ctx.count);
             break;
 
         case semantic::ShapeMatch::ScalarLhs:
-            results = (rhs.m_impl.get()->*scalarOp)(ctx.rhsOffset, m_impl.get(), ctx.count);
+            results = (rhsImpl.get()->*scalarOp)(ctx.rhsOffset, m_impl.get(), ctx.count);
             break;
 
         case semantic::ShapeMatch::ScalarRhs:
-            results = (m_impl.get()->*scalarOp)(ctx.lhsOffset, rhs.m_impl.get(), ctx.count);
+            results = (m_impl.get()->*scalarOp)(ctx.lhsOffset, rhsImpl.get(), ctx.count);
             break;
 
         default:
@@ -202,6 +204,24 @@ Tensor Tensor::operator*(const Tensor& rhs) const {
 Tensor Tensor::operator/(const Tensor& rhs) const {
     return applyBinaryOp(rhs, "div", &Tensor::Impl::div, &Tensor::Impl::divScalar);
 }
+
+
+Tensor Tensor::operator+(const Tensor::View& rhs) const {
+    return applyBinaryOp(rhs, "add", &Tensor::Impl::add, &Tensor::Impl::addScalar);
+}
+
+Tensor Tensor::operator-(const Tensor::View& rhs) const {
+    return applyBinaryOp(rhs, "sub", &Tensor::Impl::sub, &Tensor::Impl::subScalar);
+}
+
+Tensor Tensor::operator*(const Tensor::View& rhs) const {
+    return applyBinaryOp(rhs, "mul", &Tensor::Impl::mul, &Tensor::Impl::mulScalar);
+}
+
+Tensor Tensor::operator/(const Tensor::View& rhs) const {
+    return applyBinaryOp(rhs, "div", &Tensor::Impl::div, &Tensor::Impl::divScalar);
+}
+
 
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});
