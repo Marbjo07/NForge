@@ -98,7 +98,7 @@ class Tensor {
 
     // used in template for all the binary operations
     template <typename EqualOp, typename ScalarOp>
-    Tensor applyBinaryOp(const Tensor& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
+    Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
 };
 
 #include "backend/tensor_impl.h"
