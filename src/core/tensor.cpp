@@ -42,8 +42,8 @@ Tensor::Tensor(float value, Backend backend)
     : Tensor(Tensor::Shape({1}), value, backend) {
 }
 
-Tensor::Tensor(const Tensor& other)
-    : m_backend(other.m_backend), m_impl(other.m_impl->clone()) {
+Tensor::Tensor(const Tensor& rhs)
+    : m_backend(rhs.m_backend), m_impl(rhs.m_impl->clone()) {
 }
 
 Tensor::Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend)

@@ -61,36 +61,36 @@ class Tensor {
     std::vector<float> toVector() const;
 
     // Set the specified block to another tensor
-    void set(const std::vector<size_t>& position, const Tensor& other);
-    void set(const std::vector<size_t>& position, const Tensor::View& other);
+    void set(const std::vector<size_t>& position, const Tensor& rhs);
+    void set(const std::vector<size_t>& position, const Tensor::View& rhs);
 
-    bool compare(const Tensor& other) const;
-    bool compare(const Tensor::View& other) const;
+    bool compare(const Tensor& rhs) const;
+    bool compare(const Tensor::View& rhs) const;
 
     // Compare the specified block to another tensor
-    bool compare(const std::vector<size_t>& position, const Tensor& other) const;
-    bool compare(const std::vector<size_t>& position, const Tensor::View& other) const;
+    bool compare(const std::vector<size_t>& position, const Tensor& rhs) const;
+    bool compare(const std::vector<size_t>& position, const Tensor::View& rhs) const;
 
     // Overloaded operators
-    Tensor operator+(const Tensor& other) const;
-    Tensor operator-(const Tensor& other) const;
-    Tensor operator*(const Tensor& other) const;
-    Tensor operator/(const Tensor& other) const;
+    Tensor operator+(const Tensor& rhs) const;
+    Tensor operator-(const Tensor& rhs) const;
+    Tensor operator*(const Tensor& rhs) const;
+    Tensor operator/(const Tensor& rhs) const;
 
-    Tensor operator+(const Tensor::View& other) const;
-    Tensor operator-(const Tensor::View& other) const;
-    Tensor operator*(const Tensor::View& other) const;
-    Tensor operator/(const Tensor::View& other) const;
+    Tensor operator+(const Tensor::View& rhs) const;
+    Tensor operator-(const Tensor::View& rhs) const;
+    Tensor operator*(const Tensor::View& rhs) const;
+    Tensor operator/(const Tensor::View& rhs) const;
 
     
     Tensor::View operator[](size_t idx) const;
 
-    Tensor operator=(const Tensor& other);
+    Tensor operator=(const Tensor& rhs);
 
-    bool operator==(const Tensor& other) const;
-    bool operator==(const Tensor::View& other) const;
-    bool operator!=(const Tensor& other) const;
-    bool operator!=(const Tensor::View& other) const;
+    bool operator==(const Tensor& rhs) const;
+    bool operator==(const Tensor::View& rhs) const;
+    bool operator!=(const Tensor& rhs) const;
+    bool operator!=(const Tensor::View& rhs) const;
 
    private:
     Backend m_backend;
