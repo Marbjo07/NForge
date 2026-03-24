@@ -57,36 +57,44 @@ Tensor Tensor::View::copy() const {
 
 
 Tensor Tensor::View::operator+(const Tensor& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current + rhs;
 }
 
 Tensor Tensor::View::operator-(const Tensor& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current - rhs;
 }
 
 Tensor Tensor::View::operator*(const Tensor& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current * rhs;
 }
 
 Tensor Tensor::View::operator/(const Tensor& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current / rhs;
 }
 
 
 Tensor Tensor::View::operator+(const Tensor::View& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current + rhs;
 }
 
 Tensor Tensor::View::operator-(const Tensor::View& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current - rhs;
 }
 
 Tensor Tensor::View::operator*(const Tensor::View& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current * rhs;
 }
 
 Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
-    return Tensor({1});
+    Tensor current = copy();
+    return current / rhs;
 }
 
 
