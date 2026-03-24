@@ -53,8 +53,15 @@ size_t Tensor::Shape::getNumElements() const {
         return 0;
     }
 
-    return std::accumulate(m_dimensions.begin(), m_dimensions.end(),
+
+
+    size_t ac = std::accumulate(m_dimensions.begin(), m_dimensions.end(),
                            size_t(1), std::multiplies<size_t>());
+    
+    if (ac < 0) {
+        throw std::runtime_error("faakkk");
+    }
+    return ac;
 }
 
 size_t Tensor::Shape::getDim(size_t idx) const {

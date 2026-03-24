@@ -2,6 +2,7 @@
 #define TENSOR_VIEW_H
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_shape.h"
 
 class Tensor::View {
    public:
@@ -43,19 +44,20 @@ class Tensor::View {
     Tensor operator*(const Tensor::View& rhs) const;
     Tensor operator/(const Tensor::View& rhs) const;
 
-    Tensor operator=(const Tensor& other);
-    Tensor operator=(const Tensor::View& other);
+    Tensor operator=(const Tensor& rhs);
+    Tensor operator=(const Tensor::View& rhs);
     Tensor::View operator[](size_t idx) const;
 
-    bool operator==(const Tensor& other) const;
-    bool operator==(const Tensor::View& other) const;
+    bool operator==(const Tensor& rhs) const;
+    bool operator==(const Tensor::View& rhs) const;
 
-    bool operator!=(const Tensor& other) const;
-    bool operator!=(const Tensor::View& other) const;
+    bool operator!=(const Tensor& rhs) const;
+    bool operator!=(const Tensor::View& rhs) const;
 
    private:
     Tensor& m_parent;
-    std::vector<size_t> m_position;
+    std::vector<size_t> m_position, m_stride;
+    Tensor::Shape m_shape;
 };
 
 #endif  // TENSOR_VIEW_H

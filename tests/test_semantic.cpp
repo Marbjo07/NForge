@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
-#include "nforge/core/tensor.h"
+#include "nforge/nforge.h"
 #include "ops/semantic/semantic.h"
 
 TEST_CASE("Tensor vs Tensor", "[Semantic]") {

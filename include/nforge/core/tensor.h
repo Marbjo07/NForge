@@ -101,8 +101,4 @@ class Tensor {
     Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
 };
 
-#include "backend/tensor_impl.h"
-#include "nforge/core/tensor_shape.h"
-#include "nforge/core/tensor_view.h"
-
 #endif  // TENSOR_H

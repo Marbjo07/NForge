@@ -2,7 +2,7 @@
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_range.hpp>
 
-#include "nforge/core/tensor.h"
+#include "nforge/nforge.h"
 #include "utils.h"
 
 

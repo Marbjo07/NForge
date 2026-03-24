@@ -2,7 +2,7 @@
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_range.hpp>
 
-#include "nforge/core/tensor_view.h"
+#include "nforge/nforge.h"
 #include "utils.h"
 
 
@@ -24,9 +24,19 @@ TEST_CASE("Extend stride to dimensions", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6, 6, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {2, 3, 6});
+        Tensor::View b(a, {}, {2, 3, 6, 1});
 
         REQUIRE(b.getShape() == Tensor::Shape({3 / 2, 6 / 3, 6 / 6, 6 / 1}));
+    }
+}
+
+TEST_CASE("Throw on stride and shape mismatch", "[View][Stride]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({1, 2, 3, 4}, 1.0f, backend);
+        
+        REQUIRE_THROWS(Tensor::View(a, {}, {1, 2, 3}));
     }
 }
 
