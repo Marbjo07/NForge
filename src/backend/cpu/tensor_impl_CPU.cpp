@@ -165,7 +165,7 @@ bool Tensor::CPUImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t 
 ///////////////////////////////////////////
 
 template <typename BinaryOp>
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyBinaryOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, BinaryOp binaryOp) const {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyBinaryOp(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count, BinaryOp binaryOp) const {
     Tensor::CPUImpl* results = new Tensor::CPUImpl(this->m_shape.toVector());
 
     const Tensor::CPUImpl* o = static_cast<const Tensor::CPUImpl*>(rhs);
@@ -174,33 +174,33 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyBinaryOp(size_t lhsOffset, c
     const float* b = o->dataPtr() + rhsOffset;
 
     for (size_t i = 0; i < count; i++) {
-        results->m_data[i] = binaryOp(a[i], b[i]);
+        results->m_data[i] = binaryOp(a[i * lhsStride], b[i * rhsStride]);
     }
 
     return std::unique_ptr<Tensor::Impl>(results);
 }
 
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyBinaryOp(lhsOffset, rhs, rhsOffset, count, [](float a, float b) {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const {
+    return applyBinaryOp(lhsOffset, lhsStride, rhs, rhsOffset, rhsStride, count, [](float a, float b) {
         return a + b;
     });
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyBinaryOp(lhsOffset, rhs, rhsOffset, count, [](float a, float b) {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const {
+    return applyBinaryOp(lhsOffset, lhsStride, rhs, rhsOffset, rhsStride, count, [](float a, float b) {
         return a - b;
     });
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyBinaryOp(lhsOffset, rhs, rhsOffset, count, [](float a, float b) {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const {
+    return applyBinaryOp(lhsOffset, lhsStride, rhs, rhsOffset, rhsStride, count, [](float a, float b) {
         return a * b;
     });
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyBinaryOp(lhsOffset, rhs, rhsOffset, count, [](float a, float b) {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const {
+    return applyBinaryOp(lhsOffset, lhsStride, rhs, rhsOffset, rhsStride, count, [](float a, float b) {
         return a / b;
     });
 }

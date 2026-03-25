@@ -171,15 +171,15 @@ Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName,
     std::unique_ptr<Tensor::Impl> results;
     switch (ctx.shapeMatch) {
         case semantic::ShapeMatch::Equal:
-            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, rhsImpl.get(), ctx.rhsOffset, ctx.count);
+            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, 1, rhsImpl.get(), ctx.rhsOffset, 1, ctx.count);
             break;
 
         case semantic::ShapeMatch::ScalarLhs:
-            results = (rhsImpl.get()->*scalarOp)(ctx.rhsOffset, m_impl.get(), ctx.count);
+            results = (rhsImpl.get()->*equalOp)(ctx.rhsOffset, 1, m_impl.get(), 0, 0, ctx.count);
             break;
 
         case semantic::ShapeMatch::ScalarRhs:
-            results = (m_impl.get()->*scalarOp)(ctx.lhsOffset, rhsImpl.get(), ctx.count);
+            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, 1, rhsImpl.get(), 0, 0, ctx.count);
             break;
 
         default:

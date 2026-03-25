@@ -175,7 +175,7 @@ TEST_CASE("Strided view with position offset", "[View][Stride]") {
         Tensor a({4, 8}, 1.0f, backend);
         Tensor::View b(a, {1}, {1, 4});
 
-        // positioned at row 1, stride {1, 4} on remaining {8} → shape {8/4} = {2}
+        // positioned at row 1, stride {1, 4} on remaining {8} => shape {8/4} = {2}
         REQUIRE(b.getShape() == Tensor::Shape({2}));
 
         b = Tensor({2}, 9.0f, backend);

@@ -36,10 +36,10 @@ class Tensor::CPUImpl : public Tensor::Impl {
     bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
 
     // Element wise binary tensor operations
-    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const override;
 
     // Element wise binary tensor-scalar operations
 	// Requires  rhs to be a scalar
@@ -56,9 +56,9 @@ class Tensor::CPUImpl : public Tensor::Impl {
     template <typename ScalarOp>
     std::unique_ptr<Tensor::Impl> applyBinaryScalarOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t count, ScalarOp scalarOp) const;
 
-    // res[i] = lhs[i] + rhs[i]
+    // res[i] = lhs[i * stride] + rhs[i * stride]
     template <typename BinaryOp>
-    std::unique_ptr<Tensor::Impl> applyBinaryOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, BinaryOp binaryOp) const;
+    std::unique_ptr<Tensor::Impl> applyBinaryOp(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count, BinaryOp binaryOp) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H
