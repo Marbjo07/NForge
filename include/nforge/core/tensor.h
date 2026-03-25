@@ -61,22 +61,14 @@ class Tensor {
     std::vector<float> toVector() const;
 
     // Set the specified block to another tensor
-    void set(const std::vector<size_t>& position, const Tensor& rhs);
     void set(const std::vector<size_t>& position, const Tensor::View& rhs);
 
-    bool compare(const Tensor& rhs) const;
     bool compare(const Tensor::View& rhs) const;
 
     // Compare the specified block to another tensor
-    bool compare(const std::vector<size_t>& position, const Tensor& rhs) const;
     bool compare(const std::vector<size_t>& position, const Tensor::View& rhs) const;
 
     // Overloaded operators
-    Tensor operator+(const Tensor& rhs) const;
-    Tensor operator-(const Tensor& rhs) const;
-    Tensor operator*(const Tensor& rhs) const;
-    Tensor operator/(const Tensor& rhs) const;
-
     Tensor operator+(const Tensor::View& rhs) const;
     Tensor operator-(const Tensor::View& rhs) const;
     Tensor operator*(const Tensor::View& rhs) const;
@@ -87,9 +79,7 @@ class Tensor {
 
     Tensor operator=(const Tensor& rhs);
 
-    bool operator==(const Tensor& rhs) const;
     bool operator==(const Tensor::View& rhs) const;
-    bool operator!=(const Tensor& rhs) const;
     bool operator!=(const Tensor::View& rhs) const;
 
    private:

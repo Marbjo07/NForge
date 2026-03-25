@@ -80,18 +80,6 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     return ctx;
 }
 
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs) {
-    return validateBinaryOperation(Tensor::View(lhs), Tensor::View(rhs));
-}
-
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor::View& rhs) {
-    return validateBinaryOperation(Tensor::View(lhs), rhs);
-}
-
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& rhs) {
-    return validateBinaryOperation(lhs, Tensor::View(rhs));
-}
-
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     ensureSameBackend(lhs.getParent(), rhs.getParent());
 

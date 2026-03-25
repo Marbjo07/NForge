@@ -29,9 +29,6 @@ struct BinaryOpContext {
 
 ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs);
 
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs);
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor::View& rhs);
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& rhs);
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
 
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs);
