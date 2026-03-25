@@ -13,7 +13,7 @@ TEST_CASE("View shape with stride", "[View][Stride]") {
         Tensor a({3, 6, 6, 6}, 1.0f, backend);
         Tensor::View b(a, {}, {1, 2, 3, 6});
 
-        REQUIRE(b.getShape() == Tensor::Shape({3 / 1, 6 / 2, 6 / 3, 6 / 6}));
+        REQUIRE(b.getShape() == Tensor::Shape({3, 3, 2, 1}));
         REQUIRE(b.getStride() == std::vector<size_t>({1, 2, 3, 6}));
     }
 }
@@ -24,9 +24,9 @@ TEST_CASE("Extend stride to dimensions", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6, 6, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {2, 3, 6, 1});
+        Tensor::View b(a, {}, {1, 3, 6, 1});
 
-        REQUIRE(b.getShape() == Tensor::Shape({3 / 2, 6 / 3, 6 / 6, 6 / 1}));
+        REQUIRE(b.getShape() == Tensor::Shape({3, 2, 1, 6}));
     }
 }
 

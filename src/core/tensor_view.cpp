@@ -5,28 +5,74 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
     m_shape = m_parent.getShape()[m_position];
 }
 
-Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride)
+Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride, const Tensor::Shape& shape)
     : m_parent(parent), m_position(index), m_stride(stride) {
         
     Tensor::Shape blockShape = m_parent.getShape()[m_position];
     
     if (m_stride.size() != blockShape.getNumDims()) {
-        throw std::runtime_error("Stride must have same number of dimensions as shape");
+        throw std::runtime_error("Stride must have same number of dimensions as indexed block");
+    }
+    if (m_stride.size() != shape.getNumDims()) {
+        throw std::runtime_error("Stride must have same number of dimensions as view shape");
     }
 
-    std::vector<size_t> shape(m_stride.size());
-   
-    for (size_t i = 0; i < m_stride.size(); i++) {
-        size_t parentDim = blockShape.getDim(i);
+    // only valid with a prefix of zeros
+    bool seenNonZero = false;
+    for (size_t s : m_stride) {
+        if (seenNonZero && s == 0) {
+            throw std::runtime_error("Zero stride only allowed as a prefix");
+        }
+        if (s != 0) seenNonZero = true;
+    }
 
-        if (m_stride[i] == 0) {
-            shape[i] = 1;
-        } else {
-            shape[i] = parentDim / m_stride[i];
+    // validate that the target shape is possible
+    for (size_t i = 0; i < m_stride.size(); i++) {
+        // the target can be anything 
+        if (m_stride[i] == 0) continue;
+
+
+        size_t blockDim = blockShape.getDim(i);
+        if (shape.getDim(i) != blockDim / m_stride[i]) {
+            throw std::runtime_error("Stride and block shape does not result in target shape");
         }
     }
 
-    m_shape = Tensor::Shape(shape);
+    m_shape = shape;
+}
+
+
+Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride)
+    : m_parent(parent), m_position(index), m_stride(stride) {
+        
+    Tensor::Shape blockShape = m_parent.getShape()[m_position];
+
+    if (m_stride.size() != blockShape.getNumDims()) {
+        throw std::runtime_error("Stride must have same number of dimensions as indexed block");
+    }
+
+    // can't contain any zeros
+    for (size_t s : m_stride) {
+        if (s == 0) {
+            throw std::runtime_error("Zero stride only allowed without specifying shape");
+        }
+    }
+
+    std::vector<size_t> dims(blockShape.getNumDims());
+
+    // validate that the target shape is possible
+    for (size_t i = 0; i < m_stride.size(); i++) {
+        size_t blockDim = blockShape.getDim(i);
+        if (blockDim % m_stride[i] != 0) {
+            throw std::runtime_error("Stride does not match block shape, dim index: " + 
+                std::to_string(i) + " block dim: " + std::to_string(blockDim) + " stride: " + std::to_string(m_stride[i]));
+        }
+
+        dims[i] = blockDim / m_stride[i];
+    }
+
+
+    m_shape = Tensor::Shape(dims);
 }
 
 Tensor::View::View(Tensor& parent)
@@ -55,7 +101,6 @@ Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& shape)
             srcShape.toString() + " to " + shape.toString());
     }
 
-
     // check if any dims are larger than target shape
     // the new dims are added at the front, the tensor is stacked
     size_t dimOffset = shape.getNumDims() - srcShape.getNumDims();
@@ -76,7 +121,7 @@ Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& shape)
     }
 
     
-    return Tensor::View(source, {}, stride);
+    return Tensor::View(source, {}, stride, shape);
 }
 
 

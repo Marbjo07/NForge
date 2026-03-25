@@ -8,6 +8,7 @@ class Tensor::View {
    public:
     View(Tensor& parent, const std::vector<size_t>& index);
     View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride);
+    View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride, const Tensor::Shape& shape);
     View(Tensor& parent);
 
     // implicit casting

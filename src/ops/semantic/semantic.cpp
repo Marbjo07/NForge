@@ -51,6 +51,17 @@ size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, Sha
     }
 }
 
+std::pair<size_t, size_t> computeStride(std::vector<size_t> lhs, std::vector<size_t> rhs) {
+    size_t lhsStride = 1;
+    for (auto e : lhs) lhsStride *= e;
+
+
+    size_t rhsStride = 1;
+    for (auto e : rhs) rhsStride *= e;
+
+    return {lhsStride, rhsStride};
+}
+
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     Tensor::Shape lhsShape = lhs.getShape();
     Tensor::Shape rhsShape = rhs.getShape();
@@ -60,6 +71,9 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     BinaryOpContext ctx;
     ctx.lhsOffset = lhs.getOffset();
     ctx.rhsOffset = rhs.getOffset();
+
+    std::tie(ctx.lhsStride, ctx.rhsStride) = computeStride(lhs.getStride(), rhs.getStride()); 
+
     ctx.shapeMatch = relation;
     ctx.count = getOperationCount(lhsShape, rhsShape, relation);
 
