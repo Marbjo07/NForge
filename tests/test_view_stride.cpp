@@ -139,6 +139,7 @@ TEST_CASE("Index into strided view", "[View][Stride]") {
 
         // b has shape {2, 2}, indexing row 1 should give a view of length 2
         Tensor::View row = b[1];
+
         REQUIRE(row.getShape() == Tensor::Shape({2}));
     }
 }
@@ -217,6 +218,9 @@ TEST_CASE("Broadcast factory creates zero-strided view", "[View][Stride]") {
         Tensor scalar(4.0f, backend);
         Tensor::View bcast = Tensor::View::broadcast(scalar, {3, 5});
 
+        std::cout << "broadcast shape: " << bcast.getShape().toString() << "\n";
+
+
         REQUIRE(bcast.getShape() == Tensor::Shape({3, 5}));
         REQUIRE(bcast.getStride() == std::vector<size_t>{0, 0});
     }
@@ -249,14 +253,11 @@ TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
         Tensor a({6}, 2.0f, backend);
         Tensor b({6}, 3.0f, backend);
         Tensor::View va(a, {}, {2});
-        Tensor::View vb(b, {}, {3});
+        Tensor::View vb(b, {}, {2});
 
-        // va shape {3}, vb shape {2} - only works if shapes match
-        // Use same stride so shapes align:
-        Tensor::View vb2(b, {}, {2});
-        Tensor result = va + vb2;
-
+        Tensor result = va + vb;
         REQUIRE(result.getShape() == Tensor::Shape({3}));
+        REQUIRE(result == Tensor({3}, 5.0f, backend));
 
         for (size_t i = 0; i < 3; i++) {
             REQUIRE(result[i] == Tensor(5.0f, backend));
@@ -264,7 +265,7 @@ TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
     }
 }
 
-TEST_CASE("Broadcast view + normal view (scalar broadcast)", "[View][Stride][Arithmetic]") {
+TEST_CASE("Broadcast view + normal view", "[View][Stride][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {

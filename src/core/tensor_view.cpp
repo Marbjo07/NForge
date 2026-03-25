@@ -1,23 +1,22 @@
 #include "nforge/core/tensor_view.h"
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& index)
-    : m_parent(parent), m_position(index), m_stride(index.size(), 1) {
+    : m_parent(parent), m_position(index) {
     m_shape = m_parent.getShape()[m_position];
+    m_stride.assign(m_shape.getNumDims(), 1);
 }
 
-Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride, const Tensor::Shape& shape)
+Tensor::View::View(Tensor& parent, const std::vector<size_t>& index,
+                   const std::vector<size_t>& stride, const Tensor::Shape& shape)
     : m_parent(parent), m_position(index), m_stride(stride) {
-        
+
     Tensor::Shape blockShape = m_parent.getShape()[m_position];
-    
-    if (m_stride.size() != blockShape.getNumDims()) {
-        throw std::runtime_error("Stride must have same number of dimensions as indexed block");
-    }
+
     if (m_stride.size() != shape.getNumDims()) {
         throw std::runtime_error("Stride must have same number of dimensions as view shape");
     }
 
-    // only valid with a prefix of zeros
+    // prefix-only zeros
     bool seenNonZero = false;
     for (size_t s : m_stride) {
         if (seenNonZero && s == 0) {
@@ -26,21 +25,44 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::
         if (s != 0) seenNonZero = true;
     }
 
-    // validate that the target shape is possible
-    for (size_t i = 0; i < m_stride.size(); i++) {
-        // the target can be anything 
-        if (m_stride[i] == 0) continue;
+    // count zero-prefix length
+    size_t prefixLen = 0;
+    for (size_t s : m_stride) {
+        if (s == 0) prefixLen++;
+        else break;
+    }
 
+    // the non-zero suffix must correspond to the block shape
+    size_t suffixLen = m_stride.size() - prefixLen;
+    if (suffixLen != blockShape.getNumDims()) {
+        throw std::runtime_error(
+            "Non-zero stride dimensions (" + std::to_string(suffixLen) +
+            ") must match block dimensions (" + std::to_string(blockShape.getNumDims()) + ")");
+    }
 
+    // validate suffix dims against block shape
+    for (size_t i = 0; i < suffixLen; i++) {
         size_t blockDim = blockShape.getDim(i);
-        if (shape.getDim(i) != blockDim / m_stride[i]) {
+        size_t s = m_stride[prefixLen + i];
+        size_t expected = blockDim / s;
+
+        if (blockDim % s != 0) {
+            throw std::runtime_error("Stride " + std::to_string(s) +
+                " does not evenly divide block dimension " + std::to_string(blockDim));
+        }
+        if (shape.getDim(prefixLen + i) != expected) {
             throw std::runtime_error("Stride and block shape does not result in target shape");
         }
     }
 
+    // zero-prefix dims: accept whatever the caller specified (no block dim to check against)
+
     m_shape = shape;
 }
 
+Tensor::View::View(Tensor& parent, const std::vector<size_t>& stride, const Tensor::Shape& shape, BroadcastTag)
+    : m_parent(parent), m_position({}), m_stride(stride), m_shape(shape) {
+}
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::vector<size_t>& stride)
     : m_parent(parent), m_position(index), m_stride(stride) {
@@ -48,7 +70,8 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& index, const std::
     Tensor::Shape blockShape = m_parent.getShape()[m_position];
 
     if (m_stride.size() != blockShape.getNumDims()) {
-        throw std::runtime_error("Stride must have same number of dimensions as indexed block");
+        throw std::runtime_error("Stride must have same number of dimensions as indexed block, stride: " + 
+         std::to_string(m_stride.size()) + " block: " + std::to_string(blockShape.getNumDims()));
     }
 
     // can't contain any zeros
@@ -93,35 +116,51 @@ Tensor::View::View(const Tensor& parent)
     m_stride.assign(numDims, 1);
 }
 
-Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& shape) {
+
+
+Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& targetShape) {
     Tensor::Shape srcShape = source.getShape();
 
-    if (srcShape.getNumDims() > shape.getNumDims()) {
-        throw std::runtime_error("Can't broadcast tensor with more dimensions than target!" + 
-            srcShape.toString() + " to " + shape.toString());
+    if (srcShape.getNumDims() > targetShape.getNumDims()) {
+        throw std::runtime_error("Can't broadcast tensor with more dimensions than target: " +
+            srcShape.toString() + " to " + targetShape.toString());
     }
 
-    // check if any dims are larger than target shape
-    // the new dims are added at the front, the tensor is stacked
-    size_t dimOffset = shape.getNumDims() - srcShape.getNumDims();
+    size_t dimOffset = targetShape.getNumDims() - srcShape.getNumDims();
 
-    std::vector<size_t> stride(shape.getNumDims(), 0);
-    
+    // prefix dims (new dims) get stride 0
+    std::vector<size_t> stride(targetShape.getNumDims(), 0);
+
+    // suffix dims: match with source
     for (size_t i = 0; i < srcShape.getNumDims(); i++) {
         size_t srcDim = srcShape.getDim(i);
-        size_t targetDim = shape.getDim(i + dimOffset);
+        size_t tgtDim = targetShape.getDim(i + dimOffset);
 
-        // check if broadcastable
-        if (targetDim % srcDim != 0) {
-            throw std::runtime_error("Can't broadcast tensor of shape" + srcShape.toString() +
-            " to tensor of shape " + shape.toString());
+        if (srcDim == tgtDim) {
+            stride[i + dimOffset] = 1;
+        } else if (srcDim == 1) {
+            // source dim is 1, broadcast to target dim
+            stride[i + dimOffset] = 0;
+        } else {
+            throw std::runtime_error("Can't broadcast shape " + srcShape.toString() +
+                " to " + targetShape.toString() + ": dimension " +
+                std::to_string(i) + " is " + std::to_string(srcDim) +
+                " but target is " + std::to_string(tgtDim));
         }
-
-        stride[i + dimOffset] = targetDim / srcDim;
     }
 
-    
-    return Tensor::View(source, {}, stride, shape);
+    // validate prefix-only zeros
+    bool seenNonZero = false;
+    for (size_t s : stride) {
+        if (seenNonZero && s == 0) {
+            throw std::runtime_error("Can't broadcast shape " + srcShape.toString() +
+                " to " + targetShape.toString() +
+                ": would require non-prefix zero strides");
+        }
+        if (s != 0) seenNonZero = true;
+    }
+
+    return Tensor::View(source, stride, targetShape, BroadcastTag{});
 }
 
 
@@ -233,7 +272,15 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
     std::vector<size_t> position = m_position;
     position.push_back(idx);
 
-    Tensor::View results(m_parent, position);
+    std::vector<size_t> stride;
+    for (size_t i = 1; i < m_stride.size(); i++) {
+        stride.push_back(m_stride[i]);
+    }
+
+    if (stride.empty()) stride.push_back(1);
+
+    // TODO: should get the 
+    Tensor::View results(m_parent, position, stride);
     return results;
 }
 

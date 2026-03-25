@@ -34,10 +34,10 @@ class Tensor::Impl {
     virtual bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const = 0;
 
     // Element wise binary tensor operations
-    virtual std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const = 0;
-    virtual std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const = 0;
-    virtual std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const = 0;
-    virtual std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, size_t lhsStride, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t count) const = 0;
+    virtual std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const = 0;
+    virtual std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const = 0;
+    virtual std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const = 0;
+    virtual std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const = 0;
 
     // Element wise binary tensor-scalar operations
     // Requires rhs to be a scalar

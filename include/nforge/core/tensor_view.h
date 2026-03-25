@@ -56,6 +56,11 @@ class Tensor::View {
     bool operator!=(const Tensor::View& rhs) const;
 
    private:
+    // resolves ambiguous overload with initializer list
+    struct BroadcastTag {};
+    // trusted, used by broadcast.
+    View(Tensor& parent, const std::vector<size_t>& stride, const Tensor::Shape& shape, BroadcastTag);
+    
     Tensor& m_parent;
     std::vector<size_t> m_position, m_stride;
     Tensor::Shape m_shape;

@@ -19,9 +19,11 @@ enum class ShapeMatch {
 struct BinaryOpContext {
     size_t lhsOffset = 0;
     size_t lhsStride = 1;
+    size_t lhsCount = 0;
 
     size_t rhsOffset = 0;
     size_t rhsStride = 1;
+    size_t rhsCount = 0;
     
     size_t count = 0;
     ShapeMatch shapeMatch = ShapeMatch::Incompatible;

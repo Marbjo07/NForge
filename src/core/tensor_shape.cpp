@@ -53,8 +53,6 @@ size_t Tensor::Shape::getNumElements() const {
         return 0;
     }
 
-
-
     size_t ac = std::accumulate(m_dimensions.begin(), m_dimensions.end(),
                            size_t(1), std::multiplies<size_t>());
     

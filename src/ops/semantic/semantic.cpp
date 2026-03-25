@@ -70,7 +70,10 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
 
     BinaryOpContext ctx;
     ctx.lhsOffset = lhs.getOffset();
+    ctx.lhsCount = lhs.getShape().getNumElements();
+
     ctx.rhsOffset = rhs.getOffset();
+    ctx.rhsCount = rhs.getShape().getNumElements();
 
     std::tie(ctx.lhsStride, ctx.rhsStride) = computeStride(lhs.getStride(), rhs.getStride()); 
 
