@@ -138,7 +138,7 @@ TEST_CASE("Broadcast scalar add", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4}, 2.0f, backend);
         Tensor s(3.0f, backend);
-
+        
         Tensor x = a + s;
         Tensor y = s + a;
 
