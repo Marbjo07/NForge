@@ -131,47 +131,30 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
     return m_impl->compare(ctx.lhsOffset, rhs.getParent().m_impl.get(), ctx.rhsOffset, ctx.count);
 }
 
-template <typename EqualOp, typename ScalarOp>
-Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const {
+template <typename Operation>
+Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName, Operation op) const {
     auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
     std::unique_ptr<Tensor::Impl>& rhsImpl = rhs.getParent().m_impl;
-
-    std::unique_ptr<Tensor::Impl> results;
-    switch (ctx.shapeMatch) {
-        case semantic::ShapeMatch::Equal:
-            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, 1, ctx.lhsCount, rhsImpl.get(), ctx.rhsOffset, ctx.rhsCount, 1, ctx.count);
-            break;
-
-        case semantic::ShapeMatch::ScalarLhs:
-            results = (rhsImpl.get()->*equalOp)(ctx.rhsOffset, 1, ctx.rhsCount, m_impl.get(), 0, 0, ctx.lhsCount, ctx.count);
-            break;
-
-        case semantic::ShapeMatch::ScalarRhs:
-            results = (m_impl.get()->*equalOp)(ctx.lhsOffset, 1, ctx.lhsCount, rhsImpl.get(), 0, 0, ctx.rhsCount, ctx.count);
-            break;
-
-        default:
-            throw std::runtime_error("Can't " + opName + " tensors of incompatible shapes " + getShape().toString() + " and " + rhs.getShape().toString());
-    }
+    std::unique_ptr<Tensor::Impl> results = (m_impl.get()->*op)(ctx.lhsOffset, 1, ctx.lhsCount, rhsImpl.get(), ctx.rhsOffset, ctx.rhsCount, 1, ctx.count);
 
     return Tensor(std::move(results), m_backend);
 }
 
 Tensor Tensor::operator+(const Tensor::View& rhs) const {
-    return applyBinaryOp(rhs, "add", &Tensor::Impl::add, &Tensor::Impl::addScalar);
+    return applyBinaryOp(rhs, "add", &Tensor::Impl::add);
 }
 
 Tensor Tensor::operator-(const Tensor::View& rhs) const {
-    return applyBinaryOp(rhs, "sub", &Tensor::Impl::sub, &Tensor::Impl::subScalar);
+    return applyBinaryOp(rhs, "sub", &Tensor::Impl::sub);
 }
 
 Tensor Tensor::operator*(const Tensor::View& rhs) const {
-    return applyBinaryOp(rhs, "mul", &Tensor::Impl::mul, &Tensor::Impl::mulScalar);
+    return applyBinaryOp(rhs, "mul", &Tensor::Impl::mul);
 }
 
 Tensor Tensor::operator/(const Tensor::View& rhs) const {
-    return applyBinaryOp(rhs, "div", &Tensor::Impl::div, &Tensor::Impl::divScalar);
+    return applyBinaryOp(rhs, "div", &Tensor::Impl::div);
 }
 
 

@@ -160,19 +160,19 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyKernel(size_t lhsOffset, co
     return std::unique_ptr<Tensor::Impl>(results);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::add(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const {
     return applyKernel(lhsOffset, rhs, rhsOffset, count, addKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sub(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const {
     return applyKernel(lhsOffset, rhs, rhsOffset, count, subKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mul(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const {
     return applyKernel(lhsOffset, rhs, rhsOffset, count, mulKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const {
     return applyKernel(lhsOffset, rhs, rhsOffset, count, divKernel);
 }
 
