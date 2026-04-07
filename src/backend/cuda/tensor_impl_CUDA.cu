@@ -176,23 +176,6 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(size_t lhsOffset, size_t lhs
     return applyKernel(lhsOffset, rhs, rhsOffset, count, divKernel);
 }
 
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::addScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, addScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::subScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, subScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mulScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, mulScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::divScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, divScalarKernel);
-}
-
 const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {
     return static_cast<const Tensor::CUDAImpl*>(p);
 }

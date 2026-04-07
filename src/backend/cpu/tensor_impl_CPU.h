@@ -3,6 +3,7 @@
 
 #include "../tensor_impl.h"
 #include "nforge/core/tensor_shape.h"
+#include "nforge/core/tensor_layout.h"
 
 class Tensor::CPUImpl : public Tensor::Impl {
    public:
@@ -36,22 +37,26 @@ class Tensor::CPUImpl : public Tensor::Impl {
     bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
 
     // Element wise binary tensor operations
-    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
+    
+    std::unique_ptr<Tensor::Impl> sub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
+    
+    std::unique_ptr<Tensor::Impl> mul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
 
+    
+    std::unique_ptr<Tensor::Impl> div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
    private:
     Tensor::Shape m_shape;
     std::vector<float> m_data;
-    
-    // res[i] = lhs[i] + scalar
-    template <typename ScalarOp>
-    std::unique_ptr<Tensor::Impl> applyBinaryScalarOp(size_t lhsOffset, const Tensor::Impl* rhs, size_t count, ScalarOp scalarOp) const;
 
-    // res[i] = lhs[i * stride] + rhs[i * stride]
+
     template <typename BinaryOp>
-    std::unique_ptr<Tensor::Impl> applyBinaryOp(size_t lhsOffset, size_t lhsStride, size_t lhsCount, const Tensor::Impl* rhs, size_t rhsOffset, size_t rhsStride, size_t rhsCount, size_t count, BinaryOp binaryOp) const;
+    std::unique_ptr<Tensor::Impl> applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                                const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H
