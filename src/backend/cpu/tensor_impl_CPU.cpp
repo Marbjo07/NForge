@@ -136,25 +136,35 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::clone() const {
     return std::make_unique<CPUImpl>(*this);
 }
 
-void Tensor::CPUImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) {
-    const Tensor::CPUImpl* o = static_cast<const Tensor::CPUImpl*>(rhs);
+void Tensor::CPUImpl::set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                          const TensorLayout& rhsLayout) {
+    
+    const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
 
-    float* a = dataPtr() + lhsOffset;
-    const float* b = o->dataPtr() + rhsOffset;
+    float*       a = dataPtr();
+    const float* b = rhs->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < lhsLayout.rank; d++) count *= lhsLayout.shape[d];
 
     for (size_t i = 0; i < count; i++) {
-        a[i] = b[i];
+        a[physicalOffset(i, lhsLayout)] = b[physicalOffset(i, rhsLayout)];
     }
 }
 
-bool Tensor::CPUImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    const Tensor::CPUImpl* o = static_cast<const Tensor::CPUImpl*>(rhs);
+bool Tensor::CPUImpl::compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                              const TensorLayout& rhsLayout) const {
 
-    const float* a = dataPtr() + lhsOffset;
-    const float* b = o->dataPtr() + rhsOffset;
+    const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
+
+    const float* a = dataPtr();
+    const float* b = rhs->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < lhsLayout.rank; d++) count *= lhsLayout.shape[d];
 
     for (size_t i = 0; i < count; i++) {
-        if (a[i] != b[i]) return false;
+        if (a[physicalOffset(i, lhsLayout)] != b[physicalOffset(i, rhsLayout)]) return false;
     }
 
     return true;
@@ -164,32 +174,24 @@ bool Tensor::CPUImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t 
 // Element wise binary tensor operations //
 ///////////////////////////////////////////
 
-static inline size_t physicalOffset(size_t linear, const TensorLayout& L) {
-    size_t off = L.offset;
-    for (int d = L.rank - 1; d >= 0; d--) {
-        size_t coord = linear % L.shape[d];
-        linear /= L.shape[d];
-        off += coord * L.strides[d];
-    }
-    return off;
-}
 
 template <typename BinaryOp>
-std::unique_ptr<Tensor::Impl> applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
-    const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const {
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                                             const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const {
 
-    auto* result = new Tensor::CPUImpl(out);
+    std::vector<size_t> outShape(outLayout.shape, outLayout.shape + outLayout.rank);
+    auto* result = new Tensor::CPUImpl(outShape);
     const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
 
-    const float* a = dataPtr() + lhsOffset;
-    const float* b = o->dataPtr() + rhsOffset;
-    float*       c = result->m_data;
+    const float* a = dataPtr();
+    const float* b = rhs->dataPtr();
+    auto&        c = result->m_data;
 
     size_t count = 1;
-    for (int d = 0; d < out.rank; d++) count *= out.shape[d];
+    for (size_t d = 0; d < outLayout.rank; d++) count *= outLayout.shape[d];
 
     for (size_t i = 0; i < count; i++) {
-        c[physicalOffset(i, out)] =
+        c[physicalOffset(i, outLayout)] =
             op(a[physicalOffset(i, lhsLayout)],
                b[physicalOffset(i, rhsLayout)]);
     }
@@ -197,32 +199,28 @@ std::unique_ptr<Tensor::Impl> applyBinaryOp(const TensorLayout& lhsLayout, const
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
-    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
-
+                                                   const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
     return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout, [](float a, float b) {
         return a + b;
     });
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
-    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
-        
+                                                   const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
     return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout, [](float a, float b) {
         return a - b;
     });
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::mul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
-    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
-        
+                                                   const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
     return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout, [](float a, float b) {
         return a * b;
     });
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
-    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
-        
+                                                   const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
     return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout, [](float a, float b) {
         return a / b;
     });

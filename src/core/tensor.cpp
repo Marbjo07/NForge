@@ -104,31 +104,35 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
     Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
     auto ctx = semantic::validateBinaryOperation(lhs, rhs);
-    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
-        throw std::runtime_error("Can't set position on tensors with shape mismatch, " + lhs.getShape().toString() + " and " + rhs.getShape().toString());
+
+    std::vector<size_t> outDims(ctx.out.shape, ctx.out.shape + ctx.out.rank);
+    auto outShape = Tensor::Shape(outDims);
+
+    if (outShape != lhs.getShape()) {
+        throw std::invalid_argument("set(): rhs shape does not broadcast to lhs shape");
     }
 
-    m_impl->set(ctx.lhsOffset, rhs.getParent().m_impl.get(), ctx.rhsOffset, ctx.count);
+    m_impl->set(ctx.lhs, rhs.getParent().m_impl.get(), ctx.rhs);
 }
 
 bool Tensor::compare(const Tensor::View& rhs) const {
-    auto ctx = semantic::validateBinaryOperation(*this, rhs);
-    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
+    if (this->getShape() != rhs.getShape()) {
         return false;
     }
 
-    return m_impl->compare(ctx.lhsOffset, rhs.getParent().m_impl.get(), ctx.rhsOffset, ctx.count);
+    auto ctx = semantic::validateBinaryOperation(*this, rhs);
+    return m_impl->compare(ctx.lhs, rhs.getParent().m_impl.get(), ctx.rhs);
 }
 
 bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rhs) const {
     Tensor::View lhs((Tensor&)*this, position);
 
-    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
-    if (ctx.shapeMatch != semantic::ShapeMatch::Equal) {
+    if (lhs.getShape() != rhs.getShape()) {
         return false;
     }
 
-    return m_impl->compare(ctx.lhsOffset, rhs.getParent().m_impl.get(), ctx.rhsOffset, ctx.count);
+    auto ctx = semantic::validateBinaryOperation(lhs, rhs);
+    return m_impl->compare(ctx.lhs, rhs.getParent().m_impl.get(), ctx.rhs);
 }
 
 template <typename BinaryOp>

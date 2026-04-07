@@ -9,9 +9,10 @@ TEST_CASE("Tensor vs Tensor", "[Semantic]") {
 
     auto ctx = semantic::validateBinaryOperation(a, b);
 
-    REQUIRE(ctx.lhsOffset == 0);
-    REQUIRE(ctx.rhsOffset == 0);
-    REQUIRE(ctx.count == 3);
+    REQUIRE(ctx.lhs.offset == 0);
+    REQUIRE(ctx.rhs.offset == 0);
+    REQUIRE(ctx.out.rank == 1);
+    REQUIRE(ctx.out.shape[0] == 3);
 }
 
 TEST_CASE("Tensor view vs Tensor view", "[Semantic]") {
@@ -22,49 +23,54 @@ TEST_CASE("Tensor view vs Tensor view", "[Semantic]") {
 
     auto ctx = semantic::validateBinaryOperation(x, y);
 
-    REQUIRE(ctx.lhsOffset == 8 * (4));
-    REQUIRE(ctx.rhsOffset == 8 * (9));
-    REQUIRE(ctx.count == 8);
+    REQUIRE(ctx.lhs.offset == 8 * 4);
+    REQUIRE(ctx.rhs.offset == 8 * 9);
+    REQUIRE(ctx.out.rank == 1);
+    REQUIRE(ctx.out.shape[0] == 8);
 }
 
 TEST_CASE("Tensor vs View", "[Semantic]") {
-    Tensor a({9,8}, 4.0f, Backend::CPU);
+    Tensor a({9, 8}, 4.0f, Backend::CPU);
     Tensor b({8}, 1.0f, Backend::CPU);
 
     Tensor::View v = a[4];
 
     auto ctx = semantic::validateBinaryOperation(b, v);
 
-    REQUIRE(ctx.lhsOffset == 0);
-    REQUIRE(ctx.rhsOffset == 8 * 4);
-    REQUIRE(ctx.count == 8);
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Equal);
+    REQUIRE(ctx.lhs.offset == 0);
+    REQUIRE(ctx.rhs.offset == 8 * 4);
+    REQUIRE(ctx.out.rank == 1);
+    REQUIRE(ctx.out.shape[0] == 8);
 }
 
 TEST_CASE("View vs Tensor", "[Semantic]") {
-    Tensor a({9,8}, 4.0f, Backend::CPU);
+    Tensor a({9, 8}, 4.0f, Backend::CPU);
     Tensor b({8}, 1.0f, Backend::CPU);
 
     Tensor::View v = a[6];
 
     auto ctx = semantic::validateBinaryOperation(v, b);
 
-    REQUIRE(ctx.lhsOffset == 8 * 6);
-    REQUIRE(ctx.rhsOffset == 0);
-    REQUIRE(ctx.count == 8);
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Equal);
+    REQUIRE(ctx.lhs.offset == 8 * 6);
+    REQUIRE(ctx.rhs.offset == 0);
+    REQUIRE(ctx.out.rank == 1);
+    REQUIRE(ctx.out.shape[0] == 8);
 }
 
 TEST_CASE("Scalar vs Tensor shape", "[Semantic]") {
-    Tensor a({3,4}, 1.0f, Backend::CPU);
+    Tensor a({3, 4}, 1.0f, Backend::CPU);
     Tensor b({1}, 2.0f, Backend::CPU);
 
     auto ctx = semantic::validateBinaryOperation(a, b);
 
-    REQUIRE(ctx.lhsOffset == 0);
-    REQUIRE(ctx.rhsOffset == 0);
-    REQUIRE(ctx.count == 12);
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::ScalarRhs);
+    REQUIRE(ctx.lhs.offset == 0);
+    REQUIRE(ctx.rhs.offset == 0);
+    REQUIRE(ctx.out.rank == 2);
+    REQUIRE(ctx.out.shape[0] == 3);
+    REQUIRE(ctx.out.shape[1] == 4);
+
+    REQUIRE(ctx.rhs.strides[0] == 0);
+    REQUIRE(ctx.rhs.strides[1] == 0);
 }
 
 TEST_CASE("Scalar vs Tensor view", "[Semantic]") {
@@ -75,32 +81,42 @@ TEST_CASE("Scalar vs Tensor view", "[Semantic]") {
 
     auto ctx = semantic::validateBinaryOperation(a, v);
 
-    REQUIRE(ctx.lhsOffset == 0);
-    REQUIRE(ctx.rhsOffset == 2 * 8 * 4);
-    REQUIRE(ctx.count == 8 * 4);
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::ScalarLhs);
+    REQUIRE(ctx.lhs.offset == 0);
+    REQUIRE(ctx.rhs.offset == 2 * 8 * 4);
+    REQUIRE(ctx.out.rank == 2);
+    REQUIRE(ctx.out.shape[0] == 8);
+    REQUIRE(ctx.out.shape[1] == 4);
+
+    REQUIRE(ctx.lhs.strides[0] == 0);
+    REQUIRE(ctx.lhs.strides[1] == 0);
 }
 
-TEST_CASE("Flat vs Shaped returns EqualCount", "[Semantic]") {
-    Tensor a({12}, 1.0f, Backend::CPU);
-    Tensor b({3,4}, 1.0f, Backend::CPU);
+TEST_CASE("Broadcast (3,1) and (1,4) -> (3,4)", "[Semantic]") {
+    Tensor a({3, 1}, 1.0f, Backend::CPU);
+    Tensor b({1, 4}, 1.0f, Backend::CPU);
 
     auto ctx = semantic::validateBinaryOperation(a, b);
 
-    REQUIRE(ctx.lhsOffset == 0);
-    REQUIRE(ctx.rhsOffset == 0);
-    REQUIRE(ctx.count == 12);    
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::EqualCount);
+    REQUIRE(ctx.out.rank == 2);
+    REQUIRE(ctx.out.shape[0] == 3);
+    REQUIRE(ctx.out.shape[1] == 4);
+
+    REQUIRE(ctx.lhs.strides[1] == 0);
+    REQUIRE(ctx.rhs.strides[0] == 0);
 }
 
-TEST_CASE("Single element vs Tensor", "[Semantic]") {
+TEST_CASE("Single element vs Tensor broadcasts", "[Semantic]") {
     Tensor a({1, 1}, 1.0f, Backend::CPU);
-    Tensor b({3,4}, 1.0f, Backend::CPU);
+    Tensor b({3, 4}, 1.0f, Backend::CPU);
 
     auto ctx = semantic::validateBinaryOperation(a, b);
 
-    REQUIRE(ctx.shapeMatch == semantic::ShapeMatch::Incompatible);
+    REQUIRE(ctx.out.shape[0] == 3);
+    REQUIRE(ctx.out.shape[1] == 4);
+    REQUIRE(ctx.lhs.strides[0] == 0);
+    REQUIRE(ctx.lhs.strides[1] == 0);
 }
+
 
 #ifdef NFORGE_WITH_CUDA
 TEST_CASE("Throw on tensor device mismatch", "[Semantic]") {

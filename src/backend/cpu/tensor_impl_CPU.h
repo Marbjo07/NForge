@@ -31,10 +31,12 @@ class Tensor::CPUImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> clone() const override;
 
     // Assignments and indexing
-    void set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) override;
+    void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+             const TensorLayout& rhsLayout) override;
 
-    // Comparisons
-    bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    // Block comparisons
+    bool compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                 const TensorLayout& rhsLayout) const override;
 
     // Element wise binary tensor operations
     std::unique_ptr<Tensor::Impl> add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
