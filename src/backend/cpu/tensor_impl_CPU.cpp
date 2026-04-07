@@ -179,7 +179,8 @@ template <typename BinaryOp>
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                                              const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const {
 
-    std::vector<size_t> outShape(outLayout.shape, outLayout.shape + outLayout.rank);
+    auto outShape = Tensor::Shape(outLayout);
+
     auto* result = new Tensor::CPUImpl(outShape);
     const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
 

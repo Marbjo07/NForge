@@ -105,8 +105,7 @@ void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
 
     auto ctx = semantic::validateBinaryOperation(lhs, rhs);
 
-    std::vector<size_t> outDims(ctx.out.shape, ctx.out.shape + ctx.out.rank);
-    auto outShape = Tensor::Shape(outDims);
+    auto outShape = Tensor::Shape(ctx.out);
 
     if (outShape != lhs.getShape()) {
         throw std::invalid_argument("set(): rhs shape does not broadcast to lhs shape");

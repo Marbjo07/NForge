@@ -50,6 +50,7 @@ TEST_CASE("Assign strided view", "[View][Stride]") {
 
         b = Tensor({3, 3}, 2.0f, backend);
 
+
         for (size_t i = 0; i < 3; i++) {
             for (size_t j = 0; j < 6; j++) {
                 if (j % 2 == 0) {

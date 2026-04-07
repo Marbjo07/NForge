@@ -16,6 +16,16 @@ Tensor::Shape::Shape(const std::initializer_list<size_t>& dims) : m_dimensions(d
     }
 }
 
+Tensor::Shape::Shape(const TensorLayout& layout) {
+    std::vector<size_t> dims(layout.shape.begin(), layout.shape.begin() + layout.rank);
+    
+    if (dims.size() == 0) {
+        dims.push_back(1);
+    }
+
+    m_dimensions = dims;
+}
+
 bool Tensor::Shape::operator==(const Shape& other) const {
     return this->withoutTrailingOnes() == other.withoutTrailingOnes();
 }

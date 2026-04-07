@@ -5,12 +5,14 @@
 #include <vector>
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_layout.h"
 
 class Tensor::Shape {
    public:
     Shape() = default;
     Shape(const std::vector<size_t>& dims);
     Shape(const std::initializer_list<size_t>& dims);
+    Shape(const TensorLayout& layout);
 
     bool operator==(const Tensor::Shape& other) const;
     bool operator!=(const Tensor::Shape& other) const;
