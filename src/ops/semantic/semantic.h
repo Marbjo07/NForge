@@ -4,32 +4,15 @@
 #include "nforge/core/tensor.h"
 #include "nforge/core/tensor_shape.h"
 #include "nforge/core/tensor_view.h"
+#include "nforge/core/tensor_layout.h"
 
 namespace semantic {
 
-// sorted by precedence, examples show shape array
-enum class ShapeMatch {
-    Equal,        // [2,3,4] vs [2,3,4]
-    ScalarLhs,    // [1] vs [2,3,4]
-    ScalarRhs,    // [2,3,4] vs [1]
-    EqualCount,   // [12] vs [3,4] (same total elements, different shape)
-    Incompatible  // no other match
-};
-
 struct BinaryOpContext {
-    size_t lhsOffset = 0;
-    size_t lhsStride = 1;
-    size_t lhsCount = 0;
-
-    size_t rhsOffset = 0;
-    size_t rhsStride = 1;
-    size_t rhsCount = 0;
-    
-    size_t count = 0;
-    ShapeMatch shapeMatch = ShapeMatch::Incompatible;
+    TensorLayout lhs;
+    TensorLayout rhs;
+    TensorLayout out;
 };
-
-ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs);
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
 

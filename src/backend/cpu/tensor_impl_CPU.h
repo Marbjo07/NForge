@@ -46,10 +46,10 @@ class Tensor::CPUImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> mul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                       const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
 
-    
     std::unique_ptr<Tensor::Impl> div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                       const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
-   private:
+
+  private:
     Tensor::Shape m_shape;
     std::vector<float> m_data;
 

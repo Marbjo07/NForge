@@ -131,14 +131,14 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
     return m_impl->compare(ctx.lhsOffset, rhs.getParent().m_impl.get(), ctx.rhsOffset, ctx.count);
 }
 
-template <typename Operation>
-Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName, Operation op) const {
+template <typename BinaryOp>
+Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const {
     auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
-    std::unique_ptr<Tensor::Impl>& rhsImpl = rhs.getParent().m_impl;
-    std::unique_ptr<Tensor::Impl> results = (m_impl.get()->*op)(ctx.lhsOffset, 1, ctx.lhsCount, rhsImpl.get(), ctx.rhsOffset, ctx.rhsCount, 1, ctx.count);
+    Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+    auto result = (m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs, ctx.out);
 
-    return Tensor(std::move(results), m_backend);
+    return Tensor(std::move(result), m_backend);
 }
 
 Tensor Tensor::operator+(const Tensor::View& rhs) const {

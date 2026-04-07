@@ -87,8 +87,8 @@ class Tensor {
     std::unique_ptr<Impl> m_impl;
 
     // used in template for all the binary operations
-    template <typename Operation>
-    Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, Operation op) const;
+    template <typename BinaryOp>
+    Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
 };
 
 #endif  // TENSOR_H
