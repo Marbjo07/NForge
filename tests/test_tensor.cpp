@@ -2,7 +2,7 @@
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_range.hpp>
 
-#include "nforge/core/tensor.h"
+#include "nforge/nforge.h"
 #include "utils.h"
 
 
@@ -138,7 +138,7 @@ TEST_CASE("Broadcast scalar add", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4}, 2.0f, backend);
         Tensor s(3.0f, backend);
-
+        
         Tensor x = a + s;
         Tensor y = s + a;
 

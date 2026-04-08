@@ -2,25 +2,25 @@
 // Tests for: Tensor and Tensor View arithmetic operations
 //
 // Covers:
-//   1. TensorView::copy() - converting a view back to an owned Tensor
-//   2. TensorView <op> TensorView arithmetic
-//   3. Tensor <op> TensorView  and  TensorView <op> Tensor arithmetic
+//   1. View::copy() - converting a view back to an owned Tensor
+//   2. View <op> View arithmetic
+//   3. Tensor <op> View  and  View <op> Tensor arithmetic
 // =============================================================================
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_range.hpp>
 
-#include "nforge/core/tensor.h"
+#include "nforge/nforge.h"
 
 #include "utils.h"
 
 
 // ---------------------------------------------------------------------------
-// 1. TensorView::copy()
+// 1. View::copy()
 // ---------------------------------------------------------------------------
 
-TEST_CASE("TensorView copy produces an independent Tensor", "[TensorView][Copy]") {
+TEST_CASE("View copy produces an independent Tensor", "[View]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -39,7 +39,7 @@ TEST_CASE("TensorView copy produces an independent Tensor", "[TensorView][Copy]"
     }
 }
 
-TEST_CASE("TensorView copy is a deep copy", "[TensorView][Copy]") {
+TEST_CASE("View copy is a deep copy", "[View]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -53,7 +53,7 @@ TEST_CASE("TensorView copy is a deep copy", "[TensorView][Copy]") {
     }
 }
 
-TEST_CASE("Copy of a 2D sub-view preserves values", "[TensorView][Copy]") {
+TEST_CASE("Copy of a 2D sub-view preserves values", "[View]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -69,10 +69,10 @@ TEST_CASE("Copy of a 2D sub-view preserves values", "[TensorView][Copy]") {
 }
 
 // ---------------------------------------------------------------------------
-// 2. TensorView + TensorView arithmetic
+// 2. View + View arithmetic
 // ---------------------------------------------------------------------------
 
-TEST_CASE("View + View addition", "[TensorView][Arithmetic]") {
+TEST_CASE("View + View addition", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -93,7 +93,7 @@ TEST_CASE("View + View addition", "[TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("View - View subtraction", "[TensorView][Arithmetic]") {
+TEST_CASE("View - View subtraction", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -108,7 +108,7 @@ TEST_CASE("View - View subtraction", "[TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("View * View multiplication", "[TensorView][Arithmetic]") {
+TEST_CASE("View * View multiplication", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -123,7 +123,7 @@ TEST_CASE("View * View multiplication", "[TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("View / View division", "[TensorView][Arithmetic]") {
+TEST_CASE("View / View division", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -138,12 +138,11 @@ TEST_CASE("View / View division", "[TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("View-View arithmetic with different rows of the same Tensor", "[TensorView][Arithmetic]") {
+TEST_CASE("View-View arithmetic with different rows of the same Tensor", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor M({3, 5}, 0.0f, backend);
-        // Ideally rows have different values; using uniform fill and add for setup
         Tensor row_vals({3, 5}, 1.0f, backend);
         Tensor T = row_vals + row_vals; // all 2.0
 
@@ -157,10 +156,10 @@ TEST_CASE("View-View arithmetic with different rows of the same Tensor", "[Tenso
 }
 
 // ---------------------------------------------------------------------------
-// 3. Tensor <op> TensorView  and  TensorView <op> Tensor
+// 3. Tensor <op> View  and  View <op> Tensor
 // ---------------------------------------------------------------------------
 
-TEST_CASE("Tensor + TensorView", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("Tensor + View", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -177,7 +176,7 @@ TEST_CASE("Tensor + TensorView", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("TensorView + Tensor", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("View + Tensor", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -192,7 +191,7 @@ TEST_CASE("TensorView + Tensor", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("Tensor - TensorView", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("Tensor - View", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -207,7 +206,7 @@ TEST_CASE("Tensor - TensorView", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("TensorView * Tensor", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("View * Tensor", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -222,7 +221,7 @@ TEST_CASE("TensorView * Tensor", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("TensorView / Tensor", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("View / Tensor", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -241,7 +240,7 @@ TEST_CASE("TensorView / Tensor", "[Tensor][TensorView][Arithmetic]") {
 // 3b. Scalar broadcasting with views
 // ---------------------------------------------------------------------------
 
-TEST_CASE("Scalar Tensor + TensorView", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("Scalar Tensor + View", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -256,7 +255,7 @@ TEST_CASE("Scalar Tensor + TensorView", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("TensorView + scalar Tensor", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("View + scalar Tensor", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -271,7 +270,7 @@ TEST_CASE("TensorView + scalar Tensor", "[Tensor][TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("TensorView * scalar Tensor", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("View * scalar Tensor", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -290,7 +289,7 @@ TEST_CASE("TensorView * scalar Tensor", "[Tensor][TensorView][Arithmetic]") {
 // 4. Parametric 2D consistency
 // ---------------------------------------------------------------------------
 
-TEST_CASE("2D View arithmetic consistency across backends", "[TensorView][Arithmetic]") {
+TEST_CASE("2D View arithmetic consistency across backends", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     auto rows = GENERATE(2ull, 4ull, 8ull);
@@ -320,7 +319,7 @@ TEST_CASE("2D View arithmetic consistency across backends", "[TensorView][Arithm
     }
 }
 
-TEST_CASE("Mixed Tensor/View 2D parametric test", "[Tensor][TensorView][Arithmetic]") {
+TEST_CASE("Mixed Tensor/View 2D parametric test", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     auto rows = GENERATE(1ull, 3ull, 7ull);
@@ -350,7 +349,7 @@ TEST_CASE("Mixed Tensor/View 2D parametric test", "[Tensor][TensorView][Arithmet
 // 5. Edge cases
 // ---------------------------------------------------------------------------
 
-TEST_CASE("Arithmetic on single-element views", "[TensorView][Arithmetic][Edge]") {
+TEST_CASE("Arithmetic on single-element views", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -362,7 +361,7 @@ TEST_CASE("Arithmetic on single-element views", "[TensorView][Arithmetic][Edge]"
     }
 }
 
-TEST_CASE("Chained view arithmetic expressions", "[TensorView][Arithmetic]") {
+TEST_CASE("Chained view arithmetic expressions", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -384,7 +383,7 @@ TEST_CASE("Chained view arithmetic expressions", "[TensorView][Arithmetic]") {
     }
 }
 
-TEST_CASE("Copy then arithmetic gives correct result", "[TensorView][Copy][Arithmetic]") {
+TEST_CASE("Copy then arithmetic gives correct result", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
@@ -401,7 +400,7 @@ TEST_CASE("Copy then arithmetic gives correct result", "[TensorView][Copy][Arith
     }
 }
 
-TEST_CASE("Arithmetic result does not alias the source view", "[TensorView][Arithmetic]") {
+TEST_CASE("Arithmetic result does not alias the source view", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {

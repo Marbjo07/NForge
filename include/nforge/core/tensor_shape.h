@@ -5,12 +5,14 @@
 #include <vector>
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_layout.h"
 
 class Tensor::Shape {
    public:
     Shape() = default;
     Shape(const std::vector<size_t>& dims);
     Shape(const std::initializer_list<size_t>& dims);
+    Shape(const TensorLayout& layout);
 
     bool operator==(const Tensor::Shape& other) const;
     bool operator!=(const Tensor::Shape& other) const;
@@ -32,6 +34,8 @@ class Tensor::Shape {
     std::string toString() const;
     std::vector<size_t> toVector() const;
     std::vector<size_t> withoutTrailingOnes() const;
+    TensorLayout toContiguousLayout() const;
+    std::vector<size_t> getContiguousStrides() const;
 
    private:
     std::vector<size_t> m_dimensions;

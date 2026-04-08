@@ -6,21 +6,13 @@
 #include "utils.h"
 
 
-#ifdef NFORGE_WITH_CUDA
-bool cudaEnabled = true;
-
-#else // without cuda
-bool cudaEnabled = false;
-
-#endif
-
-
-TEST_CASE("Not cuda when disabled", "[Utils]") {
+TEST_CASE("View shape", "[View]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        if (!cudaEnabled) {
-            REQUIRE(backend != Backend::CUDA);
-        }
+        Tensor a({3, 6, 6, 6}, 1.0f, backend);
+        Tensor::View b(a, {1, 3, 2});
+
+        REQUIRE(b.getShape() == Tensor::Shape({6}));
     }
 }

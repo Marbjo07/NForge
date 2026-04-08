@@ -2,11 +2,18 @@
 #define TENSOR_VIEW_H
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_shape.h"
 
 class Tensor::View {
    public:
-    View(Tensor& parent, const std::vector<size_t>& index);
+    View(Tensor& parent);
+    View(Tensor& parent, const std::vector<size_t>& position);
+
+    // implicit casting
     View(const Tensor& parent);
+
+    static Tensor::View broadcast(Tensor& source, const Tensor::Shape& shape);
+    static Tensor::View subsample(const View& src, const std::vector<size_t>& factors);
 
     void print() const;
 
@@ -22,6 +29,9 @@ class Tensor::View {
     // shape of the view
     Tensor::Shape getShape() const;
 
+    // returns the stride for each dim, not the underlying stride
+    std::vector<size_t> getStride() const;
+
     // creates a copy of the viewed tensor
     Tensor copy() const;
 
@@ -35,19 +45,28 @@ class Tensor::View {
     Tensor operator*(const Tensor::View& rhs) const;
     Tensor operator/(const Tensor::View& rhs) const;
 
-    Tensor operator=(const Tensor& other);
-    Tensor operator=(const Tensor::View& other);
+    Tensor operator=(const Tensor& rhs);
+    Tensor operator=(const Tensor::View& rhs);
     Tensor::View operator[](size_t idx) const;
 
-    bool operator==(const Tensor& other) const;
-    bool operator==(const Tensor::View& other) const;
+    Tensor::View subsample(std::vector<size_t> strides) const;
 
-    bool operator!=(const Tensor& other) const;
-    bool operator!=(const Tensor::View& other) const;
+    bool operator==(const Tensor& rhs) const;
+    bool operator==(const Tensor::View& rhs) const;
+
+    bool operator!=(const Tensor& rhs) const;
+    bool operator!=(const Tensor::View& rhs) const;
 
    private:
+    // resolves ambiguous overload with initializer list
+    struct BroadcastTag {};
+    // trusted, used by broadcast.
+    View(Tensor& parent, const std::vector<size_t>& stride, const Tensor::Shape& shape, BroadcastTag);
+    
     Tensor& m_parent;
-    std::vector<size_t> m_position;
+    Tensor::Shape m_shape;
+    std::vector<size_t> m_stride, m_position;
+    size_t m_offset;
 };
 
 #endif  // TENSOR_VIEW_H
