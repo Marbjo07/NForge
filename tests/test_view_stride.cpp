@@ -36,7 +36,8 @@ TEST_CASE("Throw on stride and shape mismatch", "[View][Stride]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({1, 2, 3, 4}, 1.0f, backend);
         
-        REQUIRE_THROWS(Tensor::View(a, {}, {1, 2, 3}));
+        // throws with rank mismatch
+        REQUIRE_THROWS(a.subsample({1, 2, 3}));
     }
 }
 

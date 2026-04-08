@@ -8,12 +8,12 @@ class Tensor::View {
    public:
     View(Tensor& parent);
     View(Tensor& parent, const std::vector<size_t>& position);
-    View(Tensor& parent, const std::vector<size_t>& position, const std::vector<size_t>& stride);
 
     // implicit casting
     View(const Tensor& parent);
 
     static Tensor::View broadcast(Tensor& source, const Tensor::Shape& shape);
+    static Tensor::View subsample(const View& src, const std::vector<size_t>& factors);
 
     void print() const;
 
@@ -29,6 +29,7 @@ class Tensor::View {
     // shape of the view
     Tensor::Shape getShape() const;
 
+    // returns the stride for each dim, not the underlying stride
     std::vector<size_t> getStride() const;
 
     // creates a copy of the viewed tensor

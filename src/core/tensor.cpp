@@ -166,6 +166,12 @@ Tensor::View Tensor::operator[](size_t idx) const {
     return results;
 }
 
+Tensor::View Tensor::subsample(std::vector<size_t> strides) const {
+    Tensor::View view(*this);
+    return view.subsample(strides);
+}
+
+
 Tensor Tensor::operator=(const Tensor& rhs) {
     this->m_impl = rhs.m_impl->clone();
     this->m_backend = rhs.m_backend;

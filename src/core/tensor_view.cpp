@@ -43,21 +43,6 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& position)
     }
 }
 
-
-Tensor::View::View(Tensor& parent, const std::vector<size_t>& position,
-                   const std::vector<size_t>& stride)
-    : m_parent(parent), m_position(position), m_stride(stride) {
-
-    auto parentStride = contiguousStridesFor(parent.getShape());
-
-    m_offset = 0;
-    for (size_t d = 0; d < position.size(); d++) {
-        m_offset += position[d] * parentStride[d];
-    }
-    
-    m_shape = parent.getShape()[position];
-}
-
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& stride,
                    const Tensor::Shape& shape, BroadcastTag)
     : m_parent(parent), m_shape(shape), m_stride(stride),
@@ -129,7 +114,14 @@ Tensor::Shape Tensor::View::getShape() const {
 }
 
 std::vector<size_t> Tensor::View::getStride() const {
-    return m_stride;
+    std::vector<size_t> stride(m_stride.size());
+    std::vector<size_t> baseStride = contiguousStridesFor(m_parent.getShape());
+    
+    for (size_t d = 0; d < stride.size(); d++) {
+        stride[d] = m_stride[d] / baseStride[d];
+    }
+
+    return stride;
 }
 
 Tensor Tensor::View::copy() const {
@@ -211,6 +203,32 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
 
     return out;
 }
+
+Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<size_t>& factors) {
+    Tensor::View out = src;  // copy layout
+    std::vector<size_t> dims = out.m_shape.toVector(); 
+    for (size_t d = 0; d < factors.size(); d++) {
+        // shrink logical shape
+        dims[d] /= factors[d];
+        
+        // stretch physical stride
+        out.m_stride[d] *= factors[d];
+    }
+
+    out.m_shape = Tensor::Shape(dims);
+
+    return out;
+}
+
+Tensor::View Tensor::View::subsample(std::vector<size_t> strides) const {
+    size_t rank = m_shape.getNumDims();
+    if (strides.size() != rank) {
+        throw std::runtime_error("Can't subsample view with different rank strides than shape.");
+    }
+
+    return Tensor::View::subsample(*this, strides);
+}
+
 
 bool Tensor::View::operator==(const Tensor& rhs) const {
     return m_parent.compare(m_position, rhs);
