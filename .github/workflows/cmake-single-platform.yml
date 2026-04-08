@@ -8,6 +8,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  CATCH2_VERSION: "3.7.1"
 
 jobs:
   build:
@@ -16,8 +17,27 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Cache Catch2
+      id: cache-catch2
+      uses: actions/cache@v4
+      with:
+        path: ~/.local
+        key: catch2-${{ env.CATCH2_VERSION }}-${{ runner.os }}
+
+    - name: Install Catch2
+      if: steps.cache-catch2.outputs.cache-hit != 'true'
+      run: |
+        git clone --branch v${{ env.CATCH2_VERSION }} --depth 1 \
+          https://github.com/catchorg/Catch2.git /tmp/catch2
+        cmake -S /tmp/catch2 -B /tmp/catch2/build \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=~/.local \
+          -DBUILD_TESTING=OFF
+        cmake --build /tmp/catch2/build --parallel
+        cmake --install /tmp/catch2/build
+
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=~/.local
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
