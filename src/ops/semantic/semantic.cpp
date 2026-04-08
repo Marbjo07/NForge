@@ -24,20 +24,6 @@ static TensorLayout layoutFromView(const Tensor::View& v) {
     return L;
 }
 
-static TensorLayout contiguousLayout(const Tensor::Shape& shape) {
-    TensorLayout L{};
-    L.rank   = shape.getNumDims();
-    L.offset = 0;
-
-    int32_t s = 1;
-    for (int d = (int)L.rank - 1; d >= 0; d--) {
-        L.shape[d]   = shape.getDim(d);
-        L.strides[d] = s;
-        s *= L.shape[d];
-    }
-    return L;
-}
-
 Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {
     const size_t rankA = a.getNumDims();
     const size_t rankB = b.getNumDims();
@@ -105,7 +91,7 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     BinaryOpContext ctx;
     ctx.lhs = broadcastTo(layoutFromView(lhs), outShape);
     ctx.rhs = broadcastTo(layoutFromView(rhs), outShape);
-    ctx.out = contiguousLayout(outShape);
+    ctx.out = outShape.toContiguousLayout();
     return ctx;
 }
 

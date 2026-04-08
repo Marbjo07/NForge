@@ -1,33 +1,20 @@
 #include "nforge/core/tensor_view.h"
 
-
-std::vector<size_t> contiguousStridesFor(const Tensor::Shape& shape) {
-    std::vector<size_t> stride(shape.getNumDims(), 1);
-    
-    size_t prod = 1;
-    for (int i = (int)shape.getNumDims() - 1; i >= 0; i--) {
-        stride[i] = prod;
-        prod *= shape.getDim(i);
-    }
-
-    return stride;
-}
-
 Tensor::View::View(Tensor& parent)
     : m_parent(parent), m_shape(parent.getShape()), m_offset(0), m_position({}) {
-    m_stride = contiguousStridesFor(m_shape);
+    m_stride = m_shape.getContiguousStrides();
 }
 
 Tensor::View::View(const Tensor& parent)
     // const correctness ¯\_(ツ)_/¯, dont know him
     : m_parent((Tensor&)parent), m_shape(parent.getShape()), m_offset(0), m_position({}) {
-    m_stride = contiguousStridesFor(m_shape);
+    m_stride = m_shape.getContiguousStrides();
 }
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& position)
     : m_parent(parent), m_position(position) {
 
-    auto parentStride = contiguousStridesFor(parent.getShape());
+    auto parentStride = parent.getShape().getContiguousStrides();
 
     m_offset = 0;
     for (size_t d = 0; d < position.size(); d++) {
@@ -57,7 +44,7 @@ Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& target
             srcShape.toString() + " to " + targetShape.toString());
     }
 
-    auto srcStride = contiguousStridesFor(srcShape);
+    auto srcStride = srcShape.getContiguousStrides();
     size_t dimOffset = targetShape.getNumDims() - srcShape.getNumDims();
 
     // prefix dims (new leading dims) get stride 0
@@ -115,7 +102,7 @@ Tensor::Shape Tensor::View::getShape() const {
 
 std::vector<size_t> Tensor::View::getStride() const {
     std::vector<size_t> stride(m_stride.size());
-    std::vector<size_t> baseStride = contiguousStridesFor(m_parent.getShape());
+    std::vector<size_t> baseStride = m_parent.getShape().getContiguousStrides();
     
     for (size_t d = 0; d < stride.size(); d++) {
         stride[d] = m_stride[d] / baseStride[d];
@@ -129,7 +116,7 @@ Tensor Tensor::View::copy() const {
     auto backend = getParent().getBackend();
     Tensor result(shape, backend);
 
-    // set the whole tensor
+    
     std::vector<size_t> position = {};
     result.set(position, *this);
 
@@ -208,11 +195,18 @@ Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<
     Tensor::View out = src;  // copy layout
     std::vector<size_t> dims = out.m_shape.toVector(); 
     for (size_t d = 0; d < factors.size(); d++) {
+        size_t factor = factors[d];
+
+        if (factor == 0) {
+            throw std::runtime_error(
+                "Zero stride for dimension" + std::to_string(d));
+        }
+
         // shrink logical shape
-        dims[d] /= factors[d];
+        dims[d] /= factor;
         
         // stretch physical stride
-        out.m_stride[d] *= factors[d];
+        out.m_stride[d] *= factor;
     }
 
     out.m_shape = Tensor::Shape(dims);

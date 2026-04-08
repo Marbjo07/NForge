@@ -118,3 +118,25 @@ std::vector<size_t> Tensor::Shape::withoutTrailingOnes() const {
     }
     return result;
 }
+
+TensorLayout Tensor::Shape::toContiguousLayout() const {
+    TensorLayout L{};
+    L.rank = getNumDims();
+    L.offset = 0;
+
+    size_t s = 1;
+    for (int d = (int)L.rank - 1; d >= 0; d--) {
+        L.shape[d] = getDim(d);
+        L.strides[d] = s;
+        s *= L.shape[d];
+    }
+
+    return L;
+}
+
+std::vector<size_t> Tensor::Shape::getContiguousStrides() const {
+    TensorLayout layout = toContiguousLayout();
+
+    std::vector<size_t> strides(layout.strides.begin(), layout.strides.begin() + layout.rank);
+    return strides;
+}
