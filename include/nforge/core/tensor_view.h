@@ -48,6 +48,8 @@ class Tensor::View {
     Tensor operator=(const Tensor::View& rhs);
     Tensor::View operator[](size_t idx) const;
 
+    Tensor::View subsample(std::vector<size_t> strides) const;
+
     bool operator==(const Tensor& rhs) const;
     bool operator==(const Tensor::View& rhs) const;
 

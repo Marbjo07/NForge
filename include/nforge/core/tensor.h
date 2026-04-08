@@ -76,6 +76,8 @@ class Tensor {
 
     
     Tensor::View operator[](size_t idx) const;
+    
+    Tensor::View subsample(std::vector<size_t> strides) const;
 
     Tensor operator=(const Tensor& rhs);
 

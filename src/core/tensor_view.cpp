@@ -85,10 +85,12 @@ Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& target
 
         if (srcDim == tgtDim) {
             stride[i + dimOffset] = srcStride[i];
-        } else if (srcDim == 1) {
+        } 
+        else if (srcDim == 1) {
             // size-1 dim stretched to tgtDim: stride 0 pins it to the single element
             stride[i + dimOffset] = 0;
-        } else {
+        } 
+        else {
             throw std::runtime_error("Can't broadcast shape " + srcShape.toString() +
                 " to " + targetShape.toString() + ": dimension " +
                 std::to_string(i) + " is " + std::to_string(srcDim) +

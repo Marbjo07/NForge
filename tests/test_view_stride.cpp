@@ -11,7 +11,7 @@ TEST_CASE("View shape with stride", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6, 6, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {1, 2, 3, 6});
+        Tensor::View b = a.subsample({1, 2, 3, 6});
 
         REQUIRE(b.getShape() == Tensor::Shape({3, 3, 2, 1}));
         REQUIRE(b.getStride() == std::vector<size_t>({1, 2, 3, 6}));
@@ -24,7 +24,7 @@ TEST_CASE("Extend stride to dimensions", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6, 6, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {1, 3, 6, 1});
+        Tensor::View b = a.subsample({1, 3, 6, 1});
 
         REQUIRE(b.getShape() == Tensor::Shape({3, 2, 1, 6}));
     }
@@ -46,7 +46,7 @@ TEST_CASE("Assign strided view", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {1, 2});
+        Tensor::View b = a.subsample({1, 2});
 
         b = Tensor({3, 3}, 2.0f, backend);
 
@@ -69,8 +69,8 @@ TEST_CASE("Zero strided view", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({5, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {0});
-        Tensor::View c(a, {3}, {0});
+        Tensor::View b = a.subsample({0});
+        Tensor::View c = a[3].subsample({0});
 
         // should only assign the first element in a, a[0][0]
         b = Tensor(2.0f, backend);
@@ -100,7 +100,7 @@ TEST_CASE("Copy strided view produces dense tensor", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 8}, 3.0f, backend);
-        Tensor::View b(a, {}, {2, 4});
+        Tensor::View b = a.subsample({2, 4});
 
         Tensor c = b.copy();
 
@@ -116,7 +116,7 @@ TEST_CASE("Copy of strided view is independent from parent", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({6}, 5.0f, backend);
-        Tensor::View b(a, {}, {2});
+        Tensor::View b = a.subsample({2});
 
         Tensor c = b.copy();
         a = Tensor({6}, 99.0f, backend);
@@ -136,7 +136,7 @@ TEST_CASE("Index into strided view", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 6}, 1.0f, backend);
-        Tensor::View b(a, {}, {2, 3});
+        Tensor::View b = a.subsample({2, 3});
 
         // b has shape {2, 2}, indexing row 1 should give a view of length 2
         Tensor::View row = b[1];
@@ -150,7 +150,7 @@ TEST_CASE("Position preserved through strided view index", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({6, 4}, 0.0f, backend);
-        Tensor::View b(a, {}, {3, 2});
+        Tensor::View b = a.subsample({3, 2});
 
         // b shape is {2, 2}, b[1] should reference row 3 of the parent
         Tensor::View row = b[1];
@@ -175,7 +175,7 @@ TEST_CASE("Strided view with position offset", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 8}, 1.0f, backend);
-        Tensor::View b(a, {1}, {1, 4});
+        Tensor::View b = a[1].subsample({1, 4});
 
         // positioned at row 1, stride {1, 4} on remaining {8} => shape {8/4} = {2}
         REQUIRE(b.getShape() == Tensor::Shape({2}));
@@ -194,7 +194,7 @@ TEST_CASE("Deeper position with stride", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({3, 6, 4}, 0.0f, backend);
-        Tensor::View b(a, {2, 1}, {2});
+        Tensor::View b = a[2][1].subsample({2});
 
         // position {2,1} selects a[2][1] which has shape {4}, stride {2} -> shape {2}
         REQUIRE(b.getShape() == Tensor::Shape({2}));
@@ -253,8 +253,8 @@ TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({6}, 2.0f, backend);
         Tensor b({6}, 3.0f, backend);
-        Tensor::View va(a, {}, {2});
-        Tensor::View vb(b, {}, {2});
+        Tensor::View va = a.subsample({2});
+        Tensor::View vb = b.subsample({2});
 
         Tensor result = va + vb;
         REQUIRE(result.getShape() == Tensor::Shape({3}));
@@ -314,7 +314,7 @@ TEST_CASE("Stride of 1 gives same shape as original", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend) << " size=" << size) {
         Tensor a({size}, 2.0f, backend);
-        Tensor::View b(a, {}, {1});
+        Tensor::View b = a.subsample({1});
 
         REQUIRE(b.getShape() == Tensor::Shape({size}));
 
@@ -330,7 +330,7 @@ TEST_CASE("Stride equal to dimension gives single element", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({8}, 6.0f, backend);
-        Tensor::View b(a, {}, {8});
+        Tensor::View b = a.subsample({8});
 
         REQUIRE(b.getShape() == Tensor::Shape({1}));
 
@@ -345,7 +345,7 @@ TEST_CASE("Mixed strides across dimensions", "[View][Stride]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 6}, 1.0f, backend);
         // stride 2 on rows, stride 1 on cols
-        Tensor::View b(a, {}, {2, 1});
+        Tensor::View b = a.subsample({2, 1});
 
         REQUIRE(b.getShape() == Tensor::Shape({2, 6}));
 
@@ -366,7 +366,7 @@ TEST_CASE("Assign to zero-strided view multiple times", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4}, 0.0f, backend);
-        Tensor::View b(a, {}, {0});
+        Tensor::View b = a.subsample({0});
 
         b = Tensor(1.0f, backend);
         REQUIRE(a[0] == Tensor(1.0f, backend));
@@ -396,10 +396,10 @@ TEST_CASE("Parametric 1D stride consistency", "[View][Stride]") {
         << " total=" << total
         << " stride=" << stride
     ) {
-        if (total % stride != 0) return; // skip invalid combos
+        REQUIRE(total % stride == 0); // invalid test
 
         Tensor a({total}, 4.0f, backend);
-        Tensor::View b(a, {}, {stride});
+        Tensor::View b = a.subsample({stride});
 
         REQUIRE(b.getShape() == Tensor::Shape({total / stride}));
 

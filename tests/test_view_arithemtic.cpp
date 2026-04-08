@@ -143,7 +143,6 @@ TEST_CASE("View-View arithmetic with different rows of the same Tensor", "[View]
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor M({3, 5}, 0.0f, backend);
-        // Ideally rows have different values; using uniform fill and add for setup
         Tensor row_vals({3, 5}, 1.0f, backend);
         Tensor T = row_vals + row_vals; // all 2.0
 
