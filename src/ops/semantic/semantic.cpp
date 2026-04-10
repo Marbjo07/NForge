@@ -70,7 +70,7 @@ static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
 
     int pad = (int)dst.rank - (int)src.rank;   // align right
     for (int d = 0; d < dst.rank; d++) {
-        dst.shape[d] = (int32_t)target.getDim(d);
+        dst.shape[d] = target.getDim(d);
 
         int sd = d - pad;
 

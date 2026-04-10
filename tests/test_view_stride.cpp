@@ -176,7 +176,20 @@ TEST_CASE("Strided view with position offset", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 8}, 1.0f, backend);
-        Tensor::View b = a[1].subsample({1, 4});
+        std::cout << "\n\na: \n";
+        a.print();
+
+        std::cout << "\n\na[1]: \n";
+        a[1].print();
+
+        std::cout << "\n\na[1].subsample({4}): \n";
+        a[1].subsample({4}).print();
+
+        Tensor b = a[1].subsample({4}).copy();
+
+        std::cout << "\n\na[1].subsample({4}).copy(): \n";
+        b.print();
+
 
         // positioned at row 1, stride {1, 4} on remaining {8} => shape {8/4} = {2}
         REQUIRE(b.getShape() == Tensor::Shape({2}));

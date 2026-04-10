@@ -1,40 +1,26 @@
 #include "nforge/core/tensor_view.h"
 
 Tensor::View::View(Tensor& parent)
-    : m_parent(parent), m_shape(parent.getShape()), m_offset(0), m_position({}) {
-    m_stride = m_shape.getContiguousStrides();
-}
+    : m_parent(parent), m_layout(parent.getShape()), m_position({}) {}
 
+    
 Tensor::View::View(const Tensor& parent)
     // const correctness ¯\_(ツ)_/¯, dont know him
-    : m_parent((Tensor&)parent), m_shape(parent.getShape()), m_offset(0), m_position({}) {
-    m_stride = m_shape.getContiguousStrides();
-}
+    : m_parent((Tensor&)parent), m_layout(parent.getShape()), m_position({}) {}
+
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& position)
-    : m_parent(parent), m_position(position) {
+    : m_parent(parent), m_layout(parent.getShape()[position]), m_position(position) {}
 
-    auto parentStride = parent.getShape().getContiguousStrides();
-
-    m_offset = 0;
-    for (size_t d = 0; d < position.size(); d++) {
-        m_offset += position[d] * parentStride[d];
-    }
-
-    // index away the first dims based on position
-    m_shape = parent.getShape()[position];
-    m_stride.assign(parentStride.begin() + position.size(), parentStride.end());
-
-    while (m_stride.size() < m_shape.getNumDims()) {
-        m_stride.push_back(1);
-    }
-}
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& stride,
                    const Tensor::Shape& shape, BroadcastTag)
-    : m_parent(parent), m_shape(shape), m_stride(stride),
-      m_offset(0), m_position({}) {}
+    : m_parent(parent), m_layout(shape, stride), m_position({}) {}
       
+
+Tensor::View::View(Tensor& parent, const std::vector<size_t>& position,
+                   const TensorLayout& layout) 
+    : m_parent(parent), m_layout(layout), m_position(m_position) {}
 
 Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& targetShape) {
     Tensor::Shape srcShape = source.getShape();
@@ -93,19 +79,19 @@ std::vector<size_t> Tensor::View::getPosition() const {
 }
 
 size_t Tensor::View::getOffset() const {
-    return m_offset;
+    return m_layout.offset;
 }
 
 Tensor::Shape Tensor::View::getShape() const {
-    return m_shape;
+    return Tensor::Shape(m_layout);
 }
 
 std::vector<size_t> Tensor::View::getStride() const {
-    std::vector<size_t> stride(m_stride.size());
+    std::vector<size_t> stride(m_layout.strides.begin(), m_layout.strides.begin() + m_layout.rank);
     std::vector<size_t> baseStride = m_parent.getShape().getContiguousStrides();
     
     for (size_t d = 0; d < stride.size(); d++) {
-        stride[d] = m_stride[d] / baseStride[d];
+        stride[d] = stride[d] / baseStride[d];
     }
 
     return stride;
@@ -177,23 +163,35 @@ Tensor Tensor::View::operator=(const Tensor::View& rhs) {
 }
 
 Tensor::View Tensor::View::operator[](size_t idx) const {
-    View out = *this;
+    size_t offset = m_layout.offset + m_layout.strides[0] * idx;
+    auto shape = Tensor::Shape(m_layout)[0];
+    
+    size_t rank = std::max(m_layout.rank - 1, (size_t)1);
 
-    out.m_offset += m_stride[0] * idx;
-    out.m_shape = m_shape[0];
-    out.m_stride.erase(out.m_stride.begin());
-    out.m_position.push_back(idx);
-
-    if (out.m_stride.empty()) {
-        out.m_stride.push_back(1);
+    // shift by one, removing leading dim
+    std::vector<size_t> strides(rank, 1);
+    for (size_t d = 0; d < rank; d++) {
+        strides[d] = m_layout.strides[d + 1];
     }
 
+    std::vector<size_t> position = m_position;
+    position.push_back(idx);
+
+    TensorLayout layout(shape, strides, offset);
+    Tensor::View out(m_parent, position, layout);
     return out;
 }
 
 Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<size_t>& factors) {
-    Tensor::View out = src;  // copy layout
-    std::vector<size_t> dims = out.m_shape.toVector(); 
+    
+    if (src.getShape().getNumDims() != factors.size()) {
+        throw std::runtime_error("Can't subsample view of shape" 
+            + src.getShape().toString() + " with factors of rank " 
+            + std::to_string(factors.size()));
+    }
+    
+    std::vector<size_t> dims = src.getShape().toVector();
+    std::vector<size_t> strides(factors.size());
     for (size_t d = 0; d < factors.size(); d++) {
         size_t factor = factors[d];
 
@@ -206,16 +204,19 @@ Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<
         dims[d] /= factor;
         
         // stretch physical stride
-        out.m_stride[d] *= factor;
+        strides[d] *= factor;
     }
 
-    out.m_shape = Tensor::Shape(dims);
+    Tensor::Shape shape = Tensor::Shape(dims);
+    TensorLayout layout(shape, strides);
+
+    Tensor::View out(src.m_parent, src.m_position, layout);
 
     return out;
 }
 
 Tensor::View Tensor::View::subsample(std::vector<size_t> strides) const {
-    size_t rank = m_shape.getNumDims();
+    size_t rank = m_layout.rank;
     if (strides.size() != rank) {
         throw std::runtime_error("Can't subsample view with different rank strides than shape.");
     }

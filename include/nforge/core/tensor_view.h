@@ -8,7 +8,8 @@ class Tensor::View {
    public:
     View(Tensor& parent);
     View(Tensor& parent, const std::vector<size_t>& position);
-
+    View(Tensor& parent, const std::vector<size_t>& position, const TensorLayout& layout);
+    
     // implicit casting
     View(const Tensor& parent);
 
@@ -64,9 +65,8 @@ class Tensor::View {
     View(Tensor& parent, const std::vector<size_t>& stride, const Tensor::Shape& shape, BroadcastTag);
     
     Tensor& m_parent;
-    Tensor::Shape m_shape;
-    std::vector<size_t> m_stride, m_position;
-    size_t m_offset;
+    std::vector<size_t> m_position;
+    TensorLayout m_layout; // relative to parent tensor.
 };
 
 #endif  // TENSOR_VIEW_H
