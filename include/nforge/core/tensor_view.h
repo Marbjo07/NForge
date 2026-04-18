@@ -33,6 +33,9 @@ class Tensor::View {
     // returns the stride for each dim, not the underlying stride
     std::vector<size_t> getStride() const;
 
+    // returns the underlying physical layout
+    const TensorLayout& getLayout() const;
+
     // creates a copy of the viewed tensor
     Tensor copy() const;
 

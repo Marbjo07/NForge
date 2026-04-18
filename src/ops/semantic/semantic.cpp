@@ -11,17 +11,7 @@ void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
 }
 
 static TensorLayout layoutFromView(const Tensor::View& v) {
-    TensorLayout L;
-    const auto& shape   = v.getShape();
-    const auto& strides = v.getStride();   // element strides of the view
-
-    L.rank   = shape.getNumDims();
-    L.offset = v.getOffset();
-    for (size_t d = 0; d < L.rank; d++) {
-        L.shape[d]   = shape.getDim(d);
-        L.strides[d] = strides[d];
-    }
-    return L;
+    return v.getLayout();
 }
 
 Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {

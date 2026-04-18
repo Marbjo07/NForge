@@ -1,5 +1,8 @@
 #include "nforge/core/tensor_view.h"
 
+#include "backend/tensor_impl.h"
+#include "ops/semantic/semantic.h"
+
 Tensor::View::View(Tensor& parent)
     : m_parent(parent), m_layout(parent.getShape()), m_position({}) {}
 
@@ -10,7 +13,14 @@ Tensor::View::View(const Tensor& parent)
 
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& position)
-    : m_parent(parent), m_layout(parent.getShape()[position]), m_position(position) {}
+    : m_parent(parent), m_layout(parent.getShape()[position]), m_position(position) {
+    auto parentStrides = parent.getShape().getContiguousStrides();
+    size_t offset = 0;
+    for (size_t d = 0; d < position.size(); d++) {
+        offset += position[d] * parentStrides[d];
+    }
+    m_layout.offset = offset;
+}
 
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& stride,
@@ -20,7 +30,7 @@ Tensor::View::View(Tensor& parent, const std::vector<size_t>& stride,
 
 Tensor::View::View(Tensor& parent, const std::vector<size_t>& position,
                    const TensorLayout& layout) 
-    : m_parent(parent), m_layout(layout), m_position(m_position) {}
+    : m_parent(parent), m_layout(layout), m_position(position) {}
 
 Tensor::View Tensor::View::broadcast(Tensor& source, const Tensor::Shape& targetShape) {
     Tensor::Shape srcShape = source.getShape();
@@ -86,12 +96,20 @@ Tensor::Shape Tensor::View::getShape() const {
     return Tensor::Shape(m_layout);
 }
 
+const TensorLayout& Tensor::View::getLayout() const {
+    return m_layout;
+}
+
 std::vector<size_t> Tensor::View::getStride() const {
     std::vector<size_t> stride(m_layout.strides.begin(), m_layout.strides.begin() + m_layout.rank);
     std::vector<size_t> baseStride = m_parent.getShape().getContiguousStrides();
-    
+
+    size_t dimOffset = m_position.size();
     for (size_t d = 0; d < stride.size(); d++) {
-        stride[d] = stride[d] / baseStride[d];
+        size_t baseDim = d + dimOffset;
+        if (baseDim < baseStride.size() && baseStride[baseDim] > 0) {
+            stride[d] = stride[d] / baseStride[baseDim];
+        }
     }
 
     return stride;
@@ -153,12 +171,19 @@ Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
 
 
 Tensor Tensor::View::operator=(const Tensor& rhs) {
-    m_parent.set(m_position, rhs);
+    Tensor::View rhsView(rhs);
+    auto ctx = semantic::validateBinaryOperation(*this, rhsView);
+    if (Tensor::Shape(ctx.out) != getShape())
+        throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
+    m_parent.m_impl->set(ctx.lhs, rhs.m_impl.get(), ctx.rhs);
     return m_parent;
 }
 
 Tensor Tensor::View::operator=(const Tensor::View& rhs) {
-    m_parent.set(m_position, rhs);
+    auto ctx = semantic::validateBinaryOperation(*this, rhs);
+    if (Tensor::Shape(ctx.out) != getShape())
+        throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
+    m_parent.m_impl->set(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
     return m_parent;
 }
 
@@ -183,32 +208,32 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
 }
 
 Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<size_t>& factors) {
-    
+
     if (src.getShape().getNumDims() != factors.size()) {
-        throw std::runtime_error("Can't subsample view of shape" 
-            + src.getShape().toString() + " with factors of rank " 
+        throw std::runtime_error("Can't subsample view of shape"
+            + src.getShape().toString() + " with factors of rank "
             + std::to_string(factors.size()));
     }
-    
+
     std::vector<size_t> dims = src.getShape().toVector();
-    std::vector<size_t> strides(factors.size());
+    std::vector<size_t> strides(src.m_layout.strides.begin(),
+                                src.m_layout.strides.begin() + factors.size());
+
     for (size_t d = 0; d < factors.size(); d++) {
         size_t factor = factors[d];
 
         if (factor == 0) {
-            throw std::runtime_error(
-                "Zero stride for dimension" + std::to_string(d));
+            dims[d] = 1;
+            strides[d] = 0;
+        } 
+        else {
+            dims[d] /= factor;
+            strides[d] *= factor;
         }
-
-        // shrink logical shape
-        dims[d] /= factor;
-        
-        // stretch physical stride
-        strides[d] *= factor;
     }
 
     Tensor::Shape shape = Tensor::Shape(dims);
-    TensorLayout layout(shape, strides);
+    TensorLayout layout(shape, strides, src.m_layout.offset);
 
     Tensor::View out(src.m_parent, src.m_position, layout);
 
@@ -218,7 +243,12 @@ Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<
 Tensor::View Tensor::View::subsample(std::vector<size_t> strides) const {
     size_t rank = m_layout.rank;
     if (strides.size() != rank) {
-        throw std::runtime_error("Can't subsample view with different rank strides than shape.");
+        if (strides.size() == 1 && strides[0] == 0) {
+            strides.assign(rank, 0);
+        } 
+        else {
+            throw std::runtime_error("Can't subsample view with different rank strides than shape.");
+        }
     }
 
     return Tensor::View::subsample(*this, strides);
@@ -226,11 +256,16 @@ Tensor::View Tensor::View::subsample(std::vector<size_t> strides) const {
 
 
 bool Tensor::View::operator==(const Tensor& rhs) const {
-    return m_parent.compare(m_position, rhs);
+    Tensor::View rhsView(rhs);
+    if (getShape() != rhsView.getShape()) return false;
+    auto ctx = semantic::validateBinaryOperation(*this, rhsView);
+    return m_parent.m_impl->compare(ctx.lhs, rhs.m_impl.get(), ctx.rhs);
 }
 
 bool Tensor::View::operator==(const Tensor::View& rhs) const {
-    return m_parent.compare(m_position, rhs);
+    if (getShape() != rhs.getShape()) return false;
+    auto ctx = semantic::validateBinaryOperation(*this, rhs);
+    return m_parent.m_impl->compare(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 bool Tensor::View::operator!=(const Tensor& rhs) const {

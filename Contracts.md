@@ -1,13 +1,14 @@
+# Contracts
+
 ## Tensors
 
 Always contiguous.
 
 ## Views
 
-Must reference a valid tensor or another view. 
+Must reference a valid tensor or another view.
 Does not change reference after construction.
 Note: it's possible to deconstruct a tensor with views pointing to it, should be fixed.
-
 
 ## Shape
 

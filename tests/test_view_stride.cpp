@@ -85,7 +85,7 @@ TEST_CASE("Zero strided view", "[View][Stride]") {
         // should only assign the first element in a[3], a[3][0]
         c = Tensor(3.0f, backend);
         
-        REQUIRE(a[3][0] == Tensor(2.0f, backend));
+        REQUIRE(a[3][0] == Tensor(3.0f, backend));
         REQUIRE(a[3][1] == Tensor(1.0f, backend));
         REQUIRE(a[3][2] == Tensor(1.0f, backend));
     }
@@ -176,20 +176,7 @@ TEST_CASE("Strided view with position offset", "[View][Stride]") {
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({4, 8}, 1.0f, backend);
-        std::cout << "\n\na: \n";
-        a.print();
-
-        std::cout << "\n\na[1]: \n";
-        a[1].print();
-
-        std::cout << "\n\na[1].subsample({4}): \n";
-        a[1].subsample({4}).print();
-
-        Tensor b = a[1].subsample({4}).copy();
-
-        std::cout << "\n\na[1].subsample({4}).copy(): \n";
-        b.print();
-
+        Tensor::View b = a[1].subsample({4});
 
         // positioned at row 1, stride {1, 4} on remaining {8} => shape {8/4} = {2}
         REQUIRE(b.getShape() == Tensor::Shape({2}));
@@ -232,9 +219,6 @@ TEST_CASE("Broadcast factory creates zero-strided view", "[View][Stride]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor scalar(4.0f, backend);
         Tensor::View bcast = Tensor::View::broadcast(scalar, {3, 5});
-
-        std::cout << "broadcast shape: " << bcast.getShape().toString() << "\n";
-
 
         REQUIRE(bcast.getShape() == Tensor::Shape({3, 5}));
         REQUIRE(bcast.getStride() == std::vector<size_t>{0, 0});
