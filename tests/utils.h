@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "nforge/core/tensor.h"
+#include "nforge/nforge.h"
 
 static constexpr Backend backends[] = {
     Backend::CPU, 

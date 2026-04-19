@@ -2,18 +2,26 @@
 #define TENSOR_VIEW_H
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_shape.h"
 
 class Tensor::View {
    public:
-    View(Tensor& parent, const std::vector<size_t>& index);
+    View(Tensor& parent);
+    View(Tensor& parent, const std::vector<size_t>& position);
+    View(Tensor& parent, const std::vector<size_t>& position, const TensorLayout& layout);
+    
+    // implicit casting
     View(const Tensor& parent);
+
+    static Tensor::View broadcast(Tensor& source, const Tensor::Shape& shape);
+    static Tensor::View subsample(const View& src, const std::vector<size_t>& factors);
 
     void print() const;
 
-    // refrenced tensor
+    // referenced tensor
     Tensor& getParent() const;
 
-    // position of this view in the tensor it refrences
+    // position of this view in the tensor it references
     std::vector<size_t> getPosition() const;
 
     // number of elements preceding this view
@@ -21,6 +29,12 @@ class Tensor::View {
 
     // shape of the view
     Tensor::Shape getShape() const;
+
+    // returns the stride for each dim, not the underlying stride
+    std::vector<size_t> getStride() const;
+
+    // returns the underlying physical layout
+    const TensorLayout& getLayout() const;
 
     // creates a copy of the viewed tensor
     Tensor copy() const;
@@ -35,19 +49,27 @@ class Tensor::View {
     Tensor operator*(const Tensor::View& rhs) const;
     Tensor operator/(const Tensor::View& rhs) const;
 
-    Tensor operator=(const Tensor& other);
-    Tensor operator=(const Tensor::View& other);
+    Tensor::View operator=(const Tensor& rhs);
+    Tensor::View operator=(const Tensor::View& rhs);
     Tensor::View operator[](size_t idx) const;
 
-    bool operator==(const Tensor& other) const;
-    bool operator==(const Tensor::View& other) const;
+    Tensor::View subsample(std::vector<size_t> strides) const;
 
-    bool operator!=(const Tensor& other) const;
-    bool operator!=(const Tensor::View& other) const;
+    bool operator==(const Tensor& rhs) const;
+    bool operator==(const Tensor::View& rhs) const;
+
+    bool operator!=(const Tensor& rhs) const;
+    bool operator!=(const Tensor::View& rhs) const;
 
    private:
+    // resolves ambiguous overload with initializer list
+    struct BroadcastTag {};
+    // trusted, used by broadcast.
+    View(Tensor& parent, const std::vector<size_t>& stride, const Tensor::Shape& shape, BroadcastTag);
+    
     Tensor& m_parent;
     std::vector<size_t> m_position;
+    TensorLayout m_layout; // relative to parent tensor.
 };
 
 #endif  // TENSOR_VIEW_H

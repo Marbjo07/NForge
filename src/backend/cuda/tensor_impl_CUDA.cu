@@ -13,9 +13,6 @@
 #include <cuda_runtime.h>
 
 
-constexpr size_t SCALAR_READ_OFFSET = 0;
-
-
 Tensor::CUDAImpl::CUDAImpl(const Tensor::Shape& shape) 
     : m_shape(shape) {
     size_t numElements = shape.getNumElements();
@@ -100,39 +97,51 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::clone() const {
 }
 
 // Assignments and indexing
-void Tensor::CUDAImpl::set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) {
-    const Tensor::CUDAImpl* o = cast(rhs);
+void Tensor::CUDAImpl::set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                          const TensorLayout& rhsLayout) {
 
-    float* lhsDataPtr = dataPtr() + lhsOffset;
-    float* rhsDataPtr = o->dataPtr() + rhsOffset;
+    const Tensor::CUDAImpl* o = cast(rhsImpl);
 
-    cudaMemcpy(lhsDataPtr, rhsDataPtr, count * sizeof(float), cudaMemcpyDeviceToDevice);
+    float* a = dataPtr();
+    float* b = o->dataPtr();
+    
+    size_t count = 1;
+    for (size_t d = 0; d < rhsLayout.rank; d++) count *= rhsLayout.shape[d];
+
+    int threads = 256;
+    int blocks = ((int)count + threads - 1) / threads;
+    setKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(a, lhsLayout, b, rhsLayout, (int)count);
     CUDA_CHECK(cudaGetLastError());
 }
 
 // Comparisons
-bool Tensor::CUDAImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    const Tensor::CUDAImpl* o = cast(rhs);
+bool Tensor::CUDAImpl::compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                              const TensorLayout& rhsLayout) const {
+    const Tensor::CUDAImpl* o = cast(rhsImpl);
 
     // init equal flag
     int h_equalFlag = 1; 
     int* d_equalFlag;
     cudaMalloc(&d_equalFlag, sizeof(int));
-    cudaMemcpy(d_equalFlag, &h_equalFlag, 1, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_equalFlag, &h_equalFlag, sizeof(int), cudaMemcpyHostToDevice);
 
     // get all data pointers
-    const float* lhsDataPtr = dataPtr() + lhsOffset;
-    const float* rhsDataPtr = o->dataPtr() + rhsOffset;
+    const float* lhsDataPtr = dataPtr();
+    const float* rhsDataPtr = o->dataPtr();
+
+    
+    size_t count = 1;
+    for (size_t d = 0; d < rhsLayout.rank; d++) count *= rhsLayout.shape[d];
 
     // launch kernel
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
-    checkAllEqualKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhsDataPtr, rhsDataPtr, d_equalFlag, count);
+    checkAllEqualKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhsDataPtr, lhsLayout, rhsDataPtr, rhsLayout, d_equalFlag, count);
     CUDA_CHECK(cudaGetLastError());
 
 
     // copy flag from device
-    cudaMemcpy(&h_equalFlag, d_equalFlag, 1, cudaMemcpyDeviceToHost);
+    cudaMemcpy(&h_equalFlag, d_equalFlag, sizeof(int), cudaMemcpyDeviceToHost);
 
     return h_equalFlag;
 }
@@ -140,57 +149,51 @@ bool Tensor::CUDAImpl::compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t
 
 
 template<typename Kernel>
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyKernel(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, Kernel kernel) const {
-    // create output tensor
-    Tensor::CUDAImpl* results = new Tensor::CUDAImpl(this->m_shape.toVector());
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyKernel(
+    const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+    const TensorLayout& rhsLayout, const TensorLayout& outLayout, Kernel kernel) const {
 
-    const Tensor::CUDAImpl* o = cast(rhs);
+    // create output tensor
+    auto outShape = Tensor::Shape(outLayout);
+    auto* results = new Tensor::CUDAImpl(outLayout);
+
+    const Tensor::CUDAImpl* o = cast(rhsImpl);
 
     // get all data pointers
-    const float* lhsDataPtr = dataPtr() + lhsOffset;
-    const float* rhsDataPtr = o->dataPtr() + rhsOffset;
-    float* resultsDataPtr = results->dataPtr();
+    const float* lhs = dataPtr();
+    const float* rhs = o->dataPtr();
+    float* out = results->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < outLayout.rank; d++) count *= outLayout.shape[d];
 
     // launch kernel
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
-    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhsDataPtr, rhsDataPtr, resultsDataPtr, count);
+    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, lhsLayout, rhs, rhsLayout, out, outLayout, count);
     CUDA_CHECK(cudaGetLastError());
 
     return std::unique_ptr<Tensor::Impl>(results);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyKernel(lhsOffset, rhs, rhsOffset, count, addKernel);
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+                                                    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
+    return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, addKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyKernel(lhsOffset, rhs, rhsOffset, count, subKernel);
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+                                                    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
+    return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, subKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyKernel(lhsOffset, rhs, rhsOffset, count, mulKernel);
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+                                                    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
+    return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, mulKernel);
 }
 
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const {
-    return applyKernel(lhsOffset, rhs, rhsOffset, count, divKernel);
-}
-
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::addScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, addScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::subScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, subScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::mulScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, mulScalarKernel);
-}
-
-std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::divScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const {
-    return applyKernel(lhsOffset, rhs, SCALAR_READ_OFFSET, count, divScalarKernel);
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+                                                    const TensorLayout& rhsLayout, const TensorLayout& outLayout) const {
+    return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, divKernel);
 }
 
 const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {

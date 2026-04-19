@@ -16,6 +16,16 @@ Tensor::Shape::Shape(const std::initializer_list<size_t>& dims) : m_dimensions(d
     }
 }
 
+Tensor::Shape::Shape(const TensorLayout& layout) {
+    std::vector<size_t> dims(layout.shape.begin(), layout.shape.begin() + layout.rank);
+    
+    if (dims.size() == 0) {
+        dims.push_back(1);
+    }
+
+    m_dimensions = dims;
+}
+
 bool Tensor::Shape::operator==(const Shape& other) const {
     return this->withoutTrailingOnes() == other.withoutTrailingOnes();
 }
@@ -53,8 +63,10 @@ size_t Tensor::Shape::getNumElements() const {
         return 0;
     }
 
-    return std::accumulate(m_dimensions.begin(), m_dimensions.end(),
+    size_t ac = std::accumulate(m_dimensions.begin(), m_dimensions.end(),
                            size_t(1), std::multiplies<size_t>());
+    
+    return ac;
 }
 
 size_t Tensor::Shape::getDim(size_t idx) const {
@@ -102,4 +114,26 @@ std::vector<size_t> Tensor::Shape::withoutTrailingOnes() const {
         result.push_back(1);
     }
     return result;
+}
+
+TensorLayout Tensor::Shape::toContiguousLayout() const {
+    TensorLayout L{};
+    L.rank = getNumDims();
+    L.offset = 0;
+
+    size_t s = 1;
+    for (int d = (int)L.rank - 1; d >= 0; d--) {
+        L.shape[d] = getDim(d);
+        L.strides[d] = s;
+        s *= L.shape[d];
+    }
+
+    return L;
+}
+
+std::vector<size_t> Tensor::Shape::getContiguousStrides() const {
+    TensorLayout layout = toContiguousLayout();
+
+    std::vector<size_t> strides(layout.strides.begin(), layout.strides.begin() + layout.rank);
+    return strides;
 }

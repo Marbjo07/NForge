@@ -10,73 +10,77 @@ void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
     }
 }
 
-ShapeMatch getShapeRelation(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
-    // keep order, must match order of ShapeMatch
-    if (lhs == rhs) {
-        return ShapeMatch::Equal;
-    }
-
-    if (lhs.isScalar()) {
-        return ShapeMatch::ScalarLhs;
-    }
-
-    if (rhs.isScalar()) {
-        return ShapeMatch::ScalarRhs;
-    }
-
-    if (lhs.getNumElements() == rhs.getNumElements()) {
-        return ShapeMatch::EqualCount;
-    }
-
-    return ShapeMatch::Incompatible;
+static TensorLayout layoutFromView(const Tensor::View& v) {
+    return v.getLayout();
 }
 
-size_t getOperationCount(const Tensor::Shape& lhs, const Tensor::Shape& rhs, ShapeMatch shapeMatch) {
-    size_t cntLhs = lhs.getNumElements();
-    size_t cntRhs = rhs.getNumElements();
+Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {
+    const size_t rankA = a.getNumDims();
+    const size_t rankB = b.getNumDims();
+    const size_t rankOut = std::max(rankA, rankB);
 
-    switch (shapeMatch) {
-        case ShapeMatch::Equal:
-            return cntLhs;
-        case ShapeMatch::ScalarLhs:
-            return cntRhs;
-        case ShapeMatch::ScalarRhs:
-            return cntLhs;
-        case ShapeMatch::EqualCount:
-            return cntLhs;
-        case ShapeMatch::Incompatible:
-            return 0;
-        default:
-            return 0;
+    std::vector<size_t> out(rankOut);
+
+    // a dimension of size 1 can be broadcasted
+    for (size_t i = 0; i < rankOut; ++i) {
+        // one if dim does not exist
+        const size_t dimA = (i < rankA) ? a.getDim(rankA - 1 - i) : 1;
+        const size_t dimB = (i < rankB) ? b.getDim(rankB - 1 - i) : 1;
+
+        size_t dim;
+        if (dimA == dimB) {
+            dim = dimA;
+        } 
+        else if (dimA == 1) {
+            dim = dimB;
+        } 
+        else if (dimB == 1) {
+            dim = dimA;
+        } 
+        else {
+            throw std::runtime_error(
+                "Cannot broadcast shapes " + a.toString() +
+                " and " + b.toString());
+        }
+
+        out[rankOut - 1 - i] = dim;
     }
+
+    return Tensor::Shape(out);
 }
+
+static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
+    TensorLayout dst{};
+    dst.rank   = target.getNumDims();
+    dst.offset = src.offset;
+
+    int pad = (int)dst.rank - (int)src.rank;   // align right
+    for (int d = 0; d < dst.rank; d++) {
+        dst.shape[d] = target.getDim(d);
+
+        int sd = d - pad;
+
+        if (sd < 0 || src.shape[sd] == 1) {
+            dst.strides[d] = 0;
+        } 
+        else {
+            dst.strides[d] = src.strides[sd];
+        }
+    }
+    return dst;
+}
+
 
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
-    Tensor::Shape lhsShape = lhs.getShape();
-    Tensor::Shape rhsShape = rhs.getShape();
-
-    ShapeMatch relation = getShapeRelation(lhsShape, rhsShape);
+    Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
     BinaryOpContext ctx;
-    ctx.lhsOffset = lhs.getOffset();
-    ctx.rhsOffset = rhs.getOffset();
-    ctx.shapeMatch = relation;
-    ctx.count = getOperationCount(lhsShape, rhsShape, relation);
-
+    ctx.lhs = broadcastTo(layoutFromView(lhs), outShape);
+    ctx.rhs = broadcastTo(layoutFromView(rhs), outShape);
+    ctx.out = outShape.toContiguousLayout();
     return ctx;
 }
 
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor& rhs) {
-    return validateBinaryOperation(Tensor::View(lhs), Tensor::View(rhs));
-}
-
-BinaryOpContext validateBinaryOperation(const Tensor& lhs, const Tensor::View& rhs) {
-    return validateBinaryOperation(Tensor::View(lhs), rhs);
-}
-
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor& rhs) {
-    return validateBinaryOperation(lhs, Tensor::View(rhs));
-}
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     ensureSameBackend(lhs.getParent(), rhs.getParent());

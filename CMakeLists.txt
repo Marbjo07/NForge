@@ -11,6 +11,7 @@ set(NFORGE_SRC
     src/core/tensor.cpp
     src/core/tensor_view.cpp
     src/core/tensor_shape.cpp
+    src/core/tensor_layout.cpp
     src/backend/cpu/tensor_impl_CPU.cpp
     src/ops/semantic/semantic.cpp
 )
@@ -39,6 +40,11 @@ target_include_directories(NForge
 
 if(NFORGE_ENABLE_CUDA)
     target_link_libraries(NForge PUBLIC CUDA::cudart CUDA::curand)
+    
+   
+    target_compile_options(NForge PRIVATE 
+        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>  # allow constexpr host functions in device functions
+    )
 
     set_property(TARGET NForge PROPERTY CUDA_ARCHITECTURES native)
 endif()

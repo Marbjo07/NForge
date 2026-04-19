@@ -1,13 +1,12 @@
 #ifndef TENSOR_IMPL_CUDA_H
 #define TENSOR_IMPL_CUDA_H
 
-#include "nforge/core/tensor.h"
+#include "../tensor_impl.h"
 #include "nforge/core/tensor_shape.h"
 
 class Tensor::CUDAImpl : public Tensor::Impl {
    public:
     CUDAImpl(const Tensor::Shape& shape);
-    CUDAImpl(const Tensor::Shape& shape, float value);
     ~CUDAImpl();
 
     // Fill functions
@@ -30,33 +29,35 @@ class Tensor::CUDAImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> clone() const override;
 
     // Assignments and indexing
-    void set(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) override;
+    void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+             const TensorLayout& rhsLayout) override;
 
-    // Comparisons
-    bool compare(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    // Block comparisons
+    bool compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                 const TensorLayout& rhsLayout) const override;
 
     // Element wise binary tensor operations
-    std::unique_ptr<Tensor::Impl> add(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> sub(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mul(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> div(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count) const override;
+    std::unique_ptr<Tensor::Impl> add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
+    
+    std::unique_ptr<Tensor::Impl> sub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
+    
+    std::unique_ptr<Tensor::Impl> mul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
 
-    // Element wise binary tensor-scalar operations
-	// Requires rhs to be a scalar
-    std::unique_ptr<Tensor::Impl> addScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> subScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> mulScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
-    std::unique_ptr<Tensor::Impl> divScalar(size_t lhsOffset, const Tensor::Impl* rhs, size_t count) const override;
-
+    std::unique_ptr<Tensor::Impl> div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                      const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
    private:
     Tensor::Shape m_shape;
     float* d_data;
 
     const Tensor::CUDAImpl* cast(const Tensor::Impl* p) const;
 
-    // res[i] = kernel(lhs[i + lhsOffset], rhs[i + rhsOffset]), for all i, (0 <= i < count)
-    template<typename Kernel>
-    std::unique_ptr<Tensor::Impl> applyKernel(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, Kernel kernel) const;
+    
+    template <typename Kernel>
+    std::unique_ptr<Tensor::Impl> applyKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                              const TensorLayout& rhsLayout, const TensorLayout& outLayout, Kernel kernel) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H

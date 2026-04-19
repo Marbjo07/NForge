@@ -61,22 +61,14 @@ class Tensor {
     std::vector<float> toVector() const;
 
     // Set the specified block to another tensor
-    void set(const std::vector<size_t>& position, const Tensor& rhs);
     void set(const std::vector<size_t>& position, const Tensor::View& rhs);
 
-    bool compare(const Tensor& rhs) const;
     bool compare(const Tensor::View& rhs) const;
 
     // Compare the specified block to another tensor
-    bool compare(const std::vector<size_t>& position, const Tensor& rhs) const;
     bool compare(const std::vector<size_t>& position, const Tensor::View& rhs) const;
 
     // Overloaded operators
-    Tensor operator+(const Tensor& rhs) const;
-    Tensor operator-(const Tensor& rhs) const;
-    Tensor operator*(const Tensor& rhs) const;
-    Tensor operator/(const Tensor& rhs) const;
-
     Tensor operator+(const Tensor::View& rhs) const;
     Tensor operator-(const Tensor::View& rhs) const;
     Tensor operator*(const Tensor::View& rhs) const;
@@ -84,12 +76,12 @@ class Tensor {
 
     
     Tensor::View operator[](size_t idx) const;
+    
+    Tensor::View subsample(std::vector<size_t> strides) const;
 
-    Tensor operator=(const Tensor& rhs);
+    Tensor& operator=(const Tensor& rhs);
 
-    bool operator==(const Tensor& rhs) const;
     bool operator==(const Tensor::View& rhs) const;
-    bool operator!=(const Tensor& rhs) const;
     bool operator!=(const Tensor::View& rhs) const;
 
    private:
@@ -97,12 +89,8 @@ class Tensor {
     std::unique_ptr<Impl> m_impl;
 
     // used in template for all the binary operations
-    template <typename EqualOp, typename ScalarOp>
-    Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, EqualOp equalOp, ScalarOp scalarOp) const;
+    template <typename BinaryOp>
+    Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
 };
-
-#include "backend/tensor_impl.h"
-#include "nforge/core/tensor_shape.h"
-#include "nforge/core/tensor_view.h"
 
 #endif  // TENSOR_H
