@@ -181,6 +181,24 @@ TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
     }
 }
 
+TEST_CASE("Chained tensor assignment", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 1.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        Tensor c({3}, 3.0f, backend);
+
+        // a = b = c should make both a and b equal to c
+        a = b = c;
+
+        REQUIRE(b == c);
+        REQUIRE(a == c);
+        REQUIRE(a == b);
+    }
+}
+
+
 TEST_CASE("Tensor view assign", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 

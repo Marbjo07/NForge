@@ -16,3 +16,20 @@ TEST_CASE("View shape", "[View]") {
         REQUIRE(b.getShape() == Tensor::Shape({6}));
     }
 }
+
+TEST_CASE("Chained view assignment", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor A({3, 4}, 1.0f, backend);
+        Tensor B({3, 4}, 2.0f, backend);
+        Tensor C({3, 4}, 3.0f, backend);
+
+        // A[0] = B[0] = C[0] should make both rows equal to C[0]
+        A[0] = B[0] = C[0];
+
+        REQUIRE(B[0] == C[0]);
+        REQUIRE(A[0] == C[0]); 
+        REQUIRE(A[0] == B[0]);
+    }
+}
