@@ -170,21 +170,26 @@ Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
 }
 
 
-Tensor Tensor::View::operator=(const Tensor& rhs) {
+Tensor::View Tensor::View::operator=(const Tensor& rhs) {
     Tensor::View rhsView(rhs);
+    
     auto ctx = semantic::validateBinaryOperation(*this, rhsView);
-    if (Tensor::Shape(ctx.out) != getShape())
+    if (Tensor::Shape(ctx.out) != getShape()) {
         throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
+    }
+
     m_parent.m_impl->set(ctx.lhs, rhs.m_impl.get(), ctx.rhs);
-    return m_parent;
+    return *this;
 }
 
-Tensor Tensor::View::operator=(const Tensor::View& rhs) {
+Tensor::View Tensor::View::operator=(const Tensor::View& rhs) {
     auto ctx = semantic::validateBinaryOperation(*this, rhs);
-    if (Tensor::Shape(ctx.out) != getShape())
+    if (Tensor::Shape(ctx.out) != getShape()) {
         throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
+    }
+    
     m_parent.m_impl->set(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
-    return m_parent;
+    return *this;
 }
 
 Tensor::View Tensor::View::operator[](size_t idx) const {

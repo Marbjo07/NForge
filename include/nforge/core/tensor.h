@@ -79,7 +79,7 @@ class Tensor {
     
     Tensor::View subsample(std::vector<size_t> strides) const;
 
-    Tensor operator=(const Tensor& rhs);
+    Tensor& operator=(const Tensor& rhs);
 
     bool operator==(const Tensor::View& rhs) const;
     bool operator!=(const Tensor::View& rhs) const;

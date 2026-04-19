@@ -172,7 +172,7 @@ Tensor::View Tensor::subsample(std::vector<size_t> strides) const {
 }
 
 
-Tensor Tensor::operator=(const Tensor& rhs) {
+Tensor& Tensor::operator=(const Tensor& rhs) {
     this->m_impl = rhs.m_impl->clone();
     this->m_backend = rhs.m_backend;
 
