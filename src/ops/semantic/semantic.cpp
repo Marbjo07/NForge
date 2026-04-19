@@ -21,11 +21,7 @@ Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {
 
     std::vector<size_t> out(rankOut);
 
-    // walk left to right, 
-    // if equal keep 
-    // if one is equal to 1 expand
-    // else throw
-
+    // a dimension of size 1 can be broadcasted
     for (size_t i = 0; i < rankOut; ++i) {
         // one if dim does not exist
         const size_t dimA = (i < rankA) ? a.getDim(rankA - 1 - i) : 1;

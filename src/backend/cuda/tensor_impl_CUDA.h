@@ -54,9 +54,10 @@ class Tensor::CUDAImpl : public Tensor::Impl {
 
     const Tensor::CUDAImpl* cast(const Tensor::Impl* p) const;
 
-    // res[i] = kernel(lhs[i + lhsOffset], rhs[i + rhsOffset]), for all i, (0 <= i < count)
-    template<typename Kernel>
-    std::unique_ptr<Tensor::Impl> applyKernel(size_t lhsOffset, const Tensor::Impl* rhs, size_t rhsOffset, size_t count, Kernel kernel) const;
+    
+    template <typename Kernel>
+    std::unique_ptr<Tensor::Impl> applyKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                              const TensorLayout& rhsLayout, const TensorLayout& outLayout, Kernel kernel) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H
