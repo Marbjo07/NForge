@@ -14,7 +14,7 @@ struct TensorLayout {
     size_t offset = 0;
     size_t rank = 0;
     
-    TensorLayout() {};
+    TensorLayout() : shape{}, strides{} {}
     TensorLayout(const Tensor::Shape& _shape);
     TensorLayout(const Tensor::Shape& _shape, const std::vector<size_t>& _strides);
     TensorLayout(const Tensor::Shape& _shape, const std::vector<size_t>& _strides, size_t _offset);

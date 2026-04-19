@@ -18,10 +18,10 @@ class Tensor::View {
 
     void print() const;
 
-    // refrenced tensor
+    // referenced tensor
     Tensor& getParent() const;
 
-    // position of this view in the tensor it refrences
+    // position of this view in the tensor it references
     std::vector<size_t> getPosition() const;
 
     // number of elements preceding this view

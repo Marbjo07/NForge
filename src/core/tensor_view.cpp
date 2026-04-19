@@ -191,11 +191,12 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
     size_t offset = m_layout.offset + m_layout.strides[0] * idx;
     auto shape = Tensor::Shape(m_layout)[0];
     
-    size_t rank = std::max(m_layout.rank - 1, (size_t)1);
+    // ensure rank > 0
+    size_t newRank = std::max((int)m_layout.rank - 1, 1);
 
     // shift by one, removing leading dim
-    std::vector<size_t> strides(rank, 1);
-    for (size_t d = 0; d < rank; d++) {
+    std::vector<size_t> strides(newRank, 1);
+    for (int d = 0; d < (int)m_layout.rank - 1; d++) {
         strides[d] = m_layout.strides[d + 1];
     }
 
