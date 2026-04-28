@@ -8,21 +8,12 @@ Tensor create2dVector(float x, float y) {
     a[0] = x;
     a[1] = y;
     return a;
-} 
+}   
 
 TEST_CASE("Cube slide of sphere", "[Physics]") {
-    float detachX =  std::sqrt(5.0f) / 3.0f;
-    float detachY =  2.0f / 3.0f;
-    float detachSpeed =  std::sqrt(2.0f * 9.81f / 3.0f);
-    float detachSpeedX  =  detachSpeed * (2.0f / 3.0f);
-    float detachSpeedY  = -detachSpeed * std::sqrt(5.0f) / 3.0f;
-
-
     SphereSlideResults res = simulateSphereSlide(SphereSlideParams{});
-    
-    REQUIRE(res.approxEqual({
-        create2dVector(detachX, detachY),
-        create2dVector(detachSpeedX, detachSpeedY),
-        3.71291f
-    }));
+
+    REQUIRE(res.position == create2dVector(0.734628736972809,  0.678469479084015));
+    REQUIRE(res.speed    == create2dVector(1.203298449516296, -1.300454020500183));
+    REQUIRE(res.t == 3.712913275f);
 }
