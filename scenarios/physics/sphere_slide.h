@@ -18,17 +18,6 @@ struct SphereSlideResults {
 
     SphereSlideResults(Tensor _position, Tensor _speed, float _t)
         : position(_position), speed(_speed), t(_t) {}
-
-    bool approxEqual(const SphereSlideResults& other, float tol = 1e-3f) const {
-        auto p1 = position.toVector(), p2 = other.position.toVector();
-        auto s1 = speed.toVector(),    s2 = other.speed.toVector();
-
-        for (int i = 0; i < 2; i++) {
-            if (std::abs(p1[i] - p2[i]) > tol) return false;
-            if (std::abs(s1[i] - s2[i]) > tol) return false;
-        }
-        return std::abs(t - other.t) < tol;
-    }
 };
 
 float length(std::vector<float> x) {
