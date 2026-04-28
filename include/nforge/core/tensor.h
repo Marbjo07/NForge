@@ -24,7 +24,9 @@ class Tensor {
    public:
     Tensor(const Tensor::Shape& shape, Backend backend = Backend::CPU);
     Tensor(const Tensor::Shape& shape, float value, Backend backend = Backend::CPU);
+
     Tensor(float value, Backend backend = Backend::CPU);
+
     Tensor(const Tensor& tensor);
     Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend = Backend::CPU);
     ~Tensor();
@@ -74,7 +76,16 @@ class Tensor {
     Tensor operator*(const Tensor::View& rhs) const;
     Tensor operator/(const Tensor::View& rhs) const;
 
+    Tensor operator+(float scalar) const;
+    Tensor operator-(float scalar) const;
+    Tensor operator*(float scalar) const;
+    Tensor operator/(float scalar) const;
     
+    friend Tensor operator+(float scalar, const Tensor& rhs);
+    friend Tensor operator-(float scalar, const Tensor& rhs);
+    friend Tensor operator*(float scalar, const Tensor& rhs);
+    friend Tensor operator/(float scalar, const Tensor& rhs);
+
     Tensor::View operator[](size_t idx) const;
     
     Tensor::View subsample(std::vector<size_t> strides) const;
@@ -92,5 +103,7 @@ class Tensor {
     template <typename BinaryOp>
     Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
 };
+
+
 
 #endif  // TENSOR_H

@@ -161,6 +161,37 @@ Tensor Tensor::operator/(const Tensor::View& rhs) const {
 }
 
 
+Tensor Tensor::operator+(float scalar) const {
+    return *this + Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator-(float scalar) const {
+    return *this - Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator*(float scalar) const {
+    return *this * Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator/(float scalar) const {
+    return *this / Tensor(scalar, m_backend);
+}
+
+Tensor operator+(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) + rhs;
+}
+
+Tensor operator-(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) - rhs;
+}
+
+Tensor operator*(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) * rhs;
+}
+
+Tensor operator/(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) / rhs;
+}
+
+
+
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});
     return results;

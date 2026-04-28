@@ -142,11 +142,6 @@ TEST_CASE("Broadcast scalar add", "[Tensor]") {
         Tensor x = a + s;
         Tensor y = s + a;
 
-        INFO("a=" + a.getDataString());
-        INFO("s=" + s.getDataString());
-        INFO("x=" + x.getDataString());
-        INFO("y=" + y.getDataString());
-
         for (size_t i = 0; i < 4; i++) {
             REQUIRE(x[i] == Tensor(5.0f, backend));
             REQUIRE(y[i] == Tensor(5.0f, backend));
@@ -227,5 +222,100 @@ TEST_CASE("Tensor view assign", "[Tensor]") {
 
             REQUIRE(A == B);
         }
+    }
+}
+
+TEST_CASE("Tensor and float add", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = a + 3;
+
+        REQUIRE(b == Tensor({4}, 5.0f, backend));
+    }
+}
+
+
+TEST_CASE("Tensor and float sub", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = a - 3;
+
+        REQUIRE(b == Tensor({4}, -1.0f, backend));
+    }
+}
+
+
+TEST_CASE("Tensor and float mul", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = a * 3;
+
+        REQUIRE(b == Tensor({4}, 6.0f, backend));
+    }
+}
+
+
+TEST_CASE("Tensor and float div", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = a / 3;
+
+        REQUIRE(b == Tensor({4}, 2.0f / 3.0f, backend));
+    }
+}
+
+
+TEST_CASE("Float and Tensor add", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = 3 + a;
+
+        REQUIRE(b == Tensor({4}, 5.0f, backend));
+    }
+}
+
+
+TEST_CASE("Float and Tensor sub", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = 3 - a;
+
+        REQUIRE(b == Tensor({4}, 1.0f, backend));
+    }
+}
+
+
+TEST_CASE("Float and Tensor mul", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = 3 * a;
+
+        REQUIRE(b == Tensor({4}, 6.0f, backend));
+    }
+}
+
+
+TEST_CASE("Float and Tensor div", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 2.0f, backend);
+        Tensor b = 3 / a;
+
+        REQUIRE(b == Tensor({4}, 1.5f, backend));
     }
 }
