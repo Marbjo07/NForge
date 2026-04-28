@@ -39,12 +39,12 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
     s[1] = params.radius;
 
     float t = 0;
-    Tensor N = Tensor({2}, 0) - G;
+    Tensor N = 0 - G;
 
     while (length(N.toVector()) > 0) {
-        Tensor aGrav = G / Tensor(params.mass);
+        Tensor aGrav = G / params.mass;
         // p = s + v * dt + a/2 * dt^2
-        Tensor positionFree = s + v * Tensor(params.dt) + aGrav * Tensor(0.5f * params.dt * params.dt);
+        Tensor positionFree = s + v * params.dt + aGrav * (0.5f * params.dt * params.dt);
 
         float distCenter = length(positionFree.toVector());
 
@@ -54,15 +54,15 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
         }
 
         // Position mapped to sphere
-        Tensor positionNext = positionFree * Tensor(params.radius / distCenter);
+        Tensor positionNext = positionFree * (params.radius / distCenter);
 
         
         Tensor correction = positionNext - positionFree;
         // Normal force is correction 
         // F = m * dx / dt^2
-        N = correction * Tensor(params.mass / (params.dt * params.dt)); 
+        N = correction * (params.mass / (params.dt * params.dt)); 
 
-        v = (positionNext - s) * Tensor(1.0f / params.dt);
+        v = (positionNext - s) * (1 / params.dt);
         s = positionNext;
 
         t += params.dt;
