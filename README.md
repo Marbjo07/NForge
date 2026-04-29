@@ -52,6 +52,34 @@ Shape: { 4 5 }
 ====================
 ```
 
+
+## API overview
+
+### Construction
+
+| Expression | Description |
+|---|---|
+| `Tensor({n_1, n_2, ..., n_m}})` | Zero-initialised tensor of shape `{n_1, n_2, ..., n_m}` |
+| `Tensor({n, m}, v)` | Tensor filled with value `v` |
+| `Tensor(v)` | Scalar tensor wrapping `v` |
+| `Tensor(t)` | Copy of tensor `t` |
+
+### Arithmetic
+
+All four operators (`+`, `-`, `*`, `/`) work between:
+
+- Two `Tensor`s, element-wise, with scalar broadcast
+- A `Tensor` and a `Tensor::View`
+- A `Tensor` (or `View`) and a `float`, in either order
+
+```cpp
+Tensor a({4}, 2.0f);
+
+Tensor b = a * 3.0f;       // [6, 6, 6, 6]
+Tensor c = 10.0f - a;      // [8, 8, 8, 8]
+Tensor d = a + Tensor(1.0f); // scalar broadcast => [3, 3, 3, 3]
+```
+
 ## Tests
 
 Unit tests are included under `tests/` (Catch2). To run tests after building with CMake:
