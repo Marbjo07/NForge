@@ -26,7 +26,7 @@ Tensor::CUDAImpl::~CUDAImpl() {
 
 void Tensor::CUDAImpl::fillAll(float value) {
     int threads = 256;
-    int blocks  = max(1, ((int)m_shape.getNumElements() + threads - 1) / threads);
+    int blocks  = std::max(1, ((int)m_shape.getNumElements() + threads - 1) / threads);
     fillKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(d_data, value, (unsigned int)m_shape.getNumElements());
 }
 

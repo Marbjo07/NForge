@@ -191,6 +191,31 @@ Tensor operator/(float scalar, const Tensor& rhs) {
 }
 
 
+Tensor Tensor::mean(size_t dim) const {
+    Tensor res(*this);
+    return res;
+}
+
+Tensor Tensor::sum(size_t dim) const {
+    Tensor res(*this);
+    return res;
+}
+
+Tensor Tensor::min(size_t dim) const {
+    Tensor res(*this);
+    return res;
+}
+
+Tensor Tensor::max(size_t dim) const {
+    Tensor res(*this);
+    return res;
+}
+
+Tensor Tensor::prod(size_t dim) const {
+    Tensor res(*this);
+    return res;
+}
+
 
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});

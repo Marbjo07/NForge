@@ -14,7 +14,7 @@ TEST_CASE("Tensor mean reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = i * 3 + j;
+                a[i][j] = Tensor(i * 3 + j, backend);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
@@ -22,14 +22,14 @@ TEST_CASE("Tensor mean reduction", "[Tensor]") {
         float meanBlock2 = (3 + 4 + 5) / 3.0f;
         float mean = (meanBlock1 + meanBlock2) / 2.0f;
 
-        Tensor reduced({2}, backend);
-        reduced[0] = meanBlock1;
-        reduced[1] = meanBlock2;
+        Tensor reduced({2}, 0, backend);
+        reduced[0] = Tensor(meanBlock1, backend);
+        reduced[1] = Tensor(meanBlock2, backend);
 
         REQUIRE(a.mean() == Tensor(mean, backend));
-        REQUIRE(a.mean(dim=0) == Tensor(mean, backend)); // dim=0 is default
-        REQUIRE(a.mean(dim=1) == reduced);
-        REQUIRE(a.mean(dim=2) == a); // mean of each element is it self
+        REQUIRE(a.mean(0) == Tensor(mean, backend)); // dim=0 is default
+        REQUIRE(a.mean(1) == reduced);
+        REQUIRE(a.mean(2) == a); // mean of each element is it self
     }
 }
 
@@ -41,7 +41,7 @@ TEST_CASE("Tensor sum reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = i * 3 + j;
+                a[i][j] = Tensor(i * 3 + j, backend);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
@@ -49,14 +49,14 @@ TEST_CASE("Tensor sum reduction", "[Tensor]") {
         float sumBlock2 = 3 + 4 + 5;
         float sum = sumBlock1 + sumBlock2;
 
-        Tensor reduced({2}, backend);
-        reduced[0] = sumBlock1;
-        reduced[1] = sumBlock2;
+        Tensor reduced({2}, 0, backend);
+        reduced[0] = Tensor(sumBlock1, backend);
+        reduced[1] = Tensor(sumBlock2, backend);
 
         REQUIRE(a.sum() == Tensor(sum, backend));
-        REQUIRE(a.sum(dim=0) == Tensor(sum, backend)); // dim=0 is default
-        REQUIRE(a.sum(dim=1) == reduced);
-        REQUIRE(a.sum(dim=2) == a); // sum of each element is it self
+        REQUIRE(a.sum(0) == Tensor(sum, backend)); // dim=0 is default
+        REQUIRE(a.sum(1) == reduced);
+        REQUIRE(a.sum(2) == a); // sum of each element is it self
     }
 }
 
@@ -68,22 +68,22 @@ TEST_CASE("Tensor max reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = i * 3 + j;
+                a[i][j] = Tensor(i * 3 + j, backend);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
         float maxBlock1 = 2;
         float maxBlock2 = 5;
-        float max = max(maxBlock1, maxBlock2);
+        float max = std::max(maxBlock1, maxBlock2);
 
-        Tensor reduced({2}, backend);
+        Tensor reduced({2}, 0, backend);
         reduced[0] = maxBlock1;
         reduced[1] = maxBlock2;
 
-        REQUIRE(a.max()) == Tensor(max, backend));
-        REQUIRE(a.max(dim=0) == Tensor(max, backend)); // dim=0 is default
-        REQUIRE(a.max(dim=1) == reduced);
-        REQUIRE(a.max(dim=2) == a); // max of each element is it self
+        REQUIRE(a.max() == Tensor(max, backend));
+        REQUIRE(a.max(0) == Tensor(max, backend)); // dim=0 is default
+        REQUIRE(a.max(1) == reduced);
+        REQUIRE(a.max(2) == a); // max of each element is it self
     }
 }
 
@@ -95,7 +95,7 @@ TEST_CASE("Tensor min reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = i * 3 + j;
+                a[i][j] = Tensor(i * 3 + j);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
@@ -103,14 +103,14 @@ TEST_CASE("Tensor min reduction", "[Tensor]") {
         float minBlock2 = 3;
         float min = std::min(minBlock1, minBlock2);
 
-        Tensor reduced({2}, backend);
+        Tensor reduced({2}, 0, backend);
         reduced[0] = minBlock1;
         reduced[1] = minBlock2;
 
         REQUIRE(a.min() == Tensor(min, backend));
-        REQUIRE(a.min(dim=0) == Tensor(min, backend)); // dim=0 is default
-        REQUIRE(a.min(dim=1) == reduced);
-        REQUIRE(a.min(dim=2) == a); // min of each element is it self
+        REQUIRE(a.min(0) == Tensor(min, backend)); // dim=0 is default
+        REQUIRE(a.min(1) == reduced);
+        REQUIRE(a.min(2) == a); // min of each element is it self
     }
 }
 
@@ -122,22 +122,22 @@ TEST_CASE("Tensor prod reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = i * 3 + j;
+                a[i][j] = Tensor(i * 3 + j, backend);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
         float prodBlock1 = 0 * 1 * 2;
         float prodBlock2 = 3 * 4 * 5;
-        float min = prodBlock1 * prodBlock2;
+        float prod = prodBlock1 * prodBlock2;
 
-        Tensor reduced({2}, backend);
+        Tensor reduced({2}, 0, backend);
         reduced[0] = prodBlock1;
         reduced[1] = prodBlock2;
 
         REQUIRE(a.prod() == Tensor(prod, backend));
-        REQUIRE(a.prod(dim=0) == Tensor(prod, backend)); // dim=0 is default
-        REQUIRE(a.prod(dim=1) == reduced);
-        REQUIRE(a.prod(dim=2) == a); // prod of each element is it self
+        REQUIRE(a.prod(0) == Tensor(prod, backend)); // dim=0 is default
+        REQUIRE(a.prod(1) == reduced);
+        REQUIRE(a.prod(2) == a); // prod of each element is it self
     }
 }
 
@@ -152,8 +152,8 @@ TEST_CASE("Tensor mean reduction by sum reduction", "[Tensor]") {
             
         size_t count = 4 * 5 * 8;
         for (size_t d = 0; d <= 3; d++) {
-            float sum = a.sum(dim=d);
-            REQUIRE(a.mean(dim=d) == sum / count);
+            Tensor sum = a.sum(d);
+            REQUIRE(a.mean(d) == sum / count);
             
             if (d != 3) {
                 count /= shape[d];

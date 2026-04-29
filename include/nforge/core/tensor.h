@@ -86,6 +86,12 @@ class Tensor {
     friend Tensor operator*(float scalar, const Tensor& rhs);
     friend Tensor operator/(float scalar, const Tensor& rhs);
 
+    Tensor mean(size_t dim = 0) const;
+    Tensor sum(size_t dim = 0) const;
+    Tensor min(size_t dim = 0) const;
+    Tensor max(size_t dim = 0) const;
+    Tensor prod(size_t dim = 0) const;
+
     Tensor::View operator[](size_t idx) const;
     
     Tensor::View subsample(std::vector<size_t> strides) const;
