@@ -1,38 +1,25 @@
 # NForge
 
-A Tensor library for C++ with a focus on simplicity and ease of use. Features include:
-
-- Creation from shapes (scalars, vectors, matrices and higher-rank tensors)
-- Element-wise arithmetic (+, -, *, /)
-- Indexing that returns views (e.g. `a[0]` returns a view of the first row of `a`) and supports assignment
-- Views that can be assigned to (e.g. `a[0] = Tensor({m}, 1.0f)` sets the first row of `a` to all ones)
-- Backend abstraction allows for easy switching between CPU and CUDA implementations.
+A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.
 
 ## Build
 
-From the `NForge` root directory:
-
 ```bash
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 cmake --build .
 ```
 
-## Building with CUDA support
-
-Using CMake, you can enable CUDA support by passing the `-DNFORGE_ENABLE_CUDA=on` flag when configuring the build. Ensure you have the CUDA toolkit installed and set up properly. Highly recommended to use MSbuild if building with CUDA.
+### CUDA support
 
 ```bash
-mkdir build
-cd build
 cmake .. -DNFORGE_ENABLE_CUDA=on
 cmake --build .
 ```
 
-## Example
+Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
-A small example, building a 2D tensor and indexing into it.
+## Quick start
 
 ```cpp
 #include <iostream>
@@ -40,22 +27,18 @@ A small example, building a 2D tensor and indexing into it.
 
 int main() {
     size_t n = 4, m = 5;
-    Tensor a({n, m}); // 2D tensor of shape (n, m) filled with zeros
+    Tensor a({n, m}); // 2D tensor of zeros
 
-    for (int i = 0; i < n; i++) {
-        a[i] = Tensor({m}, static_cast<float>(i)); // Each row is filled with the row index
+    for (size_t i = 0; i < n; i++) {
+        a[i] = Tensor({m}, (float)i); // fill each row with its index
     }
 
-    // Set a single value
-    a[0][3] = Tensor(3.14f);
+    a[0][3] = Tensoor(3.14f);
 
     a.print();
-
-    return 0;
 }
 ```
-
-The output:
+### Output:
 
 ```text
 ====================
