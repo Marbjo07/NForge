@@ -81,11 +81,33 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
     return ctx;
 }
 
+ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
+    Tensor::Shape lhsShape = lhs.getShape();
+
+    Tensor::Shape blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
+    Tensor::Shape outShape = lhsShape.getSlice(0, dim);
+
+    ReductionContext ctx;
+    ctx.lhs = lhsShape;
+    ctx.out = outShape;
+    ctx.block = blockShape;
+    return ctx;
+}
+
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     ensureSameBackend(lhs.getParent(), rhs.getParent());
 
     return buildContext(lhs, rhs);
+}
+
+ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
+    if (dim > lhs.getShape().getNumDims()) {
+        throw std::runtime_error("Can not reduce Tensor of shape " 
+            + lhs.getShape().toString() + " with along dim " + std::to_string(dim));
+    }
+
+    return buildReductionContext(lhs, dim);
 }
 
 }  // namespace semantic

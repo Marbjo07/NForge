@@ -50,6 +50,20 @@ class Tensor::CPUImpl : public Tensor::Impl {
 
     std::unique_ptr<Tensor::Impl> div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                       const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
+    
+
+    std::unique_ptr<Tensor::Impl> sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                      const TensorLayout& outLayout) const override;
+
+    std::unique_ptr<Tensor::Impl> min(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                      const TensorLayout& outLayout) const override;
+
+    std::unique_ptr<Tensor::Impl> max(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                      const TensorLayout& outLayout) const override;
+
+    std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                       const TensorLayout& outLayout) const override;
+    
 
   private:
     Tensor::Shape m_shape;
@@ -59,6 +73,12 @@ class Tensor::CPUImpl : public Tensor::Impl {
     template <typename BinaryOp>
     std::unique_ptr<Tensor::Impl> applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                                 const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const;
+
+    // reduction must be associative
+    template <typename ReductionOp>
+    std::unique_ptr<Tensor::Impl> applyReductionOp(const TensorLayout& layout, const TensorLayout& blockLayout,
+                                                   const TensorLayout& outLayout, ReductionOp op) const;
+
 };
 
 #endif  // TENSOR_IMPL_CPU_H

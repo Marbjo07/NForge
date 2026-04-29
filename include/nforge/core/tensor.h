@@ -108,6 +108,9 @@ class Tensor {
     // used in template for all the binary operations
     template <typename BinaryOp>
     Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
+
+    template <typename ReductionOp>
+    Tensor applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const;
 };
 
 

@@ -226,3 +226,62 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const TensorLayout& lhsLayout
         return a / b;
     });
 }
+
+
+template <typename ReductionOp>
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyReductionOp(const TensorLayout& layout, const TensorLayout& blockLayout,
+                                                                const TensorLayout& outLayout, ReductionOp op) const {
+    auto outShape = Tensor::Shape(outLayout);
+
+    auto* result = new Tensor::CPUImpl(outShape);
+
+    const float* a = dataPtr();
+    auto&        b = result->m_data;
+
+    size_t outCount = 1;
+    for (size_t d = 0; d < outLayout.rank; d++) outCount *= outLayout.shape[d];
+
+    size_t blockCount = 1;
+    for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
+
+    for (size_t i = 0; i < outCount; i++) {
+        float res = a[physicalOffset(i * blockCount, layout)];
+
+        for (size_t j = 1; j < blockCount; j++) {
+            res = op(res, a[physicalOffset(i * blockCount + j, layout)]);
+        }
+
+        b[physicalOffset(i, outLayout)] = res;
+    }
+    return std::unique_ptr<Tensor::Impl>(result);
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return applyReductionOp(layout, blockLayout, outLayout, [](float a, float b) {
+        return a + b;
+    });
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::min(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                   const TensorLayout& outLayout) const {
+    return applyReductionOp(layout, blockLayout, outLayout, [](float a, float b) {
+        return std::min(a, b);
+    });
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::max(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                   const TensorLayout& outLayout) const {
+    return applyReductionOp(layout, blockLayout, outLayout, [](float a, float b) {
+        return std::max(a, b);
+    });
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return applyReductionOp(layout, blockLayout, outLayout, [](float a, float b) {
+        return a * b;
+    });
+}
+    

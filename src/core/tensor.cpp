@@ -191,29 +191,36 @@ Tensor operator/(float scalar, const Tensor& rhs) {
 }
 
 
+template <typename ReductionOp>
+Tensor Tensor::applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const {
+    auto ctx = semantic::validateReduction(*this, dim);
+
+    auto result = (m_impl.get()->*op)(ctx.lhs, ctx.block, ctx.out);
+
+    return Tensor(std::move(result), m_backend);
+}
+
 Tensor Tensor::mean(size_t dim) const {
-    Tensor res(*this);
-    return res;
+    Tensor res = this->sum(dim);
+    Tensor::Shape block = getShape().getSlice(dim, getShape().getNumDims());
+
+    return res / block.getNumElements();
 }
 
 Tensor Tensor::sum(size_t dim) const {
-    Tensor res(*this);
-    return res;
+    return applyReduction("sum", dim, &Tensor::Impl::sum);
 }
 
 Tensor Tensor::min(size_t dim) const {
-    Tensor res(*this);
-    return res;
+    return applyReduction("min", dim, &Tensor::Impl::min);
 }
 
 Tensor Tensor::max(size_t dim) const {
-    Tensor res(*this);
-    return res;
+    return applyReduction("max", dim, &Tensor::Impl::max);
 }
 
 Tensor Tensor::prod(size_t dim) const {
-    Tensor res(*this);
-    return res;
+    return applyReduction("prod", dim, &Tensor::Impl::prod);
 }
 
 
