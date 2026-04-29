@@ -97,3 +97,11 @@ Run after building:
 ```bash
 ctest --progress
 ```
+
+## Roadmap
+
+- [ ] Float comparison with configurable epsilon (`approxEqual`) — #14
+- [ ] Frobenius norm — #15
+- [ ] Matrix multiplication — #16
+- [ ] Scalar/float–tensor comparison operators — #18  
+- [ ] Reduction operators (sum, mean, max, …) — #19
