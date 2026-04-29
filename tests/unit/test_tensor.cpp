@@ -96,6 +96,62 @@ TEST_CASE("Tensor view copy and compare", "[Tensor]") {
 }
 
 
+TEST_CASE("Compare tensor with tolerance", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4}, 1.00001, backend);
+        Tensor b({4}, 1.000011, backend);
+        Tensor c({4}, 1.00002, backend);
+
+        REQUIRE(a == b);
+        REQUIRE(b == a);
+        REQUIRE(c != a);
+        REQUIRE(c != b);
+    }
+}
+
+TEST_CASE("Compare tensor with relative tolerance", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        float largeFloat = 1e9;
+        float withinMargin = largeFloat * (1 + 1e-5);
+        float outsideMargin = largeFloat * (1 + 2e-5);
+        
+        Tensor a({4}, largeFloat, backend);
+        Tensor b({4}, withinMargin, backend);
+        Tensor c({4}, outsideMargin, backend);
+
+        REQUIRE(a == b);
+        REQUIRE(b == a);
+        REQUIRE(c != a);
+        REQUIRE(c != b);
+    }
+}
+
+TEST_CASE("Compare tensor and tensor view with tolerance", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3, 9, 7}, 19, backend);
+        Tensor b({9, 7}, 19 * (1 + 2e-5), backend);
+
+        auto x = a[0];
+        auto y = a[1];
+
+        REQUIRE(x != b);
+        REQUIRE(x == y);
+
+        REQUIRE(b != x);
+        REQUIRE(b != y);
+
+        REQUIRE(y == x);
+        REQUIRE(y != b);
+    }
+}
+
+
 TEST_CASE("Add tensors", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
