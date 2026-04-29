@@ -80,9 +80,19 @@ Tensor c = 10.0f - a;      // [8, 8, 8, 8]
 Tensor d = a + Tensor(1.0f); // scalar broadcast => [3, 3, 3, 3]
 ```
 
+
 ## Tests
 
-Unit tests are included under `tests/` (Catch2). To run tests after building with CMake:
+Unit and integration tests use [Catch2](https://github.com/catchorg/Catch2) and live under `tests/`.
+
+```
+tests/
+├── unit/                 # tensor construction, arithmetic, views, strides
+└── integration/
+    └── physics/          # end-to-end physics simulations
+```
+
+Run after building:
 
 ```bash
 ctest --progress
