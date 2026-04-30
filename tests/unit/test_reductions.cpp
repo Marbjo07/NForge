@@ -161,3 +161,36 @@ TEST_CASE("Tensor mean reduction by sum reduction", "[Tensor]") {
         }
     }
 }
+
+TEST_CASE("Tensor reduction with stride", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        size_t n = 4;
+        size_t m = 6;
+        Tensor a({n, m}, backend);
+        
+        for (size_t i = 0; i < n; i++) {
+            for (size_t j = 0; j < m; j++) {
+                a[i][j] = Tensor(i * m + j, backend);
+            }
+        }
+        // a = [[ 0,  1,  2,  3,  4,  5], 
+        //      [ 6,  7,  8,  9, 10, 11],
+        //      [12, 13, 14, 15, 16, 17],
+        //      [18, 19, 20, 21, 22, 23]]
+        
+        auto b = a.subsample({2, 2}).copy();
+        
+        // b = [[ 0,  2,  4],
+        //      [12, 14, 16]]
+
+        REQUIRE(b.mean(0) == Tensor(8.0f, backend));
+        REQUIRE(b.mean(1)[0] == Tensor(2.0f, backend));
+        REQUIRE(b.mean(1)[1] == Tensor(14.0f, backend));
+        
+        REQUIRE(b.sum(0) == Tensor(48.0f, backend));
+        REQUIRE(b.sum(1)[0] == Tensor(6.0f, backend));
+        REQUIRE(b.sum(1)[1] == Tensor(42.0f, backend));
+    }
+}
