@@ -14,9 +14,20 @@ struct BinaryOpContext {
     TensorLayout out;
 };
 
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
+struct ReductionContext {
+    TensorLayout lhs;
+    TensorLayout out;
+    TensorLayout block;
+};
 
 BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs);
+ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
+
+BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
+ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
+
+
+
 
 }  // namespace semantic
 

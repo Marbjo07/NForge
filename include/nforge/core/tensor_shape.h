@@ -28,6 +28,7 @@ class Tensor::Shape {
 
     // Shape modifications
     Tensor::Shape removeLeadingDimension() const;
+    // Returns shape with dimensions in interval [start, end)
     Tensor::Shape getSlice(size_t start, size_t end) const;
 
     // Utility methods

@@ -23,3 +23,4 @@ Reading strides will return the number of blocks stepped for each dim, in contra
 
 Constructor must verify parameters, construction throws if invalid parameters are passed.
 Should not be modified after construction.
+

@@ -161,6 +161,69 @@ Tensor Tensor::operator/(const Tensor::View& rhs) const {
 }
 
 
+Tensor Tensor::operator+(float scalar) const {
+    return *this + Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator-(float scalar) const {
+    return *this - Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator*(float scalar) const {
+    return *this * Tensor(scalar, m_backend);
+}
+Tensor Tensor::operator/(float scalar) const {
+    return *this / Tensor(scalar, m_backend);
+}
+
+Tensor operator+(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) + rhs;
+}
+
+Tensor operator-(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) - rhs;
+}
+
+Tensor operator*(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) * rhs;
+}
+
+Tensor operator/(float scalar, const Tensor& rhs) {
+    return Tensor(scalar, rhs.m_backend) / rhs;
+}
+
+
+template <typename ReductionOp>
+Tensor Tensor::applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const {
+    auto ctx = semantic::validateReduction(*this, dim);
+
+    auto result = (m_impl.get()->*op)(ctx.lhs, ctx.block, ctx.out);
+
+    return Tensor(std::move(result), m_backend);
+}
+
+Tensor Tensor::mean(size_t dim) const {
+    Tensor res = this->sum(dim);
+    Tensor::Shape block = getShape().getSlice(dim, getShape().getNumDims());
+
+    return res / block.getNumElements();
+}
+
+Tensor Tensor::sum(size_t dim) const {
+    return applyReduction("sum", dim, &Tensor::Impl::sum);
+}
+
+Tensor Tensor::min(size_t dim) const {
+    return applyReduction("min", dim, &Tensor::Impl::min);
+}
+
+Tensor Tensor::max(size_t dim) const {
+    return applyReduction("max", dim, &Tensor::Impl::max);
+}
+
+Tensor Tensor::prod(size_t dim) const {
+    return applyReduction("prod", dim, &Tensor::Impl::prod);
+}
+
+
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});
     return results;
