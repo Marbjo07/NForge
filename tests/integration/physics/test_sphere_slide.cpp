@@ -13,7 +13,7 @@ Tensor create2dVector(float x, float y) {
 TEST_CASE("Cube slide of sphere", "[Physics]") {
     SphereSlideResults res = simulateSphereSlide(SphereSlideParams{});
 
-    REQUIRE(res.position == create2dVector(0.73462,  0.67846));
-    REQUIRE(res.speed    == create2dVector(1.20329, -1.30045));
-    REQUIRE(res.t == 3.7129f);
+    REQUIRE(res.position == create2dVector(0.734628736972809,  0.678469479084015));
+    REQUIRE(res.speed    == create2dVector(1.203298449516296, -1.300454020500183));
+    REQUIRE(res.t == 3.712913275f);
 }
