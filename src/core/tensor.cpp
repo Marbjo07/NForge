@@ -226,6 +226,12 @@ Tensor Tensor::prod(size_t dim) const {
 
 Tensor::View Tensor::operator[](size_t idx) const {
     Tensor::View results((Tensor&)*this, {idx});
+    if (idx < 0 || idx >= getShape().getDim(0)) {
+        throw std::out_of_range("Index " + std::to_string(idx) 
+            + " is out of bounds. Tensor shape: "
+            + getShape().toString());
+    }
+
     return results;
 }
 

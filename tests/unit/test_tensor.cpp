@@ -336,7 +336,7 @@ TEST_CASE("Invalid Tensor 2D index throws", "[Tensor]") {
         Tensor a({2, 6}, 2.0f, backend);
 
         REQUIRE_THROWS(a[0][6]);
-        REQUIRE_THROWS(a[1][4]);
+        REQUIRE_THROWS(a[2][4]);
         REQUIRE_THROWS(a[1][6]);
         REQUIRE_THROWS(a[-1][0]);
         REQUIRE_THROWS(a[-1][-1]);
