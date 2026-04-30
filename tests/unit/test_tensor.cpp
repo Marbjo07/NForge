@@ -342,3 +342,20 @@ TEST_CASE("Invalid Tensor 2D index throws", "[Tensor]") {
         REQUIRE_THROWS(a[-1][-1]);
     }
 }
+
+TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        for (size_t n : {1, 5, 8, 16}) {
+            Tensor a({n}, backend);
+            REQUIRE(a.getShape() == Tensor::Shape({n}));
+
+            Tensor b({n}, 1.0f, backend);
+            REQUIRE(a.getShape() == Tensor::Shape({n}));
+        }
+
+        Tensor a(1.0f, backend);
+        REQUIRE(a.getShape() == Tensor::Shape({1}));
+    }
+}
