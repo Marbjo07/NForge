@@ -15,32 +15,40 @@ constexpr bool cudaEnabled = false;
 
 Tensor::Tensor(const Tensor::Shape& shape, Backend backend)
     : m_backend(backend) {
-    if (backend == Backend::CPU) {
-        m_impl = std::make_unique<Tensor::CPUImpl>(shape);
-    } 
-    else if (backend == Backend::CUDA) {
-        if constexpr (!cudaEnabled) {
-            std::cout << "CUDA backend not built!";
+    switch (backend) {
+        case (Backend::CPU): 
             m_impl = std::make_unique<Tensor::CPUImpl>(shape);
+            break;
+        case (Backend::CUDA):
+            if constexpr (cudaEnabled) {
+                m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
+            }
+            else {
+                std::cout << "CUDA backend not built!";
+                m_impl = std::make_unique<Tensor::CPUImpl>(shape);
+            }
+            break;
+        default:
+            std::cout << "backend not implemented! defaulting to cpu\n";
+            m_impl = std::make_unique<Tensor::CPUImpl>(shape);
+            break;
         }
-        else {
-            m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
-        }
-    }
-    else {
-        std::cout << "backend not implemented! defaulting to cpu\n";
-        m_impl = std::make_unique<Tensor::CPUImpl>(shape);
-    }
 }
+
+Tensor::Tensor(const std::initializer_list<size_t>& shape, Backend backend)
+    : Tensor(Tensor::Shape(shape), backend) {}
+
 
 Tensor::Tensor(const Tensor::Shape& shape, float value, Backend backend)
     : Tensor(shape, backend) {
     m_impl->fillAll(value);
 }
 
+Tensor::Tensor(const std::initializer_list<size_t>& shape, float value, Backend backend)
+    : Tensor(Tensor::Shape(shape), value, backend) {}
+
 Tensor::Tensor(float value, Backend backend)
-    : Tensor(Tensor::Shape({1}), value, backend) {
-}
+    : Tensor(Tensor::Shape({1}), value, backend) {}
 
 Tensor::Tensor(const Tensor& rhs)
     : m_backend(rhs.m_backend), m_impl(rhs.m_impl->clone()) {
