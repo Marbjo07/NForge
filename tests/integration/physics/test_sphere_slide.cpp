@@ -3,12 +3,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
 
-Tensor create2dVector(float x, float y) {
-    Tensor a({2}, 0.0f);
-    a[0] = x;
-    a[1] = y;
-    return a;
-}   
+#include "utils.h"
 
 TEST_CASE("Cube slide of sphere", "[Physics]") {
     SphereSlideResults res = simulateSphereSlide(SphereSlideParams{});
