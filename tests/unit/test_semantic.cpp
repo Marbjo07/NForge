@@ -136,3 +136,27 @@ TEST_CASE("Throw on tensor view device mismatch", "[Semantic]") {
     CHECK_THROWS_WITH(semantic::validateBinaryOperation(x, y), Catch::Matchers::ContainsSubstring("different devices"));
 }
 #endif // NFORGE_WITH_CUDA
+
+
+TEST_CASE("Reduction operation", "[Semantic]") {
+    Tensor a({1, 3, 5}, 1.0f, Backend::CPU);
+    size_t dim = 1;
+
+    // Shape = {1, 3, 5}
+    // Block to reduce = {3, 5}
+    // Resulting shape = {1}
+
+    auto ctx = semantic::validateReduction(a, dim);
+
+    REQUIRE(ctx.out.shape[0] == 1);
+    REQUIRE(ctx.block.shape[0] == 3);
+    REQUIRE(ctx.block.shape[1] == 5);
+}
+
+
+TEST_CASE("Throw on invalid dim in reduction operation", "[Semantic]") {
+    Tensor a({1, 3, 5}, 1.0f, Backend::CPU);
+
+    REQUIRE_THROWS(semantic::validateReduction(a, -1));
+    REQUIRE_THROWS(semantic::validateReduction(a, 4));
+}
