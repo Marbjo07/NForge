@@ -225,15 +225,19 @@ Tensor Tensor::prod(size_t dim) const {
 
 
 Tensor::View Tensor::operator[](size_t idx) const {
-    Tensor::View results((Tensor&)*this, {idx});
-    return results;
+    auto ctx = semantic::validateIndexing(*this, idx);
+
+    std::vector<size_t> position = {idx};
+    Tensor& parent = const_cast<Tensor&>(*this);
+
+    Tensor::View out(parent, position, ctx.out);
+    return out;
 }
 
 Tensor::View Tensor::subsample(std::vector<size_t> strides) const {
     Tensor::View view(*this);
     return view.subsample(strides);
 }
-
 
 Tensor& Tensor::operator=(const Tensor& rhs) {
     this->m_impl = rhs.m_impl->clone();

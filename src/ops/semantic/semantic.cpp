@@ -94,6 +94,27 @@ ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
     return ctx;
 }
 
+IndexContext buildIndexContext(const Tensor::View& src, size_t idx) {
+    TensorLayout layout = src.getLayout();
+    size_t offset = layout.offset + layout.strides[0] * idx;
+    auto shape = Tensor::Shape(layout)[0];
+    
+    // ensure rank > 0
+    size_t newRank = std::max((int)layout.rank - 1, 1);
+
+    // shift by one, removing leading dim
+    std::vector<size_t> strides(newRank, 1);
+    for (int d = 0; d < (int)layout.rank - 1; d++) {
+        strides[d] = layout.strides[d + 1];
+    }
+
+    TensorLayout out(shape, strides, offset);
+    
+    IndexContext res{out};
+    return res;
+}
+
+
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     ensureSameBackend(lhs.getParent(), rhs.getParent());
@@ -109,5 +130,18 @@ ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
 
     return buildReductionContext(lhs, dim);
 }
+
+IndexContext validateIndexing(const Tensor::View& src, size_t idx) {
+    Tensor::Shape shape = src.getShape();
+    if (idx < 0 || idx >= shape.getDim(0)) {
+        throw std::out_of_range("Index " + std::to_string(idx) 
+            + " is out of bounds. Tensor view shape: "
+            + shape.toString());
+    }
+
+    return buildIndexContext(src, idx);
+}
+
+
 
 }  // namespace semantic
