@@ -319,3 +319,26 @@ TEST_CASE("Float and Tensor div", "[Tensor]") {
         REQUIRE(b == Tensor({4}, 1.5f, backend));
     }
 }
+
+TEST_CASE("Invalid Tensor index throws", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({2}, 2.0f, backend);
+        REQUIRE_THROWS(a[3]);
+    }
+}
+
+TEST_CASE("Invalid Tensor 2D index throws", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({2, 6}, 2.0f, backend);
+
+        REQUIRE_THROWS(a[0][6]);
+        REQUIRE_THROWS(a[1][4]);
+        REQUIRE_THROWS(a[1][6]);
+        REQUIRE_THROWS(a[-1][0]);
+        REQUIRE_THROWS(a[-1][-1]);
+    }
+}
