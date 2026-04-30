@@ -23,7 +23,10 @@ class Tensor {
 
    public:
     Tensor(const Tensor::Shape& shape, Backend backend = Backend::CPU);
+    Tensor(const std::initializer_list<size_t>& shape, Backend backend = Backend::CPU);
+    
     Tensor(const Tensor::Shape& shape, float value, Backend backend = Backend::CPU);
+    Tensor(const std::initializer_list<size_t>& shape, float value, Backend backend = Backend::CPU);
 
     Tensor(float value, Backend backend = Backend::CPU);
 
