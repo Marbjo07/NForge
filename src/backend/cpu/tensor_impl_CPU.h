@@ -52,10 +52,10 @@ class Tensor::CPUImpl : public Tensor::Impl {
                                       const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
     
     
-    void iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);    
-    void isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);    
-    void imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);
-    void idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);
+    void iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) override;    
+    void isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) override;    
+    void imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) override;
+    void idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) override;
 
     std::unique_ptr<Tensor::Impl> sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                       const TensorLayout& outLayout) const override;
