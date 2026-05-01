@@ -39,15 +39,15 @@ class Tensor::View {
     // creates a copy of the viewed tensor
     Tensor copy() const;
 
-    Tensor operator+(const Tensor& rhs) const;
-    Tensor operator-(const Tensor& rhs) const;
-    Tensor operator*(const Tensor& rhs) const;
-    Tensor operator/(const Tensor& rhs) const;
-
     Tensor operator+(const Tensor::View& rhs) const;
     Tensor operator-(const Tensor::View& rhs) const;
     Tensor operator*(const Tensor::View& rhs) const;
     Tensor operator/(const Tensor::View& rhs) const;
+
+    void operator+=(const Tensor::View& rhs);
+    void operator-=(const Tensor::View& rhs);
+    void operator*=(const Tensor::View& rhs);
+    void operator/=(const Tensor::View& rhs);
 
     Tensor::View operator=(const Tensor& rhs);
     Tensor::View operator=(const Tensor::View& rhs);

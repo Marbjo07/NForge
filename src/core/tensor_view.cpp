@@ -128,27 +128,6 @@ Tensor Tensor::View::copy() const {
 } 
 
 
-Tensor Tensor::View::operator+(const Tensor& rhs) const {
-    Tensor current = copy();
-    return current + rhs;
-}
-
-Tensor Tensor::View::operator-(const Tensor& rhs) const {
-    Tensor current = copy();
-    return current - rhs;
-}
-
-Tensor Tensor::View::operator*(const Tensor& rhs) const {
-    Tensor current = copy();
-    return current * rhs;
-}
-
-Tensor Tensor::View::operator/(const Tensor& rhs) const {
-    Tensor current = copy();
-    return current / rhs;
-}
-
-
 Tensor Tensor::View::operator+(const Tensor::View& rhs) const {
     Tensor current = copy();
     return current + rhs;
@@ -167,6 +146,30 @@ Tensor Tensor::View::operator*(const Tensor::View& rhs) const {
 Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
     Tensor current = copy();
     return current / rhs;
+}
+
+void Tensor::View::operator+=(const Tensor::View& rhs) {
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+
+    m_parent.m_impl->iadd(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
+}
+
+void Tensor::View::operator-=(const Tensor::View& rhs) {
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->isub(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
+}
+
+void Tensor::View::operator*=(const Tensor::View& rhs) {
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->imul(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
+}
+
+void Tensor::View::operator/=(const Tensor::View& rhs) {
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->idiv(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 
