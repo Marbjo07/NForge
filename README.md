@@ -22,7 +22,7 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
 | Build Option | Description | Default Value |
 |---|---|---|
-| `NFORGE_ENABLE_CUDA` | Toggels build CUDA backend | `OFF` |
+| `NFORGE_ENABLE_CUDA` | Toggles build CUDA backend | `OFF` |
 | `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `ON` |
 
 
@@ -194,7 +194,7 @@ ctest --progress
 
 ## Benchmarks
 
-Benchmarks are ran on merge with `main` branch, if all tests passes. 
+Benchmarks run on merge with `main` branch, after all tests pass. 
 
 Current benchmarks are the examples from physics scenarios with default parameters.
 The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
@@ -204,7 +204,7 @@ The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marb
 - [ ] Float comparison with configurable epsilon (`approxEqual`) - #14
 - [ ] Frobenius norm - #15
 - [ ] Matrix multiplication - #16
-- [ ] Scalar/float–tensor comparison operators - #18  
+- [ ] Scalar/float–tensor comparison operators - #18
 - [x] Reduction operators (sum, mean, max, …) - #19
 
 
