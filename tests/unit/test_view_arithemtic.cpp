@@ -417,3 +417,55 @@ TEST_CASE("Arithmetic result does not alias the source view", "[View][Arithmetic
         }
     }
 }
+
+TEST_CASE("In-place addition operator on view", "[View][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4, 3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a[0] += b;
+        
+        REQUIRE(a[0] == Tensor({3}, 5.0f, backend));
+    }
+}
+
+TEST_CASE("In-place subtraction operator on view", "[View][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4, 3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a[0] -= b;
+        
+        REQUIRE(a[0] == Tensor({3}, 1.0f, backend));
+    }
+}
+
+TEST_CASE("In-place multiplication operator on view", "[View][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4, 3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a[0] *= b;
+        
+        REQUIRE(a[0] == Tensor({3}, 6.0f, backend));
+    }
+}
+
+TEST_CASE("In-place division operator on view", "[View][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4, 3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a[0] /= b;
+        
+        REQUIRE(a[0] == Tensor({3}, 1.5f, backend));
+    }
+}
