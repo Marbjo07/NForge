@@ -53,6 +53,7 @@ endif()
 enable_testing()
 add_subdirectory(tests)
 
+
 if(NFORGE_BUILD_BENCHMARKS)
     add_subdirectory(benchmarks)
 endif()
