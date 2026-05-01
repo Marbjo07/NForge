@@ -8,7 +8,7 @@ option(NFORGE_ENABLE_CUDA "Enable CUDA support" OFF)
 option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" ON)
 
 
-# Sources
+## Sources
 set(NFORGE_SRC
     src/core/tensor.cpp
     src/core/tensor_view.cpp
@@ -18,6 +18,7 @@ set(NFORGE_SRC
     src/ops/semantic/semantic.cpp
 )
 
+## Add CUDA sources
 if(NFORGE_ENABLE_CUDA)
     enable_language(CUDA)
 
@@ -33,12 +34,15 @@ endif()
 
 add_library(NForge STATIC ${NFORGE_SRC})
 
+
+## Includes
 target_include_directories(NForge
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
 
 ## Release vs Debug build
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -59,6 +63,8 @@ else()
     message(STATUS "No build type specified, defaulting to Debug")
 endif()
 
+
+## Configure CUDA dependencies
 if(NFORGE_ENABLE_CUDA)
     target_link_libraries(NForge PUBLIC CUDA::cudart CUDA::curand)
     
@@ -70,10 +76,13 @@ if(NFORGE_ENABLE_CUDA)
     set_property(TARGET NForge PROPERTY CUDA_ARCHITECTURES native)
 endif()
 
+
+## Testing
 enable_testing()
 add_subdirectory(tests)
 
 
+## Benchmarks
 if(NFORGE_BUILD_BENCHMARKS)
     add_subdirectory(benchmarks)
 endif()
