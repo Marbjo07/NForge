@@ -23,7 +23,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
         restore-keys: |
           ${{ runner.os }}-deps-
 
@@ -85,7 +85,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
         restore-keys: |
           ${{ runner.os }}-deps-
 
