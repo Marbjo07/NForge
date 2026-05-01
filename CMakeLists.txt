@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(NFORGE_ENABLE_CUDA "Enable CUDA support" OFF)
 option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" ON)
 
+
 # Sources
 set(NFORGE_SRC
     src/core/tensor.cpp
@@ -38,6 +39,25 @@ target_include_directories(NForge
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+## Release vs Debug build
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(NForge PRIVATE
+        -O3 -march=native -ffast-math -funroll-loops -fomit-frame-pointer
+    )
+    set_property(TARGET NForge PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+
+elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(NForge PRIVATE
+        -O0 -g -fsanitize=address -fsanitize=undefined
+    )
+    target_link_options(NForge PRIVATE
+        -fsanitize=address -fsanitize=undefined
+    )
+else()
+    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type" FORCE)
+    message(STATUS "No build type specified, defaulting to Debug")
+endif()
 
 if(NFORGE_ENABLE_CUDA)
     target_link_libraries(NForge PUBLIC CUDA::cudart CUDA::curand)
