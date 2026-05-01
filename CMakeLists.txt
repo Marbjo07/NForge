@@ -43,26 +43,20 @@ target_include_directories(NForge
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+## Add flags for Debug or Release
+target_compile_options(NForge PRIVATE
+    # Release, non-MSVC
+    $<$<AND:$<CONFIG:Release>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+        -march=native -ffast-math -funroll-loops>
 
-## Release vs Debug build
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(NForge PRIVATE
-        -O3 -march=native -ffast-math -funroll-loops -fomit-frame-pointer
-    )
-    set_property(TARGET NForge PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-
-elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(NForge PRIVATE
-        -O0 -g -fsanitize=address -fsanitize=undefined
-    )
-    target_link_options(NForge PRIVATE
-        -fsanitize=address -fsanitize=undefined
-    )
-else()
-    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type" FORCE)
-    message(STATUS "No build type specified, defaulting to Debug")
-endif()
-
+    # Release, MSVC
+    $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:
+        /arch:AVX2 /fp:fast>
+    
+    # Debug, non-MSVC
+    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+        -fsanitize=address -fsanitize=undefined>
+)
 
 ## Configure CUDA dependencies
 if(NFORGE_ENABLE_CUDA)
