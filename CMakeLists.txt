@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(NFORGE_ENABLE_CUDA "Enable CUDA support" OFF)
+option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" ON)
 
 # Sources
 set(NFORGE_SRC
@@ -49,6 +50,9 @@ if(NFORGE_ENABLE_CUDA)
     set_property(TARGET NForge PROPERTY CUDA_ARCHITECTURES native)
 endif()
 
-
 enable_testing()
 add_subdirectory(tests)
+
+if(NFORGE_BUILD_BENCHMARKS)
+    add_subdirectory(benchmarks)
+endif()
