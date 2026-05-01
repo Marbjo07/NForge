@@ -43,20 +43,30 @@ target_include_directories(NForge
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+
 ## Add flags for Debug or Release
 target_compile_options(NForge PRIVATE
     # Release, non-MSVC
     $<$<AND:$<CONFIG:Release>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
-        -march=native -ffast-math -funroll-loops>
+        -march=native;-ffast-math;-funroll-loops>
 
     # Release, MSVC
     $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:
-        /arch:AVX2 /fp:fast>
-    
+        /arch:AVX2;/fp:fast>
+)
+
+target_compile_options(NForge PUBLIC
     # Debug, non-MSVC
     $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
-        -fsanitize=address -fsanitize=undefined>
+        -fsanitize=address;-fsanitize=undefined>
 )
+
+target_link_options(NForge PUBLIC
+    # Debug, non-MSVC
+    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+        -fsanitize=address;-fsanitize=undefined>
+)
+
 
 ## Configure CUDA dependencies
 if(NFORGE_ENABLE_CUDA)
