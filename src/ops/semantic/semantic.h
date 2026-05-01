@@ -14,6 +14,11 @@ struct BinaryOpContext {
     TensorLayout out;
 };
 
+struct InplaceBinaryOpContext {
+    TensorLayout lhs;
+    TensorLayout rhs;
+};
+
 struct ReductionContext {
     TensorLayout lhs;
     TensorLayout out;
@@ -31,9 +36,9 @@ ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
 IndexContext buildIndexContext(const Tensor::View& src, size_t idx);
 
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
+InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
 ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
 IndexContext validateIndexing(const Tensor::View& src, size_t idx);
-
 
 
 

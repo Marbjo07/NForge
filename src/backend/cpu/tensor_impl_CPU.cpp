@@ -227,6 +227,48 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const TensorLayout& lhsLayout
     });
 }
 
+template <typename BinaryOp>
+void Tensor::CPUImpl::applyInplaceBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                           const TensorLayout& rhsLayout, BinaryOp op) {
+
+    const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
+
+    float*       a = dataPtr();
+    const float* b = rhs->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < lhsLayout.rank; d++) count *= lhsLayout.shape[d];
+
+    for (size_t i = 0; i < count; i++) {
+        a[physicalOffset(i, lhsLayout)] =
+            op(a[physicalOffset(i, lhsLayout)],
+               b[physicalOffset(i, rhsLayout)]);
+    }
+}
+
+void Tensor::CPUImpl::iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a + b;
+    });
+}
+
+void Tensor::CPUImpl::isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a - b;
+    });
+}
+
+void Tensor::CPUImpl::imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a * b;
+    });
+}
+
+void Tensor::CPUImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a / b;
+    });
+}
 
 template <typename ReductionOp>
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyReductionOp(const TensorLayout& layout, const TensorLayout& blockLayout,

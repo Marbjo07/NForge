@@ -51,6 +51,11 @@ class Tensor::CPUImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> div(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                       const TensorLayout& rhsLayout, const TensorLayout& outLayout) const override;
     
+    
+    void iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);    
+    void isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);    
+    void imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);
+    void idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout);
 
     std::unique_ptr<Tensor::Impl> sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                       const TensorLayout& outLayout) const override;
@@ -73,6 +78,11 @@ class Tensor::CPUImpl : public Tensor::Impl {
     template <typename BinaryOp>
     std::unique_ptr<Tensor::Impl> applyBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                                 const TensorLayout& rhsLayout, const TensorLayout& outLayout, BinaryOp op) const;
+
+    template <typename BinaryOp>
+    void applyInplaceBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                              const TensorLayout& rhsLayout, BinaryOp op);
+
 
     // reduction must be associative
     template <typename ReductionOp>
