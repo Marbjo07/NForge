@@ -71,3 +71,56 @@ TEST_CASE("2D arithmetic consistency across backends", "[Tensor][Arithmetic]") {
         }
     }
 }
+
+TEST_CASE("In-place addition operator", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a += b;
+        
+        REQUIRE(a == Tensor({3}, 5.0f, backend));
+    }
+}
+
+TEST_CASE("In-place subtraction operator", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a -= b;
+        
+        REQUIRE(a == Tensor({3}, 1.0f, backend));
+    }
+}
+
+TEST_CASE("In-place multiplication operator", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a *= b;
+        
+        REQUIRE(a == Tensor({3}, 6.0f, backend));
+    }
+}
+
+
+TEST_CASE("In-place division operator", "[Tensor][Arithmetic]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 3.0f, backend);
+        Tensor b({3}, 2.0f, backend);
+        
+        a /= b;
+        
+        REQUIRE(a == Tensor({3}, 1.5f, backend));
+    }
+}
