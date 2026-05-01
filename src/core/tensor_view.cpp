@@ -149,22 +149,28 @@ Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
 }
 
 void Tensor::View::operator+=(const Tensor::View& rhs) {
-    m_parent.operator+=(rhs);
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+
+    m_parent.m_impl->iadd(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator-=(const Tensor::View& rhs) {
-    m_parent.operator-=(rhs);
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->isub(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator*=(const Tensor::View& rhs) {
-    m_parent.operator*=(rhs);
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->imul(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator/=(const Tensor::View& rhs) {
-    m_parent.operator/=(rhs);
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+    
+    m_parent.m_impl->idiv(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
-
-
 
 
 Tensor::View Tensor::View::operator=(const Tensor& rhs) {

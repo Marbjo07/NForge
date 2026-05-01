@@ -124,8 +124,9 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::V
 
 InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
     BinaryOpContext ctx = validateBinaryOperation(lhs, rhs);
+    const TensorLayout& lhsLayout = lhs.getLayout(); 
 
-    if (ctx.lhs != ctx.out) {
+    if (lhsLayout != ctx.lhs) {
         throw std::runtime_error("Can not apply in-place operator where infered output is different from lhs!");
     }
 
