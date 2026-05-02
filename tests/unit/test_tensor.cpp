@@ -5,6 +5,8 @@
 #include "nforge/nforge.h"
 #include "utils.h"
 
+#include <cmath>
+
 
 TEST_CASE("Create tensor", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
