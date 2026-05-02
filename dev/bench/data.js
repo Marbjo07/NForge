@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777762941768,
+  "lastUpdate": 1777762987253,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -252,6 +252,42 @@ window.BENCHMARK_DATA = {
             "value": 17604583.043750033,
             "unit": "ns/iter",
             "extra": "iterations: 160\ncpu: 17602703.993750002 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "distinct": true,
+          "id": "8361e91127c95b9db7edc5082075c7bee884ca8b",
+          "message": "feat: test docs actions in pr",
+          "timestamp": "2026-05-03T01:01:18+02:00",
+          "tree_id": "3c36ea30b437d98cec21cbbdaf96f83051be7601",
+          "url": "https://github.com/Marbjo07/NForge/commit/8361e91127c95b9db7edc5082075c7bee884ca8b"
+        },
+        "date": 1777762985913,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 539725.6162097713,
+            "unit": "ns/iter",
+            "extra": "iterations: 5034\ncpu: 539682.0746920938 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 16472850.623529378,
+            "unit": "ns/iter",
+            "extra": "iterations: 170\ncpu: 16471846.217647059 ns\nthreads: 1"
           }
         ]
       }
