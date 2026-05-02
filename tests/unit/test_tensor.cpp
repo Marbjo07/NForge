@@ -359,3 +359,76 @@ TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
         REQUIRE(a.getShape() == Tensor::Shape({1}));
     }
 }
+
+TEST_CASE("Frobenius norm of scalar", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a(4.0f, backend);
+        Tensor b(-4.0f, backend);
+
+        REQUIRE(a.norm() == 4.0f);
+        REQUIRE(b.norm() == 4.0f);
+    }
+}
+
+
+TEST_CASE("Frobenius norm of vector", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({5}, -4.0f, backend);
+
+        REQUIRE(a.norm() == 4.0f);
+        
+        for (size_t i = 0; i < 5; i++) {
+            a[i] = i;
+        }
+
+        // a = [0, 1, 2, 3, 4]
+        REQUIRE(a.norm() == std::sqrt(30.0f));
+    }
+}
+
+
+TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        size_t n = 5;
+        size_t m = 8;
+        Tensor a({n, m}, -4.0f, backend);
+
+        REQUIRE(a.norm() == 4.0f);
+        
+        float sum = 0;
+        for (size_t i = 0; i < n; i++) {
+            for (size_t j = 0; j < m; j++) {
+                a[i][j] = i * m + j;
+                sum += i * m + j;
+            }
+        }
+        
+        REQUIRE(a.norm() == std::sqrt(sum));
+    }
+}
+
+TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({8, 9, 4, 3}, -4.0f, backend);
+
+        REQUIRE(a.norm() == 4.0f);
+        
+        a.fillRand();
+
+        double sum = 0;
+        const auto elements = a.toVector();
+        for (float e : elements) {
+            sum += e;
+        }
+        
+        REQUIRE(a.norm() == std::sqrt(sum));
+    }
+}
