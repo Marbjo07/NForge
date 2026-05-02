@@ -255,6 +255,14 @@ Tensor Tensor::prod(size_t dim) const {
     return applyReduction("prod", dim, &Tensor::Impl::prod);
 }
 
+Tensor Tensor::norm() const {
+    Tensor::View view(*this);
+    TensorLayout layout = view.getLayout();
+
+    auto result = m_impl->norm(layout);
+    return Tensor(std::move(result), m_backend);
+}
+
 
 Tensor::View Tensor::operator[](size_t idx) const {
     auto ctx = semantic::validateIndexing(*this, idx);

@@ -20,16 +20,6 @@ struct SphereSlideResults {
         : position(_position), speed(_speed), t(_t) {}
 };
 
-float length(std::vector<float> x) {
-    float sum = 0;
-    for (float e : x) {
-        sum += e * e;
-    }
-
-
-    return sqrt(sum);
-}
-
 SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
     Tensor s({2}, 0);
     s[1] = params.radius;
@@ -48,13 +38,13 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
         // p = s + v * dt + a/2 * dt^2
         Tensor position = s + v * params.dt + a * 0.5  * params.dt * params.dt;
 
-        float distCenter = length(position.toVector());
-        if (distCenter >= params.radius) { // does not fall into the sphere
+        Tensor dist = position.norm();
+        if (dist.toVector()[0] >= params.radius) { // does not fall into the sphere
             break;
         }
 
         // Position mapped to sphere
-        position *= Tensor(params.radius / distCenter);
+        position *= params.radius / dist;
 
         v = (position - s) * (1 / params.dt);
         s = position;

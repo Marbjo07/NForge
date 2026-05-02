@@ -66,6 +66,8 @@ class Tensor::Impl {
 
     virtual std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                                const TensorLayout& outLayout) const = 0;
+
+    virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
 };
 
 #endif  // TENSOR_IMPL_H

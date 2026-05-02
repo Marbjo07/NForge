@@ -100,6 +100,8 @@ class Tensor {
     Tensor max(size_t dim = 0) const;
     Tensor prod(size_t dim = 0) const;
 
+    Tensor norm() const;
+
     Tensor::View operator[](size_t idx) const;
     
     Tensor::View subsample(std::vector<size_t> strides) const;

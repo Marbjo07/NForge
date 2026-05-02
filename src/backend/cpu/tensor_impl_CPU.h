@@ -69,6 +69,7 @@ class Tensor::CPUImpl : public Tensor::Impl {
     std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                        const TensorLayout& outLayout) const override;
     
+    std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const override;
 
   private:
     Tensor::Shape m_shape;
