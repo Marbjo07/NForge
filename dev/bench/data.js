@@ -26,13 +26,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion",
+            "name": "BM_ProjectileMotion/min_time:2.000",
             "value": 509892.3310000032,
             "unit": "ns/iter",
             "extra": "iterations: 1000\ncpu: 509880.4540000001 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide",
+            "name": "BM_SphereSlide/min_time:2.000",
             "value": 15841676.636363579,
             "unit": "ns/iter",
             "extra": "iterations: 44\ncpu: 15838535.818181818 ns\nthreads: 1"
@@ -62,13 +62,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion",
+            "name": "BM_ProjectileMotion/min_time:2.000",
             "value": 536017.0999242966,
             "unit": "ns/iter",
             "extra": "iterations: 1321\ncpu: 535981.3141559424 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide",
+            "name": "BM_SphereSlide/min_time:2.000",
             "value": 17027000.000000007,
             "unit": "ns/iter",
             "extra": "iterations: 41\ncpu: 17025665.63414634 ns\nthreads: 1"
@@ -98,13 +98,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion",
+            "name": "BM_ProjectileMotion/min_time:2.000",
             "value": 591041.5801704137,
             "unit": "ns/iter",
             "extra": "iterations: 1291\ncpu: 590944.8667699458 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide",
+            "name": "BM_SphereSlide/min_time:2.000",
             "value": 18041658.33333298,
             "unit": "ns/iter",
             "extra": "iterations: 39\ncpu: 18039982.38461539 ns\nthreads: 1"
@@ -134,13 +134,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/iterations:1000",
+            "name": "BM_ProjectileMotion/min_time:2.000",
             "value": 536903.4590000012,
             "unit": "ns/iter",
             "extra": "iterations: 1000\ncpu: 536886.069 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/iterations:100",
+            "name": "BM_SphereSlide/min_time:2.000",
             "value": 14681207.250000058,
             "unit": "ns/iter",
             "extra": "iterations: 100\ncpu: 14676706.9 ns\nthreads: 1"
