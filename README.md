@@ -59,6 +59,18 @@ Shape: { 4 5 }
 ====================
 ```
 
+## Documentation
+
+Documentation is built using doxygen and github actions, then hosted on github pages on the branch `gh-pages`.  
+See [marbjo07.github.io/NForge/docs](marbjo07.github.io/NForge/docs)  
+
+To generate documentation locally, ensure doxygen is installed, then from project root:
+``` bash
+doxygen Doxyfile
+```
+
+The project is just starting up with doxygen, therefore litle is currently documented.
+
 
 ## API overview
 
