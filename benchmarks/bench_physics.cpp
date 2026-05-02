@@ -17,5 +17,5 @@ static void BM_SphereSlide(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_ProjectileMotion)->Iterations(1000);
-BENCHMARK(BM_SphereSlide)->Iterations(100);
+BENCHMARK(BM_ProjectileMotion)->MinTime(2);
+BENCHMARK(BM_SphereSlide)->MinTime(2);
