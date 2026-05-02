@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777738924556,
+  "lastUpdate": 1777742739917,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -144,6 +144,42 @@ window.BENCHMARK_DATA = {
             "value": 14681207.250000058,
             "unit": "ns/iter",
             "extra": "iterations: 100\ncpu: 14676706.9 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "734a7766246ab21483bc09226ce01ef7c701526c",
+          "message": "Merge pull request #43 from Marbjo07/feat/frobenius-norm\n\nAdds frobenius norm.\nRefactor physics test using norm.\nCUDA backend to be implemented later.",
+          "timestamp": "2026-05-02T19:23:12+02:00",
+          "tree_id": "7ea6f11a9c25a7337eb0347609ccc3c403391233",
+          "url": "https://github.com/Marbjo07/NForge/commit/734a7766246ab21483bc09226ce01ef7c701526c"
+        },
+        "date": 1777742739501,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 551381.4373015875,
+            "unit": "ns/iter",
+            "extra": "iterations: 5040\ncpu: 551247.6426587302 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17173457.650306545,
+            "unit": "ns/iter",
+            "extra": "iterations: 163\ncpu: 17172282.674846623 ns\nthreads: 1"
           }
         ]
       }
