@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777680073218,
+  "lastUpdate": 1777738924556,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -108,6 +108,42 @@ window.BENCHMARK_DATA = {
             "value": 18041658.33333298,
             "unit": "ns/iter",
             "extra": "iterations: 39\ncpu: 18039982.38461539 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e0ad3200a48308b5039c0ca55fc7b3ac4b4d98d9",
+          "message": "Merge pull request #42 from Marbjo07/feat/Benchmarking\n\nPhysics test are more robust with MSE error threshold instead of exact comparison.\nCleaned up sphere slide test\nFixed iterations on benchmarks.",
+          "timestamp": "2026-05-02T18:19:30+02:00",
+          "tree_id": "a1b0c1af992e63bd103ea5b2363b21d2173cd8fc",
+          "url": "https://github.com/Marbjo07/NForge/commit/e0ad3200a48308b5039c0ca55fc7b3ac4b4d98d9"
+        },
+        "date": 1777738923843,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/iterations:1000",
+            "value": 536903.4590000012,
+            "unit": "ns/iter",
+            "extra": "iterations: 1000\ncpu: 536886.069 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/iterations:100",
+            "value": 14681207.250000058,
+            "unit": "ns/iter",
+            "extra": "iterations: 100\ncpu: 14676706.9 ns\nthreads: 1"
           }
         ]
       }
