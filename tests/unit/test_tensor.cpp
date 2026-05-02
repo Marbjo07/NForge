@@ -362,14 +362,27 @@ TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
     }
 }
 
+TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({4, 5}, backend);
+        
+        Tensor norm = a.norm();
+
+        REQUIRE(norm.getShape() == Tensor::Shape({1}));
+        REQUIRE(norm.getBackend() == backend);
+    }
+}
+
+
 TEST_CASE("Frobenius norm of scalar", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a(4.0f, backend);
         Tensor b(-4.0f, backend);
-
-        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
+        
 
         REQUIRE(a.norm() == Tensor(4.0f, backend));
         REQUIRE(b.norm() == Tensor(4.0f, backend));

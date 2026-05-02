@@ -258,7 +258,9 @@ Tensor Tensor::prod(size_t dim) const {
 Tensor Tensor::norm() const {
     Tensor::View view(*this);
     TensorLayout layout = view.getLayout();
-    return m_impl->norm(layout);
+
+    auto result = m_impl->norm(layout);
+    return Tensor(std::move(result), m_backend);
 }
 
 
