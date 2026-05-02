@@ -62,7 +62,7 @@ Shape: { 4 5 }
 ## Documentation
 
 Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch `gh-pages`.  
-See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs)  
+See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs/html/index.html)
 
 To generate documentation locally, ensure Doxygen is installed, then from project root:
 ``` bash
