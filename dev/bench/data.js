@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777673081639,
+  "lastUpdate": 1777680073218,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -72,6 +72,42 @@ window.BENCHMARK_DATA = {
             "value": 17027000.000000007,
             "unit": "ns/iter",
             "extra": "iterations: 41\ncpu: 17025665.63414634 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "83a211e3541df381516f439e61be5c880c49bf11",
+          "message": "Merge pull request #41 from Marbjo07/feat/Benchmarking\n\nAdd docs to benchmarks, CI updated to set build type and updated README.md",
+          "timestamp": "2026-05-02T01:58:00+02:00",
+          "tree_id": "77ab3bc44424ddb57c108b61058be4e2861957ad",
+          "url": "https://github.com/Marbjo07/NForge/commit/83a211e3541df381516f439e61be5c880c49bf11"
+        },
+        "date": 1777680072789,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion",
+            "value": 591041.5801704137,
+            "unit": "ns/iter",
+            "extra": "iterations: 1291\ncpu: 590944.8667699458 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide",
+            "value": 18041658.33333298,
+            "unit": "ns/iter",
+            "extra": "iterations: 39\ncpu: 18039982.38461539 ns\nthreads: 1"
           }
         ]
       }
