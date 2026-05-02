@@ -59,6 +59,18 @@ Shape: { 4 5 }
 ====================
 ```
 
+## Documentation
+
+Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch `gh-pages`.  
+See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs)  
+
+To generate documentation locally, ensure Doxygen is installed, then from project root:
+``` bash
+doxygen Doxyfile
+```
+
+The project is just starting up with Doxygen, so little is currently documented.
+
 
 ## API overview
 
@@ -202,7 +214,7 @@ The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marb
 ## Roadmap
 
 - [ ] Float comparison with configurable epsilon (`approxEqual`) - #14
-- [ ] Frobenius norm - #15
+- [x] Frobenius norm - #15
 - [ ] Matrix multiplication - #16
 - [ ] Scalar/float–tensor comparison operators - #18
 - [x] Reduction operators (sum, mean, max, …) - #19
