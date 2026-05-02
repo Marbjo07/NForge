@@ -8,7 +8,6 @@ on:
 
 jobs:
   benchmark:
-    needs: build-and-test  # won't run if tests fail
     env:
       BUILD_TYPE: Release 
     runs-on: ubuntu-latest
