@@ -1,0 +1,65 @@
+\doxysection{Tensor\+::Shape Class Reference}
+\hypertarget{classTensor_1_1Shape}{}\label{classTensor_1_1Shape}\index{Tensor::Shape@{Tensor::Shape}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTensor_1_1Shape_a6a961c550f70a7fed611721d92ee12f7}\label{classTensor_1_1Shape_a6a961c550f70a7fed611721d92ee12f7} 
+{\bfseries Shape} (const std\+::vector$<$ size\+\_\+t $>$ \&dims)
+\item 
+\Hypertarget{classTensor_1_1Shape_ae7fbf2b04dbd282a47816b8d2b9b52c3}\label{classTensor_1_1Shape_ae7fbf2b04dbd282a47816b8d2b9b52c3} 
+{\bfseries Shape} (const std\+::initializer\+\_\+list$<$ size\+\_\+t $>$ \&dims)
+\item 
+\Hypertarget{classTensor_1_1Shape_a445fcc4985a40af30159666e157be3d6}\label{classTensor_1_1Shape_a445fcc4985a40af30159666e157be3d6} 
+{\bfseries Shape} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout)
+\item 
+\Hypertarget{classTensor_1_1Shape_a91424775625d62381adfcedfe1e1c6c8}\label{classTensor_1_1Shape_a91424775625d62381adfcedfe1e1c6c8} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&other) const
+\item 
+\Hypertarget{classTensor_1_1Shape_a74d2fa87c5201d03703929034be2f016}\label{classTensor_1_1Shape_a74d2fa87c5201d03703929034be2f016} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&other) const
+\item 
+\Hypertarget{classTensor_1_1Shape_aa596b4a1ffdc22ba9ecde993039111ae}\label{classTensor_1_1Shape_aa596b4a1ffdc22ba9ecde993039111ae} 
+size\+\_\+t {\bfseries get\+Num\+Dims} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a9ed56d0e13acd4217f528e164cf70e60}\label{classTensor_1_1Shape_a9ed56d0e13acd4217f528e164cf70e60} 
+size\+\_\+t {\bfseries get\+Num\+Elements} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a7971fee976003ed44505201486112b2b}\label{classTensor_1_1Shape_a7971fee976003ed44505201486112b2b} 
+size\+\_\+t {\bfseries get\+Dim} (size\+\_\+t idx) const
+\item 
+\Hypertarget{classTensor_1_1Shape_a1851f3f5f125bd47cbe2f11962086e98}\label{classTensor_1_1Shape_a1851f3f5f125bd47cbe2f11962086e98} 
+bool {\bfseries is\+Scalar} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e}\label{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e} 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const
+\item 
+\Hypertarget{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e}\label{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e} 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const
+\item 
+\Hypertarget{classTensor_1_1Shape_a624ba8189e61e2ffdeaac02909f3b174}\label{classTensor_1_1Shape_a624ba8189e61e2ffdeaac02909f3b174} 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries remove\+Leading\+Dimension} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_ac4c97409af1b955ab3480a95f2492944}\label{classTensor_1_1Shape_ac4c97409af1b955ab3480a95f2492944} 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries get\+Slice} (size\+\_\+t start, size\+\_\+t end) const
+\item 
+\Hypertarget{classTensor_1_1Shape_ae9895bbdd46e82cb9f922cbced13b417}\label{classTensor_1_1Shape_ae9895bbdd46e82cb9f922cbced13b417} 
+std\+::string {\bfseries to\+String} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a8cc891aa2d145a7470a5a7bbf68b33ee}\label{classTensor_1_1Shape_a8cc891aa2d145a7470a5a7bbf68b33ee} 
+std\+::vector$<$ size\+\_\+t $>$ {\bfseries to\+Vector} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_abec87f22390b8424d3a2c46baa00183f}\label{classTensor_1_1Shape_abec87f22390b8424d3a2c46baa00183f} 
+std\+::vector$<$ size\+\_\+t $>$ {\bfseries without\+Trailing\+Ones} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a3652b59641c12cc9674f4afa51945f39}\label{classTensor_1_1Shape_a3652b59641c12cc9674f4afa51945f39} 
+\mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} {\bfseries to\+Contiguous\+Layout} () const
+\item 
+\Hypertarget{classTensor_1_1Shape_a4120a1a632e771111db9db9eb9987731}\label{classTensor_1_1Shape_a4120a1a632e771111db9db9eb9987731} 
+std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Contiguous\+Strides} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/nforge/core/tensor\+\_\+shape.\+h\item 
+src/core/tensor\+\_\+shape.\+cpp\end{DoxyCompactItemize}

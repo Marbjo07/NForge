@@ -1,0 +1,50 @@
+\doxysection{tensor\+\_\+layout.\+h}
+\hypertarget{tensor__layout_8h_source}{}\label{tensor__layout_8h_source}\index{include/nforge/core/tensor\_layout.h@{include/nforge/core/tensor\_layout.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}nforge/core/tensor\_shape.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MAX\_DIMS\ 8}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ shape;}
+\DoxyCodeLine{00013\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ strides;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rank\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}()\ :\ shape\{\},\ strides\{\}\ \{\}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape);}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides);}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides,\ \textcolor{keywordtype}{size\_t}\ \_offset);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}(std::array<size\_t,\ MAX\_DIMS>\ shape,\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ strides,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset,\ \textcolor{keywordtype}{size\_t}\ rank)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ :\ shape(shape),\ strides(strides),\ offset(offset),\ rank(rank)\ \{\}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ physicalOffset(\textcolor{keywordtype}{size\_t}\ linear,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ L)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ off\ =\ L.offset;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ L.rank\ -\/\ 1;\ d\ >=\ 0;\ d-\/-\/)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ coord\ =\ linear\ \%\ L.shape[d];}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ linear\ /=\ L.shape[d];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ off\ +=\ coord\ *\ L.strides[d];}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ off;}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TENSOR\_LAYOUT\_H\ }}
+
+\end{DoxyCode}

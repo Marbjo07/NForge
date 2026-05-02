@@ -1,0 +1,48 @@
+\doxysection{projectile\+\_\+motion.\+h}
+\hypertarget{projectile__motion_8h_source}{}\label{projectile__motion_8h_source}\index{scenarios/physics/projectile\_motion.h@{scenarios/physics/projectile\_motion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}nforge/nforge.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ PI\ =\ 3.14159265358979323846;}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structProjectileMotionParams}{ProjectileMotionParams}}\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{float}\ dt\ =\ 0.001;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{float}\ grav\ =\ 9.81;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{float}\ initialSpeed\ =\ 10;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ 10;\ \textcolor{comment}{//\ degrees}}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structProjectileMotionResults}{ProjectileMotionResults}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ position\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{2\},\ 0.0f);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ speed\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{2\},\ 0.0f);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ t;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structProjectileMotionResults}{ProjectileMotionResults}}(\mbox{\hyperlink{classTensor}{Tensor}}\ \_position,\ \mbox{\hyperlink{classTensor}{Tensor}}\ \_speed,\ \textcolor{keywordtype}{float}\ \_t)}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ :\ position(\_position),\ speed(\_speed),\ t(\_t)\ \{\}}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \mbox{\hyperlink{structProjectileMotionResults}{ProjectileMotionResults}}\ simulateProjectileMotion(\mbox{\hyperlink{structProjectileMotionParams}{ProjectileMotionParams}}\ params)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ s(\{2\},\ 0.0f),\ v(\{2\},\ 0.0f),\ a(\{2\},\ 0.0f);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ angleRad\ =\ params.angle\ *\ PI\ /\ 180.0;}
+\DoxyCodeLine{00028\ \ \ \ \ v[0]\ =\ params.initialSpeed\ *\ std::cos(angleRad);}
+\DoxyCodeLine{00029\ \ \ \ \ v[1]\ =\ params.initialSpeed\ *\ std::sin(angleRad);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ a[1]\ =\ -\/params.grav;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{float}\ t\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{while}\ (s.toVector()[1]\ >=\ 0)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ v\ +=\ a\ *\ params.dt;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ s\ +=\ v\ *\ params.dt;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ t\ +=\ params.dt;}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{structProjectileMotionResults}{ProjectileMotionResults}}\ res(s,\ v,\ t);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,27 @@
+\doxysection{utils.\+h}
+\hypertarget{integration_2physics_2utils_8h_source}{}\label{integration_2physics_2utils_8h_source}\index{tests/integration/physics/utils.h@{tests/integration/physics/utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UTILS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UTILS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}nforge/nforge.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classTensor}{Tensor}}\ create2dVector(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ a(\{2\},\ 0.0f);}
+\DoxyCodeLine{00008\ \ \ \ \ a[0]\ =\ x;}
+\DoxyCodeLine{00009\ \ \ \ \ a[1]\ =\ y;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordflow}{return}\ a;}
+\DoxyCodeLine{00011\ \}\ \ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isSimilar(\mbox{\hyperlink{classTensor}{Tensor}}\ a,\ \mbox{\hyperlink{classTensor}{Tensor}}\ b)\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ err\ =\ a\ -\/\ b;}
+\DoxyCodeLine{00015\ \ \ \ \ err\ *=\ err;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (err.mean().toVector()[0]\ <\ 0.0001)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00019\ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UTILS\_H}}
+
+\end{DoxyCode}

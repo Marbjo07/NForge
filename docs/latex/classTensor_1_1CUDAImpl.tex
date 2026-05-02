@@ -1,0 +1,226 @@
+\doxysection{Tensor\+::CUDAImpl Class Reference}
+\hypertarget{classTensor_1_1CUDAImpl}{}\label{classTensor_1_1CUDAImpl}\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+Inheritance diagram for Tensor\+::CUDAImpl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classTensor_1_1CUDAImpl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTensor_1_1CUDAImpl_ad6bb890cd92c6fb5dc6752342289d4fb}\label{classTensor_1_1CUDAImpl_ad6bb890cd92c6fb5dc6752342289d4fb} 
+{\bfseries CUDAImpl} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&shape)
+\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_a2ccedfb3f87a159a7b6ba7548be38980}{fill\+All}} (float value) override
+\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_ab170fbec862138c652c4e6d00481d348}{fill\+Rand}} () override
+\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_a25b55b3834afa8408d8375eaddb9284c}{print}} () const override
+\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_ac8fe51c74fa62fb573039fd41d4e0b66}{print}} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const override
+\item 
+size\+\_\+t \mbox{\hyperlink{classTensor_1_1CUDAImpl_acd96b91edf00ea465b7e7f9c399b5ad1}{get\+Num\+Elements}} () const override
+\item 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \mbox{\hyperlink{classTensor_1_1CUDAImpl_a9a2cc16848b972aeca5e198e98fd13f7}{get\+Shape}} () const override
+\item 
+\Hypertarget{classTensor_1_1CUDAImpl_a04cc2d1e49078da4310ee523cb622b84}\label{classTensor_1_1CUDAImpl_a04cc2d1e49078da4310ee523cb622b84} 
+float \texorpdfstring{$\ast$}{*} {\bfseries data\+Ptr} () const
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_a838373f61212c0485b1a9a01b73a59c5}{to\+Vector}} () const override
+\item 
+std\+::string \mbox{\hyperlink{classTensor_1_1CUDAImpl_a34e2044ff1e71d3e1d45dfede2e6b52b}{to\+String}} () const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_ab21713c16d56fcebe1cceeaa0567d935}{clone}} () const override
+\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_a72357dd911eeb02eef7ab1086e0b85bd}{set}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
+\item 
+bool \mbox{\hyperlink{classTensor_1_1CUDAImpl_aaf4fa199b5b20cf129ba33db129c4325}{compare}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_ad841800d66fa75806ff29a6d3073eca6}{add}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_ae5c3b4fa5a807140bf5c837b3e032b54}{sub}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_a2f5abf7caa037c022eed2994e3311642}{mul}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_a849ac3a4f03dee195c71352933699549}{div}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries iadd} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+virtual void {\bfseries isub} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+virtual void {\bfseries imul} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+virtual void {\bfseries idiv} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries sum} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries min} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries max} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries prod} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries norm} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout) const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTensor_1_1CUDAImpl_ad841800d66fa75806ff29a6d3073eca6}\label{classTensor_1_1CUDAImpl_ad841800d66fa75806ff29a6d3073eca6} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!add@{add}}
+\index{add@{add}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CUDAImpl\+::add (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_ab21713c16d56fcebe1cceeaa0567d935}\label{classTensor_1_1CUDAImpl_ab21713c16d56fcebe1cceeaa0567d935} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!clone@{clone}}
+\index{clone@{clone}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CUDAImpl\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_aaf4fa199b5b20cf129ba33db129c4325}\label{classTensor_1_1CUDAImpl_aaf4fa199b5b20cf129ba33db129c4325} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!compare@{compare}}
+\index{compare@{compare}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{compare()}{compare()}}
+{\footnotesize\ttfamily bool Tensor\+::\+CUDAImpl\+::compare (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a849ac3a4f03dee195c71352933699549}\label{classTensor_1_1CUDAImpl_a849ac3a4f03dee195c71352933699549} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!div@{div}}
+\index{div@{div}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{div()}{div()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CUDAImpl\+::div (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a2ccedfb3f87a159a7b6ba7548be38980}\label{classTensor_1_1CUDAImpl_a2ccedfb3f87a159a7b6ba7548be38980} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!fillAll@{fillAll}}
+\index{fillAll@{fillAll}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{fillAll()}{fillAll()}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::fill\+All (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_ab170fbec862138c652c4e6d00481d348}\label{classTensor_1_1CUDAImpl_ab170fbec862138c652c4e6d00481d348} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!fillRand@{fillRand}}
+\index{fillRand@{fillRand}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{fillRand()}{fillRand()}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::fill\+Rand (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_acd96b91edf00ea465b7e7f9c399b5ad1}\label{classTensor_1_1CUDAImpl_acd96b91edf00ea465b7e7f9c399b5ad1} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!getNumElements@{getNumElements}}
+\index{getNumElements@{getNumElements}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{getNumElements()}{getNumElements()}}
+{\footnotesize\ttfamily size\+\_\+t Tensor\+::\+CUDAImpl\+::get\+Num\+Elements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a9a2cc16848b972aeca5e198e98fd13f7}\label{classTensor_1_1CUDAImpl_a9a2cc16848b972aeca5e198e98fd13f7} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!getShape@{getShape}}
+\index{getShape@{getShape}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{getShape()}{getShape()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} Tensor\+::\+CUDAImpl\+::get\+Shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a2f5abf7caa037c022eed2994e3311642}\label{classTensor_1_1CUDAImpl_a2f5abf7caa037c022eed2994e3311642} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!mul@{mul}}
+\index{mul@{mul}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{mul()}{mul()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CUDAImpl\+::mul (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a25b55b3834afa8408d8375eaddb9284c}\label{classTensor_1_1CUDAImpl_a25b55b3834afa8408d8375eaddb9284c} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!print@{print}}
+\index{print@{print}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_ac8fe51c74fa62fb573039fd41d4e0b66}\label{classTensor_1_1CUDAImpl_ac8fe51c74fa62fb573039fd41d4e0b66} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!print@{print}}
+\index{print@{print}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::print (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a72357dd911eeb02eef7ab1086e0b85bd}\label{classTensor_1_1CUDAImpl_a72357dd911eeb02eef7ab1086e0b85bd} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!set@{set}}
+\index{set@{set}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::set (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_ae5c3b4fa5a807140bf5c837b3e032b54}\label{classTensor_1_1CUDAImpl_ae5c3b4fa5a807140bf5c837b3e032b54} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!sub@{sub}}
+\index{sub@{sub}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{sub()}{sub()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CUDAImpl\+::sub (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a34e2044ff1e71d3e1d45dfede2e6b52b}\label{classTensor_1_1CUDAImpl_a34e2044ff1e71d3e1d45dfede2e6b52b} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!toString@{toString}}
+\index{toString@{toString}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily std\+::string Tensor\+::\+CUDAImpl\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a838373f61212c0485b1a9a01b73a59c5}\label{classTensor_1_1CUDAImpl_a838373f61212c0485b1a9a01b73a59c5} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!toVector@{toVector}}
+\index{toVector@{toVector}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{toVector()}{toVector()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ Tensor\+::\+CUDAImpl\+::to\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/backend/cuda/tensor\+\_\+impl\+\_\+\+CUDA.\+h\end{DoxyCompactItemize}

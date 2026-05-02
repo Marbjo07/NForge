@@ -1,0 +1,49 @@
+\doxysection{cuda\+\_\+error.\+h}
+\hypertarget{cuda__error_8h_source}{}\label{cuda__error_8h_source}\index{src/backend/cuda/utils/cuda\_error.h@{src/backend/cuda/utils/cuda\_error.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CUDA\_ERROR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CUDA\_ERROR\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cuda\_runtime.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <curand.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ CUDA\_CHECK(call)\ \(\backslash\)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ cudaError\_t\ err\ =\ (call);\ \(\backslash\)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (err\ !=\ cudaSuccess)\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ throw\ std::runtime\_error(std::string("{}CUDA\ error:\ "{})\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ cudaGetErrorString(err)\ +\ "{}\ at\ "{}\ +\ \_\_FILE\_\_\ +\ "{}:"{}\ +\ std::to\_string(\_\_LINE\_\_));\ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \}\ while(0)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ CURAND\_CHECK(call)\ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ curandStatus\_t\ err\ =\ (call);\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (err\ !=\ CURAND\_STATUS\_SUCCESS)\ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ throw\ std::runtime\_error(std::string("{}cuRAND\ error:\ "{})\ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ curandGetErrorString(err)\ +\ "{}\ at\ "{}\ +\ \_\_FILE\_\_\ +\ "{}:"{}\ +\ std::to\_string(\_\_LINE\_\_));\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \}\ while(0)}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ curandGetErrorString(curandStatus\_t\ status)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{switch}\ (status)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_SUCCESS:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_SUCCESS"{}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_VERSION\_MISMATCH:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_VERSION\_MISMATCH"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_NOT\_INITIALIZED:\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_NOT\_INITIALIZED"{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_ALLOCATION\_FAILED:\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_ALLOCATION\_FAILED"{}};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_TYPE\_ERROR:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_TYPE\_ERROR"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_OUT\_OF\_RANGE:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_OUT\_OF\_RANGE"{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_LENGTH\_NOT\_MULTIPLE:\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_LENGTH\_NOT\_MULTIPLE"{}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_DOUBLE\_PRECISION\_REQUIRED:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_DOUBLE\_PRECISION\_REQUIRED"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_LAUNCH\_FAILURE:\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_LAUNCH\_FAILURE"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_PREEXISTING\_FAILURE:\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_PREEXISTING\_FAILURE"{}};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_INITIALIZATION\_FAILED:\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_INITIALIZATION\_FAILED"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_ARCH\_MISMATCH:\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_ARCH\_MISMATCH"{}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CURAND\_STATUS\_INTERNAL\_ERROR:\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_INTERNAL\_ERROR"{}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CURAND\_STATUS\_UNKNOWN"{}};}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CUDA\_ERROR\_H}}
+
+\end{DoxyCode}

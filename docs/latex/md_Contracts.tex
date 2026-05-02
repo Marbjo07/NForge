@@ -1,0 +1,10 @@
+\chapter{Contracts}
+\hypertarget{md_Contracts}{}\label{md_Contracts}\index{Contracts@{Contracts}}
+\label{md_Contracts_autotoc_md0}%
+\Hypertarget{md_Contracts_autotoc_md0}%
+ \hypertarget{md_Contracts_autotoc_md1}{}\doxysection{\texorpdfstring{Tensors}{Tensors}}\label{md_Contracts_autotoc_md1}
+Always contiguous.\hypertarget{md_Contracts_autotoc_md2}{}\doxysection{\texorpdfstring{Views}{Views}}\label{md_Contracts_autotoc_md2}
+Must reference a valid tensor or another view. Does not change reference after construction. Note\+: it\textquotesingle{}s possible to deconstruct a tensor with views pointing to it, should be fixed.\hypertarget{md_Contracts_autotoc_md3}{}\doxysection{\texorpdfstring{Shape}{Shape}}\label{md_Contracts_autotoc_md3}
+Reading shape will always return the number of accessable items per dim. Will always pad such that it has atleast one dimension, scalars have shape \{1\}.\hypertarget{md_Contracts_autotoc_md4}{}\doxysection{\texorpdfstring{Strides}{Strides}}\label{md_Contracts_autotoc_md4}
+Reading strides will return the number of blocks stepped for each dim, in contrast to numpy which returns the number of elements stepped.\hypertarget{md_Contracts_autotoc_md5}{}\doxysection{\texorpdfstring{Tensor\+Layout}{TensorLayout}}\label{md_Contracts_autotoc_md5}
+Constructor must verify parameters, construction throws if invalid parameters are passed. Should not be modified after construction. 

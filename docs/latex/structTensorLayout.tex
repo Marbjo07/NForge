@@ -1,0 +1,44 @@
+\doxysection{Tensor\+Layout Struct Reference}
+\hypertarget{structTensorLayout}{}\label{structTensorLayout}\index{TensorLayout@{TensorLayout}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da}\label{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da} 
+{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape)
+\item 
+\Hypertarget{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae}\label{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae} 
+{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides)
+\item 
+\Hypertarget{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e}\label{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e} 
+{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides, size\+\_\+t \+\_\+offset)
+\item 
+\Hypertarget{structTensorLayout_a15f545314628a1633f818169770544e0}\label{structTensorLayout_a15f545314628a1633f818169770544e0} 
+{\bfseries Tensor\+Layout} (std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ shape, std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ strides, size\+\_\+t offset, size\+\_\+t rank)
+\item 
+\Hypertarget{structTensorLayout_a3707262883f24288ede041f665d83137}\label{structTensorLayout_a3707262883f24288ede041f665d83137} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs) const
+\item 
+\Hypertarget{structTensorLayout_ad71fea7784f8ef749e079e9b62143d7c}\label{structTensorLayout_ad71fea7784f8ef749e079e9b62143d7c} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}\label{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14} 
+std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ {\bfseries shape}
+\item 
+\Hypertarget{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}\label{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a} 
+std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ {\bfseries strides}
+\item 
+\Hypertarget{structTensorLayout_a5d809086add5e2501a47a40742605bf0}\label{structTensorLayout_a5d809086add5e2501a47a40742605bf0} 
+size\+\_\+t {\bfseries offset} = 0
+\item 
+\Hypertarget{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}\label{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3} 
+size\+\_\+t {\bfseries rank} = 0
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/nforge/core/tensor\+\_\+layout.\+h\item 
+src/core/tensor\+\_\+layout.\+cpp\end{DoxyCompactItemize}

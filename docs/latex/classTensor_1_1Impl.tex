@@ -1,0 +1,88 @@
+\doxysection{Tensor\+::Impl Class Reference}
+\hypertarget{classTensor_1_1Impl}{}\label{classTensor_1_1Impl}\index{Tensor::Impl@{Tensor::Impl}}
+Inheritance diagram for Tensor\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classTensor_1_1Impl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTensor_1_1Impl_a6942401937978279c5790bf924a84658}\label{classTensor_1_1Impl_a6942401937978279c5790bf924a84658} 
+virtual void {\bfseries fill\+All} (float value)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_af8cc28f06c200a08a1de699e6eae8dac}\label{classTensor_1_1Impl_af8cc28f06c200a08a1de699e6eae8dac} 
+virtual void {\bfseries fill\+Rand} ()=0
+\item 
+\Hypertarget{classTensor_1_1Impl_acc7078daa586f3a0d2bc8cd148e29655}\label{classTensor_1_1Impl_acc7078daa586f3a0d2bc8cd148e29655} 
+virtual void {\bfseries print} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_aef2343a6e0c2023d43a87ae52d16c988}\label{classTensor_1_1Impl_aef2343a6e0c2023d43a87ae52d16c988} 
+virtual void {\bfseries print} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a6cd95754d9c909ea6ba29cf8884cdb3b}\label{classTensor_1_1Impl_a6cd95754d9c909ea6ba29cf8884cdb3b} 
+virtual size\+\_\+t {\bfseries get\+Num\+Elements} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_aeabc75a4edc0189c2e226251ecb9810a}\label{classTensor_1_1Impl_aeabc75a4edc0189c2e226251ecb9810a} 
+virtual \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries get\+Shape} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a9a628145160a1bbee39c7799e1a5f89d}\label{classTensor_1_1Impl_a9a628145160a1bbee39c7799e1a5f89d} 
+virtual std\+::vector$<$ float $>$ {\bfseries to\+Vector} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a10ee94e919926d49db05b16bf26b83b3}\label{classTensor_1_1Impl_a10ee94e919926d49db05b16bf26b83b3} 
+virtual std\+::string {\bfseries to\+String} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a0affffc80f13bbcc4a647b06e3b9f3fd}\label{classTensor_1_1Impl_a0affffc80f13bbcc4a647b06e3b9f3fd} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries clone} () const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_ae70c7bb16528b94e10f200586b381830}\label{classTensor_1_1Impl_ae70c7bb16528b94e10f200586b381830} 
+virtual void {\bfseries set} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_aa3da5cc31659ea349c35dc693890c071}\label{classTensor_1_1Impl_aa3da5cc31659ea349c35dc693890c071} 
+virtual bool {\bfseries compare} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_ace7bfa323e2f1528fb3ba2bf96f3024a}\label{classTensor_1_1Impl_ace7bfa323e2f1528fb3ba2bf96f3024a} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries add} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a378f2e1cbc574d7a0672f69c46fb05d2}\label{classTensor_1_1Impl_a378f2e1cbc574d7a0672f69c46fb05d2} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries sub} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_ab22c2aa7f13befb2d180e111243c88ff}\label{classTensor_1_1Impl_ab22c2aa7f13befb2d180e111243c88ff} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries mul} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_aa6eaaa41a44326e5862ee65ddf681f45}\label{classTensor_1_1Impl_aa6eaaa41a44326e5862ee65ddf681f45} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries div} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_aa65bd8eea439278072fa3a91bd96e1e5}\label{classTensor_1_1Impl_aa65bd8eea439278072fa3a91bd96e1e5} 
+virtual void {\bfseries iadd} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_ad8aacb8b96f695c42a350ed606bf4cad}\label{classTensor_1_1Impl_ad8aacb8b96f695c42a350ed606bf4cad} 
+virtual void {\bfseries isub} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_a6135f7197fac9c42950c7ed21c93d98f}\label{classTensor_1_1Impl_a6135f7197fac9c42950c7ed21c93d98f} 
+virtual void {\bfseries imul} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_a9f7aad3bbe0f8e98eb14559233f8da22}\label{classTensor_1_1Impl_a9f7aad3bbe0f8e98eb14559233f8da22} 
+virtual void {\bfseries idiv} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout)=0
+\item 
+\Hypertarget{classTensor_1_1Impl_a1cd0c32595f322644cee065a1a4e0833}\label{classTensor_1_1Impl_a1cd0c32595f322644cee065a1a4e0833} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries sum} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a286b79bcb1d61f1f17a652c0d2ffb4c9}\label{classTensor_1_1Impl_a286b79bcb1d61f1f17a652c0d2ffb4c9} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries min} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_ae7c6e4e158daff754d6067320fe1497e}\label{classTensor_1_1Impl_ae7c6e4e158daff754d6067320fe1497e} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries max} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a80ed4dc18e6d77c84f3dd397a8c57672}\label{classTensor_1_1Impl_a80ed4dc18e6d77c84f3dd397a8c57672} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries prod} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const =0
+\item 
+\Hypertarget{classTensor_1_1Impl_a9e68f36352eea327d3d20f0c0c8cc662}\label{classTensor_1_1Impl_a9e68f36352eea327d3d20f0c0c8cc662} 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ {\bfseries norm} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout) const =0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/backend/tensor\+\_\+impl.\+h\end{DoxyCompactItemize}

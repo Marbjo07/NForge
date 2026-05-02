@@ -1,0 +1,104 @@
+\doxysection{Tensor\+::View Class Reference}
+\hypertarget{classTensor_1_1View}{}\label{classTensor_1_1View}\index{Tensor::View@{Tensor::View}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTensor_1_1View_a130c771f4626cd0265af9419c64d9117}\label{classTensor_1_1View_a130c771f4626cd0265af9419c64d9117} 
+{\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent)
+\item 
+\Hypertarget{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d}\label{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d} 
+{\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position)
+\item 
+\Hypertarget{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79}\label{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79} 
+{\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout)
+\item 
+\Hypertarget{classTensor_1_1View_af0faf42caa063034668eaa38f42858f0}\label{classTensor_1_1View_af0faf42caa063034668eaa38f42858f0} 
+{\bfseries View} (const \mbox{\hyperlink{classTensor}{Tensor}} \&parent)
+\item 
+\Hypertarget{classTensor_1_1View_a5ca32103ddf90e6ee2b2123f73f93783}\label{classTensor_1_1View_a5ca32103ddf90e6ee2b2123f73f93783} 
+void {\bfseries print} () const
+\item 
+\Hypertarget{classTensor_1_1View_a013946028951eaa4e3e4da409e68fdbe}\label{classTensor_1_1View_a013946028951eaa4e3e4da409e68fdbe} 
+\mbox{\hyperlink{classTensor}{Tensor}} \& {\bfseries get\+Parent} () const
+\item 
+\Hypertarget{classTensor_1_1View_abb20cd3f25b956e9a8322f19502165f6}\label{classTensor_1_1View_abb20cd3f25b956e9a8322f19502165f6} 
+std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Position} () const
+\item 
+\Hypertarget{classTensor_1_1View_a81b308a902976f8ef5dfd51e645ffb81}\label{classTensor_1_1View_a81b308a902976f8ef5dfd51e645ffb81} 
+size\+\_\+t {\bfseries get\+Offset} () const
+\item 
+\Hypertarget{classTensor_1_1View_aaafc2696ea4eb85802a8165c14225bfe}\label{classTensor_1_1View_aaafc2696ea4eb85802a8165c14225bfe} 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries get\+Shape} () const
+\item 
+\Hypertarget{classTensor_1_1View_adccf2e4145abd8e5e2e01d6832400662}\label{classTensor_1_1View_adccf2e4145abd8e5e2e01d6832400662} 
+std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Stride} () const
+\item 
+\Hypertarget{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e}\label{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e} 
+const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \& {\bfseries get\+Layout} () const
+\item 
+\Hypertarget{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140}\label{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries copy} () const
+\item 
+\Hypertarget{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b}\label{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator+} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a4357cd8c9ac2a8d1b858e1c6d00c1f6d}\label{classTensor_1_1View_a4357cd8c9ac2a8d1b858e1c6d00c1f6d} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator-\/} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a7515b4fb91e3fe275f449058b4db920a}\label{classTensor_1_1View_a7515b4fb91e3fe275f449058b4db920a} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a6fc3c91ac6b81919883eff8566671dbb}\label{classTensor_1_1View_a6fc3c91ac6b81919883eff8566671dbb} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator/} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a9ffaa8f22f9668779c02b1151cc99147}\label{classTensor_1_1View_a9ffaa8f22f9668779c02b1151cc99147} 
+void {\bfseries operator+=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_ab56e227fc9161f72bb6b2d1fa0e6f5f6}\label{classTensor_1_1View_ab56e227fc9161f72bb6b2d1fa0e6f5f6} 
+void {\bfseries operator-\/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_a6b365827fb99a8820f5a8ee5235825a2}\label{classTensor_1_1View_a6b365827fb99a8820f5a8ee5235825a2} 
+void {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_ae35869db405324bdc4b897857af090bc}\label{classTensor_1_1View_ae35869db405324bdc4b897857af090bc} 
+void {\bfseries operator/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb}\label{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb} 
+\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_a4db72aee019a5ef3def491ce32f35ae2}\label{classTensor_1_1View_a4db72aee019a5ef3def491ce32f35ae2} 
+\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
+\item 
+\Hypertarget{classTensor_1_1View_a009193fa77b7a32a8ad2cffcd9d1ee7b}\label{classTensor_1_1View_a009193fa77b7a32a8ad2cffcd9d1ee7b} 
+\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t idx) const
+\item 
+\Hypertarget{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9}\label{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9} 
+\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries subsample} (std\+::vector$<$ size\+\_\+t $>$ strides) const
+\item 
+\Hypertarget{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02}\label{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46}\label{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51}\label{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
+\item 
+\Hypertarget{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973}\label{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb}\label{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb} 
+static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries broadcast} (\mbox{\hyperlink{classTensor}{Tensor}} \&source, const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&shape)
+\item 
+\Hypertarget{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb}\label{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb} 
+static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries subsample} (const \mbox{\hyperlink{classTensor_1_1View}{View}} \&src, const std\+::vector$<$ size\+\_\+t $>$ \&factors)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/nforge/core/tensor\+\_\+view.\+h\item 
+src/core/tensor\+\_\+view.\+cpp\end{DoxyCompactItemize}

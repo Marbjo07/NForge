@@ -1,0 +1,63 @@
+\doxysection{sphere\+\_\+slide.\+h}
+\hypertarget{sphere__slide_8h_source}{}\label{sphere__slide_8h_source}\index{scenarios/physics/sphere\_slide.h@{scenarios/physics/sphere\_slide.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}nforge/nforge.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSphereSlideParams}{SphereSlideParams}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{float}\ dt\ =\ 0.001;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{float}\ grav\ =\ 9.81;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{float}\ mass\ =\ 1;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ 1;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{float}\ initalXSpeed\ =\ 0.001;}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSphereSlideResults}{SphereSlideResults}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ position\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{2\},\ 0.0f);}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ speed\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{2\},\ 0.0f);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ t;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structSphereSlideResults}{SphereSlideResults}}(\mbox{\hyperlink{classTensor}{Tensor}}\ \_position,\ \mbox{\hyperlink{classTensor}{Tensor}}\ \_speed,\ \textcolor{keywordtype}{float}\ \_t)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ :\ position(\_position),\ speed(\_speed),\ t(\_t)\ \{\}}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \mbox{\hyperlink{structSphereSlideResults}{SphereSlideResults}}\ simulateSphereSlide(\mbox{\hyperlink{structSphereSlideParams}{SphereSlideParams}}\ params)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ s(\{2\},\ 0);}
+\DoxyCodeLine{00025\ \ \ \ \ s[1]\ =\ params.radius;}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ v(\{2\},\ 0);}
+\DoxyCodeLine{00028\ \ \ \ \ v[0]\ =\ params.initalXSpeed;}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ G(\{2\},\ 0);}
+\DoxyCodeLine{00031\ \ \ \ \ G[1]\ =\ -\/params.mass\ *\ params.grav;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ a\ =\ G\ /\ params.mass;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{float}\ t\ =\ 0;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p\ =\ s\ +\ v\ *\ dt\ +\ a/2\ *\ dt\string^2}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ position\ =\ s\ +\ v\ *\ params.dt\ +\ a\ *\ 0.5\ \ *\ params.dt\ *\ params.dt;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ dist\ =\ position.norm();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dist.toVector()[0]\ >=\ params.radius)\ \{\ \textcolor{comment}{//\ does\ not\ fall\ into\ the\ sphere}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Position\ mapped\ to\ sphere}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ position\ *=\ params.radius\ /\ dist;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ v\ =\ (position\ -\/\ s)\ *\ (1\ /\ params.dt);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ s\ =\ position;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ t\ +=\ params.dt;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{structSphereSlideResults}{SphereSlideResults}}\ res\{s,\ v,\ t\};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00057\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,51 @@
+\doxysection{tensor\+\_\+shape.\+h}
+\hypertarget{tensor__shape_8h_source}{}\label{tensor__shape_8h_source}\index{include/nforge/core/tensor\_shape.h@{include/nforge/core/tensor\_shape.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TENSOR\_SHAPE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TENSOR\_SHAPE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}nforge/core/tensor.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}nforge/core/tensor\_layout.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Shape}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Shape}}(\textcolor{keyword}{const}\ std::vector<size\_t>\&\ dims);}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Shape}}(\textcolor{keyword}{const}\ std::initializer\_list<size\_t>\&\ dims);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Shape}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ layout);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Access\ and\ properties}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getNumDims()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getNumElements()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getDim(\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const};\ \ \textcolor{comment}{//\ return\ size\ of\ indexed\ dimension}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ isScalar()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ operator[](\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ operator[](\textcolor{keyword}{const}\ std::vector<size\_t>\&\ position)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ Shape\ modifications}}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ removeLeadingDimension()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Returns\ shape\ with\ dimensions\ in\ interval\ [start,\ end)}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ getSlice(\textcolor{keywordtype}{size\_t}\ start,\ \textcolor{keywordtype}{size\_t}\ end)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ Utility\ methods}}
+\DoxyCodeLine{00035\ \ \ \ \ std::string\ toString()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00036\ \ \ \ \ std::vector<size\_t>\ toVector()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ std::vector<size\_t>\ withoutTrailingOnes()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ toContiguousLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ \ \ \ \ std::vector<size\_t>\ getContiguousStrides()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ std::vector<size\_t>\ m\_dimensions;}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_SHAPE\_H}}
+
+\end{DoxyCode}
