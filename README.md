@@ -202,7 +202,7 @@ The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marb
 ## Roadmap
 
 - [ ] Float comparison with configurable epsilon (`approxEqual`) - #14
-- [ ] Frobenius norm - #15
+- [x] Frobenius norm - #15
 - [ ] Matrix multiplication - #16
 - [ ] Scalar/float–tensor comparison operators - #18
 - [x] Reduction operators (sum, mean, max, …) - #19
