@@ -1,8 +1,8 @@
 \chapter{NForge}
 \hypertarget{md_README}{}\label{md_README}\index{NForge@{NForge}}
-\label{md_README_autotoc_md6}%
-\Hypertarget{md_README_autotoc_md6}%
- A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.\hypertarget{md_README_autotoc_md7}{}\doxysection{\texorpdfstring{Build}{Build}}\label{md_README_autotoc_md7}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+ A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.\hypertarget{md_README_autotoc_md1}{}\doxysection{\texorpdfstring{Build}{Build}}\label{md_README_autotoc_md1}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{mkdir\ build\ \&\&\ cd\ build}
@@ -10,7 +10,7 @@
 \DoxyCodeLine{cmake\ -\/-\/build\ .}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md8}{}\doxysubsection{\texorpdfstring{CUDA support}{CUDA support}}\label{md_README_autotoc_md8}
+\hypertarget{md_README_autotoc_md2}{}\doxysubsection{\texorpdfstring{CUDA support}{CUDA support}}\label{md_README_autotoc_md2}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{cmake\ ..\ -\/DNFORGE\_ENABLE\_CUDA=on}
@@ -34,7 +34,7 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 {\ttfamily NFORGE\+\_\+\+ENABLE\+\_\+\+CUDA}   &Toggles build CUDA backend   &{\ttfamily OFF}    \\\cline{1-3}
 {\ttfamily NFORGE\+\_\+\+BUILD\+\_\+\+BENCHMARKS}   &Toggles build benchmarks   &{\ttfamily ON}   \\\cline{1-3}
 \end{longtabu}
-\hypertarget{md_README_autotoc_md9}{}\doxysection{\texorpdfstring{Quick start}{Quick start}}\label{md_README_autotoc_md9}
+\hypertarget{md_README_autotoc_md3}{}\doxysection{\texorpdfstring{Quick start}{Quick start}}\label{md_README_autotoc_md3}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
@@ -54,7 +54,7 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
- \hypertarget{md_README_autotoc_md10}{}\doxysubsection{\texorpdfstring{Output\+:}{Output:}}\label{md_README_autotoc_md10}
+ \hypertarget{md_README_autotoc_md4}{}\doxysubsection{\texorpdfstring{Output\+:}{Output:}}\label{md_README_autotoc_md4}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{====================}
@@ -68,10 +68,9 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 \DoxyCodeLine{====================}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md11}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{md_README_autotoc_md11}
+\hypertarget{md_README_autotoc_md5}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{md_README_autotoc_md5}
 Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch {\ttfamily gh-\/pages}. ~\newline
- See \href{https://marbjo07.github.io/NForge/docs}{\texttt{ marbjo07.\+github.\+io/\+NForge/docs}} ~\newline
-
+ See \href{https://marbjo07.github.io/NForge/docs/html/index.html}{\texttt{ marbjo07.\+github.\+io/\+NForge/docs}}
 
 To generate documentation locally, ensure Doxygen is installed, then from project root\+: 
 \begin{DoxyCode}{0}
@@ -81,8 +80,8 @@ To generate documentation locally, ensure Doxygen is installed, then from projec
 \end{DoxyCode}
 
 
-The project is just starting up with Doxygen, so little is currently documented.\hypertarget{md_README_autotoc_md12}{}\doxysection{\texorpdfstring{API overview}{API overview}}\label{md_README_autotoc_md12}
-\hypertarget{md_README_autotoc_md13}{}\doxysubsection{\texorpdfstring{Construction}{Construction}}\label{md_README_autotoc_md13}
+The project is just starting up with Doxygen, so little is currently documented.\hypertarget{md_README_autotoc_md6}{}\doxysection{\texorpdfstring{API overview}{API overview}}\label{md_README_autotoc_md6}
+\hypertarget{md_README_autotoc_md7}{}\doxysubsection{\texorpdfstring{Construction}{Construction}}\label{md_README_autotoc_md7}
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
 \hline
@@ -98,7 +97,7 @@ The project is just starting up with Doxygen, so little is currently documented.
 {\ttfamily \doxylink{classTensor}{Tensor(v)}}   &Scalar tensor wrapping {\ttfamily v}    \\\cline{1-2}
 {\ttfamily \doxylink{classTensor}{Tensor(t)}}   &Copy of tensor {\ttfamily t}   \\\cline{1-2}
 \end{longtabu}
-\hypertarget{md_README_autotoc_md14}{}\doxysubsection{\texorpdfstring{Arithmetic}{Arithmetic}}\label{md_README_autotoc_md14}
+\hypertarget{md_README_autotoc_md8}{}\doxysubsection{\texorpdfstring{Arithmetic}{Arithmetic}}\label{md_README_autotoc_md8}
 All four operators ({\ttfamily +}, {\ttfamily -\/}, {\ttfamily \texorpdfstring{$\ast$}{*}}, {\ttfamily /}) work between\+:
 
 
@@ -117,8 +116,8 @@ All four operators ({\ttfamily +}, {\ttfamily -\/}, {\ttfamily \texorpdfstring{$
 \DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ d\ =\ a\ +\ \mbox{\hyperlink{classTensor}{Tensor}}(1.0f);\ \textcolor{comment}{//\ scalar\ broadcast\ =>\ [3,\ 3,\ 3,\ 3]}}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md15}{}\doxysubsection{\texorpdfstring{Views}{Views}}\label{md_README_autotoc_md15}
-A {\ttfamily \doxylink{classTensor_1_1View}{Tensor\+::\+View}} is a non-\/owning window into an existing tensor\textquotesingle{}s data. It shares the same underlying memory, so reads and writes through a view are immediately visible in the original tensor and vice versa.\hypertarget{md_README_autotoc_md16}{}\doxysubsubsection{\texorpdfstring{Obtaining a view}{Obtaining a view}}\label{md_README_autotoc_md16}
+\hypertarget{md_README_autotoc_md9}{}\doxysubsection{\texorpdfstring{Views}{Views}}\label{md_README_autotoc_md9}
+A {\ttfamily \doxylink{classTensor_1_1View}{Tensor\+::\+View}} is a non-\/owning window into an existing tensor\textquotesingle{}s data. It shares the same underlying memory, so reads and writes through a view are immediately visible in the original tensor and vice versa.\hypertarget{md_README_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Obtaining a view}{Obtaining a view}}\label{md_README_autotoc_md10}
 {\ttfamily operator\mbox{[}\mbox{]}} steps one dimension into the tensor and returns a view of the remaining dimensions.
 
 
@@ -142,7 +141,7 @@ Chaining {\ttfamily \mbox{[}\mbox{]}} calls navigates deeper into the tensor, on
 \DoxyCodeLine{\textcolor{keyword}{auto}\ elem\ =\ b[0][2][3];\ \textcolor{comment}{//\ shape\ \{1\},\ \ \ \ \ single\ element}}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md17}{}\doxysubsubsection{\texorpdfstring{Assigning through a view}{Assigning through a view}}\label{md_README_autotoc_md17}
+\hypertarget{md_README_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{Assigning through a view}{Assigning through a view}}\label{md_README_autotoc_md11}
 Assigning a {\ttfamily \doxylink{classTensor}{Tensor}} (or another {\ttfamily View}) to a view copies data into that window of the original tensor. The original tensor is mutated; the view itself is not reseated.
 
 
@@ -172,7 +171,7 @@ Chained assignment works as expected\+:
 \DoxyCodeLine{a\ =\ b\ =\ c;\ \ \ \textcolor{comment}{//\ both\ a\ and\ b\ now\ equal\ c}}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md18}{}\doxysubsubsection{\texorpdfstring{Strided views}{Strided views}}\label{md_README_autotoc_md18}
+\hypertarget{md_README_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{Strided views}{Strided views}}\label{md_README_autotoc_md12}
 {\ttfamily subsample(strides)} returns a view that steps through the tensor with the given per-\/dimension stride. The view shares the original tensor\textquotesingle{}s memory, so assigning through it writes back directly.
 
 
@@ -211,7 +210,7 @@ The same principle applies to higher-\/rank tensors. A stride of {\ttfamily \{2,
 \DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [0,\ 0,\ 0]]}}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md19}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_README_autotoc_md19}
+\hypertarget{md_README_autotoc_md13}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_README_autotoc_md13}
 Unit and integration tests use \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} and live under {\ttfamily tests/}.
 
 
@@ -231,11 +230,11 @@ Run after building\+:
 \DoxyCodeLine{ctest\ -\/-\/progress}
 
 \end{DoxyCode}
-\hypertarget{md_README_autotoc_md20}{}\doxysection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{md_README_autotoc_md20}
+\hypertarget{md_README_autotoc_md14}{}\doxysection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{md_README_autotoc_md14}
 Benchmarks run on merge with {\ttfamily main} branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters. The results are published to \href{https://marbjo07.github.io/NForge/dev/bench/}{\texttt{ marbjo07.\+github.\+io/\+NForge/dev/bench/}} ~\newline
-\hypertarget{md_README_autotoc_md21}{}\doxysection{\texorpdfstring{Roadmap}{Roadmap}}\label{md_README_autotoc_md21}
+\hypertarget{md_README_autotoc_md15}{}\doxysection{\texorpdfstring{Roadmap}{Roadmap}}\label{md_README_autotoc_md15}
 
 \begin{DoxyItemize}
 \item \mbox{[} \mbox{]} Float comparison with configurable epsilon ({\ttfamily approx\+Equal}) -\/ \#14

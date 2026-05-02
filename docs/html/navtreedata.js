@@ -25,33 +25,26 @@
 var NAVTREE =
 [
   [ "NForge", "index.html", [
-    [ "Contracts", "md_Contracts.html", [
-      [ "Tensors", "md_Contracts.html#autotoc_md1", null ],
-      [ "Views", "md_Contracts.html#autotoc_md2", null ],
-      [ "Shape", "md_Contracts.html#autotoc_md3", null ],
-      [ "Strides", "md_Contracts.html#autotoc_md4", null ],
-      [ "TensorLayout", "md_Contracts.html#autotoc_md5", null ]
-    ] ],
     [ "NForge", "md_README.html", [
-      [ "Build", "md_README.html#autotoc_md7", [
-        [ "CUDA support", "md_README.html#autotoc_md8", null ]
+      [ "Build", "md_README.html#autotoc_md1", [
+        [ "CUDA support", "md_README.html#autotoc_md2", null ]
       ] ],
-      [ "Quick start", "md_README.html#autotoc_md9", [
-        [ "Output:", "md_README.html#autotoc_md10", null ]
+      [ "Quick start", "md_README.html#autotoc_md3", [
+        [ "Output:", "md_README.html#autotoc_md4", null ]
       ] ],
-      [ "Documentation", "md_README.html#autotoc_md11", null ],
-      [ "API overview", "md_README.html#autotoc_md12", [
-        [ "Construction", "md_README.html#autotoc_md13", null ],
-        [ "Arithmetic", "md_README.html#autotoc_md14", null ],
-        [ "Views", "md_README.html#autotoc_md15", [
-          [ "Obtaining a view", "md_README.html#autotoc_md16", null ],
-          [ "Assigning through a view", "md_README.html#autotoc_md17", null ],
-          [ "Strided views", "md_README.html#autotoc_md18", null ]
+      [ "Documentation", "md_README.html#autotoc_md5", null ],
+      [ "API overview", "md_README.html#autotoc_md6", [
+        [ "Construction", "md_README.html#autotoc_md7", null ],
+        [ "Arithmetic", "md_README.html#autotoc_md8", null ],
+        [ "Views", "md_README.html#autotoc_md9", [
+          [ "Obtaining a view", "md_README.html#autotoc_md10", null ],
+          [ "Assigning through a view", "md_README.html#autotoc_md11", null ],
+          [ "Strided views", "md_README.html#autotoc_md12", null ]
         ] ]
       ] ],
-      [ "Tests", "md_README.html#autotoc_md19", null ],
-      [ "Benchmarks", "md_README.html#autotoc_md20", null ],
-      [ "Roadmap", "md_README.html#autotoc_md21", null ]
+      [ "Tests", "md_README.html#autotoc_md13", null ],
+      [ "Benchmarks", "md_README.html#autotoc_md14", null ],
+      [ "Roadmap", "md_README.html#autotoc_md15", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
