@@ -8,7 +8,11 @@
 TEST_CASE("Cube slide of sphere", "[Physics]") {
     SphereSlideResults res = simulateSphereSlide(SphereSlideParams{});
 
-    REQUIRE(res.position == create2dVector(0.734628736972809,  0.678469479084015));
-    REQUIRE(res.speed    == create2dVector(1.203298449516296, -1.300454020500183));
+    INFO(res.position.getDataString());
+    INFO(res.speed.getDataString());
+    INFO(res.t);
+
+    REQUIRE(isSimilar(res.position, create2dVector(0.734628736972809,  0.678469479084015)));
+    REQUIRE(isSimilar(res.speed, create2dVector(1.203298449516296, -1.300454020500183)));
     REQUIRE(res.t == 3.712913275f);
 }

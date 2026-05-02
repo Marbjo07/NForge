@@ -26,44 +26,38 @@ float length(std::vector<float> x) {
         sum += e * e;
     }
 
-    sum = powf(sum, 1 / (float)x.size());
-    return sum;
+
+    return sqrt(sum);
 }
 
 SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
-    Tensor s({2}, 0), v({2}, 0), a({2}, 0);
+    Tensor s({2}, 0);
+    s[1] = params.radius;
+    
+    Tensor v({2}, 0);
+    v[0] = params.initalXSpeed;
+    
     Tensor G({2}, 0);
     G[1] = -params.mass * params.grav;
-
-    v[0] = params.initalXSpeed;
-    s[1] = params.radius;
+    
+    Tensor a = G / params.mass;
 
     float t = 0;
-    Tensor N = 0 - G;
 
-    while (length(N.toVector()) > 0) {
-        Tensor aGrav = G / params.mass;
+    while (true) {
         // p = s + v * dt + a/2 * dt^2
-        Tensor positionFree = s + v * params.dt + aGrav * (0.5f * params.dt * params.dt);
+        Tensor position = s + v * params.dt + a * 0.5  * params.dt * params.dt;
 
-        float distCenter = length(positionFree.toVector());
-
-        if (distCenter >= params.radius) {
-            N = Tensor({2}, 0);
+        float distCenter = length(position.toVector());
+        if (distCenter >= params.radius) { // does not fall into the sphere
             break;
         }
 
         // Position mapped to sphere
-        Tensor positionNext = positionFree * (params.radius / distCenter);
+        position *= Tensor(params.radius / distCenter);
 
-        
-        Tensor correction = positionNext - positionFree;
-        // Normal force is correction 
-        // F = m * dx / dt^2
-        N = correction * (params.mass / (params.dt * params.dt)); 
-
-        v = (positionNext - s) * (1 / params.dt);
-        s = positionNext;
+        v = (position - s) * (1 / params.dt);
+        s = position;
 
         t += params.dt;
     }

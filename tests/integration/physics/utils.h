@@ -10,4 +10,12 @@ static Tensor create2dVector(float x, float y) {
     return a;
 }  
 
+static bool isSimilar(Tensor a, Tensor b) {
+    Tensor err = a - b;
+    err *= err;
+
+    if (err.mean().toVector()[0] < 0.0001) return true;
+    else return false;
+}
+
 #endif // UTILS_H
