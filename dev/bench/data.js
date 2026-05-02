@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777742739917,
+  "lastUpdate": 1777762365090,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -180,6 +180,42 @@ window.BENCHMARK_DATA = {
             "value": 17173457.650306545,
             "unit": "ns/iter",
             "extra": "iterations: 163\ncpu: 17172282.674846623 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "37ebcfbc6cb34cc89763a9c3681d9c52829bd051",
+          "message": "Merge pull request #44 from Marbjo07/docs/doxygen-initial-pass\n\nSetup doxygen actions and config.\nSplit benchmarks actions from CI.\nAdd documentation section to README.md.",
+          "timestamp": "2026-05-03T00:51:01+02:00",
+          "tree_id": "6c7d57e0dd1fafabb03077832878548cefe94a21",
+          "url": "https://github.com/Marbjo07/NForge/commit/37ebcfbc6cb34cc89763a9c3681d9c52829bd051"
+        },
+        "date": 1777762364025,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 490045.1035451033,
+            "unit": "ns/iter",
+            "extra": "iterations: 5698\ncpu: 489983.181993682 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 15817802.785310721,
+            "unit": "ns/iter",
+            "extra": "iterations: 177\ncpu: 15816750.457627121 ns\nthreads: 1"
           }
         ]
       }
