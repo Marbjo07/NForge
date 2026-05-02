@@ -40,7 +40,7 @@ int main() {
         a[i] = Tensor({m}, (float)i); // fill each row with its index
     }
 
-    a[0][3] = Tensoor(3.14f);
+    a[0][3] = Tensor(3.14f);
 
     a.print();
 }
