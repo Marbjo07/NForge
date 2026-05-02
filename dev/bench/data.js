@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777762365090,
+  "lastUpdate": 1777762941768,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -216,6 +216,42 @@ window.BENCHMARK_DATA = {
             "value": 15817802.785310721,
             "unit": "ns/iter",
             "extra": "iterations: 177\ncpu: 15816750.457627121 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "distinct": true,
+          "id": "e9d28d141063249a557cc7cbcd7926d4f0485465",
+          "message": "fix: give docs.yml write access",
+          "timestamp": "2026-05-03T01:00:29+02:00",
+          "tree_id": "ed77f52a14500ebc1b0248d01c5bcadfa99737d7",
+          "url": "https://github.com/Marbjo07/NForge/commit/e9d28d141063249a557cc7cbcd7926d4f0485465"
+        },
+        "date": 1777762941264,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 565345.2245062485,
+            "unit": "ns/iter",
+            "extra": "iterations: 4962\ncpu: 565284.5600564289 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17604583.043750033,
+            "unit": "ns/iter",
+            "extra": "iterations: 160\ncpu: 17602703.993750002 ns\nthreads: 1"
           }
         ]
       }
