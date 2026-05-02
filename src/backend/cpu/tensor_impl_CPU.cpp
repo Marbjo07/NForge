@@ -327,3 +327,23 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::prod(const TensorLayout& layout, 
     });
 }
     
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::norm(const TensorLayout& layout) const {
+    const float* a = dataPtr();
+    float sum = 0;
+
+    size_t count = 1;
+    for (size_t d = 0; d < layout.rank; d++) count *= layout.shape[d];
+
+    for (size_t i = 0; i < count; i++) {
+        float element = a[physicalOffset(i, layout)];
+        sum += element * element;
+    }
+    float norm = std::sqrt(sum);
+
+
+    auto* result = new Tensor::CPUImpl(Tensor::Shape({1}));
+    result->m_data[0] = norm;
+
+    return std::unique_ptr<Tensor::Impl>(result);
+}

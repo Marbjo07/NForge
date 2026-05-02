@@ -367,8 +367,10 @@ TEST_CASE("Frobenius norm of scalar", "[Tensor]") {
         Tensor a(4.0f, backend);
         Tensor b(-4.0f, backend);
 
-        REQUIRE(a.norm() == 4.0f);
-        REQUIRE(b.norm() == 4.0f);
+        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
+
+        REQUIRE(a.norm() == Tensor(4.0f, backend));
+        REQUIRE(b.norm() == Tensor(4.0f, backend));
     }
 }
 
@@ -379,14 +381,17 @@ TEST_CASE("Frobenius norm of vector", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({5}, -4.0f, backend);
 
-        REQUIRE(a.norm() == 4.0f);
+        float norm = 4.0f * std::sqrt(5);
+        REQUIRE(a.norm() == Tensor(norm, backend));
+        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
         
+
         for (size_t i = 0; i < 5; i++) {
             a[i] = i;
         }
 
         // a = [0, 1, 2, 3, 4]
-        REQUIRE(a.norm() == std::sqrt(30.0f));
+        REQUIRE(a.norm() == Tensor(std::sqrt(30.0f), backend));
     }
 }
 
@@ -399,17 +404,20 @@ TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
         size_t m = 8;
         Tensor a({n, m}, -4.0f, backend);
 
-        REQUIRE(a.norm() == 4.0f);
+        float norm = 4.0f * std::sqrt(n * m);
+        REQUIRE(a.norm() == Tensor(norm, backend));
+        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
         
+
         float sum = 0;
         for (size_t i = 0; i < n; i++) {
             for (size_t j = 0; j < m; j++) {
                 a[i][j] = i * m + j;
-                sum += i * m + j;
+                sum += std::pow(i * m + j, 2);
             }
         }
         
-        REQUIRE(a.norm() == std::sqrt(sum));
+        REQUIRE(a.norm() == Tensor(std::sqrt(sum), backend));
     }
 }
 
@@ -419,16 +427,22 @@ TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({8, 9, 4, 3}, -4.0f, backend);
 
-        REQUIRE(a.norm() == 4.0f);
+        float norm = 4.0f * std::sqrt(8 * 9 * 4 * 3);
+        REQUIRE(a.norm() == Tensor(norm, backend));
+        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
         
+
         a.fillRand();
 
-        double sum = 0;
+        float sum = 0;
         const auto elements = a.toVector();
         for (float e : elements) {
-            sum += e;
+            sum += e * e;
         }
         
-        REQUIRE(a.norm() == std::sqrt(sum));
+        // random tensor has a lot of noise
+        Tensor ratio = a.norm() / std::sqrt(sum);
+        REQUIRE(ratio.toVector()[0] > 0.99);
+        REQUIRE(ratio.toVector()[0] < 1.01);
     }
 }
