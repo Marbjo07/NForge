@@ -1,5 +1,10 @@
 # NForge
 
+[![Build](https://github.com/Marbjo07/NForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
+[![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
+[![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
+[![C++](https://img.shields.io/badge/C%2B%2B-17-blue?logo=cplusplus)](https://en.cppreference.com)
+
 A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.
 
 ## Build
