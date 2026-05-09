@@ -100,6 +100,7 @@ class Tensor {
     Tensor::View subsample(std::vector<size_t> strides) const;
 
     Tensor& operator=(const Tensor& rhs);
+    Tensor& operator=(float scalar);
 
     bool operator==(const Tensor::View& rhs) const;
     bool operator!=(const Tensor::View& rhs) const;
