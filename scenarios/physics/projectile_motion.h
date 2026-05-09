@@ -22,20 +22,18 @@ struct ProjectileMotionResults {
 };
 
 ProjectileMotionResults simulateProjectileMotion(ProjectileMotionParams params) {
-    Tensor s({2}, 0.0f), v({2}, 0.0f);
+    Tensor s({2}, 0.0f), v({2}, 0.0f), a({2}, 0.0f);
 
     float angleRad = params.angle * PI / 180.0;
     v[0] = params.initialSpeed * std::cos(angleRad);
     v[1] = params.initialSpeed * std::sin(angleRad);
 
+    a[1] = -params.grav;
 
     float t = 0;
     while (s.toVector()[1] >= 0) {
-        Tensor a({2}, 0.0f);
-        a[1] = -params.grav;
-
-        v = v + a * params.dt;
-        s = s + v * params.dt;
+        v += a * params.dt;
+        s += v * params.dt;
         t += params.dt;
     }
 

@@ -32,3 +32,19 @@ TensorLayout::TensorLayout(const Tensor::Shape& _shape, const std::vector<size_t
     
     std::copy(_strides.begin(), _strides.end(), strides.begin());
 }
+
+bool TensorLayout::operator==(const TensorLayout& rhs) const {
+    if (rank != rhs.rank) return false;
+    if (offset != rhs.offset) return false;
+
+    for (int d = rank - 1; d >= 0; d--) {
+        if (shape[d] != rhs.shape[d]) return false;
+        if (strides[d] != rhs.strides[d]) return false;
+    }
+
+    return true;
+}
+
+bool TensorLayout::operator!=(const TensorLayout& rhs) const {
+    return !operator==(rhs);
+}

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <random>
+#include <cmath>
 
 #include "nforge/core/tensor.h"
 
@@ -227,6 +228,48 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::div(const TensorLayout& lhsLayout
     });
 }
 
+template <typename BinaryOp>
+void Tensor::CPUImpl::applyInplaceBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                           const TensorLayout& rhsLayout, BinaryOp op) {
+
+    const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
+
+    float*       a = dataPtr();
+    const float* b = rhs->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < lhsLayout.rank; d++) count *= lhsLayout.shape[d];
+
+    for (size_t i = 0; i < count; i++) {
+        a[physicalOffset(i, lhsLayout)] =
+            op(a[physicalOffset(i, lhsLayout)],
+               b[physicalOffset(i, rhsLayout)]);
+    }
+}
+
+void Tensor::CPUImpl::iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a + b;
+    });
+}
+
+void Tensor::CPUImpl::isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a - b;
+    });
+}
+
+void Tensor::CPUImpl::imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a * b;
+    });
+}
+
+void Tensor::CPUImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+    applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) {
+        return a / b;
+    });
+}
 
 template <typename ReductionOp>
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyReductionOp(const TensorLayout& layout, const TensorLayout& blockLayout,
@@ -285,3 +328,23 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::prod(const TensorLayout& layout, 
     });
 }
     
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::norm(const TensorLayout& layout) const {
+    const float* a = dataPtr();
+    float sum = 0;
+
+    size_t count = 1;
+    for (size_t d = 0; d < layout.rank; d++) count *= layout.shape[d];
+
+    for (size_t i = 0; i < count; i++) {
+        float element = a[physicalOffset(i, layout)];
+        sum += element * element;
+    }
+    float norm = std::sqrt(sum);
+
+
+    auto* result = new Tensor::CPUImpl(Tensor::Shape({1}));
+    result->m_data[0] = norm;
+
+    return std::unique_ptr<Tensor::Impl>(result);
+}

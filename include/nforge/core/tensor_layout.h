@@ -23,6 +23,9 @@ struct TensorLayout {
                  std::array<size_t, MAX_DIMS> strides,
                  size_t offset, size_t rank)
         : shape(shape), strides(strides), offset(offset), rank(rank) {}
+
+    bool operator==(const TensorLayout& lhs) const;
+    bool operator!=(const TensorLayout& lhs) const;
 };
 
 

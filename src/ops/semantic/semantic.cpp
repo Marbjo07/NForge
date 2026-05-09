@@ -122,6 +122,21 @@ BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::V
     return buildContext(lhs, rhs);
 }
 
+InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
+    BinaryOpContext ctx = validateBinaryOperation(lhs, rhs);
+    const TensorLayout& lhsLayout = lhs.getLayout(); 
+
+    if (lhsLayout != ctx.lhs) {
+        throw std::runtime_error("Can not apply in-place operator where infered output is different from lhs!");
+    }
+
+    InplaceBinaryOpContext res;
+    res.lhs = ctx.lhs;
+    res.rhs = ctx.rhs;
+
+    return res;
+}
+
 ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
     if (dim > lhs.getShape().getNumDims()) {
         throw std::runtime_error("Can not reduce Tensor of shape " 

@@ -198,6 +198,30 @@ Tensor operator/(float scalar, const Tensor& rhs) {
     return Tensor(scalar, rhs.m_backend) / rhs;
 }
 
+template <typename BinaryOp>
+void Tensor::applyInplaceBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) {
+    auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+
+    Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+    
+    (m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs);
+}
+
+void Tensor::operator+=(const Tensor::View& rhs) {
+    applyInplaceBinaryOp(rhs, "add", &Tensor::Impl::iadd);
+}
+
+void Tensor::operator-=(const Tensor::View& rhs) {
+    applyInplaceBinaryOp(rhs, "sub", &Tensor::Impl::isub);
+}
+
+void Tensor::operator*=(const Tensor::View& rhs) {
+    applyInplaceBinaryOp(rhs, "mul", &Tensor::Impl::imul);
+}
+
+void Tensor::operator/=(const Tensor::View& rhs) {
+    applyInplaceBinaryOp(rhs, "div", &Tensor::Impl::idiv);
+}
 
 template <typename ReductionOp>
 Tensor Tensor::applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const {
@@ -229,6 +253,14 @@ Tensor Tensor::max(size_t dim) const {
 
 Tensor Tensor::prod(size_t dim) const {
     return applyReduction("prod", dim, &Tensor::Impl::prod);
+}
+
+Tensor Tensor::norm() const {
+    Tensor::View view(*this);
+    TensorLayout layout = view.getLayout();
+
+    auto result = m_impl->norm(layout);
+    return Tensor(std::move(result), m_backend);
 }
 
 

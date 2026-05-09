@@ -1,4 +1,4 @@
-name: CMake on a single platform
+name: CI
 
 on:
   push:
@@ -6,12 +6,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    env:
+      BUILD_TYPE: Debug 
     permissions:
       checks: write
       contents: read
@@ -19,21 +18,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Cache CMake dependencies
+    - name: Cache dependencies
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-catch2-${{ hashFiles('CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
         restore-keys: |
-          ${{ runner.os }}-catch2-
+          ${{ runner.os }}-deps-
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-    
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+
     - name: Build
-      id: build 
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-    
+      id: build
+      run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+
     - name: Test
       id: test
       # skip if build failed
@@ -63,11 +62,11 @@ jobs:
     - name: Fail if build failed
       if: steps.build.outcome == 'failure'
       run: |
-        echo "::error::Build failed, see the Build step above for compiler errors."
+        echo "::error::Build failed"
         exit 1
 
     - name: Fail if tests failed
       if: steps.test.outcome == 'failure'
       run: |
-        echo "::error::Tests failed, see the Test Results check for a breakdown."
+        echo "::error::Tests failed"
         exit 1

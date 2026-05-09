@@ -89,11 +89,18 @@ class Tensor {
     friend Tensor operator*(float scalar, const Tensor& rhs);
     friend Tensor operator/(float scalar, const Tensor& rhs);
 
+    void operator+=(const Tensor::View& rhs);
+    void operator-=(const Tensor::View& rhs);
+    void operator*=(const Tensor::View& rhs);
+    void operator/=(const Tensor::View& rhs);
+
     Tensor mean(size_t dim = 0) const;
     Tensor sum(size_t dim = 0) const;
     Tensor min(size_t dim = 0) const;
     Tensor max(size_t dim = 0) const;
     Tensor prod(size_t dim = 0) const;
+
+    Tensor norm() const;
 
     Tensor::View operator[](size_t idx) const;
     
@@ -112,6 +119,9 @@ class Tensor {
     // used in template for all the binary operations
     template <typename BinaryOp>
     Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
+
+    template <typename BinaryOp>
+    void applyInplaceBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op);
 
     template <typename ReductionOp>
     Tensor applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const;

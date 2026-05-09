@@ -49,6 +49,12 @@ class Tensor::Impl {
                                               const TensorLayout& rhsLayout, const TensorLayout& outLayout) const = 0;
 
 
+    virtual void iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) = 0;
+    virtual void isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) = 0;
+    virtual void imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) = 0;
+    virtual void idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) = 0;
+
+
     virtual std::unique_ptr<Tensor::Impl> sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                                const TensorLayout& outLayout) const = 0;
 
@@ -60,6 +66,8 @@ class Tensor::Impl {
 
     virtual std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
                                                const TensorLayout& outLayout) const = 0;
+
+    virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
 };
 
 #endif  // TENSOR_IMPL_H

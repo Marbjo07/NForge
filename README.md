@@ -19,6 +19,13 @@ cmake --build .
 
 Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
+
+| Build Option | Description | Default Value |
+|---|---|---|
+| `NFORGE_ENABLE_CUDA` | Toggles build CUDA backend | `OFF` |
+| `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `ON` |
+
+
 ## Quick start
 
 ```cpp
@@ -33,7 +40,7 @@ int main() {
         a[i] = Tensor({m}, (float)i); // fill each row with its index
     }
 
-    a[0][3] = Tensoor(3.14f);
+    a[0][3] = Tensor(3.14f);
 
     a.print();
 }
@@ -51,6 +58,18 @@ Tensor[CPU], Data:
 Shape: { 4 5 }
 ====================
 ```
+
+## Documentation
+
+Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch `gh-pages`.  
+See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs/html/index.html)
+
+To generate documentation locally, ensure Doxygen is installed, then from project root:
+``` bash
+doxygen Doxyfile
+```
+
+The project is just starting up with Doxygen, so little is currently documented.
 
 
 ## API overview
@@ -137,7 +156,7 @@ a = b = c;   // both a and b now equal c
 
 #### Strided views
 
-`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. The view shares the original tensor's memory, so assigning through it writes back directly — no copy needed.
+`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. The view shares the original tensor's memory, so assigning through it writes back directly.
 
 ```cpp
 Tensor a({6}, 0.0f);
@@ -185,10 +204,19 @@ Run after building:
 ctest --progress
 ```
 
+## Benchmarks
+
+Benchmarks run on merge with `main` branch, after all tests pass. 
+
+Current benchmarks are the examples from physics scenarios with default parameters.
+The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
+
 ## Roadmap
 
-- [ ] Float comparison with configurable epsilon (`approxEqual`) — #14
-- [ ] Frobenius norm — #15
-- [ ] Matrix multiplication — #16
-- [ ] Scalar/float–tensor comparison operators — #18  
-- [ ] Reduction operators (sum, mean, max, …) — #19
+- [ ] Float comparison with configurable epsilon (`approxEqual`) - #14
+- [x] Frobenius norm - #15
+- [ ] Matrix multiplication - #16
+- [ ] Scalar/float–tensor comparison operators - #18
+- [x] Reduction operators (sum, mean, max, …) - #19
+
+
