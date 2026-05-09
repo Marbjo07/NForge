@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777763587060,
+  "lastUpdate": 1778353011182,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -360,6 +360,42 @@ window.BENCHMARK_DATA = {
             "value": 16986417.442424364,
             "unit": "ns/iter",
             "extra": "iterations: 165\ncpu: 16983881.36969697 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5d3b86655e9931befaf785e03ecbe22b868737b6",
+          "message": "Merge pull request #37 from Marbjo07/feat/scalar-assignment-with-float\n\nAssign tensor and view pure float.",
+          "timestamp": "2026-05-09T20:55:05+02:00",
+          "tree_id": "bb77ab67e7ab57adc567dacf8b1eed831711138c",
+          "url": "https://github.com/Marbjo07/NForge/commit/5d3b86655e9931befaf785e03ecbe22b868737b6"
+        },
+        "date": 1778353010666,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 553599.67440929,
+            "unit": "ns/iter",
+            "extra": "iterations: 4994\ncpu: 553567.2240688826 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17480956.60869565,
+            "unit": "ns/iter",
+            "extra": "iterations: 161\ncpu: 17479777.639751546 ns\nthreads: 1"
           }
         ]
       }
