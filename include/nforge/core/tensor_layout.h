@@ -106,6 +106,9 @@ struct TensorLayout {
     /**
      * @brief Constructs a tensor layout from raw storage.
      * 
+     * @pre `_rank <= MAX_DIMS`
+     * @post `offset == _offset`
+     * 
      * @param shape Shape values.
      * @param strides Stride values.
      * @param offset Storage offset.
@@ -113,8 +116,7 @@ struct TensorLayout {
      */
     TensorLayout(std::array<size_t, MAX_DIMS> _shape,
                  std::array<size_t, MAX_DIMS> _strides,
-                 size_t _offset, size_t _rank)
-        : shape(_shape), strides(_strides), offset(_offset), rank(_rank) {}
+                 size_t _offset, size_t _rank);
 
     /**
      * @brief Checks whether two tensor layouts are equal.
