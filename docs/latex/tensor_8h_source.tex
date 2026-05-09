@@ -111,27 +111,28 @@
 \DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\ subsample(std::vector<size\_t>\ strides)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00108\ }
 \DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor}{Tensor}}\&\ rhs);}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00115\ \ \ \ \ Backend\ m\_backend;}
-\DoxyCodeLine{00116\ \ \ \ \ std::unique\_ptr<Impl>\ m\_impl;}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ used\ in\ template\ for\ all\ the\ binary\ operations}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
-\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ \textcolor{keyword}{const}\ std::string\&\ opName,\ BinaryOp\ op)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ \textcolor{keyword}{const}\ std::string\&\ opName,\ BinaryOp\ op);}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ReductionOp>}
-\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyReduction(\textcolor{keyword}{const}\ std::string\&\ reductionName,\ \textcolor{keywordtype}{size\_t}\ dim,\ ReductionOp\ op)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00127\ \};}
-\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\&\ operator=(\textcolor{keywordtype}{float}\ scalar);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00116\ \ \ \ \ Backend\ m\_backend;}
+\DoxyCodeLine{00117\ \ \ \ \ std::unique\_ptr<Impl>\ m\_impl;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ used\ in\ template\ for\ all\ the\ binary\ operations}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ \textcolor{keyword}{const}\ std::string\&\ opName,\ BinaryOp\ op)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ \textcolor{keyword}{const}\ std::string\&\ opName,\ BinaryOp\ op);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ReductionOp>}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyReduction(\textcolor{keyword}{const}\ std::string\&\ reductionName,\ \textcolor{keywordtype}{size\_t}\ dim,\ ReductionOp\ op)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00128\ \};}
 \DoxyCodeLine{00129\ }
 \DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_H}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_H}}
 
 \end{DoxyCode}
