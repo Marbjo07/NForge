@@ -362,6 +362,32 @@ TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
     }
 }
 
+TEST_CASE("Scalar assignment with float", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a(1.0f, backend);
+        a = 3.0f;
+
+        REQUIRE(a == Tensor(3.0f, backend));
+    }
+}
+
+
+TEST_CASE("Indexed scalar assignment with float", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3, 4}, 0.0f, backend);
+        a[2][3] = 3.0f;
+
+        REQUIRE(a[2][3] == Tensor(3.0f, backend));
+        REQUIRE(a != Tensor({3, 4}, 0.0f, backend));
+        REQUIRE(a[0] == Tensor({4}, 0.0f, backend));
+        REQUIRE(a[1] == Tensor({4}, 0.0f, backend));
+    }
+}
+
 TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
