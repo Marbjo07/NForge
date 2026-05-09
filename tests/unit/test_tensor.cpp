@@ -385,6 +385,9 @@ TEST_CASE("Indexed scalar assignment with float", "[Tensor]") {
         REQUIRE(a != Tensor({3, 4}, 0.0f, backend));
         REQUIRE(a[0] == Tensor({4}, 0.0f, backend));
         REQUIRE(a[1] == Tensor({4}, 0.0f, backend));
+    }
+}
+
 TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
