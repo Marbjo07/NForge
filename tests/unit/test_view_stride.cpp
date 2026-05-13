@@ -308,7 +308,7 @@ TEST_CASE("Broadcast view * normal tensor", "[View][Stride][Arithmetic]") {
 TEST_CASE("Stride of 1 gives same shape as original", "[View][Stride]") {
     auto backend = GENERATE(from_range(backends));
 
-    auto size = GENERATE(1ull, 4ull, 13ull);
+    auto size = GENERATE(1ul, 4ul, 13ul);
 
     DYNAMIC_SECTION(getBackendString(backend) << " size=" << size) {
         Tensor a({size}, 2.0f, backend);
@@ -386,8 +386,8 @@ TEST_CASE("Assign to zero-strided view multiple times", "[View][Stride]") {
 TEST_CASE("Parametric 1D stride consistency", "[View][Stride]") {
     auto backend = GENERATE(from_range(backends));
 
-    auto total = GENERATE(6ull, 12ull, 24ull);
-    auto stride = GENERATE(1ull, 2ull, 3ull);
+    auto total = GENERATE(6ul, 12ul, 24ul);
+    auto stride = GENERATE(1ul, 2ul, 3ul);
 
     DYNAMIC_SECTION(
         "Backend=" << getBackendString(backend)
