@@ -33,6 +33,11 @@ TensorLayout::TensorLayout(const Tensor::Shape& _shape, const std::vector<size_t
     std::copy(_strides.begin(), _strides.end(), strides.begin());
 }
 
+TensorLayout::TensorLayout(std::array<size_t, MAX_DIMS> _shape, std::array<size_t, MAX_DIMS> _strides, size_t _offset, size_t _rank) 
+    : shape(_shape), strides(_strides), offset(_offset), rank(_rank) {
+    assert(_rank <= MAX_DIMS);
+}
+
 bool TensorLayout::operator==(const TensorLayout& rhs) const {
     if (rank != rhs.rank) return false;
     if (offset != rhs.offset) return false;

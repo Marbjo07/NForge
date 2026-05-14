@@ -292,8 +292,8 @@ TEST_CASE("View * scalar Tensor", "[Tensor][View][Arithmetic]") {
 TEST_CASE("2D View arithmetic consistency across backends", "[View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
-    auto rows = GENERATE(2ull, 4ull, 8ull);
-    auto cols = GENERATE(1ull, 5ull, 11ull);
+    auto rows = GENERATE(2ul, 4ul, 8ul);
+    auto cols = GENERATE(1ul, 5ul, 11ul);
 
     DYNAMIC_SECTION(
         "Backend=" << getBackendString(backend)
@@ -322,8 +322,8 @@ TEST_CASE("2D View arithmetic consistency across backends", "[View][Arithmetic]"
 TEST_CASE("Mixed Tensor/View 2D parametric test", "[Tensor][View][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
-    auto rows = GENERATE(1ull, 3ull, 7ull);
-    auto cols = GENERATE(1ull, 5ull, 11ull);
+    auto rows = GENERATE(1ul, 3ul, 7ul);
+    auto cols = GENERATE(1ul, 5ul, 11ul);
 
     DYNAMIC_SECTION(
         "Backend=" << getBackendString(backend)

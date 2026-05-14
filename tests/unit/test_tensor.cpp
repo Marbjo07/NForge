@@ -155,8 +155,8 @@ TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        auto rows = GENERATE(1ull, 4ull, 10ull);
-        auto cols = GENERATE(1ull, 10ull, 50ull);
+        auto rows = GENERATE(1ul, 4ul, 10ul);
+        auto cols = GENERATE(1ul, 10ul, 50ul);
         auto val = GENERATE(-1001.0f, 0.32f, 122.9f);
 
         DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {
@@ -200,8 +200,8 @@ TEST_CASE("Tensor view assign", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        auto rows = GENERATE(1ull, 2ull, 3ull);
-        auto cols = GENERATE(1ull, 4ull, 8ull);
+        auto rows = GENERATE(1ul, 2ul, 3ul);
+        auto cols = GENERATE(1ul, 4ul, 8ul);
         auto val = GENERATE(0.0f, 1.5f);
 
         DYNAMIC_SECTION("rows=" << rows << " cols=" << cols << " val=" << val) {

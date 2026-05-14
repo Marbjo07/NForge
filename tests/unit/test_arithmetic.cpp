@@ -49,8 +49,8 @@ TEST_CASE("Scalar broadcasting works on all backends", "[Tensor][Arithmetic]") {
 TEST_CASE("2D arithmetic consistency across backends", "[Tensor][Arithmetic]") {
     auto backend = GENERATE(from_range(backends));
 
-    auto rows = GENERATE(1ull, 3ull, 7ull);
-    auto cols = GENERATE(1ull, 5ull, 11ull);
+    auto rows = GENERATE(1ul, 3ul, 7ul);
+    auto cols = GENERATE(1ul, 5ul, 11ul);
 
     DYNAMIC_SECTION(
         "Backend=" << getBackendString(backend)

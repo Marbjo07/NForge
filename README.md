@@ -1,5 +1,11 @@
 # NForge
 
+[![Build](https://github.com/Marbjo07/NForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
+[![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
+[![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
+
+
+
 A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.
 
 ## Build
@@ -28,6 +34,7 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
 ## Quick start
 
+### Code example
 ```cpp
 #include <iostream>
 #include "nforge/tensor.h"
@@ -45,7 +52,7 @@ int main() {
     a.print();
 }
 ```
-### Output:
+### Output
 
 ```text
 ====================
@@ -65,7 +72,7 @@ Documentation is built using Doxygen and Github Actions, then hosted on Github P
 See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs/html/index.html)
 
 To generate documentation locally, ensure Doxygen is installed, then from project root:
-``` bash
+```bash
 doxygen Doxyfile
 ```
 
@@ -206,17 +213,7 @@ ctest --progress
 
 ## Benchmarks
 
-Benchmarks run on merge with `main` branch, after all tests pass. 
+Benchmarks run on merge with `main` branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters.
 The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
-
-## Roadmap
-
-- [ ] Float comparison with configurable epsilon (`approxEqual`) - #14
-- [x] Frobenius norm - #15
-- [ ] Matrix multiplication - #16
-- [ ] Scalar/float–tensor comparison operators - #18
-- [x] Reduction operators (sum, mean, max, …) - #19
-
-
