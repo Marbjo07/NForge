@@ -49,4 +49,8 @@ __global__ void imulKernel(float* __restrict__ lhs, const TensorLayout lhsLayout
 __global__ void idivKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
     const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count);
 
+__global__ void squareSumKernel(const float* __restrict__ data, float* result, size_t count);
+
+__global__ void isqrtKernel(float* __restrict__ data, size_t count);
+
 #endif // KERNELS_CUH

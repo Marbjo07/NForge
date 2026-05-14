@@ -17,6 +17,7 @@ Tensor::CUDAImpl::CUDAImpl(const Tensor::Shape& shape)
     : m_shape(shape) {
     size_t numElements = shape.getNumElements();
     CUDA_CHECK(cudaMalloc((void**)&d_data, numElements * sizeof(float)));
+    CUDA_CHECK(cudaMemset((void**)d_data, 0, numElements * sizeof(float)));
     CUDA_CHECK(cudaGetLastError());
 }
 
@@ -259,6 +260,27 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::prod(const TensorLayout& layout,
 
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout) const {
-    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(layout));
+    // create output tensor
+    auto outShape = Tensor::Shape({1});
+    auto* results = new Tensor::CUDAImpl(outShape);
+
+    // get all data pointers
+    const float* lhs = dataPtr();
+    float* out = results->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < layout.rank; d++) count *= layout.shape[d];
+
+    // get sum of all elements squared
+    int threads = 256;
+    int blocks = (count + threads - 1) / threads;
+    squareSumKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, count);
+    CUDA_CHECK(cudaGetLastError());
+
+    // apply sqrt to out
+    isqrtKernel<<<1, 1, 0, CudaContext::get().stream()>>>(out, 1);
+    CUDA_CHECK(cudaGetLastError());
+
+    return std::unique_ptr<Tensor::Impl>(results);
 }
 

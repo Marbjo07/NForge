@@ -153,3 +153,20 @@ __global__ void idivKernel(float* __restrict__ lhs, const TensorLayout lhsLayout
     size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
     lhs[lhsIdx] /= rhs[rhsIdx];
 }
+
+__global__ void squareSumKernel(const float* __restrict__ data, float* result, size_t count) {
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    if (i >= count) return;
+    float x = data[i] * data[i];
+
+    atomicAdd(result, x);
+}
+
+
+__global__ void isqrtKernel(float* __restrict__ data, size_t count) {
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    if (i >= count) return;
+    data[i] = sqrt(data[i]);
+}

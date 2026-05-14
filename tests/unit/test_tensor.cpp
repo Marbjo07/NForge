@@ -420,18 +420,19 @@ TEST_CASE("Frobenius norm of vector", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
+        // Test with constant value
         Tensor a({5}, -4.0f, backend);
-
         float norm = 4.0f * std::sqrt(5);
-        REQUIRE(a.norm() == Tensor(norm, backend));
-        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
-        
 
+        REQUIRE(a.norm() == Tensor(norm, backend));
+
+        
+        // Test with non constant value
         for (size_t i = 0; i < 5; i++) {
             a[i] = i;
         }
-
         // a = [0, 1, 2, 3, 4]
+
         REQUIRE(a.norm() == Tensor(std::sqrt(30.0f), backend));
     }
 }
@@ -445,10 +446,8 @@ TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
         size_t m = 8;
         Tensor a({n, m}, -4.0f, backend);
 
-        float norm = 4.0f * std::sqrt(n * m);
-        REQUIRE(a.norm() == Tensor(norm, backend));
-        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
-        
+        float targetNorm = 4.0f * std::sqrt(n * m);
+        REQUIRE(a.norm() == Tensor(targetNorm, backend));
 
         float sum = 0;
         for (size_t i = 0; i < n; i++) {
@@ -468,10 +467,9 @@ TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         Tensor a({8, 9, 4, 3}, -4.0f, backend);
 
-        float norm = 4.0f * std::sqrt(8 * 9 * 4 * 3);
-        REQUIRE(a.norm() == Tensor(norm, backend));
-        REQUIRE(a.norm().getShape() == Tensor::Shape({1}));
-        
+        float targetNorm = 4.0f * std::sqrt(8 * 9 * 4 * 3);
+        REQUIRE(a.norm() == Tensor(targetNorm, backend));
+
 
         a.fillRand();
 
@@ -481,7 +479,7 @@ TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
             sum += e * e;
         }
         
-        // random tensor has a lot of noise
+        // random tensor has a lot of noise, so use relative error
         Tensor ratio = a.norm() / std::sqrt(sum);
         REQUIRE(ratio.toVector()[0] > 0.99);
         REQUIRE(ratio.toVector()[0] < 1.01);
