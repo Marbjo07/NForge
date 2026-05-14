@@ -401,17 +401,19 @@ TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
     }
 }
 
-
 TEST_CASE("Frobenius norm of scalar", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        Tensor a(4.0f, backend);
-        Tensor b(-4.0f, backend);
-        
+        SECTION("Positive scalar") {
+            Tensor a(4.0f, backend);
+            REQUIRE(a.norm() == Tensor(4.0f, backend));
+        }
 
-        REQUIRE(a.norm() == Tensor(4.0f, backend));
-        REQUIRE(b.norm() == Tensor(4.0f, backend));
+        SECTION("Negative scalar") {
+            Tensor b(-4.0f, backend);
+            REQUIRE(b.norm() == Tensor(4.0f, backend));
+        }
     }
 }
 
@@ -420,20 +422,16 @@ TEST_CASE("Frobenius norm of vector", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        // Test with constant value
-        Tensor a({5}, -4.0f, backend);
-        float norm = 4.0f * std::sqrt(5);
-
-        REQUIRE(a.norm() == Tensor(norm, backend));
-
-        
-        // Test with non constant value
-        for (size_t i = 0; i < 5; i++) {
-            a[i] = i;
+        SECTION("Uniform values") {
+            Tensor a({5}, -4.0f, backend);
+            REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(5.0f), backend));
         }
-        // a = [0, 1, 2, 3, 4]
 
-        REQUIRE(a.norm() == Tensor(std::sqrt(30.0f), backend));
+        SECTION("Sequential values [0, 1, 2, 3, 4]") {
+            Tensor a({5}, 0.0f, backend);
+            for (size_t i = 0; i < 5; i++) a[i] = i;
+            REQUIRE(a.norm() == Tensor(std::sqrt(30.0f), backend));
+        }
     }
 }
 
@@ -442,46 +440,51 @@ TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        size_t n = 5;
-        size_t m = 8;
-        Tensor a({n, m}, -4.0f, backend);
-
-        float targetNorm = 4.0f * std::sqrt(n * m);
-        REQUIRE(a.norm() == Tensor(targetNorm, backend));
-
-        float sum = 0;
-        for (size_t i = 0; i < n; i++) {
-            for (size_t j = 0; j < m; j++) {
-                a[i][j] = i * m + j;
-                sum += std::pow(i * m + j, 2);
-            }
+        SECTION("Uniform values") {
+            Tensor a({5, 8}, -4.0f, backend);
+            REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(5.0f * 8.0f), backend));
         }
-        
-        REQUIRE(a.norm() == Tensor(std::sqrt(sum), backend));
+
+        SECTION("Sequential values") {
+            Tensor a({5, 8}, 0.0f, backend);
+            
+            float sum = 0;
+            for (size_t i = 0; i < 5; i++) {
+                for (size_t j = 0; j < 8; j++) {
+                    a[i][j] = i * 8 + j;
+                    sum += std::pow(i * 8 + j, 2);
+                }
+            }
+
+            REQUIRE(a.norm() == Tensor(std::sqrt(sum), backend));
+        }
     }
 }
 
-TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
+TEST_CASE("Frobenius norm of 4-rank tensor", "[Tensor]") {
     auto backend = GENERATE(from_range(backends));
 
     DYNAMIC_SECTION(getBackendString(backend)) {
-        Tensor a({8, 9, 4, 3}, -4.0f, backend);
-
-        float targetNorm = 4.0f * std::sqrt(8 * 9 * 4 * 3);
-        REQUIRE(a.norm() == Tensor(targetNorm, backend));
-
-
-        a.fillRand();
-
-        float sum = 0;
-        const auto elements = a.toVector();
-        for (float e : elements) {
-            sum += e * e;
+        SECTION("Uniform values") {
+            Tensor a({8, 9, 4, 3}, -4.0f, backend);
+            REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(8.0f * 9.0f * 4.0f * 3.0f), backend));
         }
         
-        // random tensor has a lot of noise, so use relative error
-        Tensor ratio = a.norm() / std::sqrt(sum);
-        REQUIRE(ratio.toVector()[0] > 0.99);
-        REQUIRE(ratio.toVector()[0] < 1.01);
+        SECTION("Random values") {
+            Tensor a({8, 9, 4, 3}, backend);
+
+            a.fillRand();
+
+            float sum = 0;
+            const auto elements = a.toVector();
+            for (float e : elements) {
+                sum += e * e;
+            }
+        
+            // random tensor has a lot of noise, so use relative error
+            Tensor ratio = a.norm() / std::sqrt(sum);
+            REQUIRE(ratio.toVector()[0] > 0.99);
+            REQUIRE(ratio.toVector()[0] < 1.01);
+        }
     }
 }
