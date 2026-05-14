@@ -37,4 +37,16 @@ __global__ void checkAllEqualKernel(
     const float* __restrict__ rhs, const TensorLayout rhsLayout,
     int* isEqualFlag, size_t count);
 
+__global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count);
+
+__global__ void isubKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count);
+
+__global__ void imulKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count);
+    
+__global__ void idivKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count);
+
 #endif // KERNELS_CUH

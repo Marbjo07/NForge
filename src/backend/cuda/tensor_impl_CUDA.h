@@ -79,6 +79,12 @@ class Tensor::CUDAImpl : public Tensor::Impl {
     template <typename Kernel>
     std::unique_ptr<Tensor::Impl> applyKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                                               const TensorLayout& rhsLayout, const TensorLayout& outLayout, Kernel kernel) const;
+      
+    template <typename Kernel>
+    void applyInplaceKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                            const TensorLayout& rhsLayout, Kernel kernel);
+
+
 };
 
 #endif  // TENSOR_IMPL_CUDA_H

@@ -105,3 +105,51 @@ __global__ void checkAllEqualKernel(
     size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
     if (lhs[lhsIdx] != rhs[rhsIdx]) *isEqualFlag = 0;
 }
+
+__global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count) {
+
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i >= count) return;
+
+    size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+    size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+    lhs[lhsIdx] += rhs[rhsIdx];
+}
+
+__global__ void isubKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count) {
+
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i >= count) return;
+
+    size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+    size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+    lhs[lhsIdx] -= rhs[rhsIdx];
+}
+
+__global__ void imulKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count) {
+
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i >= count) return;
+
+    size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+    size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+    lhs[lhsIdx] *= rhs[rhsIdx];
+}
+
+__global__ void idivKernel(float* __restrict__ lhs, const TensorLayout lhsLayout, 
+    const float* __restrict__ rhs, const TensorLayout rhsLayout, size_t count) {
+
+    size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i >= count) return;
+
+    size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+    size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+    lhs[lhsIdx] /= rhs[rhsIdx];
+}

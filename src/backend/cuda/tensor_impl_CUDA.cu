@@ -146,7 +146,9 @@ bool Tensor::CUDAImpl::compare(const TensorLayout& lhsLayout, const Tensor::Impl
     return h_equalFlag;
 }
 
-
+const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {
+    return static_cast<const Tensor::CUDAImpl*>(p);
+}
 
 template<typename Kernel>
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyKernel(
@@ -196,25 +198,40 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(const TensorLayout& lhsLayou
     return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, divKernel);
 }
 
-const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {
-    return static_cast<const Tensor::CUDAImpl*>(p);
+template<typename Kernel>
+void Tensor::CUDAImpl::applyInplaceKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
+                                          const TensorLayout& rhsLayout, Kernel kernel) {
+
+    const Tensor::CUDAImpl* o = cast(rhsImpl);
+
+    // get all data pointers
+    float* lhs = dataPtr();
+    const float* rhs = o->dataPtr();
+
+    size_t count = 1;
+    for (size_t d = 0; d < lhsLayout.rank; d++) count *= lhsLayout.shape[d];
+
+    // launch kernel
+    int threads = 256;
+    int blocks = (count + threads - 1) / threads;
+    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, lhsLayout, rhs, rhsLayout, count);
+    CUDA_CHECK(cudaGetLastError());
 }
 
-
 void Tensor::CUDAImpl::iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
-
+    applyInplaceKernel(lhsLayout, rhsImpl, rhsLayout, iaddKernel);
 }   
 
 void Tensor::CUDAImpl::isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
-
+    applyInplaceKernel(lhsLayout, rhsImpl, rhsLayout, isubKernel);
 }   
 
 void Tensor::CUDAImpl::imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
-
+    applyInplaceKernel(lhsLayout, rhsImpl, rhsLayout, imulKernel);
 }
 
 void Tensor::CUDAImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
-
+    applyInplaceKernel(lhsLayout, rhsImpl, rhsLayout, idivKernel);
 }
 
 
@@ -244,3 +261,4 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::prod(const TensorLayout& layout,
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout) const {
     return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(layout));
 }
+
