@@ -199,3 +199,48 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::div(const TensorLayout& lhsLayou
 const Tensor::CUDAImpl* Tensor::CUDAImpl::cast(const Tensor::Impl* p) const {
     return static_cast<const Tensor::CUDAImpl*>(p);
 }
+
+
+void Tensor::CUDAImpl::iadd(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+
+}   
+
+void Tensor::CUDAImpl::isub(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+
+}   
+
+void Tensor::CUDAImpl::imul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+
+}
+
+void Tensor::CUDAImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, const TensorLayout& rhsLayout) {
+
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sum(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(outLayout));
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::min(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(outLayout));
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::max(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(outLayout));
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::prod(const TensorLayout& layout, const TensorLayout& blockLayout, 
+                                                    const TensorLayout& outLayout) const {
+    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(outLayout));
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout) const {
+    return std::unique_ptr<Tensor::Impl>(new Tensor::CUDAImpl(layout));
+}
