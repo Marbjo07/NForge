@@ -153,6 +153,7 @@ TEST_CASE("Tensor mean reduction by sum reduction", "[Tensor]") {
         size_t count = 4 * 5 * 8;
         for (size_t d = 0; d <= 3; d++) {
             Tensor sum = a.sum(d);
+            REQUIRE(sum != Tensor(0, backend)); // sanity check
             REQUIRE(a.mean(d) == sum / count);
             
             if (d != 3) {
