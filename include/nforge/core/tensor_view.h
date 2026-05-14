@@ -51,6 +51,8 @@ class Tensor::View {
 
     Tensor::View operator=(const Tensor& rhs);
     Tensor::View operator=(const Tensor::View& rhs);
+    Tensor::View operator=(float scalar);
+    
     Tensor::View operator[](size_t idx) const;
 
     Tensor::View subsample(std::vector<size_t> strides) const;

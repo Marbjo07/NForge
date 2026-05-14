@@ -195,6 +195,17 @@ Tensor::View Tensor::View::operator=(const Tensor::View& rhs) {
     return *this;
 }
 
+Tensor::View Tensor::View::operator=(float scalar) {
+    if (!this->getShape().isScalar()) {
+        throw std::runtime_error("Cannot assign float to a non-scalar tensor.");
+    }
+
+    *this = Tensor(this->getShape(), scalar, m_parent.getBackend());
+
+    return *this;
+}
+
+
 Tensor::View Tensor::View::operator[](size_t idx) const {
     auto ctx = semantic::validateIndexing(*this, idx);
 
