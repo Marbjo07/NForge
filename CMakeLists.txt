@@ -47,23 +47,23 @@ target_include_directories(NForge
 ## Add flags for Debug or Release
 target_compile_options(NForge PRIVATE
     # Release, non-MSVC
-    $<$<AND:$<CONFIG:Release>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+    $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
         -march=native;-ffast-math;-funroll-loops>
 
     # Release, MSVC
-    $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:
+    $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:MSVC>>:
         /arch:AVX2;/fp:fast>
 )
 
 target_compile_options(NForge PUBLIC
     # Debug, non-MSVC
-    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+    $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
         -fsanitize=address;-fsanitize=undefined>
 )
 
 target_link_options(NForge PUBLIC
     # Debug, non-MSVC
-    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
+    $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
         -fsanitize=address;-fsanitize=undefined>
 )
 
