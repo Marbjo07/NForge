@@ -146,7 +146,15 @@ struct TensorLayout {
 };
 
 
-
+/**
+ * @brief Converts a linear index to a physical offset in memory based on the given tensor layout.
+ * 
+ * Accounts for the shape, strides, and offset defined in the layout to compute the correct element offset.
+ * 
+ * @param linear Linear index. This is the index as if the tensor were stored contiguously in memory.
+ * @param L Tensor layout describing the arrangement of the tensor.
+ * @return Element offset corresponding to the linear index in the layout.
+ */
 static inline size_t physicalOffset(size_t linear, const TensorLayout& L) {
     size_t off = L.offset;
     for (int d = L.rank - 1; d >= 0; d--) {
