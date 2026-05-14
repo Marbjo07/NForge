@@ -108,44 +108,57 @@ $(document).ready(function(){initNavTree('tensor__layout_8h_source.html',''); in
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define MAX_DIMS 8</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structTensorLayout.html">   11</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    std::array&lt;size_t, MAX_DIMS&gt; shape;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    std::array&lt;size_t, MAX_DIMS&gt; strides;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">size_t</span> offset = 0;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">size_t</span> rank = 0;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>() : shape{}, strides{} {}</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; _strides);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; _strides, <span class="keywordtype">size_t</span> _offset);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>(std::array&lt;size_t, MAX_DIMS&gt; shape, </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                 std::array&lt;size_t, MAX_DIMS&gt; strides,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                 <span class="keywordtype">size_t</span> offset, <span class="keywordtype">size_t</span> rank)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        : shape(shape), strides(strides), offset(offset), rank(rank) {}</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>&amp; lhs) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>&amp; lhs) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structTensorLayout.html">   24</a></span><span class="keyword">struct </span><a class="code hl_class" href="structTensorLayout.html">TensorLayout</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">   33</a></span>    std::array&lt;size_t, MAX_DIMS&gt; <a class="code hl_variable" href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">shape</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a">   43</a></span>    std::array&lt;size_t, MAX_DIMS&gt; <a class="code hl_variable" href="structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a">strides</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structTensorLayout.html#a5d809086add5e2501a47a40742605bf0">   48</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structTensorLayout.html#a5d809086add5e2501a47a40742605bf0">offset</a> = 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structTensorLayout.html#a048050fa44d9d93fe100625c25bb9bb3">   55</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structTensorLayout.html#a048050fa44d9d93fe100625c25bb9bb3">rank</a> = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">   63</a></span>    <a class="code hl_function" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout</a>() : <a class="code hl_variable" href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">shape</a>{}, <a class="code hl_variable" href="structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a">strides</a>{} {}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_function" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_function" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; _strides);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_function" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; _shape, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; _strides, <span class="keywordtype">size_t</span> _offset);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_function" href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout</a>(std::array&lt;size_t, MAX_DIMS&gt; _shape,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                 std::array&lt;size_t, MAX_DIMS&gt; _strides,</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                 <span class="keywordtype">size_t</span> _offset, <span class="keywordtype">size_t</span> _rank);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structTensorLayout.html#a12b960cae08a192daada864f238de811">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structTensorLayout.html#a1c04a25da4822e3a356b0746aa59c4ce">operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>};</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">size_t</span> physicalOffset(<span class="keywordtype">size_t</span> linear, <span class="keyword">const</span> <a class="code hl_struct" href="structTensorLayout.html">TensorLayout</a>&amp; L) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">size_t</span> off = L.offset;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> d = L.rank - 1; d &gt;= 0; d--) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">size_t</span> coord = linear % L.shape[d];</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        linear /= L.shape[d];</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        off += coord * L.strides[d];</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> off;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif </span><span class="comment">// TENSOR_LAYOUT_H </span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">size_t</span> physicalOffset(<span class="keywordtype">size_t</span> linear, <span class="keyword">const</span> <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a>&amp; L) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordtype">size_t</span> off = L.<a class="code hl_variable" href="structTensorLayout.html#a5d809086add5e2501a47a40742605bf0">offset</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> d = L.<a class="code hl_variable" href="structTensorLayout.html#a048050fa44d9d93fe100625c25bb9bb3">rank</a> - 1; d &gt;= 0; d--) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordtype">size_t</span> coord = linear % L.<a class="code hl_variable" href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">shape</a>[d];</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        linear /= L.<a class="code hl_variable" href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">shape</a>[d];</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        off += coord * L.<a class="code hl_variable" href="structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a">strides</a>[d];</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">return</span> off;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">#endif </span><span class="comment">// TENSOR_LAYOUT_H </span></div>
 <div class="ttc" id="aclassTensor_1_1Shape_html"><div class="ttname"><a href="classTensor_1_1Shape.html">Tensor::Shape</a></div><div class="ttdef"><b>Definition</b> tensor_shape.h:10</div></div>
-<div class="ttc" id="astructTensorLayout_html"><div class="ttname"><a href="structTensorLayout.html">TensorLayout</a></div><div class="ttdef"><b>Definition</b> tensor_layout.h:11</div></div>
+<div class="ttc" id="astructTensorLayout_html"><div class="ttname"><a href="structTensorLayout.html">TensorLayout</a></div><div class="ttdoc">Describes the memory layout of a tensor.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:24</div></div>
+<div class="ttc" id="astructTensorLayout_html_a048050fa44d9d93fe100625c25bb9bb3"><div class="ttname"><a href="structTensorLayout.html#a048050fa44d9d93fe100625c25bb9bb3">TensorLayout::rank</a></div><div class="ttdeci">size_t rank</div><div class="ttdoc">Number of active dimensions in the layout.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:55</div></div>
+<div class="ttc" id="astructTensorLayout_html_a12b960cae08a192daada864f238de811"><div class="ttname"><a href="structTensorLayout.html#a12b960cae08a192daada864f238de811">TensorLayout::operator==</a></div><div class="ttdeci">bool operator==(const TensorLayout &amp;rhs) const</div><div class="ttdoc">Checks whether two tensor layouts are equal.</div><div class="ttdef"><b>Definition</b> tensor_layout.cpp:41</div></div>
+<div class="ttc" id="astructTensorLayout_html_a1c04a25da4822e3a356b0746aa59c4ce"><div class="ttname"><a href="structTensorLayout.html#a1c04a25da4822e3a356b0746aa59c4ce">TensorLayout::operator!=</a></div><div class="ttdeci">bool operator!=(const TensorLayout &amp;rhs) const</div><div class="ttdoc">Checks whether two tensor layouts are not equal.</div><div class="ttdef"><b>Definition</b> tensor_layout.cpp:53</div></div>
+<div class="ttc" id="astructTensorLayout_html_a2341cd882f5770c6a76a4626d85ccb14"><div class="ttname"><a href="structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14">TensorLayout::shape</a></div><div class="ttdeci">std::array&lt; size_t, MAX_DIMS &gt; shape</div><div class="ttdoc">Shape of the tensor.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:33</div></div>
+<div class="ttc" id="astructTensorLayout_html_a5d809086add5e2501a47a40742605bf0"><div class="ttname"><a href="structTensorLayout.html#a5d809086add5e2501a47a40742605bf0">TensorLayout::offset</a></div><div class="ttdeci">size_t offset</div><div class="ttdoc">Number of elements skipped before indexing starts.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:48</div></div>
+<div class="ttc" id="astructTensorLayout_html_a668b582b75563d2274e0d18f4b9d8a67"><div class="ttname"><a href="structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67">TensorLayout::TensorLayout</a></div><div class="ttdeci">TensorLayout()</div><div class="ttdoc">Constructs an empty tensor layout.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:63</div></div>
+<div class="ttc" id="astructTensorLayout_html_a9dd7b95b0d73daea5bbed26d72c6a61a"><div class="ttname"><a href="structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a">TensorLayout::strides</a></div><div class="ttdeci">std::array&lt; size_t, MAX_DIMS &gt; strides</div><div class="ttdoc">Strides for each tensor dimension.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

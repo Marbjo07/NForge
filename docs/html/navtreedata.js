@@ -25,31 +25,34 @@
 var NAVTREE =
 [
   [ "NForge", "index.html", [
-    [ "NForge", "md_README.html", [
-      [ "Build", "md_README.html#autotoc_md1", [
-        [ "CUDA support", "md_README.html#autotoc_md2", null ]
-      ] ],
-      [ "Quick start", "md_README.html#autotoc_md3", [
-        [ "Output:", "md_README.html#autotoc_md4", null ]
-      ] ],
-      [ "Documentation", "md_README.html#autotoc_md5", null ],
-      [ "API overview", "md_README.html#autotoc_md6", [
-        [ "Construction", "md_README.html#autotoc_md7", null ],
-        [ "Arithmetic", "md_README.html#autotoc_md8", null ],
-        [ "Views", "md_README.html#autotoc_md9", [
-          [ "Obtaining a view", "md_README.html#autotoc_md10", null ],
-          [ "Assigning through a view", "md_README.html#autotoc_md11", null ],
-          [ "Strided views", "md_README.html#autotoc_md12", null ]
-        ] ]
-      ] ],
-      [ "Tests", "md_README.html#autotoc_md13", null ],
-      [ "Benchmarks", "md_README.html#autotoc_md14", null ],
-      [ "Roadmap", "md_README.html#autotoc_md15", null ]
+    [ "Build", "index.html#autotoc_md1", [
+      [ "CUDA support", "index.html#autotoc_md2", null ]
     ] ],
+    [ "Quick start", "index.html#autotoc_md3", [
+      [ "Code example", "index.html#autotoc_md4", null ],
+      [ "Output", "index.html#autotoc_md5", null ]
+    ] ],
+    [ "Documentation", "index.html#autotoc_md6", null ],
+    [ "API overview", "index.html#autotoc_md7", [
+      [ "Construction", "index.html#autotoc_md8", null ],
+      [ "Arithmetic", "index.html#autotoc_md9", null ],
+      [ "Views", "index.html#autotoc_md10", [
+        [ "Obtaining a view", "index.html#autotoc_md11", null ],
+        [ "Assigning through a view", "index.html#autotoc_md12", null ],
+        [ "Strided views", "index.html#autotoc_md13", null ]
+      ] ]
+    ] ],
+    [ "Tests", "index.html#autotoc_md14", null ],
+    [ "Benchmarks", "index.html#autotoc_md15", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ]
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]

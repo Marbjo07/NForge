@@ -1,44 +1,286 @@
-\doxysection{Tensor\+Layout Struct Reference}
+\doxysection{Tensor\+Layout Class Reference}
 \hypertarget{structTensorLayout}{}\label{structTensorLayout}\index{TensorLayout@{TensorLayout}}
+
+
+Describes the memory layout of a tensor.  
+
+
+
+
+{\ttfamily \#include $<$tensor\+\_\+layout.\+h$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da}\label{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da} 
-{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape)
-\item 
-\Hypertarget{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae}\label{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae} 
-{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides)
-\item 
-\Hypertarget{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e}\label{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e} 
-{\bfseries Tensor\+Layout} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides, size\+\_\+t \+\_\+offset)
-\item 
-\Hypertarget{structTensorLayout_a15f545314628a1633f818169770544e0}\label{structTensorLayout_a15f545314628a1633f818169770544e0} 
-{\bfseries Tensor\+Layout} (std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ shape, std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ strides, size\+\_\+t offset, size\+\_\+t rank)
-\item 
-\Hypertarget{structTensorLayout_a3707262883f24288ede041f665d83137}\label{structTensorLayout_a3707262883f24288ede041f665d83137} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs) const
-\item 
-\Hypertarget{structTensorLayout_ad71fea7784f8ef749e079e9b62143d7c}\label{structTensorLayout_ad71fea7784f8ef749e079e9b62143d7c} 
-bool {\bfseries operator!=} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs) const
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{Tensor\+Layout}} ()
+\begin{DoxyCompactList}\small\item\em Constructs an empty tensor layout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da}{Tensor\+Layout}} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape)
+\begin{DoxyCompactList}\small\item\em Constructs a contiguous tensor layout from a shape. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae}{Tensor\+Layout}} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides)
+\begin{DoxyCompactList}\small\item\em Constructs a tensor layout from a shape and explicit strides. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e}{Tensor\+Layout}} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&\+\_\+shape, const std\+::vector$<$ size\+\_\+t $>$ \&\+\_\+strides, size\+\_\+t \+\_\+offset)
+\begin{DoxyCompactList}\small\item\em Constructs a tensor layout from a shape, explicit strides, and offset. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structTensorLayout_a5b78b466eb76effa1634da6aee94cbe5}{Tensor\+Layout}} (std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ \+\_\+shape, std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ \+\_\+strides, size\+\_\+t \+\_\+offset, size\+\_\+t \+\_\+rank)
+\begin{DoxyCompactList}\small\item\em Constructs a tensor layout from raw storage. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structTensorLayout_a12b960cae08a192daada864f238de811}{operator==}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Checks whether two tensor layouts are equal. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structTensorLayout_a1c04a25da4822e3a356b0746aa59c4ce}{operator!=}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Checks whether two tensor layouts are not equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}\label{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14} 
-std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ {\bfseries shape}
-\item 
-\Hypertarget{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}\label{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a} 
-std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ {\bfseries strides}
-\item 
+std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ \mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}
+\begin{DoxyCompactList}\small\item\em Shape of the tensor. \end{DoxyCompactList}\item 
+std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$ \mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}
+\begin{DoxyCompactList}\small\item\em Strides for each tensor dimension. \end{DoxyCompactList}\item 
 \Hypertarget{structTensorLayout_a5d809086add5e2501a47a40742605bf0}\label{structTensorLayout_a5d809086add5e2501a47a40742605bf0} 
 size\+\_\+t {\bfseries offset} = 0
-\item 
+\begin{DoxyCompactList}\small\item\em Number of elements skipped before indexing starts. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}} = 0
+\begin{DoxyCompactList}\small\item\em Number of active dimensions in the layout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Describes the memory layout of a tensor. 
+
+A tensor layout stores\+:
+\begin{DoxyItemize}
+\item the tensor shape,
+\item the stride for each dimension,
+\item an optional storage offset,
+\item the number of active dimensions ({\ttfamily rank}).
+\end{DoxyItemize}
+
+\begin{DoxyInvariant}{Invariant}
+{\ttfamily 0 \texorpdfstring{$<$}{<}= rank \&\& rank \texorpdfstring{$<$}{<}= MAX\+\_\+\+DIMS} 
+
+Elements in {\ttfamily shape} and {\ttfamily strides} are only meaningful for the first {\ttfamily rank} active entries 
+\end{DoxyInvariant}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}\label{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67} 
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{TensorLayout()}{TensorLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Tensor\+Layout\+::\+Tensor\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs an empty tensor layout. 
+
+\begin{DoxyPostcond}{Postcondition}
+{\ttfamily rank == 0} 
+
+{\ttfamily offset == 0} 
+\end{DoxyPostcond}
+\Hypertarget{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da}\label{structTensorLayout_ac9e0618ed21c6d02929dc82b1944d1da} 
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{TensorLayout()}{TensorLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Tensor\+Layout\+::\+Tensor\+Layout (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&}]{\+\_\+shape }\end{DoxyParamCaption})}
+
+
+
+Constructs a contiguous tensor layout from a shape. 
+
+The layout receives contiguous strides inferred from {\ttfamily \+\_\+shape}.
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily \+\_\+shape.\+get\+Num\+Dims() \texorpdfstring{$<$}{<}= MAX\+\_\+\+DIMS} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+{\ttfamily rank == \+\_\+shape.\+get\+Num\+Dims()} 
+
+{\ttfamily offset == 0} 
+
+{\ttfamily strides} contains contiguous strides for {\ttfamily \+\_\+shape}
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+shape} & Shape of the tensor layout. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae}\label{structTensorLayout_aa9b1ec7de2882fa3d681e967e8ccf4ae} 
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{TensorLayout()}{TensorLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Tensor\+Layout\+::\+Tensor\+Layout (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&}]{\+\_\+shape,  }\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{\+\_\+strides }\end{DoxyParamCaption})}
+
+
+
+Constructs a tensor layout from a shape and explicit strides. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily \+\_\+shape.\+get\+Num\+Dims() \texorpdfstring{$<$}{<}= MAX\+\_\+\+DIMS} 
+
+{\ttfamily \+\_\+strides.\+size() == \+\_\+shape.\+get\+Num\+Dims()} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+{\ttfamily rank == \+\_\+shape.\+get\+Num\+Dims()} 
+
+{\ttfamily offset == 0}
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+shape} & Shape of the tensor layout. \\
+\hline
+{\em \+\_\+strides} & Explicit strides for each dimension. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e}\label{structTensorLayout_a44de1c379d0beb6f55f78b5cf565fa2e} 
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{TensorLayout()}{TensorLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Tensor\+Layout\+::\+Tensor\+Layout (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&}]{\+\_\+shape,  }\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{\+\_\+strides,  }\item[{size\+\_\+t}]{\+\_\+offset }\end{DoxyParamCaption})}
+
+
+
+Constructs a tensor layout from a shape, explicit strides, and offset. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily \+\_\+shape.\+get\+Num\+Dims() \texorpdfstring{$<$}{<}= MAX\+\_\+\+DIMS} 
+
+{\ttfamily \+\_\+strides.\+size() == \+\_\+shape.\+get\+Num\+Dims()} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+{\ttfamily rank == \+\_\+shape.\+get\+Num\+Dims()} 
+
+{\ttfamily offset == \+\_\+offset}
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+shape} & Shape of the tensor layout. \\
+\hline
+{\em \+\_\+strides} & Explicit strides for each dimension. \\
+\hline
+{\em \+\_\+offset} & Storage offset before indexing begins. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structTensorLayout_a5b78b466eb76effa1634da6aee94cbe5}\label{structTensorLayout_a5b78b466eb76effa1634da6aee94cbe5} 
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\index{TensorLayout@{TensorLayout}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{TensorLayout()}{TensorLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Tensor\+Layout\+::\+Tensor\+Layout (\begin{DoxyParamCaption}\item[{std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$}]{\+\_\+shape,  }\item[{std\+::array$<$ size\+\_\+t, MAX\+\_\+\+DIMS $>$}]{\+\_\+strides,  }\item[{size\+\_\+t}]{\+\_\+offset,  }\item[{size\+\_\+t}]{\+\_\+rank }\end{DoxyParamCaption})}
+
+
+
+Constructs a tensor layout from raw storage. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily \+\_\+rank \texorpdfstring{$<$}{<}= MAX\+\_\+\+DIMS} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+{\ttfamily offset == \+\_\+offset}
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & Shape values. \\
+\hline
+{\em strides} & Stride values. \\
+\hline
+{\em offset} & Storage offset. \\
+\hline
+{\em rank} & Number of active dimensions. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structTensorLayout_a1c04a25da4822e3a356b0746aa59c4ce}\label{structTensorLayout_a1c04a25da4822e3a356b0746aa59c4ce} 
+\index{TensorLayout@{TensorLayout}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Tensor\+Layout\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Checks whether two tensor layouts are not equal. 
+
+Equivalent to {\ttfamily !(\texorpdfstring{$\ast$}{*}this == rhs)}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The layout to compare against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the layouts are not equal, otherwise {\ttfamily false}. 
+\end{DoxyReturn}
+\Hypertarget{structTensorLayout_a12b960cae08a192daada864f238de811}\label{structTensorLayout_a12b960cae08a192daada864f238de811} 
+\index{TensorLayout@{TensorLayout}!operator==@{operator==}}
+\index{operator==@{operator==}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Tensor\+Layout\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Checks whether two tensor layouts are equal. 
+
+Two layouts are equal if they have the same\+:
+\begin{DoxyItemize}
+\item rank
+\item offset
+\item active shape values
+\item active stride values
+\end{DoxyItemize}
+
+Only the active {\ttfamily rank} entries are compared.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The layout to compare against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the layouts are equal, otherwise {\ttfamily false}. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
 \Hypertarget{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}\label{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3} 
-size\+\_\+t {\bfseries rank} = 0
-\end{DoxyCompactItemize}
+\index{TensorLayout@{TensorLayout}!rank@{rank}}
+\index{rank@{rank}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{rank}{rank}}
+{\footnotesize\ttfamily size\+\_\+t Tensor\+Layout\+::rank = 0}
 
 
-The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+
+Number of active dimensions in the layout. 
+
+Only the first {\ttfamily rank} entries of {\ttfamily shape} and {\ttfamily strides} are considered valid. \Hypertarget{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}\label{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14} 
+\index{TensorLayout@{TensorLayout}!shape@{shape}}
+\index{shape@{shape}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{shape}{shape}}
+{\footnotesize\ttfamily std\+::array$<$size\+\_\+t, MAX\+\_\+\+DIMS$>$ Tensor\+Layout\+::shape}
+
+
+
+Shape of the tensor. 
+
+The shape values describe the extent of each dimension.
+
+\begin{DoxyNote}{Note}
+Only the entries corresponding to the active rank are meaningful. 
+\end{DoxyNote}
+\Hypertarget{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}\label{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a} 
+\index{TensorLayout@{TensorLayout}!strides@{strides}}
+\index{strides@{strides}!TensorLayout@{TensorLayout}}
+\doxysubsubsection{\texorpdfstring{strides}{strides}}
+{\footnotesize\ttfamily std\+::array$<$size\+\_\+t, MAX\+\_\+\+DIMS$>$ Tensor\+Layout\+::strides}
+
+
+
+Strides for each tensor dimension. 
+
+A stride describes how many elements must be skipped to move to the next index along a given dimension.
+
+\begin{DoxyNote}{Note}
+Only the entries corresponding to the active rank are meaningful. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 include/nforge/core/tensor\+\_\+layout.\+h\item 
 src/core/tensor\+\_\+layout.\+cpp\end{DoxyCompactItemize}

@@ -7,10 +7,6 @@ var annotated_dup =
       [ "ReductionContext", "structsemantic_1_1ReductionContext.html", null ]
     ] ],
     [ "CudaContext", "classCudaContext.html", null ],
-    [ "ProjectileMotionParams", "structProjectileMotionParams.html", null ],
-    [ "ProjectileMotionResults", "structProjectileMotionResults.html", null ],
-    [ "SphereSlideParams", "structSphereSlideParams.html", null ],
-    [ "SphereSlideResults", "structSphereSlideResults.html", null ],
     [ "Tensor", "classTensor.html", "classTensor" ],
-    [ "TensorLayout", "structTensorLayout.html", null ]
+    [ "TensorLayout", "structTensorLayout.html", "structTensorLayout" ]
 ];

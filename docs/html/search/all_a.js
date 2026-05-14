@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['shape_0',['Shape',['../classTensor_1_1Shape.html',1,'Tensor']]],
-  ['sphereslideparams_1',['SphereSlideParams',['../structSphereSlideParams.html',1,'']]],
-  ['sphereslideresults_2',['SphereSlideResults',['../structSphereSlideResults.html',1,'']]],
-  ['start_3',['Quick start',['../md_README.html#autotoc_md3',1,'']]],
-  ['strided_20views_4',['Strided views',['../md_README.html#autotoc_md12',1,'']]],
-  ['support_5',['CUDA support',['../md_README.html#autotoc_md2',1,'']]]
+  ['shape_0',['shape',['../classTensor_1_1Shape.html',1,'Tensor::Shape'],['../structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14',1,'TensorLayout::shape']]],
+  ['start_1',['Quick start',['../index.html#autotoc_md3',1,'']]],
+  ['strided_20views_2',['Strided views',['../index.html#autotoc_md13',1,'']]],
+  ['strides_3',['strides',['../structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a',1,'TensorLayout']]],
+  ['support_4',['CUDA support',['../index.html#autotoc_md2',1,'']]]
 ];

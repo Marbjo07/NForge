@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['projectilemotionparams_0',['ProjectileMotionParams',['../structProjectileMotionParams.html',1,'']]],
-  ['projectilemotionresults_1',['ProjectileMotionResults',['../structProjectileMotionResults.html',1,'']]]
+  ['reductioncontext_0',['ReductionContext',['../structsemantic_1_1ReductionContext.html',1,'semantic']]]
 ];

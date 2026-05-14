@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reductioncontext_0',['ReductionContext',['../structsemantic_1_1ReductionContext.html',1,'semantic']]]
+  ['shape_0',['Shape',['../classTensor_1_1Shape.html',1,'Tensor']]]
 ];
