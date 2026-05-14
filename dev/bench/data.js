@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778353011182,
+  "lastUpdate": 1778767028259,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -396,6 +396,42 @@ window.BENCHMARK_DATA = {
             "value": 17480956.60869565,
             "unit": "ns/iter",
             "extra": "iterations: 161\ncpu: 17479777.639751546 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2575407984029ce657cd54ea5e497ced4f61ffdf",
+          "message": "Merge pull request #45 from Marbjo07/docs/doxygen-tensorlayout\n\ndocs: TensorLayout doxygen documentation",
+          "timestamp": "2026-05-14T15:55:17+02:00",
+          "tree_id": "4f8c3d4854592cabae7d7bc1827ce4c9600941cf",
+          "url": "https://github.com/Marbjo07/NForge/commit/2575407984029ce657cd54ea5e497ced4f61ffdf"
+        },
+        "date": 1778767027861,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 578627.0299251908,
+            "unit": "ns/iter",
+            "extra": "iterations: 4812\ncpu: 578501.6585619284 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17171308.390243974,
+            "unit": "ns/iter",
+            "extra": "iterations: 164\ncpu: 17169034.10365854 ns\nthreads: 1"
           }
         ]
       }
