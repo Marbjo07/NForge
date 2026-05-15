@@ -84,6 +84,10 @@ class Tensor::CUDAImpl : public Tensor::Impl {
     void applyInplaceKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl, 
                             const TensorLayout& rhsLayout, Kernel kernel);
 
+    // reduction must be associative
+    template <typename Kernel>
+    std::unique_ptr<Tensor::Impl> applyReductionKernel(const TensorLayout& layout, const TensorLayout& blockLayout,
+                                                       const TensorLayout& outLayout, Kernel kernel) const;
 
 };
 
