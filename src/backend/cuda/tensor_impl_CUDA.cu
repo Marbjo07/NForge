@@ -241,13 +241,19 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyReductionKernel(const Tenso
     size_t blockCount = 1;
     for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
 
-    size_t count = blockCount * outCount;
 
-    // initialize output buffer to initValue, then call reduction kernel
+    // kernel params
     int threads = 256;
-    int blocks = (count + threads - 1) / threads;
-    fillKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(out, initValue, outCount);
-    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockCount, outLayout, outCount);
+    auto stream = CudaContext::get().stream();
+
+    // initialize output buffer to initValue
+    int fillBlocks = (outCount + threads - 1) / threads;
+    fillKernel<<<fillBlocks, threads, 0, stream>>>(out, initValue, outCount);
+    CUDA_CHECK(cudaGetLastError());
+
+    // call reduction kernel
+    int kernelBlocks = (blockCount * outCount + threads - 1) / threads;
+    kernel<<<kernelBlocks, threads, 0, stream>>>(lhs, out, layout, blockCount, outLayout, outCount);
     CUDA_CHECK(cudaGetLastError());
 
     return std::unique_ptr<Tensor::Impl>(results);
