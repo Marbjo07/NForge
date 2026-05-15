@@ -1,3 +1,15 @@
 BasedOnStyle: Google
+UseTab: ForIndentation
 IndentWidth: 4
+TabWidth: 4
+
+Language: Cpp
 ColumnLimit: 100
+DerivePointerAlignment: false
+PointerAlignment: Left
+KeepEmptyLinesAtTheStartOfBlocks: false
+AllowShortIfStatementsOnASingleLine: false
+MaxEmptyLinesToKeep: 2
+
+IndentAccessModifiers: false
+AccessModifierOffset: -4

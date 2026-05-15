@@ -3,24 +3,23 @@
 
 #include "nforge/nforge.h"
 
-static constexpr Backend backends[] = {
-    Backend::CPU, 
+static constexpr Backend backends[] = {Backend::CPU,
 
 #ifdef NFORGE_WITH_CUDA
-    Backend::CUDA
+                                       Backend::CUDA
 #endif
 
 };
 
 static std::string getBackendString(Backend backend) {
-    switch (backend) {
-        case Backend::CPU:
-            return "CPU";
-        case Backend::CUDA:
-            return "CUDA";
-        default:
-            return "UNKNOWN";
-    }
+	switch (backend) {
+		case Backend::CPU:
+			return "CPU";
+		case Backend::CUDA:
+			return "CUDA";
+		default:
+			return "UNKNOWN";
+	}
 }
 
-#endif // UTILS_H
+#endif  // UTILS_H

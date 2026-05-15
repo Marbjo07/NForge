@@ -5,6 +5,7 @@ if(CLANG_FORMAT_EXE)
         ${CMAKE_SOURCE_DIR}/src/*.cpp
         ${CMAKE_SOURCE_DIR}/src/*.cu
         ${CMAKE_SOURCE_DIR}/src/*.h
+        ${CMAKE_SOURCE_DIR}/src/*.cuh
 
         ${CMAKE_SOURCE_DIR}/scenarios/*.h
         
