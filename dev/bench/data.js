@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778794360266,
+  "lastUpdate": 1778850511760,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -468,6 +468,42 @@ window.BENCHMARK_DATA = {
             "value": 16613782.357142426,
             "unit": "ns/iter",
             "extra": "iterations: 168\ncpu: 16611596.119047621 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "822c1b9c3ba9b6dded4aa7ecc4efd80c031809b6",
+          "message": "Merge pull request #50 from Marecek0Krtecek/feat/assignment-from-view\n\nfeat: implement tensor assignment from view (closes #49)",
+          "timestamp": "2026-05-15T15:06:38+02:00",
+          "tree_id": "992c18ce6f25970881b96976669863db6afe98ea",
+          "url": "https://github.com/Marbjo07/NForge/commit/822c1b9c3ba9b6dded4aa7ecc4efd80c031809b6"
+        },
+        "date": 1778850510705,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 545462.4036421856,
+            "unit": "ns/iter",
+            "extra": "iterations: 4997\ncpu: 545415.2119271562 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17189240.785276096,
+            "unit": "ns/iter",
+            "extra": "iterations: 163\ncpu: 17188334.865030672 ns\nthreads: 1"
           }
         ]
       }
