@@ -55,20 +55,20 @@ __global__ void isqrtKernel(float* __restrict__ data, size_t count);
 // reduction kernels
 __global__ void squareSumKernel(const float* __restrict__ data, float* result, size_t count);
 
-__global__ void sumReductionKernel(const float* __restrict__ data, float* result, const TensorLayout layout, 
-                                   const TensorLayout blockLayout, size_t blockCount,
+__global__ void sumReductionKernel(const float* __restrict__ data, float* result, 
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount);
 
-__global__ void minReductionKernel(const float* __restrict__ data, float* result, const TensorLayout layout, 
-                                   const TensorLayout blockLayout, size_t blockCount,
+__global__ void minReductionKernel(const float* __restrict__ data, float* result, 
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount);
 
-__global__ void maxReductionKernel(const float* __restrict__ data, float* result, const TensorLayout layout, 
-                                   const TensorLayout blockLayout, size_t blockCount,
+__global__ void maxReductionKernel(const float* __restrict__ data, float* result, 
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount);
 
-__global__ void prodReductionKernel(const float* __restrict__ data, float* result, const TensorLayout layout, 
-                                    const TensorLayout blockLayout, size_t blockCount,
+__global__ void prodReductionKernel(const float* __restrict__ data, float* result, 
+                                    const TensorLayout layout, size_t blockCount,
                                     const TensorLayout outLayout, size_t outCount);
 
 #endif  // KERNELS_CUH

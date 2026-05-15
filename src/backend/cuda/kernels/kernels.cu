@@ -195,7 +195,7 @@ __device__ static float atomicMul(float* address, float val) {
 }
 
 __global__ void sumReductionKernel(const float* __restrict__ data, float* result,
-                                   const TensorLayout layout, const TensorLayout blockLayout, size_t blockCount,
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount) {
     size_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= blockCount * outCount) return;
@@ -207,7 +207,7 @@ __global__ void sumReductionKernel(const float* __restrict__ data, float* result
 }
 
 __global__ void minReductionKernel(const float* __restrict__ data, float* result,
-                                   const TensorLayout layout, const TensorLayout blockLayout, size_t blockCount,
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount) {
     size_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= blockCount * outCount) return;
@@ -219,7 +219,7 @@ __global__ void minReductionKernel(const float* __restrict__ data, float* result
 }
 
 __global__ void maxReductionKernel(const float* __restrict__ data, float* result,
-                                   const TensorLayout layout, const TensorLayout blockLayout, size_t blockCount,
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount) {
     size_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= blockCount * outCount) return;
@@ -232,7 +232,7 @@ __global__ void maxReductionKernel(const float* __restrict__ data, float* result
 
 
 __global__ void prodReductionKernel(const float* __restrict__ data, float* result,
-                                   const TensorLayout layout, const TensorLayout blockLayout, size_t blockCount,
+                                   const TensorLayout layout, size_t blockCount,
                                    const TensorLayout outLayout, size_t outCount) {
     size_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= blockCount * outCount) return;

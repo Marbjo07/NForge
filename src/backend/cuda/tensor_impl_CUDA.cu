@@ -247,7 +247,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyReductionKernel(const Tenso
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
     fillKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(out, initValue, outCount);
-    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockLayout, blockCount, outLayout, outCount);
+    kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockCount, outLayout, outCount);
     CUDA_CHECK(cudaGetLastError());
 
     return std::unique_ptr<Tensor::Impl>(results);
