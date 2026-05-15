@@ -44,39 +44,15 @@ target_include_directories(NForge
 )
 
 
-## Add flags for Debug or Release
-target_compile_options(NForge PRIVATE
-    # Release, non-MSVC
-    $<$<AND:$<CONFIG:Release>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
-        -march=native;-ffast-math;-funroll-loops>
-
-    # Release, MSVC
-    $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:
-        /arch:AVX2;/fp:fast>
-)
-
-target_compile_options(NForge PUBLIC
-    # Debug, non-MSVC
-    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
-        -fsanitize=address;-fsanitize=undefined>
-)
-
-target_link_options(NForge PUBLIC
-    # Debug, non-MSVC
-    $<$<AND:$<CONFIG:Debug>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:
-        -fsanitize=address;-fsanitize=undefined>
-)
+## Compiler flags for configs
+include(cmake/CompilerFlags.cmake)
+nforge_apply_compiler_flags(NForge)
 
 
 ## Configure CUDA dependencies
 if(NFORGE_ENABLE_CUDA)
     target_link_libraries(NForge PUBLIC CUDA::cudart CUDA::curand)
     
-   
-    target_compile_options(NForge PRIVATE 
-        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>  # allow constexpr host functions in device functions
-    )
-
     set_property(TARGET NForge PROPERTY CUDA_ARCHITECTURES native)
 endif()
 

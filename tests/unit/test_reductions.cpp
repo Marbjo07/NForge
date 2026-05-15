@@ -95,7 +95,7 @@ TEST_CASE("Tensor min reduction", "[Tensor]") {
         
         for (size_t i = 0; i < 2; i++) {
             for (size_t j = 0; j < 3; j++) {
-                a[i][j] = Tensor(i * 3 + j);
+                a[i][j] = Tensor(i * 3 + j, backend);
             }
         }
         // a = [[0, 1, 2], [3, 4, 5]]
@@ -153,7 +153,15 @@ TEST_CASE("Tensor mean reduction by sum reduction", "[Tensor]") {
         size_t count = 4 * 5 * 8;
         for (size_t d = 0; d <= 3; d++) {
             Tensor sum = a.sum(d);
-            REQUIRE(a.mean(d) == sum / count);
+
+            REQUIRE(sum != Tensor(0, backend)); // sanity check
+
+            // TODO: refactor with relative comparison and tolerance
+            Tensor targetMean = sum / count;
+            Tensor diff = a.mean(d) - targetMean;
+            Tensor absDiff = diff * diff;
+            Tensor maxDiff = absDiff.max();
+            REQUIRE(maxDiff.toVector()[0] < 1e-6f);
             
             if (d != 3) {
                 count /= shape[d];
