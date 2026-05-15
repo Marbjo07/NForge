@@ -287,8 +287,7 @@ Tensor& Tensor::operator=(const Tensor& rhs) {
 }
 
 Tensor& Tensor::operator=(const Tensor::View& rhs) {
-    applyInplaceBinaryOp(rhs, "set", &Tensor::Impl::set);
-
+    *this = rhs.copy();
     return *this;
 }
 
