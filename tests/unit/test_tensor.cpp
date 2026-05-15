@@ -487,3 +487,23 @@ TEST_CASE("Frobenius norm of random tensor", "[Tensor]") {
         REQUIRE(ratio.toVector()[0] < 1.01);
     }
 }
+
+TEST_CASE("Assign Tensor::View to Tensor", "[Tensor]") {
+    auto backend = GENERATE(from_range(backends));
+
+    DYNAMIC_SECTION(getBackendString(backend)) {
+        Tensor a({3}, 0.0f, backend);
+        Tensor b({5, 4}, 1.0f, backend);
+
+        // Basic assignment from view
+        a = b[0];
+
+        // Correct shape changes
+        REQUIRE(a.getShape() == Tensor::Shape({4}));
+        // Correct data after assignment
+        REQUIRE(a == Tensor({4}, 1.0f, backend));
+        // Verify if it acts as a copy
+        b[0][0] = 99.0f;
+        REQUIRE(a[0] == Tensor(1.0f, backend));
+    }
+}
