@@ -225,7 +225,7 @@ void Tensor::CUDAImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* r
 
 template <typename Kernel>
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyReductionKernel(const TensorLayout& layout, const TensorLayout& blockLayout,
-                                                                     const TensorLayout& outLayout, Kernel kernel) const {
+                                                                     const TensorLayout& outLayout, float initValue, Kernel kernel) const {
     // create output tensor
     auto outShape = Tensor::Shape(outLayout);
     auto* results = new Tensor::CUDAImpl(outShape);
@@ -243,11 +243,10 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyReductionKernel(const Tenso
 
     size_t count = blockCount * outCount;
 
-    // Initialize output buffer to 0 (will be set to proper identity values in kernels if needed)
-    CUDA_CHECK(cudaMemset(out, 0, outCount * sizeof(float)));
-
+    // initialize output buffer to initValue, then call reduction kernel
     int threads = 256;
     int blocks = (count + threads - 1) / threads;
+    fillKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(out, initValue, outCount);
     kernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockLayout, blockCount, outLayout, outCount);
     CUDA_CHECK(cudaGetLastError());
 
@@ -256,100 +255,22 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::applyReductionKernel(const Tenso
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::sum(const TensorLayout& layout, const TensorLayout& blockLayout,
                                                     const TensorLayout& outLayout) const {
-    return applyReductionKernel(layout, blockLayout, outLayout, sumReductionKernel);
+    return applyReductionKernel(layout, blockLayout, outLayout, 0.0f, sumReductionKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::min(const TensorLayout& layout, const TensorLayout& blockLayout,
                                                     const TensorLayout& outLayout) const {
-    // create output tensor
-    auto outShape = Tensor::Shape(outLayout);
-    auto* results = new Tensor::CUDAImpl(outShape);
-
-    const float* lhs = dataPtr();
-    float* out = results->dataPtr();
-
-    // number of elements in output tensor
-    size_t outCount = 1;
-    for (size_t d = 0; d < outLayout.rank; d++) outCount *= outLayout.shape[d];
-
-    // size of each block to be reduced
-    size_t blockCount = 1;
-    for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
-
-    size_t count = blockCount * outCount;
-
-    // Initialize output buffer to FLT_MAX for min reduction
-    std::vector<float> initValues(outCount, FLT_MAX);
-    CUDA_CHECK(cudaMemcpy(out, initValues.data(), outCount * sizeof(float), cudaMemcpyHostToDevice));
-
-    int threads = 256;
-    int blocks = (count + threads - 1) / threads;
-    minReductionKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockLayout, blockCount, outLayout, outCount);
-    CUDA_CHECK(cudaGetLastError());
-
-    return std::unique_ptr<Tensor::Impl>(results);
+    return applyReductionKernel(layout, blockLayout, outLayout, FLT_MAX, minReductionKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::max(const TensorLayout& layout, const TensorLayout& blockLayout,
                                                     const TensorLayout& outLayout) const {
-    // create output tensor
-    auto outShape = Tensor::Shape(outLayout);
-    auto* results = new Tensor::CUDAImpl(outShape);
-
-    const float* lhs = dataPtr();
-    float* out = results->dataPtr();
-
-    // number of elements in output tensor
-    size_t outCount = 1;
-    for (size_t d = 0; d < outLayout.rank; d++) outCount *= outLayout.shape[d];
-
-    // size of each block to be reduced
-    size_t blockCount = 1;
-    for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
-
-    size_t count = blockCount * outCount;
-
-    // Initialize output buffer to -FLT_MAX for max reduction
-    std::vector<float> initValues(outCount, -FLT_MAX);
-    CUDA_CHECK(cudaMemcpy(out, initValues.data(), outCount * sizeof(float), cudaMemcpyHostToDevice));
-
-    int threads = 256;
-    int blocks = (count + threads - 1) / threads;
-    maxReductionKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockLayout, blockCount, outLayout, outCount);
-    CUDA_CHECK(cudaGetLastError());
-
-    return std::unique_ptr<Tensor::Impl>(results);
+    return applyReductionKernel(layout, blockLayout, outLayout, -FLT_MAX, maxReductionKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::prod(const TensorLayout& layout, const TensorLayout& blockLayout,
                                                      const TensorLayout& outLayout) const {
-    // create output tensor
-    auto outShape = Tensor::Shape(outLayout);
-    auto* results = new Tensor::CUDAImpl(outShape);
-
-    const float* lhs = dataPtr();
-    float* out = results->dataPtr();
-
-    // number of elements in output tensor
-    size_t outCount = 1;
-    for (size_t d = 0; d < outLayout.rank; d++) outCount *= outLayout.shape[d];
-
-    // size of each block to be reduced
-    size_t blockCount = 1;
-    for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
-
-    size_t count = blockCount * outCount;
-
-    // Initialize output buffer to 1.0 for product reduction
-    std::vector<float> initValues(outCount, 1.0f);
-    CUDA_CHECK(cudaMemcpy(out, initValues.data(), outCount * sizeof(float), cudaMemcpyHostToDevice));
-
-    int threads = 256;
-    int blocks = (count + threads - 1) / threads;
-    prodReductionKernel<<<blocks, threads, 0, CudaContext::get().stream()>>>(lhs, out, layout, blockLayout, blockCount, outLayout, outCount);
-    CUDA_CHECK(cudaGetLastError());
-
-    return std::unique_ptr<Tensor::Impl>(results);
+    return applyReductionKernel(layout, blockLayout, outLayout, 1.0f, prodReductionKernel);
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout) const {

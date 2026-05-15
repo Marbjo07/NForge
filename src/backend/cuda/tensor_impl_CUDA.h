@@ -87,7 +87,7 @@ class Tensor::CUDAImpl : public Tensor::Impl {
     // reduction must be associative
     template <typename Kernel>
     std::unique_ptr<Tensor::Impl> applyReductionKernel(const TensorLayout& layout, const TensorLayout& blockLayout,
-                                                       const TensorLayout& outLayout, Kernel kernel) const;
+                                                       const TensorLayout& outLayout, float initValue, Kernel kernel) const;
 
 };
 
