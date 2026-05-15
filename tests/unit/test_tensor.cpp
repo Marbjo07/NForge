@@ -424,13 +424,19 @@ TEST_CASE("Frobenius norm of vector", "[Tensor]") {
     DYNAMIC_SECTION(getBackendString(backend)) {
         SECTION("Uniform values") {
             Tensor a({5}, -4.0f, backend);
-            REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(5.0f), backend));
+
+            // TODO: refactor with relative comparison and tolerance
+            Tensor diff = a.norm() - Tensor(4.0f * std::sqrt(5.0f), backend);
+            REQUIRE(abs(diff.toVector()[0]) < 1e-6f);
         }
 
         SECTION("Sequential values [0, 1, 2, 3, 4]") {
             Tensor a({5}, 0.0f, backend);
             for (size_t i = 0; i < 5; i++) a[i] = i;
-            REQUIRE(a.norm() == Tensor(std::sqrt(30.0f), backend));
+
+            // TODO: refactor with relative comparison and tolerance
+            Tensor diff = a.norm() - Tensor(std::sqrt(30.0f), backend);
+            REQUIRE(abs(diff.toVector()[0]) < 1e-6f);
         }
     }
 }
