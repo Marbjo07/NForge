@@ -253,3 +253,13 @@ Tensor& Tensor::operator=(float scalar) {
 bool Tensor::operator==(const Tensor::View& rhs) const { return compare(rhs); }
 
 bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs); }
+
+Tensor Tensor::matmul(const Tensor::View& rhs) const {
+        auto ctx = semantic::validateMatmul(*this, rhs);
+
+        Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+        auto result = m_impl->matmul(ctx.lhs, rhsImpl, ctx.rhs, ctx.out,
+                                     ctx.batch, ctx.m, ctx.k, ctx.p);
+
+        return Tensor(std::move(result), m_backend);
+}

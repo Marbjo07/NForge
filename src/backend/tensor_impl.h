@@ -72,19 +72,26 @@ public:
 	                                          const TensorLayout& blockLayout,
 	                                          const TensorLayout& outLayout) const = 0;
 
-	virtual std::unique_ptr<Tensor::Impl> min(const TensorLayout& layout,
-	                                          const TensorLayout& blockLayout,
-	                                          const TensorLayout& outLayout) const = 0;
+virtual std::unique_ptr<Tensor::Impl> min(const TensorLayout& layout,
+                                                  const TensorLayout& blockLayout,
+                                                  const TensorLayout& outLayout) const = 0;
 
-	virtual std::unique_ptr<Tensor::Impl> max(const TensorLayout& layout,
-	                                          const TensorLayout& blockLayout,
-	                                          const TensorLayout& outLayout) const = 0;
+        virtual std::unique_ptr<Tensor::Impl> max(const TensorLayout& layout,
+                                                  const TensorLayout& blockLayout,
+                                                  const TensorLayout& outLayout) const = 0;
 
-	virtual std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout,
-	                                           const TensorLayout& blockLayout,
-	                                           const TensorLayout& outLayout) const = 0;
+        virtual std::unique_ptr<Tensor::Impl> prod(const TensorLayout& layout,
+                                                   const TensorLayout& blockLayout,
+                                                   const TensorLayout& outLayout) const = 0;
 
-	virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
+        virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
+
+        virtual std::unique_ptr<Tensor::Impl> matmul(const TensorLayout& lhsLayout,
+                                                     const Tensor::Impl* rhsImpl,
+                                                     const TensorLayout& rhsLayout,
+                                                     const TensorLayout& outLayout,
+                                                     size_t batch, size_t m, size_t k,
+                                                     size_t p) const = 0;
 };
 
 #endif  // TENSOR_IMPL_H
