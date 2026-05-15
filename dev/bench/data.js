@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778850511760,
+  "lastUpdate": 1778851446895,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -504,6 +504,42 @@ window.BENCHMARK_DATA = {
             "value": 17189240.785276096,
             "unit": "ns/iter",
             "extra": "iterations: 163\ncpu: 17188334.865030672 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "475d5f3ac76593daec90e5c0cfef29137db38e11",
+          "message": "Merge pull request #48 from Marbjo07/chore/cuda-backend-sync\n\nchore: cuda backend sync (closes #47)",
+          "timestamp": "2026-05-15T15:22:16+02:00",
+          "tree_id": "c6beab3e21d46405cc7362df5eae02ca19ab47f3",
+          "url": "https://github.com/Marbjo07/NForge/commit/475d5f3ac76593daec90e5c0cfef29137db38e11"
+        },
+        "date": 1778851445941,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 525741.5989672993,
+            "unit": "ns/iter",
+            "extra": "iterations: 5229\ncpu: 525548.0566073819 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 16929012.030303083,
+            "unit": "ns/iter",
+            "extra": "iterations: 165\ncpu: 16927448.618181814 ns\nthreads: 1"
           }
         ]
       }
