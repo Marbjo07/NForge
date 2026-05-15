@@ -1,0 +1,16 @@
+\doxysection{cuda\+\_\+utils.\+h}
+\hypertarget{cuda__utils_8h_source}{}\label{cuda__utils_8h_source}\index{src/backend/cuda/utils/cuda\_utils.h@{src/backend/cuda/utils/cuda\_utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ NFORGE\_CUDA\_UTILS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NFORGE\_CUDA\_UTILS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ BLOCK\_SIZE\ =\ 256;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ getNumCUDABlocks(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{return}\ (count\ +\ BLOCK\_SIZE\ -\/\ 1)\ /\ BLOCK\_SIZE;}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ NFORGE\_CUDA\_UTILS\_H}}
+
+\end{DoxyCode}
