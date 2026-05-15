@@ -2,6 +2,7 @@
 #define KERNELS_CUH
 
 #include "nforge/core/tensor_layout.h"
+#include "backend/cuda/utils/cuda_utils.h"
 
 __device__ __forceinline__ size_t physicalOffsetCUDA(size_t linear, const TensorLayout& L);
 
