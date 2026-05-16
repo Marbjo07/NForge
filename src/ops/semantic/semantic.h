@@ -25,6 +25,16 @@ struct ReductionContext {
 	TensorLayout block;
 };
 
+struct MatmulContext {
+    TensorLayout lhs;
+    TensorLayout rhs;
+    TensorLayout out;
+    size_t batch;
+    size_t m;
+    size_t k;
+    size_t p;
+};
+
 struct IndexContext {
 	TensorLayout out;
 };
@@ -38,6 +48,8 @@ InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
                                                       const Tensor::View& rhs);
 ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
 IndexContext validateIndexing(const Tensor::View& src, size_t idx);
+MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs);
+MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs);
 
 }  // namespace semantic
 

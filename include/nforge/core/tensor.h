@@ -91,11 +91,13 @@ public:
 	void operator*=(const Tensor::View& rhs);
 	void operator/=(const Tensor::View& rhs);
 
-	Tensor mean(size_t dim = 0) const;
-	Tensor sum(size_t dim = 0) const;
-	Tensor min(size_t dim = 0) const;
-	Tensor max(size_t dim = 0) const;
-	Tensor prod(size_t dim = 0) const;
+Tensor mean(size_t dim = 0) const;
+        Tensor sum(size_t dim = 0) const;
+        Tensor min(size_t dim = 0) const;
+        Tensor max(size_t dim = 0) const;
+        Tensor prod(size_t dim = 0) const;
+
+        Tensor matmul(const Tensor::View& rhs) const;
 
 	Tensor norm() const;
 

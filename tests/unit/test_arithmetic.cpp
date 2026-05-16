@@ -110,12 +110,113 @@ TEST_CASE("In-place multiplication operator", "[Tensor][Arithmetic]") {
 TEST_CASE("In-place division operator", "[Tensor][Arithmetic]") {
 	auto backend = GENERATE(from_range(backends));
 
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({3}, 3.0f, backend);
-		Tensor b({3}, 2.0f, backend);
+DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor a({3}, 3.0f, backend);
+                Tensor b({3}, 2.0f, backend);
 
-		a /= b;
+                a /= b;
 
-		REQUIRE(a == Tensor({3}, 1.5f, backend));
-	}
+                REQUIRE(a == Tensor({3}, 1.5f, backend));
+        }
+}
+
+TEST_CASE("Matrix multiplication basic 2D", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                // A (2x3) * B (3x2) = C (2x2)
+                Tensor A({2, 3}, 1.0f, backend);
+                Tensor B({3, 2}, 2.0f, backend);
+
+Tensor C = A.matmul(B);
+
+                // each element = 1*2 + 1*2 + 1*2 = 6
+                REQUIRE(C == Tensor({2, 2}, 6.0f, backend));
+        }
+}
+
+TEST_CASE("Matrix multiplication inner dimension mismatch throws", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor A({2, 3}, 1.0f, backend);
+                Tensor B({4, 2}, 1.0f, backend);
+
+                REQUIRE_THROWS(A.matmul(B));
+        }
+}
+
+TEST_CASE("Matrix multiplication batched 3D", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                // A (2x2x3) * B (2x3x2) = C (2x2x2)
+                Tensor A({2, 2, 3}, 1.0f, backend);
+                Tensor B({2, 3, 2}, 2.0f, backend);
+
+Tensor C = A.matmul(B);
+
+                // each element = 1*2 + 1*2 + 1*2 = 6
+                REQUIRE(C == Tensor({2, 2, 2}, 6.0f, backend));
+        }
+}
+
+TEST_CASE("Matrix multiplication batched vs non-batched", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor A({2, 2, 3}, 1.0f, backend);
+                Tensor B({3, 2}, 2.0f, backend);
+
+                Tensor C = A.matmul(B);
+
+                REQUIRE(C == Tensor({2, 2, 2}, 6.0f, backend));
+        }
+}
+
+TEST_CASE("Matrix multiplication mismatched batch throws", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor A({2, 2, 3}, 1.0f, backend);
+                Tensor B({3, 3, 2}, 1.0f, backend);
+
+                REQUIRE_THROWS(A.matmul(B));
+        }
+}
+
+TEST_CASE("Matrix multiplication invalid rank throws", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor A({3}, 1.0f, backend);
+                Tensor B({3, 2}, 1.0f, backend);
+
+                REQUIRE_THROWS(A.matmul(B));
+        }
+}
+
+TEST_CASE("Matrix multiplication non-uniform values", "[Tensor][Matmul]") {
+        auto backend = GENERATE(from_range(backends));
+
+        DYNAMIC_SECTION(getBackendString(backend)) {
+                Tensor A({2, 2}, 0.0f, backend);
+                A[0][0] = 1.0f;
+                A[0][1] = 2.0f;
+                A[1][0] = 3.0f;
+                A[1][1] = 4.0f;
+
+                Tensor B({2, 2}, 0.0f, backend);
+                B[0][0] = 5.0f;
+                B[0][1] = 6.0f;
+                B[1][0] = 7.0f;
+                B[1][1] = 8.0f;
+
+                Tensor C = A.matmul(B);
+
+                REQUIRE(C[0][0] == Tensor(19.0f, backend));
+                REQUIRE(C[0][1] == Tensor(22.0f, backend));
+                REQUIRE(C[1][0] == Tensor(43.0f, backend));
+                REQUIRE(C[1][1] == Tensor(50.0f, backend));
+        }
 }

@@ -333,5 +333,39 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::norm(const TensorLayout& layout) 
 	auto* result = new Tensor::CPUImpl(Tensor::Shape({1}));
 	result->m_data[0] = norm;
 
-	return std::unique_ptr<Tensor::Impl>(result);
+return std::unique_ptr<Tensor::Impl>(result);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::matmul(const TensorLayout& lhsLayout,
+                                                       const Tensor::Impl* rhsImpl,
+                                                       const TensorLayout& rhsLayout,
+                                                       const TensorLayout& outLayout,
+                                                       size_t batch, size_t m, size_t k,
+                                                       size_t p) const {
+        auto outShape = Tensor::Shape(outLayout);
+        auto* result = new Tensor::CPUImpl(outShape);
+
+        const auto* rhs = static_cast<const Tensor::CPUImpl*>(rhsImpl);
+
+        const float* a = dataPtr();
+        const float* b = rhs->dataPtr();
+        auto& c = result->m_data;
+
+        for (size_t bat = 0; bat < batch; bat++) {
+                for (size_t i = 0; i < m; i++) {
+                        for (size_t j = 0; j < p; j++) {
+                                float sum = 0.0f;
+                                for (size_t kk = 0; kk < k; kk++) {
+                                        size_t lhsIdx = bat * (m * k) + i * k + kk;
+                                        size_t rhsIdx = bat * (k * p) + kk * p + j;
+                                        sum += a[physicalOffset(lhsIdx, lhsLayout)] *
+                                               b[physicalOffset(rhsIdx, rhsLayout)];
+                                }
+                                size_t outIdx = bat * (m * p) + i * p + j;
+                                c[physicalOffset(outIdx, outLayout)] = sum;
+                        }
+                }
+        }
+
+        return std::unique_ptr<Tensor::Impl>(result);
 }
