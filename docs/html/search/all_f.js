@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['tensor_0',['Tensor',['../classTensor.html',1,'']]],
+  ['tensorlayout_1',['tensorlayout',['../structTensorLayout.html',1,'TensorLayout'],['../structTensorLayout.html#a668b582b75563d2274e0d18f4b9d8a67',1,'TensorLayout::TensorLayout()'],['../structTensorLayout.html#ac9e0618ed21c6d02929dc82b1944d1da',1,'TensorLayout::TensorLayout(const Tensor::Shape &amp;_shape)'],['../structTensorLayout.html#aa9b1ec7de2882fa3d681e967e8ccf4ae',1,'TensorLayout::TensorLayout(const Tensor::Shape &amp;_shape, const std::vector&lt; size_t &gt; &amp;_strides)'],['../structTensorLayout.html#a44de1c379d0beb6f55f78b5cf565fa2e',1,'TensorLayout::TensorLayout(const Tensor::Shape &amp;_shape, const std::vector&lt; size_t &gt; &amp;_strides, size_t _offset)'],['../structTensorLayout.html#a5b78b466eb76effa1634da6aee94cbe5',1,'TensorLayout::TensorLayout(std::array&lt; size_t, MAX_DIMS &gt; _shape, std::array&lt; size_t, MAX_DIMS &gt; _strides, size_t _offset, size_t _rank)']]],
+  ['tests_2',['Tests',['../index.html#autotoc_md14',1,'']]],
+  ['through_20a_20view_3',['Assigning through a view',['../index.html#autotoc_md12',1,'']]]
+];

@@ -132,7 +132,7 @@ Code example</h2>
 <div class="line"> </div>
 <div class="line">    a.print();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdef"><b>Definition</b> tensor.h:15</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdef"><b>Definition</b> tensor.h:12</div></div>
 </div><!-- fragment --> <h2><a class="anchor" id="autotoc_md5"></a>
 Output</h2>
 <div class="fragment"><div class="line">====================</div>
@@ -249,7 +249,24 @@ Tests</h1>
 Benchmarks</h1>
 <p>Benchmarks run on merge with <code>main</code> branch, after all tests pass.</p>
 <p>Current benchmarks are the examples from physics scenarios with default parameters. The results are published to <a href="https://marbjo07.github.io/NForge/dev/bench/">marbjo07.github.io/NForge/dev/bench/</a> <br  />
- </p>
+</p>
+<h1><a class="anchor" id="autotoc_md16"></a>
+Code Formatting</h1>
+<p>NForge uses <code>clang-format</code> to enforce consistent formatting. Formatting is checked automatically on all pull requests and must pass before merging.</p>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Pre-commit Hook (recommended)</h2>
+<p>The easiest way to avoid formatting failures is to install the pre-commit hook, which checks formatting automatically on every commit:</p>
+<div class="fragment"><div class="line"># from project root</div>
+<div class="line">pip install pre-commit</div>
+<div class="line">python -m pre_commit install</div>
+</div><!-- fragment --><p>After installation, any commit that fails formatting will be blocked and fixed in-place. Stage the changes and commit again to proceed.</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Manual formatting</h2>
+<p>If you prefer not to use pre-commit, you can format manually via CMake:</p>
+<div class="fragment"><div class="line"># from project root</div>
+<div class="line">cmake --build build --target format        # fix formatting</div>
+<div class="line">cmake --build build --target format-check  # check only</div>
+</div><!-- fragment --><p>Or run clang-format directly through your editor or IDE. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

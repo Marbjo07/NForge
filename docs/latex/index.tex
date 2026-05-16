@@ -236,4 +236,29 @@ Run after building\+:
 Benchmarks run on merge with {\ttfamily main} branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters. The results are published to \href{https://marbjo07.github.io/NForge/dev/bench/}{\texttt{ marbjo07.\+github.\+io/\+NForge/dev/bench/}} ~\newline
- 
+\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{Code Formatting}{Code Formatting}}\label{index_autotoc_md16}
+NForge uses {\ttfamily clang-\/format} to enforce consistent formatting. Formatting is checked automatically on all pull requests and must pass before merging.\hypertarget{index_autotoc_md17}{}\doxysubsection{\texorpdfstring{Pre-\/commit Hook (recommended)}{Pre-commit Hook (recommended)}}\label{index_autotoc_md17}
+The easiest way to avoid formatting failures is to install the pre-\/commit hook, which checks formatting automatically on every commit\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ from\ project\ root}
+\DoxyCodeLine{pip\ install\ pre-\/commit}
+\DoxyCodeLine{python\ -\/m\ pre\_commit\ install}
+
+\end{DoxyCode}
+
+
+After installation, any commit that fails formatting will be blocked and fixed in-\/place. Stage the changes and commit again to proceed.\hypertarget{index_autotoc_md18}{}\doxysubsection{\texorpdfstring{Manual formatting}{Manual formatting}}\label{index_autotoc_md18}
+If you prefer not to use pre-\/commit, you can format manually via CMake\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ from\ project\ root}
+\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/-\/target\ format\ \ \ \ \ \ \ \ \#\ fix\ formatting}
+\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/-\/target\ format-\/check\ \ \#\ check\ only}
+
+\end{DoxyCode}
+
+
+Or run clang-\/format directly through your editor or IDE. 

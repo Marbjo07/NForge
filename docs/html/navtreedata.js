@@ -44,6 +44,10 @@ var NAVTREE =
     ] ],
     [ "Tests", "index.html#autotoc_md14", null ],
     [ "Benchmarks", "index.html#autotoc_md15", null ],
+    [ "Code Formatting", "index.html#autotoc_md16", [
+      [ "Pre-commit Hook (recommended)", "index.html#autotoc_md17", null ],
+      [ "Manual formatting", "index.html#autotoc_md18", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

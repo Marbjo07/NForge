@@ -106,11 +106,11 @@ $(document).ready(function(){initNavTree('tensor__view_8h_source.html',''); init
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classTensor_1_1View.html">    7</a></span><span class="keyword">class </span><a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>   <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent);</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; position);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; position, <span class="keyword">const</span> <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a>&amp; layout);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">// implicit casting</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('tensor__view_8h_source.html',''); init
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> operator=(<span class="keyword">const</span> <a class="code hl_class" href="classTensor.html">Tensor</a>&amp; rhs);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> operator=(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a>&amp; rhs);</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> operator=(<span class="keywordtype">float</span> scalar);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> operator[](<span class="keywordtype">size_t</span> idx) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a> subsample(std::vector&lt;size_t&gt; strides) <span class="keyword">const</span>;</div>
@@ -164,23 +164,25 @@ $(document).ready(function(){initNavTree('tensor__view_8h_source.html',''); init
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_class" href="classTensor.html">Tensor</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1View.html">Tensor::View</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// resolves ambiguous overload with initializer list</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">struct </span>BroadcastTag {};</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// trusted, used by broadcast.</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; stride, <span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; shape, BroadcastTag);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_class" href="classTensor.html">Tensor</a>&amp; m_parent;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;size_t&gt; m_position;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a> m_layout; <span class="comment">// relative to parent tensor.</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// trusted, used by broadcast.</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_class" href="classTensor_1_1View.html">View</a>(<a class="code hl_class" href="classTensor.html">Tensor</a>&amp; parent, <span class="keyword">const</span> std::vector&lt;size_t&gt;&amp; stride, <span class="keyword">const</span> <a class="code hl_class" href="classTensor_1_1Shape.html">Tensor::Shape</a>&amp; shape,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>         BroadcastTag);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_class" href="classTensor.html">Tensor</a>&amp; m_parent;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    std::vector&lt;size_t&gt; m_position;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_class" href="structTensorLayout.html">TensorLayout</a> m_layout;  <span class="comment">// relative to parent tensor.</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif  </span><span class="comment">// TENSOR_VIEW_H</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#endif  </span><span class="comment">// TENSOR_VIEW_H</span></div>
 <div class="ttc" id="aclassTensor_1_1Shape_html"><div class="ttname"><a href="classTensor_1_1Shape.html">Tensor::Shape</a></div><div class="ttdef"><b>Definition</b> tensor_shape.h:10</div></div>
 <div class="ttc" id="aclassTensor_1_1View_html"><div class="ttname"><a href="classTensor_1_1View.html">Tensor::View</a></div><div class="ttdef"><b>Definition</b> tensor_view.h:7</div></div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdef"><b>Definition</b> tensor.h:15</div></div>
-<div class="ttc" id="astructTensorLayout_html"><div class="ttname"><a href="structTensorLayout.html">TensorLayout</a></div><div class="ttdoc">Describes the memory layout of a tensor.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:24</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdef"><b>Definition</b> tensor.h:12</div></div>
+<div class="ttc" id="astructTensorLayout_html"><div class="ttname"><a href="structTensorLayout.html">TensorLayout</a></div><div class="ttdoc">Describes the memory layout of a tensor.</div><div class="ttdef"><b>Definition</b> tensor_layout.h:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

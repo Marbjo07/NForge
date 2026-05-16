@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nforge_0',['NForge',['../index.html',1,'']]]
+  ['hook_20recommended_0',['Pre-commit Hook (recommended)',['../index.html#autotoc_md17',1,'']]]
 ];
