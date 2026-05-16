@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778851446895,
+  "lastUpdate": 1778925726181,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -540,6 +540,42 @@ window.BENCHMARK_DATA = {
             "value": 16929012.030303083,
             "unit": "ns/iter",
             "extra": "iterations: 165\ncpu: 16927448.618181814 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "45646d37b5e33edea5637a7baf1d54ab8a639bc1",
+          "message": "Merge pull request #54 from Marbjo07/ci/add-clang-format\n\nci: add clang-format",
+          "timestamp": "2026-05-16T12:00:22+02:00",
+          "tree_id": "207dc13e202175a55ada616f3d73b6fc6faa8eda",
+          "url": "https://github.com/Marbjo07/NForge/commit/45646d37b5e33edea5637a7baf1d54ab8a639bc1"
+        },
+        "date": 1778925725796,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 527194.5209756047,
+            "unit": "ns/iter",
+            "extra": "iterations: 5125\ncpu: 527156.5578536586 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 16698435.404761774,
+            "unit": "ns/iter",
+            "extra": "iterations: 168\ncpu: 16696640.059523812 ns\nthreads: 1"
           }
         ]
       }
