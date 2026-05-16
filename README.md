@@ -217,3 +217,35 @@ Benchmarks run on merge with `main` branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters.
 The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
+
+
+## Code Formatting
+
+NForge uses `clang-format` to enforce consistent formatting.
+Formatting is checked automatically on all pull requests and must pass before merging.
+
+### Pre-commit Hook (recommended)
+
+The easiest way to avoid formatting failures is to install the pre-commit hook,
+which checks formatting automatically on every commit:
+
+```bash
+# from project root
+pip install pre-commit
+python -m pre_commit install
+```
+
+After installation, any commit that fails formatting will be blocked and fixed in-place.
+Stage the changes and commit again to proceed.
+
+### Manual formatting
+
+If you prefer not to use pre-commit, you can format manually via CMake:
+
+```bash
+# from project root
+cmake --build build --target format        # fix formatting
+cmake --build build --target format-check  # check only
+```
+
+Or run clang-format directly through your editor or IDE.
