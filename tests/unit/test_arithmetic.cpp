@@ -128,7 +128,7 @@ TEST_CASE("Matrix multiplication basic 2D", "[Tensor][Matmul]") {
                 Tensor A({2, 3}, 1.0f, backend);
                 Tensor B({3, 2}, 2.0f, backend);
 
-                Tensor C = A.matmul(B);
+Tensor C = A.matmul(B);
 
                 // each element = 1*2 + 1*2 + 1*2 = 6
                 REQUIRE(C == Tensor({2, 2}, 6.0f, backend));
@@ -154,7 +154,7 @@ TEST_CASE("Matrix multiplication batched 3D", "[Tensor][Matmul]") {
                 Tensor A({2, 2, 3}, 1.0f, backend);
                 Tensor B({2, 3, 2}, 2.0f, backend);
 
-                Tensor C = A.matmul(B);
+Tensor C = A.matmul(B);
 
                 // each element = 1*2 + 1*2 + 1*2 = 6
                 REQUIRE(C == Tensor({2, 2, 2}, 6.0f, backend));
@@ -165,13 +165,11 @@ TEST_CASE("Matrix multiplication batched vs non-batched", "[Tensor][Matmul]") {
         auto backend = GENERATE(from_range(backends));
 
         DYNAMIC_SECTION(getBackendString(backend)) {
-                // A (2x2x3) * B (3x2) = C (2x2x2)
                 Tensor A({2, 2, 3}, 1.0f, backend);
                 Tensor B({3, 2}, 2.0f, backend);
 
                 Tensor C = A.matmul(B);
 
-                // each element = 1*2 + 1*2 + 1*2 = 6
                 REQUIRE(C == Tensor({2, 2, 2}, 6.0f, backend));
         }
 }
@@ -221,5 +219,4 @@ TEST_CASE("Matrix multiplication non-uniform values", "[Tensor][Matmul]") {
                 REQUIRE(C[1][0] == Tensor(43.0f, backend));
                 REQUIRE(C[1][1] == Tensor(50.0f, backend));
         }
-
 }
