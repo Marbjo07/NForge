@@ -66,3 +66,6 @@ add_subdirectory(tests)
 if(NFORGE_BUILD_BENCHMARKS)
     add_subdirectory(benchmarks)
 endif()
+
+## Formatting
+include(cmake/ClangFormat.cmake)

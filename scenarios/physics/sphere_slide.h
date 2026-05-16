@@ -1,57 +1,57 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 #include "nforge/nforge.h"
 
 struct SphereSlideParams {
-    float dt = 0.001;
-    float grav = 9.81;
-    float mass = 1;
-    float radius = 1;
-    float initalXSpeed = 0.001;
+	float dt = 0.001;
+	float grav = 9.81;
+	float mass = 1;
+	float radius = 1;
+	float initalXSpeed = 0.001;
 };
 
 struct SphereSlideResults {
-    Tensor position = Tensor({2}, 0.0f);
-    Tensor speed = Tensor({2}, 0.0f);
-    float t;
+	Tensor position = Tensor({2}, 0.0f);
+	Tensor speed = Tensor({2}, 0.0f);
+	float t;
 
-    SphereSlideResults(Tensor _position, Tensor _speed, float _t)
-        : position(_position), speed(_speed), t(_t) {}
+	SphereSlideResults(Tensor _position, Tensor _speed, float _t)
+	    : position(_position), speed(_speed), t(_t) {}
 };
 
 SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
-    Tensor s({2}, 0);
-    s[1] = params.radius;
-    
-    Tensor v({2}, 0);
-    v[0] = params.initalXSpeed;
-    
-    Tensor G({2}, 0);
-    G[1] = -params.mass * params.grav;
-    
-    Tensor a = G / params.mass;
+	Tensor s({2}, 0);
+	s[1] = params.radius;
 
-    float t = 0;
+	Tensor v({2}, 0);
+	v[0] = params.initalXSpeed;
 
-    while (true) {
-        // p = s + v * dt + a/2 * dt^2
-        Tensor position = s + v * params.dt + a * 0.5  * params.dt * params.dt;
+	Tensor G({2}, 0);
+	G[1] = -params.mass * params.grav;
 
-        Tensor dist = position.norm();
-        if (dist.toVector()[0] >= params.radius) { // does not fall into the sphere
-            break;
-        }
+	Tensor a = G / params.mass;
 
-        // Position mapped to sphere
-        position *= params.radius / dist;
+	float t = 0;
 
-        v = (position - s) * (1 / params.dt);
-        s = position;
+	while (true) {
+		// p = s + v * dt + a/2 * dt^2
+		Tensor position = s + v * params.dt + a * 0.5 * params.dt * params.dt;
 
-        t += params.dt;
-    }
+		Tensor dist = position.norm();
+		if (dist.toVector()[0] >= params.radius) {  // does not fall into the sphere
+			break;
+		}
 
-    SphereSlideResults res{s, v, t};
-    return res;
+		// Position mapped to sphere
+		position *= params.radius / dist;
+
+		v = (position - s) * (1 / params.dt);
+		s = position;
+
+		t += params.dt;
+	}
+
+	SphereSlideResults res{s, v, t};
+	return res;
 }

@@ -8,38 +8,38 @@
 #include "nforge/core/tensor_layout.h"
 
 class Tensor::Shape {
-   public:
-    Shape() = default;
-    Shape(const std::vector<size_t>& dims);
-    Shape(const std::initializer_list<size_t>& dims);
-    Shape(const TensorLayout& layout);
+public:
+	Shape() = default;
+	Shape(const std::vector<size_t>& dims);
+	Shape(const std::initializer_list<size_t>& dims);
+	Shape(const TensorLayout& layout);
 
-    bool operator==(const Tensor::Shape& other) const;
-    bool operator!=(const Tensor::Shape& other) const;
+	bool operator==(const Tensor::Shape& other) const;
+	bool operator!=(const Tensor::Shape& other) const;
 
-    // Access and properties
-    size_t getNumDims() const;
-    size_t getNumElements() const;
-    size_t getDim(size_t idx) const;  // return size of indexed dimension
-    bool isScalar() const;
+	// Access and properties
+	size_t getNumDims() const;
+	size_t getNumElements() const;
+	size_t getDim(size_t idx) const;  // return size of indexed dimension
+	bool isScalar() const;
 
-    Tensor::Shape operator[](size_t index) const;
-    Tensor::Shape operator[](const std::vector<size_t>& position) const;
+	Tensor::Shape operator[](size_t index) const;
+	Tensor::Shape operator[](const std::vector<size_t>& position) const;
 
-    // Shape modifications
-    Tensor::Shape removeLeadingDimension() const;
-    // Returns shape with dimensions in interval [start, end)
-    Tensor::Shape getSlice(size_t start, size_t end) const;
+	// Shape modifications
+	Tensor::Shape removeLeadingDimension() const;
+	// Returns shape with dimensions in interval [start, end)
+	Tensor::Shape getSlice(size_t start, size_t end) const;
 
-    // Utility methods
-    std::string toString() const;
-    std::vector<size_t> toVector() const;
-    std::vector<size_t> withoutTrailingOnes() const;
-    TensorLayout toContiguousLayout() const;
-    std::vector<size_t> getContiguousStrides() const;
+	// Utility methods
+	std::string toString() const;
+	std::vector<size_t> toVector() const;
+	std::vector<size_t> withoutTrailingOnes() const;
+	TensorLayout toContiguousLayout() const;
+	std::vector<size_t> getContiguousStrides() const;
 
-   private:
-    std::vector<size_t> m_dimensions;
+private:
+	std::vector<size_t> m_dimensions;
 };
 
 #endif  // TENSOR_SHAPE_H
