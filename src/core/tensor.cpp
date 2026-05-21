@@ -114,8 +114,7 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
 }
 
 template <typename BinaryOp>
-Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName,
-                             BinaryOp op) const {
+Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, BinaryOp op) const {
 	auto ctx = semantic::validateBinaryOperation(*this, rhs);
 
 	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
@@ -125,19 +124,19 @@ Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, const std::string& opName,
 }
 
 Tensor Tensor::operator+(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "add", &Tensor::Impl::add);
+	return applyBinaryOp(rhs, &Tensor::Impl::add);
 }
 
 Tensor Tensor::operator-(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "sub", &Tensor::Impl::sub);
+	return applyBinaryOp(rhs, &Tensor::Impl::sub);
 }
 
 Tensor Tensor::operator*(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "mul", &Tensor::Impl::mul);
+	return applyBinaryOp(rhs, &Tensor::Impl::mul);
 }
 
 Tensor Tensor::operator/(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "div", &Tensor::Impl::div);
+	return applyBinaryOp(rhs, &Tensor::Impl::div);
 }
 
 Tensor Tensor::operator+(float scalar) const { return *this + Tensor(scalar, m_backend); }
@@ -157,7 +156,7 @@ Tensor operator*(float scalar, const Tensor& rhs) { return Tensor(scalar, rhs.m_
 Tensor operator/(float scalar, const Tensor& rhs) { return Tensor(scalar, rhs.m_backend) / rhs; }
 
 template <typename BinaryOp>
-void Tensor::applyInplaceBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) {
+void Tensor::applyInplaceBinaryOp(const Tensor::View& rhs, BinaryOp op) {
 	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
 
 	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
@@ -165,24 +164,16 @@ void Tensor::applyInplaceBinaryOp(const Tensor::View& rhs, const std::string& op
 	(m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs);
 }
 
-void Tensor::operator+=(const Tensor::View& rhs) {
-	applyInplaceBinaryOp(rhs, "add", &Tensor::Impl::iadd);
-}
+void Tensor::operator+=(const Tensor::View& rhs) { applyInplaceBinaryOp(rhs, &Tensor::Impl::iadd); }
 
-void Tensor::operator-=(const Tensor::View& rhs) {
-	applyInplaceBinaryOp(rhs, "sub", &Tensor::Impl::isub);
-}
+void Tensor::operator-=(const Tensor::View& rhs) { applyInplaceBinaryOp(rhs, &Tensor::Impl::isub); }
 
-void Tensor::operator*=(const Tensor::View& rhs) {
-	applyInplaceBinaryOp(rhs, "mul", &Tensor::Impl::imul);
-}
+void Tensor::operator*=(const Tensor::View& rhs) { applyInplaceBinaryOp(rhs, &Tensor::Impl::imul); }
 
-void Tensor::operator/=(const Tensor::View& rhs) {
-	applyInplaceBinaryOp(rhs, "div", &Tensor::Impl::idiv);
-}
+void Tensor::operator/=(const Tensor::View& rhs) { applyInplaceBinaryOp(rhs, &Tensor::Impl::idiv); }
 
 template <typename ReductionOp>
-Tensor Tensor::applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const {
+Tensor Tensor::applyReduction(size_t dim, ReductionOp op) const {
 	auto ctx = semantic::validateReduction(*this, dim);
 
 	auto result = (m_impl.get()->*op)(ctx.lhs, ctx.block, ctx.out);
@@ -197,13 +188,13 @@ Tensor Tensor::mean(size_t dim) const {
 	return res / block.getNumElements();
 }
 
-Tensor Tensor::sum(size_t dim) const { return applyReduction("sum", dim, &Tensor::Impl::sum); }
+Tensor Tensor::sum(size_t dim) const { return applyReduction(dim, &Tensor::Impl::sum); }
 
-Tensor Tensor::min(size_t dim) const { return applyReduction("min", dim, &Tensor::Impl::min); }
+Tensor Tensor::min(size_t dim) const { return applyReduction(dim, &Tensor::Impl::min); }
 
-Tensor Tensor::max(size_t dim) const { return applyReduction("max", dim, &Tensor::Impl::max); }
+Tensor Tensor::max(size_t dim) const { return applyReduction(dim, &Tensor::Impl::max); }
 
-Tensor Tensor::prod(size_t dim) const { return applyReduction("prod", dim, &Tensor::Impl::prod); }
+Tensor Tensor::prod(size_t dim) const { return applyReduction(dim, &Tensor::Impl::prod); }
 
 Tensor Tensor::norm() const {
 	Tensor::View view(*this);
@@ -256,14 +247,14 @@ bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs)
 
 
 Tensor Tensor::operator<(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "<", &Tensor::Impl::less);
+	return applyBinaryOp(rhs, &Tensor::Impl::less);
 }
 Tensor Tensor::operator<=(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, "<=", &Tensor::Impl::lessEqual);
+	return applyBinaryOp(rhs, &Tensor::Impl::lessEqual);
 }
 Tensor Tensor::operator>(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, ">", &Tensor::Impl::greater);
+	return applyBinaryOp(rhs, &Tensor::Impl::greater);
 }
 Tensor Tensor::operator>=(const Tensor::View& rhs) const {
-	return applyBinaryOp(rhs, ">=", &Tensor::Impl::greaterEqual);
+	return applyBinaryOp(rhs, &Tensor::Impl::greaterEqual);
 }
