@@ -198,13 +198,6 @@ m.subsample({2, 1}) = Tensor({2, 3}, 1.0f);
 
 Unit and integration tests use [Catch2](https://github.com/catchorg/Catch2) and live under `tests/`.
 
-```
-tests/
-├── unit/                 # tensor construction, arithmetic, views, strides
-└── integration/
-    └── physics/          # end-to-end physics simulations
-```
-
 Run after building:
 
 ```bash
