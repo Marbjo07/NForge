@@ -11,6 +11,10 @@ Backend getBackend(const Tensor& t) { return t.getBackend(); }
 Backend getBackend(const Tensor::View& v) { return v.getParent().getBackend(); }
 
 
+std::vector<float> getVector(const Tensor& t) { return t.toVector(); }
+std::vector<float> getVector(const Tensor::View& t) { return t.copy().toVector(); }
+
+
 template <typename A, typename B, typename Operand>
 void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	Tensor result = operand(lhs, rhs);
@@ -22,11 +26,16 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	REQUIRE(shape.getNumDims() == 2);
 
 	Tensor expected(shape, backend);
+
+	// calling toVector is expensive for cuda, cus cudaSync
+	// copy to CPU and compare there to avoid this
+	auto lhsVec = getVector(lhs);
+	auto rhsVec = getVector(rhs);
+
 	for (size_t i = 0; i < shape.getDim(0); i++) {
 		for (size_t j = 0; j < shape.getDim(1); j++) {
-			// TODO: refactor with scalar to float conversion
-			float lhsVal = lhs[i][j].copy().toVector()[0];
-			float rhsVal = rhs[i][j].copy().toVector()[0];
+			float lhsVal = lhsVec[i * shape.getDim(1) + j];
+			float rhsVal = rhsVec[i * shape.getDim(1) + j];
 			bool e = operand(lhsVal, rhsVal);
 
 			expected[i][j] = e ? 1.0f : 0.0f;
