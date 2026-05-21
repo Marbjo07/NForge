@@ -6,9 +6,16 @@
 #include "utils.h"
 
 
+// TODO: Tensor::View and Tensor should have same interface
+Backend getBackend(const Tensor& t) { return t.getBackend(); }
+Backend getBackend(const Tensor::View& v) { return v.getParent().getBackend(); }
+
+
 template <typename A, typename B, typename Operand>
 void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	Tensor result = operand(lhs, rhs);
+
+	Backend backend = getBackend(lhs);
 
 	Tensor::Shape shape = lhs.getShape();
 	for (size_t i = 0; i < shape.getDim(0); i++) {
@@ -139,3 +146,29 @@ TEST_CASE("Comparison Operators Tensor vs View", "[Tensor]") {
 		}
 	}
 }
+
+
+TEST_CASE("Comparison Operators Incompatible Shapes", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({10, 10}, backend), b({5, 5}, backend);
+
+		REQUIRE_THROWS(a < b);
+		REQUIRE_THROWS(a <= b);
+		REQUIRE_THROWS(a > b);
+		REQUIRE_THROWS(a >= b);
+	}
+}
+
+#ifdef NFORGE_ENABLE_CUDA
+TEST_CASE("Comparison Operators Incompatible Backends", "[Tensor]") {
+	Tensor a({10, 10}, Backend::CPU);
+	Tensor b({10, 10}, Backend::CUDA);
+
+	REQUIRE_THROWS(a < b);
+	REQUIRE_THROWS(a <= b);
+	REQUIRE_THROWS(a > b);
+	REQUIRE_THROWS(a >= b);
+}
+#endif  // NFORGE_ENABLE_CUDA

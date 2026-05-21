@@ -253,3 +253,21 @@ Tensor& Tensor::operator=(float scalar) {
 bool Tensor::operator==(const Tensor::View& rhs) const { return compare(rhs); }
 
 bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs); }
+
+
+Tensor Tensor::operator<(const Tensor::View& rhs) const {
+	// temp
+	return Tensor(0);
+}
+Tensor Tensor::operator<=(const Tensor::View& rhs) const {
+	// temp
+	return Tensor(0);
+}
+Tensor Tensor::operator>(const Tensor::View& rhs) const {
+	// temp
+	return Tensor(0);
+}
+Tensor Tensor::operator>=(const Tensor::View& rhs) const {
+	// temp
+	return Tensor(0);
+}

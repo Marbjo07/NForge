@@ -110,6 +110,11 @@ public:
 	bool operator==(const Tensor::View& rhs) const;
 	bool operator!=(const Tensor::View& rhs) const;
 
+	Tensor operator<(const Tensor::View& rhs) const;
+	Tensor operator<=(const Tensor::View& rhs) const;
+	Tensor operator>(const Tensor::View& rhs) const;
+	Tensor operator>=(const Tensor::View& rhs) const;
+
 private:
 	Backend m_backend;
 	std::unique_ptr<Impl> m_impl;
