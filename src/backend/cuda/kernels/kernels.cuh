@@ -33,6 +33,26 @@ __global__ void checkAllEqualKernel(const float* __restrict__ lhs, const TensorL
                                     const float* __restrict__ rhs, const TensorLayout rhsLayout,
                                     int* isEqualFlag, size_t count);
 
+
+__global__ void lessKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                           const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                           float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
+__global__ void lessEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                                const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                                float* __restrict__ out, const TensorLayout outLayout,
+                                size_t count);
+
+__global__ void greaterKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                              float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
+__global__ void greaterEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                                   const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                                   float* __restrict__ out, const TensorLayout outLayout,
+                                   size_t count);
+
+
 // in-place kernels
 __global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout,
                            const float* __restrict__ rhs, const TensorLayout rhsLayout,

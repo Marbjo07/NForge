@@ -101,6 +101,70 @@ __global__ void checkAllEqualKernel(const float* __restrict__ lhs, const TensorL
 		*isEqualFlag = 0;
 }
 
+__global__ void lessKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                           const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                           float* __restrict__ out, const TensorLayout outLayout, size_t count) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= count)
+		return;
+
+	size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+	size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+	size_t outIdx = physicalOffsetCUDA(i, outLayout);
+
+
+	out[outIdx] = (float)(lhs[lhsIdx] < rhs[rhsIdx]);
+}
+
+__global__ void lessEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                                const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                                float* __restrict__ out, const TensorLayout outLayout,
+                                size_t count) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= count)
+		return;
+
+	size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+	size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+	size_t outIdx = physicalOffsetCUDA(i, outLayout);
+
+
+	out[outIdx] = (float)(lhs[lhsIdx] <= rhs[rhsIdx]);
+}
+
+
+__global__ void greaterKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                              float* __restrict__ out, const TensorLayout outLayout, size_t count) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= count)
+		return;
+
+	size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+	size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+	size_t outIdx = physicalOffsetCUDA(i, outLayout);
+
+
+	out[outIdx] = (float)(lhs[lhsIdx] > rhs[rhsIdx]);
+}
+
+__global__ void greaterEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                                   const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                                   float* __restrict__ out, const TensorLayout outLayout,
+                                   size_t count) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= count)
+		return;
+
+	size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+	size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+	size_t outIdx = physicalOffsetCUDA(i, outLayout);
+
+
+	out[outIdx] = (float)(lhs[lhsIdx] >= rhs[rhsIdx]);
+}
+
+
 __global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout,
                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
                            size_t count) {

@@ -303,7 +303,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::less(const TensorLayout& lhsLayo
                                                      const Tensor::Impl* rhsImpl,
                                                      const TensorLayout& rhsLayout,
                                                      const TensorLayout& outLayout) const {
-	throw std::runtime_error("Not implemented");
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, lessKernel);
 }
 
 
@@ -311,7 +311,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::lessEqual(const TensorLayout& lh
                                                           const Tensor::Impl* rhsImpl,
                                                           const TensorLayout& rhsLayout,
                                                           const TensorLayout& outLayout) const {
-	throw std::runtime_error("Not implemented");
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, lessEqualKernel);
 }
 
 
@@ -319,7 +319,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::greater(const TensorLayout& lhsL
                                                         const Tensor::Impl* rhsImpl,
                                                         const TensorLayout& rhsLayout,
                                                         const TensorLayout& outLayout) const {
-	throw std::runtime_error("Not implemented");
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, greaterKernel);
 }
 
 
@@ -327,5 +327,5 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::greaterEqual(const TensorLayout&
                                                              const Tensor::Impl* rhsImpl,
                                                              const TensorLayout& rhsLayout,
                                                              const TensorLayout& outLayout) const {
-	throw std::runtime_error("Not implemented");
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, greaterEqualKernel);
 }
