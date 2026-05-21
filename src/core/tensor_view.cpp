@@ -259,18 +259,21 @@ bool Tensor::View::operator!=(const Tensor::View& rhs) const { return !(this->op
 
 
 Tensor Tensor::View::operator<(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	Tensor current = copy();
+	return current < rhs;
 }
+
 Tensor Tensor::View::operator<=(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	Tensor current = copy();
+	return current <= rhs;
 }
+
 Tensor Tensor::View::operator>(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	Tensor current = copy();
+	return current > rhs;
 }
+
 Tensor Tensor::View::operator>=(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	Tensor current = copy();
+	return current >= rhs;
 }

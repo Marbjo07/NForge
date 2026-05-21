@@ -18,16 +18,20 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	Backend backend = getBackend(lhs);
 
 	Tensor::Shape shape = lhs.getShape();
+	// Verify tests are valid
+	REQUIRE(shape == rhs.getShape());
+	REQUIRE(shape.getNumDims() == 2);
+
 	for (size_t i = 0; i < shape.getDim(0); i++) {
 		for (size_t j = 0; j < shape.getDim(1); j++) {
-			bool expected = (lhs[i][j].copy().toVector()[0]) < (rhs[i][j].copy().toVector()[0]);
+			bool expected = operand(lhs[i][j].copy().toVector()[0], rhs[i][j].copy().toVector()[0]);
 
 			REQUIRE(result[i][j] == Tensor(expected, backend));
 		}
 	}
 }
 
-TEST_CASE("Comparison Operators Tensor", "[Tensor]") {
+TEST_CASE("Comparison Operators Tensor vs Tensor", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
@@ -56,11 +60,11 @@ TEST_CASE("Comparison Operators Tensor", "[Tensor]") {
 	}
 }
 
-TEST_CASE("Comparison Operators View", "[Tensor]") {
+TEST_CASE("Comparison Operators View vs View", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({10, 10}, backend), b({10, 10}, backend);
+		Tensor a({1, 10, 10}, backend), b({1, 10, 10}, backend);
 		auto aView = a[0];
 		auto bView = b[0];
 
@@ -93,9 +97,8 @@ TEST_CASE("Comparison Operators View vs Tensor", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({10, 10}, backend), b({10, 10}, backend);
+		Tensor a({1, 10, 10}, backend), b({10, 10}, backend);
 		auto aView = a[0];
-		auto bView = b[0];
 
 		a.fillRand();
 		b.fillRand();
@@ -122,8 +125,7 @@ TEST_CASE("Comparison Operators Tensor vs View", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({10, 10}, backend), b({10, 10}, backend);
-		auto aView = a[0];
+		Tensor a({10, 10}, backend), b({1, 10, 10}, backend);
 		auto bView = b[0];
 
 		a.fillRand();

@@ -256,18 +256,14 @@ bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs)
 
 
 Tensor Tensor::operator<(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	return applyBinaryOp(rhs, "<", &Tensor::Impl::less);
 }
 Tensor Tensor::operator<=(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	return applyBinaryOp(rhs, "<=", &Tensor::Impl::lessEqual);
 }
 Tensor Tensor::operator>(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	return applyBinaryOp(rhs, ">", &Tensor::Impl::greater);
 }
 Tensor Tensor::operator>=(const Tensor::View& rhs) const {
-	// temp
-	return Tensor(0);
+	return applyBinaryOp(rhs, ">=", &Tensor::Impl::greaterEqual);
 }

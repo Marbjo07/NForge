@@ -85,6 +85,26 @@ public:
 	                                           const TensorLayout& outLayout) const = 0;
 
 	virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
+
+	virtual std::unique_ptr<Tensor::Impl> less(const TensorLayout& lhsLayout,
+	                                           const Tensor::Impl* rhsImpl,
+	                                           const TensorLayout& rhsLayout,
+	                                           const TensorLayout& outLayout) const = 0;
+
+	virtual std::unique_ptr<Tensor::Impl> lessEqual(const TensorLayout& lhsLayout,
+	                                                const Tensor::Impl* rhsImpl,
+	                                                const TensorLayout& rhsLayout,
+	                                                const TensorLayout& outLayout) const = 0;
+
+	virtual std::unique_ptr<Tensor::Impl> greater(const TensorLayout& lhsLayout,
+	                                              const Tensor::Impl* rhsImpl,
+	                                              const TensorLayout& rhsLayout,
+	                                              const TensorLayout& outLayout) const = 0;
+
+	virtual std::unique_ptr<Tensor::Impl> greaterEqual(const TensorLayout& lhsLayout,
+	                                                   const Tensor::Impl* rhsImpl,
+	                                                   const TensorLayout& rhsLayout,
+	                                                   const TensorLayout& outLayout) const = 0;
 };
 
 #endif  // TENSOR_IMPL_H

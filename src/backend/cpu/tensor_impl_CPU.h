@@ -81,6 +81,26 @@ public:
 
 	std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const override;
 
+
+	std::unique_ptr<Tensor::Impl> less(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+	                                   const TensorLayout& rhsLayout,
+	                                   const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> lessEqual(const TensorLayout& lhsLayout,
+	                                        const Tensor::Impl* rhsImpl,
+	                                        const TensorLayout& rhsLayout,
+	                                        const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> greater(const TensorLayout& lhsLayout,
+	                                      const Tensor::Impl* rhsImpl,
+	                                      const TensorLayout& rhsLayout,
+	                                      const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> greaterEqual(const TensorLayout& lhsLayout,
+	                                           const Tensor::Impl* rhsImpl,
+	                                           const TensorLayout& rhsLayout,
+	                                           const TensorLayout& outLayout) const override;
+
 private:
 	Tensor::Shape m_shape;
 	std::vector<float> m_data;
