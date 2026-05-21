@@ -5,7 +5,6 @@
 #include "nforge/nforge.h"
 #include "utils.h"
 
-
 // TODO: Tensor::View and Tensor should have same interface
 Backend getBackend(const Tensor& t) { return t.getBackend(); }
 Backend getBackend(const Tensor::View& v) { return v.getParent().getBackend(); }
@@ -25,7 +24,10 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	for (size_t i = 0; i < shape.getDim(0); i++) {
 		for (size_t j = 0; j < shape.getDim(1); j++) {
 			// TODO: refactor with scalar to float conversion
-			bool e = operand(lhs[i][j].copy().toVector()[0], rhs[i][j].copy().toVector()[0]);
+			float lhsVal = lhs[i][j].copy().toVector()[0];
+			float rhsVal = rhs[i][j].copy().toVector()[0];
+			bool e = operand(lhsVal, rhsVal);
+
 			expected[i][j] = e ? 1.0f : 0.0f;
 		}
 	}
@@ -33,124 +35,92 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	REQUIRE(result == expected);
 }
 
-TEST_CASE("Comparison Operators Tensor vs Tensor", "[Tensor]") {
+
+template <typename A, typename B>
+void testAllOperators(const A& lhs, const B& rhs, const std::string& desc = "") {
+	auto suffix = desc.empty() ? "" : " (" + desc + ")";
+
+	DYNAMIC_SECTION("<" + suffix) { checkComparison(lhs, rhs, std::less<>{}); }
+
+	DYNAMIC_SECTION("<=" + suffix) { checkComparison(lhs, rhs, std::less_equal<>{}); }
+
+	DYNAMIC_SECTION(">" + suffix) { checkComparison(lhs, rhs, std::greater<>{}); }
+
+	DYNAMIC_SECTION(">=" + suffix) { checkComparison(lhs, rhs, std::greater_equal<>{}); }
+}
+
+
+Tensor randomIntegerTensor(const Tensor::Shape& shape, Backend backend) {
+	Tensor t(shape, backend);
+	t.fillRand();
+
+
+	// TODO: refactor with vector init
+	if (t.getShape().getNumDims() == 2) {
+		for (size_t i = 0; i < t.getShape().getDim(0); i++) {
+			for (size_t j = 0; j < t.getShape().getDim(1); j++) {
+				float e = t[i][j].copy().toVector()[0];
+				t[i][j] = std::round(e * 10);  // Scale and convert to int
+			}
+		}
+	}
+
+	// TODO: refactor with vector init
+	if (t.getShape().getNumDims() == 3) {
+		for (size_t i = 0; i < t.getShape().getDim(0); i++) {
+			for (size_t j = 0; j < t.getShape().getDim(1); j++) {
+				for (size_t k = 0; k < t.getShape().getDim(2); k++) {
+					float e = t[i][j][k].copy().toVector()[0];
+					t[i][j][k] = std::round(e * 10);  // Scale and convert to int
+				}
+			}
+		}
+	}
+
+	return t;
+}
+
+
+TEST_CASE("Comparison Operators float", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({10, 10}, backend), b({10, 10}, backend);
-		auto aView = a[0];
-		auto bView = b[0];
+		Tensor A({100, 100}, backend), B({100, 100}, backend);
+		Tensor X({1, 100, 100}, backend), Y({1, 100, 100}, backend);
+		auto xView = X[0];
+		auto yView = Y[0];
 
-		a.fillRand();
-		b.fillRand();
+		A.fillRand();
+		B.fillRand();
+		X.fillRand();
+		Y.fillRand();
 
-		SECTION("Tensor < Tensor") {
-			checkComparison(a, b, [](const auto& lhs, const auto& rhs) { return lhs < rhs; });
-		}
-
-		SECTION("Tensor <= Tensor") {
-			checkComparison(a, b, [](const auto& lhs, const auto& rhs) { return lhs <= rhs; });
-		}
-
-		SECTION("Tensor > Tensor") {
-			checkComparison(a, b, [](const auto& lhs, const auto& rhs) { return lhs > rhs; });
-		}
-
-		SECTION("Tensor >= Tensor") {
-			checkComparison(a, b, [](const auto& lhs, const auto& rhs) { return lhs >= rhs; });
-		}
+		testAllOperators(A, B, "Tensor-Tensor");
+		testAllOperators(xView, yView, "View-View");
+		testAllOperators(xView, B, "View-Tensor");
+		testAllOperators(A, yView, "Tensor-View");
 	}
 }
 
-TEST_CASE("Comparison Operators View vs View", "[Tensor]") {
+
+TEST_CASE("Comparison Operators int", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({1, 10, 10}, backend), b({1, 10, 10}, backend);
-		auto aView = a[0];
-		auto bView = b[0];
+		Tensor A = randomIntegerTensor({10, 10}, backend);
+		Tensor B = randomIntegerTensor({10, 10}, backend);
 
-		a.fillRand();
-		b.fillRand();
+		Tensor X = randomIntegerTensor({1, 10, 10}, backend);
+		Tensor Y = randomIntegerTensor({1, 10, 10}, backend);
+		auto xView = X[0];
+		auto yView = Y[0];
 
-		SECTION("View < View") {
-			checkComparison(aView, bView,
-			                [](const auto& lhs, const auto& rhs) { return lhs < rhs; });
-		}
-
-		SECTION("View <= View") {
-			checkComparison(aView, bView,
-			                [](const auto& lhs, const auto& rhs) { return lhs <= rhs; });
-		}
-
-		SECTION("View > View") {
-			checkComparison(aView, bView,
-			                [](const auto& lhs, const auto& rhs) { return lhs > rhs; });
-		}
-
-		SECTION("View >= View") {
-			checkComparison(aView, bView,
-			                [](const auto& lhs, const auto& rhs) { return lhs >= rhs; });
-		}
+		testAllOperators(A, B, "Tensor-Tensor");
+		testAllOperators(xView, yView, "View-View");
+		testAllOperators(xView, B, "View-Tensor");
+		testAllOperators(A, yView, "Tensor-View");
 	}
 }
-
-TEST_CASE("Comparison Operators View vs Tensor", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({1, 10, 10}, backend), b({10, 10}, backend);
-		auto aView = a[0];
-
-		a.fillRand();
-		b.fillRand();
-
-		SECTION("View < Tensor") {
-			checkComparison(aView, b, [](const auto& lhs, const auto& rhs) { return lhs < rhs; });
-		}
-
-		SECTION("View <= Tensor") {
-			checkComparison(aView, b, [](const auto& lhs, const auto& rhs) { return lhs <= rhs; });
-		}
-
-		SECTION("View > Tensor") {
-			checkComparison(aView, b, [](const auto& lhs, const auto& rhs) { return lhs > rhs; });
-		}
-
-		SECTION("View >= Tensor") {
-			checkComparison(aView, b, [](const auto& lhs, const auto& rhs) { return lhs >= rhs; });
-		}
-	}
-}
-
-TEST_CASE("Comparison Operators Tensor vs View", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({10, 10}, backend), b({1, 10, 10}, backend);
-		auto bView = b[0];
-
-		a.fillRand();
-		b.fillRand();
-
-		SECTION("Tensor < View") {
-			checkComparison(a, bView, [](const auto& lhs, const auto& rhs) { return lhs < rhs; });
-		}
-
-		SECTION("Tensor <= View") {
-			checkComparison(a, bView, [](const auto& lhs, const auto& rhs) { return lhs <= rhs; });
-		}
-
-		SECTION("Tensor > View") {
-			checkComparison(a, bView, [](const auto& lhs, const auto& rhs) { return lhs > rhs; });
-		}
-
-		SECTION("Tensor >= View") {
-			checkComparison(a, bView, [](const auto& lhs, const auto& rhs) { return lhs >= rhs; });
-		}
-	}
-}
-
 
 TEST_CASE("Comparison Operators Incompatible Shapes", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
