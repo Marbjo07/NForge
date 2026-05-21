@@ -14,21 +14,23 @@ Backend getBackend(const Tensor::View& v) { return v.getParent().getBackend(); }
 template <typename A, typename B, typename Operand>
 void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	Tensor result = operand(lhs, rhs);
-
 	Backend backend = getBackend(lhs);
-
 	Tensor::Shape shape = lhs.getShape();
+
 	// Verify tests are valid
 	REQUIRE(shape == rhs.getShape());
 	REQUIRE(shape.getNumDims() == 2);
 
+	Tensor expected(shape, backend);
 	for (size_t i = 0; i < shape.getDim(0); i++) {
 		for (size_t j = 0; j < shape.getDim(1); j++) {
-			bool expected = operand(lhs[i][j].copy().toVector()[0], rhs[i][j].copy().toVector()[0]);
-
-			REQUIRE(result[i][j] == Tensor(expected, backend));
+			// TODO: refactor with scalar to float conversion
+			bool e = operand(lhs[i][j].copy().toVector()[0], rhs[i][j].copy().toVector()[0]);
+			expected[i][j] = e ? 1.0f : 0.0f;
 		}
 	}
+
+	REQUIRE(result == expected);
 }
 
 TEST_CASE("Comparison Operators Tensor vs Tensor", "[Tensor]") {
