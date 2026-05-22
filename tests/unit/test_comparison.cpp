@@ -19,23 +19,47 @@ template <typename A, typename B, typename Operand>
 void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 	Tensor result = operand(lhs, rhs);
 	Backend backend = getBackend(lhs);
-	Tensor::Shape shape = lhs.getShape();
+
+	Tensor::Shape expectedShape;
 
 	// Verify tests are valid
-	REQUIRE(shape == rhs.getShape());
-	REQUIRE(shape.getNumDims() == 2);
+	bool lhsIsScalar = lhs.getShape().isScalar();
+	bool rhsIsScalar = rhs.getShape().isScalar();
 
-	Tensor expected(shape, backend);
+	if (lhsIsScalar || rhsIsScalar) {
+		// get a non-scalar shape, if one is scalar
+		if (lhsIsScalar)
+			expectedShape = rhs.getShape();
+		if (rhsIsScalar)
+			expectedShape = lhs.getShape();
+	} else {
+		REQUIRE(lhs.getShape() == rhs.getShape());
+		expectedShape = lhs.getShape();
+	}
+
+	REQUIRE(expectedShape.getNumDims() == 2);
+
+	Tensor expected(expectedShape, backend);
 
 	// calling toVector is expensive for cuda, cus cudaSync
 	// copy to CPU and compare there to avoid this
 	auto lhsVec = getVector(lhs);
 	auto rhsVec = getVector(rhs);
 
-	for (size_t i = 0; i < shape.getDim(0); i++) {
-		for (size_t j = 0; j < shape.getDim(1); j++) {
-			float lhsVal = lhsVec[i * shape.getDim(1) + j];
-			float rhsVal = rhsVec[i * shape.getDim(1) + j];
+	for (size_t i = 0; i < expectedShape.getDim(0); i++) {
+		for (size_t j = 0; j < expectedShape.getDim(1); j++) {
+			int lhsIdx = i * expectedShape.getDim(1) + j;
+			int rhsIdx = i * expectedShape.getDim(1) + j;
+
+			// check if scalar and adjust idx if so
+			if (lhs.getShape().isScalar())
+				lhsIdx = 0;
+			if (rhs.getShape().isScalar())
+				rhsIdx = 0;
+
+			float lhsVal = lhsVec[lhsIdx];
+			float rhsVal = rhsVec[rhsIdx];
+
 			bool e = operand(lhsVal, rhsVal);
 
 			expected[i][j] = e ? 1.0f : 0.0f;
@@ -44,7 +68,6 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 
 	REQUIRE(result == expected);
 }
-
 
 template <typename A, typename B>
 void testAllOperators(const A& lhs, const B& rhs, const std::string& desc = "") {
@@ -131,6 +154,29 @@ TEST_CASE("Comparison Operators int", "[Tensor]") {
 		testAllOperators(A, yView, "Tensor-View");
 	}
 }
+
+TEST_CASE("Comparison Operators scalar broadcast", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({10, 10}, backend);
+		Tensor b({1, 10, 10}, backend);
+		auto view = b[0];
+
+		// init middel of rand distribution
+		Tensor scalar({1}, 0, backend);
+
+		a.fillRand();
+		b.fillRand();
+
+		testAllOperators(a, scalar, "Tensor-Scalar");
+		testAllOperators(scalar, a, "Scalar-Tensor");
+
+		testAllOperators(view, scalar, "View-Scalar");
+		testAllOperators(scalar, view, "Scalar-View");
+	}
+}
+
 
 TEST_CASE("Comparison Operators Incompatible Shapes", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
