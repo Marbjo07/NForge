@@ -177,6 +177,26 @@ TEST_CASE("Comparison Operators scalar broadcast", "[Tensor]") {
 	}
 }
 
+TEST_CASE("Comparison Operators scalar broadcast int", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a = randomIntegerTensor({10, 10}, backend);
+		Tensor b = randomIntegerTensor({1, 10, 10}, backend);
+		auto view = b[0];
+
+		// init middel of rand distribution
+		Tensor scalar({1}, 0, backend);
+
+
+		testAllOperators(a, scalar, "Tensor-Scalar");
+		testAllOperators(scalar, a, "Scalar-Tensor");
+
+		testAllOperators(view, scalar, "View-Scalar");
+		testAllOperators(scalar, view, "Scalar-View");
+	}
+}
+
 
 TEST_CASE("Comparison Operators Incompatible Shapes", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
