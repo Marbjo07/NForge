@@ -70,8 +70,8 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 }
 
 template <typename A, typename B>
-void testAllOperators(const A& lhs, const B& rhs, const std::string& desc = "") {
-	auto suffix = desc.empty() ? "" : " (" + desc + ")";
+void testAllOperators(const A& lhs, const B& rhs, const std::string& desc) {
+	auto suffix = " (" + desc + ")";
 
 	DYNAMIC_SECTION("<" + suffix) { checkComparison(lhs, rhs, std::less<>{}); }
 
@@ -188,12 +188,47 @@ TEST_CASE("Comparison Operators scalar broadcast int", "[Tensor]") {
 		// init middel of rand distribution
 		Tensor scalar({1}, 0, backend);
 
-
 		testAllOperators(a, scalar, "Tensor-Scalar");
 		testAllOperators(scalar, a, "Scalar-Tensor");
 
 		testAllOperators(view, scalar, "View-Scalar");
 		testAllOperators(scalar, view, "Scalar-View");
+	}
+}
+
+template <typename Operand>
+void testBroadcastComparison(const Tensor& a, const Tensor::View& b, const Operand& operand) {
+	Tensor result = operand(a, b);
+	Tensor expected(result.getShape(), result.getBackend());
+
+	for (size_t i = 0; i < result.getShape().getDim(0); i++) {
+		for (size_t j = 0; j < result.getShape().getDim(1); j++) {
+			float aVal = a[i][j].copy().toVector()[0];
+			float bVal = b[j].copy().toVector()[0];
+
+			expected[i][j] = operand(aVal, bVal) ? 1.0f : 0.0f;
+		}
+	}
+
+	REQUIRE(result == expected);
+}
+
+
+TEST_CASE("Comparison Operators non-scalar broadcast", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		size_t n = 10, m = 30;
+		Tensor a({n, m}, backend);
+		Tensor b({m}, backend);
+
+		a.fillRand();
+		b.fillRand();
+
+		SECTION("<") { testBroadcastComparison(a, b, std::less<>()); }
+		SECTION("<=") { testBroadcastComparison(a, b, std::less_equal<>()); }
+		SECTION(">") { testBroadcastComparison(a, b, std::greater<>()); }
+		SECTION(">=") { testBroadcastComparison(a, b, std::greater_equal<>()); }
 	}
 }
 
