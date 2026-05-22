@@ -63,6 +63,11 @@ public:
 	bool operator!=(const Tensor& rhs) const;
 	bool operator!=(const Tensor::View& rhs) const;
 
+	Tensor operator<(const Tensor::View& rhs) const;
+	Tensor operator<=(const Tensor::View& rhs) const;
+	Tensor operator>(const Tensor::View& rhs) const;
+	Tensor operator>=(const Tensor::View& rhs) const;
+
 private:
 	// resolves ambiguous overload with initializer list
 	struct BroadcastTag {};

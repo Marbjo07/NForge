@@ -110,19 +110,24 @@ public:
 	bool operator==(const Tensor::View& rhs) const;
 	bool operator!=(const Tensor::View& rhs) const;
 
+	Tensor operator<(const Tensor::View& rhs) const;
+	Tensor operator<=(const Tensor::View& rhs) const;
+	Tensor operator>(const Tensor::View& rhs) const;
+	Tensor operator>=(const Tensor::View& rhs) const;
+
 private:
 	Backend m_backend;
 	std::unique_ptr<Impl> m_impl;
 
 	// used in template for all the binary operations
 	template <typename BinaryOp>
-	Tensor applyBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op) const;
+	Tensor applyBinaryOp(const Tensor::View& rhs, BinaryOp op) const;
 
 	template <typename BinaryOp>
-	void applyInplaceBinaryOp(const Tensor::View& rhs, const std::string& opName, BinaryOp op);
+	void applyInplaceBinaryOp(const Tensor::View& rhs, BinaryOp op);
 
 	template <typename ReductionOp>
-	Tensor applyReduction(const std::string& reductionName, size_t dim, ReductionOp op) const;
+	Tensor applyReduction(size_t dim, ReductionOp op) const;
 };
 
 #endif  // TENSOR_H

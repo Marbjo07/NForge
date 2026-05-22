@@ -297,3 +297,35 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout)
 
 	return std::unique_ptr<Tensor::Impl>(results);
 }
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::less(const TensorLayout& lhsLayout,
+                                                     const Tensor::Impl* rhsImpl,
+                                                     const TensorLayout& rhsLayout,
+                                                     const TensorLayout& outLayout) const {
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, lessKernel);
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::lessEqual(const TensorLayout& lhsLayout,
+                                                          const Tensor::Impl* rhsImpl,
+                                                          const TensorLayout& rhsLayout,
+                                                          const TensorLayout& outLayout) const {
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, lessEqualKernel);
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::greater(const TensorLayout& lhsLayout,
+                                                        const Tensor::Impl* rhsImpl,
+                                                        const TensorLayout& rhsLayout,
+                                                        const TensorLayout& outLayout) const {
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, greaterKernel);
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::greaterEqual(const TensorLayout& lhsLayout,
+                                                             const Tensor::Impl* rhsImpl,
+                                                             const TensorLayout& rhsLayout,
+                                                             const TensorLayout& outLayout) const {
+	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, greaterEqualKernel);
+}

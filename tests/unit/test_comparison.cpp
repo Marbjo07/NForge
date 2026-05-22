@@ -1,0 +1,259 @@
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
+#include <cmath>
+
+#include "nforge/nforge.h"
+#include "utils.h"
+
+// TODO: Tensor::View and Tensor should have same interface
+Backend getBackend(const Tensor& t) { return t.getBackend(); }
+Backend getBackend(const Tensor::View& v) { return v.getParent().getBackend(); }
+
+
+std::vector<float> getVector(const Tensor& t) { return t.toVector(); }
+std::vector<float> getVector(const Tensor::View& t) { return t.copy().toVector(); }
+
+
+template <typename A, typename B, typename Operand>
+void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
+	Tensor result = operand(lhs, rhs);
+	Backend backend = getBackend(lhs);
+
+	Tensor::Shape expectedShape;
+
+	// Verify tests are valid
+	bool lhsIsScalar = lhs.getShape().isScalar();
+	bool rhsIsScalar = rhs.getShape().isScalar();
+
+	if (lhsIsScalar || rhsIsScalar) {
+		// get a non-scalar shape, if one is scalar
+		if (lhsIsScalar)
+			expectedShape = rhs.getShape();
+		if (rhsIsScalar)
+			expectedShape = lhs.getShape();
+	} else {
+		REQUIRE(lhs.getShape() == rhs.getShape());
+		expectedShape = lhs.getShape();
+	}
+
+	REQUIRE(expectedShape.getNumDims() == 2);
+
+	Tensor expected(expectedShape, backend);
+
+	// calling toVector is expensive for cuda, cus cudaSync
+	// copy to CPU and compare there to avoid this
+	auto lhsVec = getVector(lhs);
+	auto rhsVec = getVector(rhs);
+
+	for (size_t i = 0; i < expectedShape.getDim(0); i++) {
+		for (size_t j = 0; j < expectedShape.getDim(1); j++) {
+			int lhsIdx = i * expectedShape.getDim(1) + j;
+			int rhsIdx = i * expectedShape.getDim(1) + j;
+
+			// check if scalar and adjust idx if so
+			if (lhs.getShape().isScalar())
+				lhsIdx = 0;
+			if (rhs.getShape().isScalar())
+				rhsIdx = 0;
+
+			float lhsVal = lhsVec[lhsIdx];
+			float rhsVal = rhsVec[rhsIdx];
+
+			bool e = operand(lhsVal, rhsVal);
+
+			expected[i][j] = e ? 1.0f : 0.0f;
+		}
+	}
+
+	REQUIRE(result == expected);
+}
+
+template <typename A, typename B>
+void testAllOperators(const A& lhs, const B& rhs, const std::string& desc) {
+	auto suffix = " (" + desc + ")";
+
+	DYNAMIC_SECTION("<" + suffix) { checkComparison(lhs, rhs, std::less<>{}); }
+
+	DYNAMIC_SECTION("<=" + suffix) { checkComparison(lhs, rhs, std::less_equal<>{}); }
+
+	DYNAMIC_SECTION(">" + suffix) { checkComparison(lhs, rhs, std::greater<>{}); }
+
+	DYNAMIC_SECTION(">=" + suffix) { checkComparison(lhs, rhs, std::greater_equal<>{}); }
+}
+
+
+Tensor randomIntegerTensor(const Tensor::Shape& shape, Backend backend) {
+	Tensor t(shape, backend);
+	t.fillRand();
+
+
+	// TODO: refactor with vector init
+	if (t.getShape().getNumDims() == 2) {
+		for (size_t i = 0; i < t.getShape().getDim(0); i++) {
+			for (size_t j = 0; j < t.getShape().getDim(1); j++) {
+				float e = t[i][j].copy().toVector()[0];
+				t[i][j] = std::round(e * 10);  // Scale and convert to int
+			}
+		}
+	}
+
+	// TODO: refactor with vector init
+	if (t.getShape().getNumDims() == 3) {
+		for (size_t i = 0; i < t.getShape().getDim(0); i++) {
+			for (size_t j = 0; j < t.getShape().getDim(1); j++) {
+				for (size_t k = 0; k < t.getShape().getDim(2); k++) {
+					float e = t[i][j][k].copy().toVector()[0];
+					t[i][j][k] = std::round(e * 10);  // Scale and convert to int
+				}
+			}
+		}
+	}
+
+	return t;
+}
+
+
+TEST_CASE("Comparison Operators float", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor A({100, 100}, backend), B({100, 100}, backend);
+		Tensor X({1, 100, 100}, backend), Y({1, 100, 100}, backend);
+		auto xView = X[0];
+		auto yView = Y[0];
+
+		A.fillRand();
+		B.fillRand();
+		X.fillRand();
+		Y.fillRand();
+
+		testAllOperators(A, B, "Tensor-Tensor");
+		testAllOperators(xView, yView, "View-View");
+		testAllOperators(xView, B, "View-Tensor");
+		testAllOperators(A, yView, "Tensor-View");
+	}
+}
+
+
+TEST_CASE("Comparison Operators int", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor A = randomIntegerTensor({10, 10}, backend);
+		Tensor B = randomIntegerTensor({10, 10}, backend);
+
+		Tensor X = randomIntegerTensor({1, 10, 10}, backend);
+		Tensor Y = randomIntegerTensor({1, 10, 10}, backend);
+		auto xView = X[0];
+		auto yView = Y[0];
+
+		testAllOperators(A, B, "Tensor-Tensor");
+		testAllOperators(xView, yView, "View-View");
+		testAllOperators(xView, B, "View-Tensor");
+		testAllOperators(A, yView, "Tensor-View");
+	}
+}
+
+TEST_CASE("Comparison Operators scalar broadcast", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({10, 10}, backend);
+		Tensor b({1, 10, 10}, backend);
+		auto view = b[0];
+
+		// init middel of rand distribution
+		Tensor scalar({1}, 0, backend);
+
+		a.fillRand();
+		b.fillRand();
+
+		testAllOperators(a, scalar, "Tensor-Scalar");
+		testAllOperators(scalar, a, "Scalar-Tensor");
+
+		testAllOperators(view, scalar, "View-Scalar");
+		testAllOperators(scalar, view, "Scalar-View");
+	}
+}
+
+TEST_CASE("Comparison Operators scalar broadcast int", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a = randomIntegerTensor({10, 10}, backend);
+		Tensor b = randomIntegerTensor({1, 10, 10}, backend);
+		auto view = b[0];
+
+		// init middel of rand distribution
+		Tensor scalar({1}, 0, backend);
+
+		testAllOperators(a, scalar, "Tensor-Scalar");
+		testAllOperators(scalar, a, "Scalar-Tensor");
+
+		testAllOperators(view, scalar, "View-Scalar");
+		testAllOperators(scalar, view, "Scalar-View");
+	}
+}
+
+template <typename Operand>
+void testBroadcastComparison(const Tensor& a, const Tensor::View& b, const Operand& operand) {
+	Tensor result = operand(a, b);
+	Tensor expected(result.getShape(), result.getBackend());
+
+	for (size_t i = 0; i < result.getShape().getDim(0); i++) {
+		for (size_t j = 0; j < result.getShape().getDim(1); j++) {
+			float aVal = a[i][j].copy().toVector()[0];
+			float bVal = b[j].copy().toVector()[0];
+
+			expected[i][j] = operand(aVal, bVal) ? 1.0f : 0.0f;
+		}
+	}
+
+	REQUIRE(result == expected);
+}
+
+
+TEST_CASE("Comparison Operators non-scalar broadcast", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		size_t n = 10, m = 30;
+		Tensor a({n, m}, backend);
+		Tensor b({m}, backend);
+
+		a.fillRand();
+		b.fillRand();
+
+		SECTION("<") { testBroadcastComparison(a, b, std::less<>()); }
+		SECTION("<=") { testBroadcastComparison(a, b, std::less_equal<>()); }
+		SECTION(">") { testBroadcastComparison(a, b, std::greater<>()); }
+		SECTION(">=") { testBroadcastComparison(a, b, std::greater_equal<>()); }
+	}
+}
+
+
+TEST_CASE("Comparison Operators Incompatible Shapes", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({10, 10}, backend), b({5, 5}, backend);
+
+		REQUIRE_THROWS(a < b);
+		REQUIRE_THROWS(a <= b);
+		REQUIRE_THROWS(a > b);
+		REQUIRE_THROWS(a >= b);
+	}
+}
+
+#ifdef NFORGE_ENABLE_CUDA
+TEST_CASE("Comparison Operators Incompatible Backends", "[Tensor]") {
+	Tensor a({10, 10}, Backend::CPU);
+	Tensor b({10, 10}, Backend::CUDA);
+
+	REQUIRE_THROWS(a < b);
+	REQUIRE_THROWS(a <= b);
+	REQUIRE_THROWS(a > b);
+	REQUIRE_THROWS(a >= b);
+}
+#endif  // NFORGE_ENABLE_CUDA

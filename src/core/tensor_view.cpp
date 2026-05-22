@@ -256,3 +256,24 @@ bool Tensor::View::operator==(const Tensor::View& rhs) const {
 bool Tensor::View::operator!=(const Tensor& rhs) const { return !(this->operator==(rhs)); }
 
 bool Tensor::View::operator!=(const Tensor::View& rhs) const { return !(this->operator==(rhs)); }
+
+
+Tensor Tensor::View::operator<(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current < rhs;
+}
+
+Tensor Tensor::View::operator<=(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current <= rhs;
+}
+
+Tensor Tensor::View::operator>(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current > rhs;
+}
+
+Tensor Tensor::View::operator>=(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current >= rhs;
+}
