@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1778925726181,
+  "lastUpdate": 1779446452505,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -576,6 +576,42 @@ window.BENCHMARK_DATA = {
             "value": 16698435.404761774,
             "unit": "ns/iter",
             "extra": "iterations: 168\ncpu: 16696640.059523812 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "aed43c76f018af3d953d504d1d96a50307d65429",
+          "message": "Merge pull request #55 from Marbjo07/feat/comparison-operators\n\nfeat: tensor comparison operators",
+          "timestamp": "2026-05-22T12:39:03+02:00",
+          "tree_id": "40b1bbf12a5c26a6b6c2ea8577695a8daad5da53",
+          "url": "https://github.com/Marbjo07/NForge/commit/aed43c76f018af3d953d504d1d96a50307d65429"
+        },
+        "date": 1779446451618,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 533559.344057532,
+            "unit": "ns/iter",
+            "extra": "iterations: 5284\ncpu: 533512.2895533687 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 17314342.85185175,
+            "unit": "ns/iter",
+            "extra": "iterations: 162\ncpu: 17312916.90740741 ns\nthreads: 1"
           }
         ]
       }
