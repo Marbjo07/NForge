@@ -17,12 +17,10 @@ TEST_CASE("Arithmetic ops behave identically on all backends", "[Tensor][Arithme
 		Tensor mul = a * b;
 		Tensor div = a / b;
 
-		for (size_t i = 0; i < 5; i++) {
-			REQUIRE(add[i] == Tensor(5.5f, backend));
-			REQUIRE(sub[i] == Tensor(2.5f, backend));
-			REQUIRE(mul[i] == Tensor(6.0f, backend));
-			REQUIRE(div[i] == Tensor(4.0f / 1.5f, backend));
-		}
+		REQUIRE(add == Tensor({5}, 5.5f, backend));
+		REQUIRE(sub == Tensor({5}, 2.5f, backend));
+		REQUIRE(mul == Tensor({5}, 6.0f, backend));
+		REQUIRE(div == Tensor({5}, 4.0f / 1.5f, backend));
 	}
 }
 
@@ -37,11 +35,9 @@ TEST_CASE("Scalar broadcasting works on all backends", "[Tensor][Arithmetic]") {
 		Tensor y = s + a;
 		Tensor z = a * s;
 
-		for (size_t i = 0; i < 4; i++) {
-			REQUIRE(x[i] == Tensor(5.0f, backend));
-			REQUIRE(y[i] == Tensor(5.0f, backend));
-			REQUIRE(z[i] == Tensor(6.0f, backend));
-		}
+		REQUIRE(x == Tensor({4}, 5.0f, backend));
+		REQUIRE(y == Tensor({4}, 5.0f, backend));
+		REQUIRE(z == Tensor({4}, 6.0f, backend));
 	}
 }
 
@@ -59,12 +55,8 @@ TEST_CASE("2D arithmetic consistency across backends", "[Tensor][Arithmetic]") {
 		Tensor C = A + B;
 		Tensor D = A * B;
 
-		for (size_t i = 0; i < rows; i++) {
-			for (size_t j = 0; j < cols; j++) {
-				REQUIRE(C[i][j] == Tensor(2.5f, backend));
-				REQUIRE(D[i][j] == Tensor(1.0f, backend));
-			}
-		}
+		REQUIRE(C == Tensor({rows, cols}, 2.5f, backend));
+		REQUIRE(D == Tensor({rows, cols}, 1.0f, backend));
 	}
 }
 

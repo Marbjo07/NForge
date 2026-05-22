@@ -140,10 +140,8 @@ TEST_CASE("Broadcast scalar add", "[Tensor]") {
 		Tensor x = a + s;
 		Tensor y = s + a;
 
-		for (size_t i = 0; i < 4; i++) {
-			REQUIRE(x[i] == Tensor(5.0f, backend));
-			REQUIRE(y[i] == Tensor(5.0f, backend));
-		}
+		REQUIRE(x == Tensor({4}, 5.0f, backend));
+		REQUIRE(y == Tensor({4}, 5.0f, backend));
 	}
 }
 
@@ -208,13 +206,6 @@ TEST_CASE("Tensor view assign", "[Tensor]") {
 			// View copy
 			for (size_t i = 0; i < rows; i++) {
 				A[i] = B[i];
-			}
-
-			// Element wise compare
-			for (size_t i = 0; i < rows; i++) {
-				for (size_t j = 0; j < cols; j++) {
-					REQUIRE(A[i][j] == B[i][j]);
-				}
 			}
 
 			REQUIRE(A == B);
