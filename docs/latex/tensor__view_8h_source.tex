@@ -67,19 +67,24 @@
 \DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor}{Tensor}}\&\ rhs)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ resolves\ ambiguous\ overload\ with\ initializer\ list}}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{struct\ }BroadcastTag\ \{\};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ trusted,\ used\ by\ broadcast.}}
-\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1View}{View}}(\mbox{\hyperlink{classTensor}{Tensor}}\&\ parent,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ stride,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ shape,}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ BroadcastTag);}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\&\ m\_parent;}
-\DoxyCodeLine{00075\ \ \ \ \ std::vector<size\_t>\ m\_position;}
-\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ m\_layout;\ \ \textcolor{comment}{//\ relative\ to\ parent\ tensor.}}
-\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator<=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator>(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator>=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ resolves\ ambiguous\ overload\ with\ initializer\ list}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{struct\ }BroadcastTag\ \{\};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ trusted,\ used\ by\ broadcast.}}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1View}{View}}(\mbox{\hyperlink{classTensor}{Tensor}}\&\ parent,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ stride,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ shape,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ BroadcastTag);}
 \DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_VIEW\_H}}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\&\ m\_parent;}
+\DoxyCodeLine{00080\ \ \ \ \ std::vector<size\_t>\ m\_position;}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ m\_layout;\ \ \textcolor{comment}{//\ relative\ to\ parent\ tensor.}}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_VIEW\_H}}
 
 \end{DoxyCode}
