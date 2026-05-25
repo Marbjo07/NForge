@@ -8,53 +8,53 @@
 
 namespace semantic {
 
-struct BinaryOpContext {
-	static BinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
+namespace detail {
+// forces all contexts to use build method.
+class OperationContext {
+protected:
+	OperationContext() = default;
+};
+}  // namespace detail
 
+
+class BinaryOpContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout rhs;
 	TensorLayout out;
 
-private:
-	BinaryOpContext() = default;  // enforce use of build
+	static BinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
 };
 
-struct InplaceBinaryOpContext {
-	static InplaceBinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
-
+class InplaceBinaryOpContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout rhs;
 
-private:
-	InplaceBinaryOpContext() = default;  // enforce use of build
+	static InplaceBinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
 };
 
 
-struct ReductionContext {
-	static ReductionContext build(const Tensor::View& lhs, size_t dim);
-
+class ReductionContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout out;
 	TensorLayout block;
 
-private:
-	ReductionContext() = default;  // enforce use of build
+	static ReductionContext build(const Tensor::View& lhs, size_t dim);
 };
 
 
-struct IndexContext {
-	static IndexContext build(const Tensor::View& src, size_t idx);
-
+class IndexContext : detail::OperationContext {
+public:
 	TensorLayout out;
 
-private:
-	IndexContext() = default;  // enforce use of build
+	static IndexContext build(const Tensor::View& src, size_t idx);
 };
 
 
-struct MatmulContext {
-	static MatmulContext build(const Tensor::View& lhs, const Tensor::View& rhs);
-
+class MatmulContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout rhs;
 	TensorLayout out;
@@ -63,15 +63,7 @@ struct MatmulContext {
 	size_t k;
 	size_t p;
 
-private:
-	MatmulContext() = default;  // enforce use of build
-
-	static void validateRanks(size_t lhsRank, size_t rhsRank);
-	static void validateInnerDims(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
-	                              size_t lhsRank, size_t rhsRank);
-	static size_t computeBatch(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
-	                           size_t lhsRank, size_t rhsRank);
-	static TensorLayout computeOutputLayout(size_t batch, size_t m, size_t p);
+	static MatmulContext build(const Tensor::View& lhs, const Tensor::View& rhs);
 };
 
 }  // namespace semantic
