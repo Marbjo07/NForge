@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1779735329469,
+  "lastUpdate": 1779737645538,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -684,6 +684,42 @@ window.BENCHMARK_DATA = {
             "value": 23490736.21848747,
             "unit": "ns/iter",
             "extra": "iterations: 119\ncpu: 23489023.3697479 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0e9902e40b5cb38bf343860391598ca8793b80e5",
+          "message": "Merge pull request #57 from Marbjo07/perf/semantic-context-regression\n\nperf: move unnecessary string construction and inline getters",
+          "timestamp": "2026-05-25T21:32:14+02:00",
+          "tree_id": "05509a4196dd6fe97f530f5175dec7205fd3217f",
+          "url": "https://github.com/Marbjo07/NForge/commit/0e9902e40b5cb38bf343860391598ca8793b80e5"
+        },
+        "date": 1779737644480,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 620729.0476973681,
+            "unit": "ns/iter",
+            "extra": "iterations: 4256\ncpu: 620660.5817669173 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 18936323.074324213,
+            "unit": "ns/iter",
+            "extra": "iterations: 148\ncpu: 18934382.945945945 ns\nthreads: 1"
           }
         ]
       }
