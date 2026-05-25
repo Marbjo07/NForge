@@ -165,6 +165,8 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <tr class="separator:a3cc3b19c9c9e84954e97edbc48d7c521"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c0c181b282ec90b01033206f0c69d25" id="r_a5c0c181b282ec90b01033206f0c69d25"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#a5c0c181b282ec90b01033206f0c69d25">norm</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout) const override</td></tr>
 <tr class="separator:a5c0c181b282ec90b01033206f0c69d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec04bd8c58dd45c628b6da2436649bfc" id="r_aec04bd8c58dd45c628b6da2436649bfc"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#aec04bd8c58dd45c628b6da2436649bfc">matmul</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, size_t batch, size_t m, size_t k, size_t p) const override</td></tr>
+<tr class="separator:aec04bd8c58dd45c628b6da2436649bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab433021276ae1d9d49abc38e4ebd5372" id="r_ab433021276ae1d9d49abc38e4ebd5372"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#ab433021276ae1d9d49abc38e4ebd5372">less</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
 <tr class="separator:ab433021276ae1d9d49abc38e4ebd5372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c87834f8b809c918874f8f7e112635b" id="r_a2c87834f8b809c918874f8f7e112635b"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#a2c87834f8b809c918874f8f7e112635b">lessEqual</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
@@ -813,6 +815,80 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
           <td></td>
           <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
           <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="aec04bd8c58dd45c628b6da2436649bfc" name="aec04bd8c58dd45c628b6da2436649bfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec04bd8c58dd45c628b6da2436649bfc">&#9670;&#160;</a></span>matmul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::CPUImpl::matmul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>batch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

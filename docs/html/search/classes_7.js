@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['view_0',['View',['../classTensor_1_1View.html',1,'Tensor']]]
+  ['tensor_0',['Tensor',['../classTensor.html',1,'']]],
+  ['tensorlayout_1',['TensorLayout',['../structTensorLayout.html',1,'']]]
 ];

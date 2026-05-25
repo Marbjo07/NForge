@@ -12,39 +12,66 @@
 \DoxyCodeLine{00008\ }
 \DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }semantic\ \{}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsemantic_1_1BinaryOpContext}{BinaryOpContext}}\ \{}
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ rhs;}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
-\DoxyCodeLine{00015\ \};}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsemantic_1_1InplaceBinaryOpContext}{InplaceBinaryOpContext}}\ \{}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ rhs;}
-\DoxyCodeLine{00020\ \};}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsemantic_1_1ReductionContext}{ReductionContext}}\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }detail\ \{}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ forces\ all\ contexts\ to\ use\ build\ method.}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{OperationContext}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{OperationContext}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1BinaryOpContext}{BinaryOpContext}}\ :\ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{detail::OperationContext}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ rhs;}
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ block;}
-\DoxyCodeLine{00026\ \};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsemantic_1_1IndexContext}{IndexContext}}\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
-\DoxyCodeLine{00030\ \};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \mbox{\hyperlink{structsemantic_1_1BinaryOpContext}{BinaryOpContext}}\ buildContext(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
-\DoxyCodeLine{00033\ \mbox{\hyperlink{structsemantic_1_1ReductionContext}{ReductionContext}}\ buildReductionContext(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keywordtype}{size\_t}\ dim);}
-\DoxyCodeLine{00034\ \mbox{\hyperlink{structsemantic_1_1IndexContext}{IndexContext}}\ buildIndexContext(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ src,\ \textcolor{keywordtype}{size\_t}\ idx);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \mbox{\hyperlink{structsemantic_1_1BinaryOpContext}{BinaryOpContext}}\ validateBinaryOperation(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
-\DoxyCodeLine{00037\ \mbox{\hyperlink{structsemantic_1_1InplaceBinaryOpContext}{InplaceBinaryOpContext}}\ validateInplaceBinaryOperation(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
-\DoxyCodeLine{00039\ \mbox{\hyperlink{structsemantic_1_1ReductionContext}{ReductionContext}}\ validateReduction(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keywordtype}{size\_t}\ dim);}
-\DoxyCodeLine{00040\ \mbox{\hyperlink{structsemantic_1_1IndexContext}{IndexContext}}\ validateIndexing(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ src,\ \textcolor{keywordtype}{size\_t}\ idx);}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \}\ \ \textcolor{comment}{//\ namespace\ semantic}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classsemantic_1_1BinaryOpContext}{BinaryOpContext}}\ build(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1InplaceBinaryOpContext}{InplaceBinaryOpContext}}\ :\ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{detail::OperationContext}}\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ rhs;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classsemantic_1_1InplaceBinaryOpContext}{InplaceBinaryOpContext}}\ build(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1ReductionContext}{ReductionContext}}\ :\ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{detail::OperationContext}}\ \{}
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ block;}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SEMANTIC\_H}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classsemantic_1_1ReductionContext}{ReductionContext}}\ build(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keywordtype}{size\_t}\ dim);}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1IndexContext}{IndexContext}}\ :\ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{detail::OperationContext}}\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classsemantic_1_1IndexContext}{IndexContext}}\ build(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ src,\ \textcolor{keywordtype}{size\_t}\ idx);}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsemantic_1_1MatmulContext}{MatmulContext}}\ :\ \mbox{\hyperlink{classsemantic_1_1detail_1_1OperationContext}{detail::OperationContext}}\ \{}
+\DoxyCodeLine{00057\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ lhs;}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ rhs;}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ out;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ batch;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ p;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classsemantic_1_1MatmulContext}{MatmulContext}}\ build(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs);}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \}\ \ \textcolor{comment}{//\ namespace\ semantic}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SEMANTIC\_H}}
 
 \end{DoxyCode}
