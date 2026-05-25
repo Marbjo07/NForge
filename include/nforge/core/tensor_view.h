@@ -19,22 +19,22 @@ public:
 	void print() const;
 
 	// referenced tensor
-	Tensor& getParent() const;
+	inline Tensor& getParent() const { return m_parent; }
 
 	// position of this view in the tensor it references
-	std::vector<size_t> getPosition() const;
+	inline std::vector<size_t> getPosition() const { return m_position; }
 
 	// number of elements preceding this view
-	size_t getOffset() const;
+	inline size_t getOffset() const { return m_layout.offset; }
 
 	// shape of the view
-	Tensor::Shape getShape() const;
+	inline Tensor::Shape getShape() const { return Tensor::Shape(m_layout); }
 
 	// returns the stride for each dim, not the underlying stride
 	std::vector<size_t> getStride() const;
 
 	// returns the underlying physical layout
-	const TensorLayout& getLayout() const;
+	const TensorLayout& getLayout() const { return m_layout; }
 
 	// creates a copy of the viewed tensor
 	Tensor copy() const;
