@@ -204,6 +204,16 @@ Tensor Tensor::norm() const {
 	return Tensor(std::move(result), m_backend);
 }
 
+Tensor Tensor::matmul(const Tensor::View& rhs) const {
+	auto ctx = semantic::validateMatmul(*this, rhs);
+
+	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+	auto result =
+	    m_impl->matmul(ctx.lhs, rhsImpl, ctx.rhs, ctx.out, ctx.batch, ctx.m, ctx.k, ctx.p);
+
+	return Tensor(std::move(result), m_backend);
+}
+
 Tensor::View Tensor::operator[](size_t idx) const {
 	auto ctx = semantic::validateIndexing(*this, idx);
 
