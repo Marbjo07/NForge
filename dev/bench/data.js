@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1779735244954,
+  "lastUpdate": 1779735329469,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -648,6 +648,42 @@ window.BENCHMARK_DATA = {
             "value": 23964142.230769224,
             "unit": "ns/iter",
             "extra": "iterations: 117\ncpu: 23961035.717948716 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5460c30f3a9cb14de937c2fbb7f9d733829aa97b",
+          "message": "docs: update CI badge in README.md",
+          "timestamp": "2026-05-25T20:53:18+02:00",
+          "tree_id": "a0ec76790a9bfde4d9a58ac64d98b05fc833f329",
+          "url": "https://github.com/Marbjo07/NForge/commit/5460c30f3a9cb14de937c2fbb7f9d733829aa97b"
+        },
+        "date": 1779735328380,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 810275.6426296072,
+            "unit": "ns/iter",
+            "extra": "iterations: 3453\ncpu: 810152.9113814075 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 23490736.21848747,
+            "unit": "ns/iter",
+            "extra": "iterations: 119\ncpu: 23489023.3697479 ns\nthreads: 1"
           }
         ]
       }
