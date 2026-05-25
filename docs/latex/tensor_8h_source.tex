@@ -55,7 +55,7 @@
 \DoxyCodeLine{00051\ \ \ \ \ std::string\ getBackendString()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Returns\ backend\ enum}}
-\DoxyCodeLine{00054\ \ \ \ \ Backend\ getBackend()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{inline}\ Backend\ getBackend()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_backend;\ \}}
 \DoxyCodeLine{00055\ }
 \DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ data\ of\ the\ tensor\ as\ a\ string}}
 \DoxyCodeLine{00057\ \ \ \ \ std::string\ getDataString()\ \textcolor{keyword}{const};}

@@ -23,22 +23,22 @@
 \DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ print()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ referenced\ tensor}}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\&\ getParent()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classTensor}{Tensor}}\&\ getParent()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_parent;\ \}}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ position\ of\ this\ view\ in\ the\ tensor\ it\ references}}
-\DoxyCodeLine{00025\ \ \ \ \ std::vector<size\_t>\ getPosition()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ std::vector<size\_t>\ getPosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_position;\ \}}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ number\ of\ elements\ preceding\ this\ view}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getOffset()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ getOffset()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_layout.\mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}};\ \}}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ shape\ of\ the\ view}}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ getShape()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ getShape()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}(m\_layout);\ \}}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ returns\ the\ stride\ for\ each\ dim,\ not\ the\ underlying\ stride}}
 \DoxyCodeLine{00034\ \ \ \ \ std::vector<size\_t>\ getStride()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00035\ }
 \DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ returns\ the\ underlying\ physical\ layout}}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ getLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ getLayout()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_layout;\ \}}
 \DoxyCodeLine{00038\ }
 \DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ creates\ a\ copy\ of\ the\ viewed\ tensor}}
 \DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ copy()\ \textcolor{keyword}{const};}
