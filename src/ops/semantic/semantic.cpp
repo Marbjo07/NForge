@@ -2,12 +2,20 @@
 
 namespace semantic {
 
-void ensureSameBackend(const Tensor& lhs, const Tensor& rhs) {
-	if (lhs.getBackend() != rhs.getBackend()) {
+void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
+	Backend lhsBackend = lhs.getParent().getBackend();
+	Backend rhsBackend = rhs.getParent().getBackend();
+
+	auto lhsBackendStr = lhs.getParent().getBackendString();
+	auto rhsBackendStr = rhs.getParent().getBackendString();
+
+	auto lhsShapeStr = lhs.getShape().toString();
+	auto rhsShapeStr = rhs.getShape().toString();
+
+	if (lhsBackend != rhsBackend) {
 		throw std::runtime_error(
-		    "Can not perform binary operation on tensor on different devices " +
-		    lhs.getBackendString() + " and " + rhs.getBackendString() + " of shapes " +
-		    lhs.getShape().toString() + " and " + rhs.getShape().toString());
+		    "Can not perform binary operation on tensor on different devices " + lhsBackendStr +
+		    " and " + rhsBackendStr + " of shapes " + lhsShapeStr + " and " + rhsShapeStr);
 	}
 }
 
@@ -65,7 +73,7 @@ static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
 }
 
 BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
-	ensureSameBackend(lhs.getParent(), rhs.getParent());
+	ensureSameBackend(lhs, rhs);
 
 	Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
@@ -121,7 +129,7 @@ IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
 }
 
 MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
-	ensureSameBackend(lhs.getParent(), rhs.getParent());
+	ensureSameBackend(lhs, rhs);
 
 	Tensor::Shape lhsShape = lhs.getShape();
 	Tensor::Shape rhsShape = rhs.getShape();
