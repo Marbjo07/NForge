@@ -19,8 +19,6 @@ void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
 	}
 }
 
-TensorLayout layoutFromView(const Tensor::View& v) { return v.getLayout(); }
-
 Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
 	size_t rankLhs = lhs.getNumDims();
 	size_t rankRhs = rhs.getNumDims();
@@ -67,8 +65,8 @@ BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::Vi
 	Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
 	BinaryOpContext ctx;
-	ctx.lhs = broadcastTo(layoutFromView(lhs), outShape);
-	ctx.rhs = broadcastTo(layoutFromView(rhs), outShape);
+	ctx.lhs = broadcastTo(lhs.getLayout(), outShape);
+	ctx.rhs = broadcastTo(rhs.getLayout(), outShape);
 	ctx.out = outShape.toContiguousLayout();
 	return ctx;
 }
@@ -132,8 +130,8 @@ MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& 
 	ctx.p = rhsShape.getDim(rhsRank - 1);
 	ctx.batch = computeBatch(lhsShape, rhsShape, lhsRank, rhsRank);
 
-	ctx.lhs = layoutFromView(lhs);
-	ctx.rhs = layoutFromView(rhs);
+	ctx.lhs = lhs.getLayout();
+	ctx.rhs = rhs.getLayout();
 	ctx.out = computeOutputLayout(ctx.batch, ctx.m, ctx.p);
 
 	return ctx;
