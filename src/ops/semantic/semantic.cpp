@@ -22,48 +22,39 @@ void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
 TensorLayout layoutFromView(const Tensor::View& v) { return v.getLayout(); }
 
 Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
-	const size_t rankLhs = lhs.getNumDims();
-	const size_t rankRhs = rhs.getNumDims();
-	const size_t rankOut = std::max(rankLhs, rankRhs);
+	size_t rankLhs = lhs.getNumDims();
+	size_t rankRhs = rhs.getNumDims();
+	size_t rankOut = std::max(rankLhs, rankRhs);
 
-	std::vector<size_t> out(rankOut);
+	std::vector<size_t> outDims(rankOut);
 
-	// a dimension of size 1 can be broadcasted
-	for (size_t i = 0; i < rankOut; ++i) {
-		// one if dim does not exist
-		const size_t dimLhs = (i < rankLhs) ? lhs.getDim(rankLhs - 1 - i) : 1;
-		const size_t dimRhs = (i < rankRhs) ? rhs.getDim(rankRhs - 1 - i) : 1;
+	for (size_t i = 1; i <= rankOut; i++) {
+		// pad with 1s
+		size_t dimLhs = (i <= rankLhs) ? lhs.getDim(rankLhs - i) : 1;
+		size_t dimRhs = (i <= rankRhs) ? rhs.getDim(rankRhs - i) : 1;
 
-		size_t dim;
-		if (dimLhs == dimRhs) {
-			dim = dimLhs;
-		} else if (dimLhs == 1) {
-			dim = dimRhs;
-		} else if (dimRhs == 1) {
-			dim = dimLhs;
-		} else {
-			throw std::runtime_error("Cannot broadcast shapes " + lhs.toString() + " and " +
+		// dimensions must match or be 1 to broadcast
+		if (dimLhs != dimRhs && dimLhs != 1 && dimRhs != 1) {
+			throw std::runtime_error("Can not broadcast shapes " + lhs.toString() + " and " +
 			                         rhs.toString());
 		}
 
-		out[rankOut - 1 - i] = dim;
+		// output is the non 1 dimension or 1 if both are 1
+		outDims[rankOut - i] = (dimLhs == 1) ? dimRhs : dimLhs;
 	}
 
-	return Tensor::Shape(out);
+	return Tensor::Shape(outDims);
 }
 
 TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
-	std::vector<size_t> strides(target.getNumDims());
+	size_t targetRank = target.getNumDims();
+	std::vector<size_t> strides(targetRank, 0);
 
-	int pad = (int)target.getNumDims() - (int)src.rank;  // align right
-
-	for (int d = 0; d < target.getNumDims(); d++) {
-		int sd = d - pad;
-
-		if (sd < 0 || src.shape[sd] == 1) {
-			strides[d] = 0;
-		} else {
-			strides[d] = src.strides[sd];
+	int pad = (int)targetRank - (int)src.rank;  // align right
+	for (int d = pad; d < targetRank; d++) {
+		// use stride if dim is not size 1
+		if (src.shape[d - pad] != 1) {
+			strides[d] = src.strides[d - pad];
 		}
 	}
 
@@ -89,9 +80,8 @@ ReductionContext ReductionContext::build(const Tensor::View& lhs, size_t dim) {
 	}
 
 	Tensor::Shape lhsShape = lhs.getShape();
-
-	Tensor::Shape blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
 	Tensor::Shape outShape = lhsShape.getSlice(0, dim);
+	Tensor::Shape blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
 
 	ReductionContext ctx;
 	ctx.lhs = lhsShape;
@@ -122,8 +112,7 @@ IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
 
 	TensorLayout out(shape, strides, offset);
 
-	IndexContext res{out};
-	return res;
+	return IndexContext{out};
 }
 
 MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
