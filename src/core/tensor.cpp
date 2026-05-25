@@ -82,7 +82,7 @@ std::vector<float> Tensor::toVector() const { return m_impl->toVector(); }
 void Tensor::set(const std::vector<size_t>& position, const Tensor::View& rhs) {
 	Tensor::View lhs = Tensor::View((Tensor&)*this, position);
 
-	auto ctx = semantic::validateBinaryOperation(lhs, rhs);
+	auto ctx = semantic::BinaryOpContext::build(lhs, rhs);
 
 	auto outShape = Tensor::Shape(ctx.out);
 
@@ -98,7 +98,7 @@ bool Tensor::compare(const Tensor::View& rhs) const {
 		return false;
 	}
 
-	auto ctx = semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 	return m_impl->compare(ctx.lhs, rhs.getParent().m_impl.get(), ctx.rhs);
 }
 
@@ -109,13 +109,13 @@ bool Tensor::compare(const std::vector<size_t>& position, const Tensor::View& rh
 		return false;
 	}
 
-	auto ctx = semantic::validateBinaryOperation(lhs, rhs);
+	auto ctx = semantic::BinaryOpContext::build(lhs, rhs);
 	return m_impl->compare(ctx.lhs, rhs.getParent().m_impl.get(), ctx.rhs);
 }
 
 template <typename BinaryOp>
 Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, BinaryOp op) const {
-	auto ctx = semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 
 	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
 	auto result = (m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs, ctx.out);
@@ -157,7 +157,7 @@ Tensor operator/(float scalar, const Tensor& rhs) { return Tensor(scalar, rhs.m_
 
 template <typename BinaryOp>
 void Tensor::applyInplaceBinaryOp(const Tensor::View& rhs, BinaryOp op) {
-	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+	auto ctx = semantic::InplaceBinaryOpContext::build(*this, rhs);
 
 	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
 
@@ -174,7 +174,7 @@ void Tensor::operator/=(const Tensor::View& rhs) { applyInplaceBinaryOp(rhs, &Te
 
 template <typename ReductionOp>
 Tensor Tensor::applyReduction(size_t dim, ReductionOp op) const {
-	auto ctx = semantic::validateReduction(*this, dim);
+	auto ctx = semantic::ReductionContext::build(*this, dim);
 
 	auto result = (m_impl.get()->*op)(ctx.lhs, ctx.block, ctx.out);
 
@@ -204,8 +204,18 @@ Tensor Tensor::norm() const {
 	return Tensor(std::move(result), m_backend);
 }
 
+Tensor Tensor::matmul(const Tensor::View& rhs) const {
+	auto ctx = semantic::MatmulContext::build(*this, rhs);
+
+	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+	auto result =
+	    m_impl->matmul(ctx.lhs, rhsImpl, ctx.rhs, ctx.out, ctx.batch, ctx.m, ctx.k, ctx.p);
+
+	return Tensor(std::move(result), m_backend);
+}
+
 Tensor::View Tensor::operator[](size_t idx) const {
-	auto ctx = semantic::validateIndexing(*this, idx);
+	auto ctx = semantic::IndexContext::build(*this, idx);
 
 	std::vector<size_t> position = {idx};
 	Tensor& parent = const_cast<Tensor&>(*this);

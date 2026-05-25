@@ -55,6 +55,8 @@ public:
 
 	Tensor::View operator[](size_t idx) const;
 
+	Tensor matmul(const Tensor::View& rhs) const;
+
 	Tensor::View subsample(std::vector<size_t> strides) const;
 
 	bool operator==(const Tensor& rhs) const;
