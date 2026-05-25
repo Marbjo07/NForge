@@ -1,6 +1,6 @@
 # NForge
 
-[![Build](https://github.com/Marbjo07/NForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
+[![Build](https://github.com/Marbjo07/NForge/actions/workflows/tests.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
 [![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
 [![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
 
