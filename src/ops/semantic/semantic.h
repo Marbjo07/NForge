@@ -39,17 +39,20 @@ struct MatmulContext {
 	size_t p;
 };
 
-BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs);
-ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
-IndexContext buildIndexContext(const Tensor::View& src, size_t idx);
-MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs);
-
+BinaryOpContext buildBinaryOpContext(const Tensor::View& lhs, const Tensor::View& rhs);
 BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
+
+ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
+ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
+
+IndexContext buildIndexContext(const Tensor::View& src, size_t idx);
+IndexContext validateIndexing(const Tensor::View& src, size_t idx);
+
+MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs);
+MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs);
+
 InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
                                                       const Tensor::View& rhs);
-ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
-IndexContext validateIndexing(const Tensor::View& src, size_t idx);
-MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs);
 }  // namespace semantic
 
 #endif  // SEMANTIC_H

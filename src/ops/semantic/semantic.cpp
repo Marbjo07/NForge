@@ -64,7 +64,7 @@ static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
 	return dst;
 }
 
-BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
+BinaryOpContext buildBinaryOpContext(const Tensor::View& lhs, const Tensor::View& rhs) {
 	Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
 	BinaryOpContext ctx;
@@ -73,6 +73,13 @@ BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs) {
 	ctx.out = outShape.toContiguousLayout();
 	return ctx;
 }
+
+BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
+	ensureSameBackend(lhs.getParent(), rhs.getParent());
+
+	return buildBinaryOpContext(lhs, rhs);
+}
+
 
 ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
 	Tensor::Shape lhsShape = lhs.getShape();
@@ -86,6 +93,16 @@ ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
 	ctx.block = blockShape;
 	return ctx;
 }
+
+ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
+	if (dim > lhs.getShape().getNumDims()) {
+		throw std::runtime_error("Can not reduce Tensor of shape " + lhs.getShape().toString() +
+		                         " with along dim " + std::to_string(dim));
+	}
+
+	return buildReductionContext(lhs, dim);
+}
+
 
 IndexContext buildIndexContext(const Tensor::View& src, size_t idx) {
 	TensorLayout layout = src.getLayout();
@@ -106,6 +123,17 @@ IndexContext buildIndexContext(const Tensor::View& src, size_t idx) {
 	IndexContext res{out};
 	return res;
 }
+
+IndexContext validateIndexing(const Tensor::View& src, size_t idx) {
+	Tensor::Shape shape = src.getShape();
+	if (idx < 0 || idx >= shape.getDim(0)) {
+		throw std::out_of_range("Index " + std::to_string(idx) +
+		                        " is out of bounds. Tensor view shape: " + shape.toString());
+	}
+
+	return buildIndexContext(src, idx);
+}
+
 
 MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs) {
 	Tensor::Shape lhsShape = lhs.getShape();
@@ -141,50 +169,6 @@ MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rh
 	return ctx;
 }
 
-
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
-	ensureSameBackend(lhs.getParent(), rhs.getParent());
-
-	return buildContext(lhs, rhs);
-}
-
-InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
-                                                      const Tensor::View& rhs) {
-	BinaryOpContext ctx = validateBinaryOperation(lhs, rhs);
-	const TensorLayout& lhsLayout = lhs.getLayout();
-
-	if (lhsLayout != ctx.lhs) {
-		throw std::runtime_error(
-		    "Can not apply in-place operator where infered output is different from lhs!");
-	}
-
-	InplaceBinaryOpContext res;
-	res.lhs = ctx.lhs;
-	res.rhs = ctx.rhs;
-
-	return res;
-}
-
-ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
-	if (dim > lhs.getShape().getNumDims()) {
-		throw std::runtime_error("Can not reduce Tensor of shape " + lhs.getShape().toString() +
-		                         " with along dim " + std::to_string(dim));
-	}
-
-	return buildReductionContext(lhs, dim);
-}
-
-IndexContext validateIndexing(const Tensor::View& src, size_t idx) {
-	Tensor::Shape shape = src.getShape();
-	if (idx < 0 || idx >= shape.getDim(0)) {
-		throw std::out_of_range("Index " + std::to_string(idx) +
-		                        " is out of bounds. Tensor view shape: " + shape.toString());
-	}
-
-	return buildIndexContext(src, idx);
-}
-
-
 MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs) {
 	ensureSameBackend(lhs.getParent(), rhs.getParent());
 
@@ -216,5 +200,24 @@ MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs) {
 
 	return buildMatmulContext(lhs, rhs);
 }
+
+
+InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
+                                                      const Tensor::View& rhs) {
+	BinaryOpContext ctx = validateBinaryOperation(lhs, rhs);
+	const TensorLayout& lhsLayout = lhs.getLayout();
+
+	if (lhsLayout != ctx.lhs) {
+		throw std::runtime_error(
+		    "Can not apply in-place operator where infered output is different from lhs!");
+	}
+
+	InplaceBinaryOpContext res;
+	res.lhs = ctx.lhs;
+	res.rhs = ctx.rhs;
+
+	return res;
+}
+
 
 }  // namespace semantic
