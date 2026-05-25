@@ -194,6 +194,11 @@ Tensor::View Tensor::View::operator[](size_t idx) const {
 	return out;
 }
 
+Tensor Tensor::View::matmul(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current.matmul(rhs);
+}
+
 Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<size_t>& factors) {
 	if (src.getShape().getNumDims() != factors.size()) {
 		throw std::runtime_error("Can't subsample view of shape" + src.getShape().toString() +
