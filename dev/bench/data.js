@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1779446452505,
+  "lastUpdate": 1779735244954,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -612,6 +612,42 @@ window.BENCHMARK_DATA = {
             "value": 17314342.85185175,
             "unit": "ns/iter",
             "extra": "iterations: 162\ncpu: 17312916.90740741 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a05ba57f1c9aa4e622b6c75008adedcc1bec2e11",
+          "message": "Merge pull request #56 from Marbjo07/feat/matrix-multiplication\n\nfeat: matrix multiplication and new semantic context API",
+          "timestamp": "2026-05-25T20:52:15+02:00",
+          "tree_id": "d15e0452af64c93ab4066d5bc4aee4f9d7147034",
+          "url": "https://github.com/Marbjo07/NForge/commit/a05ba57f1c9aa4e622b6c75008adedcc1bec2e11"
+        },
+        "date": 1779735243985,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 808949.2799013534,
+            "unit": "ns/iter",
+            "extra": "iterations: 3244\ncpu: 808851.3668310727 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 23964142.230769224,
+            "unit": "ns/iter",
+            "extra": "iterations: 117\ncpu: 23961035.717948716 ns\nthreads: 1"
           }
         ]
       }
