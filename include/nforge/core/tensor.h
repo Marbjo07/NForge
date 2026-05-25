@@ -51,7 +51,7 @@ public:
 	std::string getBackendString() const;
 
 	// Returns backend enum
-	Backend getBackend() const;
+	inline Backend getBackend() const { return m_backend; }
 
 	// Returns the data of the tensor as a string
 	std::string getDataString() const;

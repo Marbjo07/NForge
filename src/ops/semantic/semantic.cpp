@@ -3,16 +3,13 @@
 namespace semantic {
 
 void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
-	Backend lhsBackend = lhs.getParent().getBackend();
-	Backend rhsBackend = rhs.getParent().getBackend();
+	if (lhs.getParent().getBackend() != rhs.getParent().getBackend()) {
+		const auto& lhsBackendStr = lhs.getParent().getBackendString();
+		const auto& rhsBackendStr = rhs.getParent().getBackendString();
 
-	auto lhsBackendStr = lhs.getParent().getBackendString();
-	auto rhsBackendStr = rhs.getParent().getBackendString();
+		const auto& lhsShapeStr = lhs.getShape().toString();
+		const auto& rhsShapeStr = rhs.getShape().toString();
 
-	auto lhsShapeStr = lhs.getShape().toString();
-	auto rhsShapeStr = rhs.getShape().toString();
-
-	if (lhsBackend != rhsBackend) {
 		throw std::runtime_error(
 		    "Can not perform binary operation on tensor on different devices " + lhsBackendStr +
 		    " and " + rhsBackendStr + " of shapes " + lhsShapeStr + " and " + rhsShapeStr);

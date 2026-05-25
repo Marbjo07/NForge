@@ -72,16 +72,6 @@ void Tensor::View::print() const {
 	m_parent.print(position);
 }
 
-Tensor& Tensor::View::getParent() const { return m_parent; }
-
-std::vector<size_t> Tensor::View::getPosition() const { return m_position; }
-
-size_t Tensor::View::getOffset() const { return m_layout.offset; }
-
-Tensor::Shape Tensor::View::getShape() const { return Tensor::Shape(m_layout); }
-
-const TensorLayout& Tensor::View::getLayout() const { return m_layout; }
-
 std::vector<size_t> Tensor::View::getStride() const {
 	std::vector<size_t> stride(m_layout.strides.begin(), m_layout.strides.begin() + m_layout.rank);
 	std::vector<size_t> baseStride = m_parent.getShape().getContiguousStrides();

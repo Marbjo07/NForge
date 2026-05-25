@@ -71,8 +71,6 @@ std::string Tensor::getBackendString() const {
 	}
 }
 
-Backend Tensor::getBackend() const { return m_backend; }
-
 std::string Tensor::getDataString() const { return m_impl->toString(); }
 
 size_t Tensor::getNumElements() const { return m_impl->getNumElements(); }
