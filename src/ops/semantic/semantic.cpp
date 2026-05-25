@@ -19,31 +19,31 @@ void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
 	}
 }
 
-static TensorLayout layoutFromView(const Tensor::View& v) { return v.getLayout(); }
+TensorLayout layoutFromView(const Tensor::View& v) { return v.getLayout(); }
 
-Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {
-	const size_t rankA = a.getNumDims();
-	const size_t rankB = b.getNumDims();
-	const size_t rankOut = std::max(rankA, rankB);
+Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
+	const size_t rankLhs = lhs.getNumDims();
+	const size_t rankRhs = rhs.getNumDims();
+	const size_t rankOut = std::max(rankLhs, rankRhs);
 
 	std::vector<size_t> out(rankOut);
 
 	// a dimension of size 1 can be broadcasted
 	for (size_t i = 0; i < rankOut; ++i) {
 		// one if dim does not exist
-		const size_t dimA = (i < rankA) ? a.getDim(rankA - 1 - i) : 1;
-		const size_t dimB = (i < rankB) ? b.getDim(rankB - 1 - i) : 1;
+		const size_t dimLhs = (i < rankLhs) ? lhs.getDim(rankLhs - 1 - i) : 1;
+		const size_t dimRhs = (i < rankRhs) ? rhs.getDim(rankRhs - 1 - i) : 1;
 
 		size_t dim;
-		if (dimA == dimB) {
-			dim = dimA;
-		} else if (dimA == 1) {
-			dim = dimB;
-		} else if (dimB == 1) {
-			dim = dimA;
+		if (dimLhs == dimRhs) {
+			dim = dimLhs;
+		} else if (dimLhs == 1) {
+			dim = dimRhs;
+		} else if (dimRhs == 1) {
+			dim = dimLhs;
 		} else {
-			throw std::runtime_error("Cannot broadcast shapes " + a.toString() + " and " +
-			                         b.toString());
+			throw std::runtime_error("Cannot broadcast shapes " + lhs.toString() + " and " +
+			                         rhs.toString());
 		}
 
 		out[rankOut - 1 - i] = dim;
@@ -52,24 +52,22 @@ Tensor::Shape broadcastShapes(const Tensor::Shape& a, const Tensor::Shape& b) {
 	return Tensor::Shape(out);
 }
 
-static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
-	TensorLayout dst{};
-	dst.rank = target.getNumDims();
-	dst.offset = src.offset;
+TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
+	std::vector<size_t> strides(target.getNumDims());
 
-	int pad = (int)dst.rank - (int)src.rank;  // align right
-	for (int d = 0; d < dst.rank; d++) {
-		dst.shape[d] = target.getDim(d);
+	int pad = (int)target.getNumDims() - (int)src.rank;  // align right
 
+	for (int d = 0; d < target.getNumDims(); d++) {
 		int sd = d - pad;
 
 		if (sd < 0 || src.shape[sd] == 1) {
-			dst.strides[d] = 0;
+			strides[d] = 0;
 		} else {
-			dst.strides[d] = src.strides[sd];
+			strides[d] = src.strides[sd];
 		}
 	}
-	return dst;
+
+	return TensorLayout(target, strides, src.offset);
 }
 
 BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
