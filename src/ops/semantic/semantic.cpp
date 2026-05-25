@@ -64,7 +64,9 @@ static TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
 	return dst;
 }
 
-BinaryOpContext buildBinaryOpContext(const Tensor::View& lhs, const Tensor::View& rhs) {
+BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
+	ensureSameBackend(lhs.getParent(), rhs.getParent());
+
 	Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
 	BinaryOpContext ctx;
@@ -74,14 +76,12 @@ BinaryOpContext buildBinaryOpContext(const Tensor::View& lhs, const Tensor::View
 	return ctx;
 }
 
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs) {
-	ensureSameBackend(lhs.getParent(), rhs.getParent());
+ReductionContext ReductionContext::build(const Tensor::View& lhs, size_t dim) {
+	if (dim > lhs.getShape().getNumDims()) {
+		throw std::runtime_error("Can not reduce Tensor of shape " + lhs.getShape().toString() +
+		                         " with along dim " + std::to_string(dim));
+	}
 
-	return buildBinaryOpContext(lhs, rhs);
-}
-
-
-ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
 	Tensor::Shape lhsShape = lhs.getShape();
 
 	Tensor::Shape blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
@@ -94,17 +94,13 @@ ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim) {
 	return ctx;
 }
 
-ReductionContext validateReduction(const Tensor::View& lhs, size_t dim) {
-	if (dim > lhs.getShape().getNumDims()) {
-		throw std::runtime_error("Can not reduce Tensor of shape " + lhs.getShape().toString() +
-		                         " with along dim " + std::to_string(dim));
+IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
+	Tensor::Shape srcShape = src.getShape();
+	if (idx < 0 || idx >= srcShape.getDim(0)) {
+		throw std::out_of_range("Index " + std::to_string(idx) +
+		                        " is out of bounds. Tensor view shape: " + srcShape.toString());
 	}
 
-	return buildReductionContext(lhs, dim);
-}
-
-
-IndexContext buildIndexContext(const Tensor::View& src, size_t idx) {
 	TensorLayout layout = src.getLayout();
 	size_t offset = layout.offset + layout.strides[0] * idx;
 	auto shape = Tensor::Shape(layout)[0];
@@ -124,23 +120,33 @@ IndexContext buildIndexContext(const Tensor::View& src, size_t idx) {
 	return res;
 }
 
-IndexContext validateIndexing(const Tensor::View& src, size_t idx) {
-	Tensor::Shape shape = src.getShape();
-	if (idx < 0 || idx >= shape.getDim(0)) {
-		throw std::out_of_range("Index " + std::to_string(idx) +
-		                        " is out of bounds. Tensor view shape: " + shape.toString());
-	}
+MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
+	ensureSameBackend(lhs.getParent(), rhs.getParent());
 
-	return buildIndexContext(src, idx);
-}
-
-
-MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs) {
 	Tensor::Shape lhsShape = lhs.getShape();
 	Tensor::Shape rhsShape = rhs.getShape();
-
 	size_t lhsRank = lhsShape.getNumDims();
 	size_t rhsRank = rhsShape.getNumDims();
+
+	if (lhsRank < 2 || lhsRank > 3 || rhsRank < 2 || rhsRank > 3) {
+		throw std::runtime_error("matmul: inputs must be 2D or 3D tensors");
+	}
+
+	size_t k_lhs = lhsShape.getDim(lhsRank - 1);
+	size_t k_rhs = rhsShape.getDim(rhsRank - 2);
+	if (k_lhs != k_rhs) {
+		throw std::runtime_error("matmul: inner dimensions must match, got " + lhsShape.toString() +
+		                         " and " + rhsShape.toString());
+	}
+
+	if (lhsRank == 3 && rhsRank == 3) {
+		size_t lhsBatch = lhsShape.getDim(0);
+		size_t rhsBatch = rhsShape.getDim(0);
+		if (lhsBatch != rhsBatch && lhsBatch != 1 && rhsBatch != 1) {
+			throw std::runtime_error("matmul: batch dimensions must match or be 1, got " +
+			                         lhsShape.toString() + " and " + rhsShape.toString());
+		}
+	}
 
 	size_t m = lhsShape.getDim(lhsRank - 2);
 	size_t k = lhsShape.getDim(lhsRank - 1);
@@ -169,42 +175,10 @@ MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rh
 	return ctx;
 }
 
-MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs) {
-	ensureSameBackend(lhs.getParent(), rhs.getParent());
 
-	Tensor::Shape lhsShape = lhs.getShape();
-	Tensor::Shape rhsShape = rhs.getShape();
-
-	size_t lhsRank = lhsShape.getNumDims();
-	size_t rhsRank = rhsShape.getNumDims();
-
-	if (lhsRank < 2 || lhsRank > 3 || rhsRank < 2 || rhsRank > 3) {
-		throw std::runtime_error("matmul: inputs must be 2D or 3D tensors");
-	}
-
-	size_t k_lhs = lhsShape.getDim(lhsRank - 1);
-	size_t k_rhs = rhsShape.getDim(rhsRank - 2);
-	if (k_lhs != k_rhs) {
-		throw std::runtime_error("matmul: inner dimensions must match, got " + lhsShape.toString() +
-		                         " and " + rhsShape.toString());
-	}
-
-	if (lhsRank == 3 && rhsRank == 3) {
-		size_t lhsBatch = lhsShape.getDim(0);
-		size_t rhsBatch = rhsShape.getDim(0);
-		if (lhsBatch != rhsBatch && lhsBatch != 1 && rhsBatch != 1) {
-			throw std::runtime_error("matmul: batch dimensions must match or be 1, got " +
-			                         lhsShape.toString() + " and " + rhsShape.toString());
-		}
-	}
-
-	return buildMatmulContext(lhs, rhs);
-}
-
-
-InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
-                                                      const Tensor::View& rhs) {
-	BinaryOpContext ctx = validateBinaryOperation(lhs, rhs);
+InplaceBinaryOpContext InplaceBinaryOpContext::build(const Tensor::View& lhs,
+                                                     const Tensor::View& rhs) {
+	BinaryOpContext ctx = BinaryOpContext::build(lhs, rhs);
 	const TensorLayout& lhsLayout = lhs.getLayout();
 
 	if (lhsLayout != ctx.lhs) {

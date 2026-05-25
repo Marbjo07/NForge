@@ -9,27 +9,52 @@
 namespace semantic {
 
 struct BinaryOpContext {
+	static BinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
+
 	TensorLayout lhs;
 	TensorLayout rhs;
 	TensorLayout out;
+
+private:
+	BinaryOpContext() = default;  // enforce use of build
 };
 
 struct InplaceBinaryOpContext {
+	static InplaceBinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
+
 	TensorLayout lhs;
 	TensorLayout rhs;
+
+private:
+	InplaceBinaryOpContext() = default;  // enforce use of build
 };
 
+
 struct ReductionContext {
+	static ReductionContext build(const Tensor::View& lhs, size_t dim);
+
 	TensorLayout lhs;
 	TensorLayout out;
 	TensorLayout block;
+
+private:
+	ReductionContext() = default;  // enforce use of build
 };
+
 
 struct IndexContext {
+	static IndexContext build(const Tensor::View& src, size_t idx);
+
 	TensorLayout out;
+
+private:
+	IndexContext() = default;  // enforce use of build
 };
 
+
 struct MatmulContext {
+	static MatmulContext build(const Tensor::View& lhs, const Tensor::View& rhs);
+
 	TensorLayout lhs;
 	TensorLayout rhs;
 	TensorLayout out;
@@ -37,22 +62,11 @@ struct MatmulContext {
 	size_t m;
 	size_t k;
 	size_t p;
+
+private:
+	MatmulContext() = default;  // enforce use of build
 };
 
-BinaryOpContext buildBinaryOpContext(const Tensor::View& lhs, const Tensor::View& rhs);
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
-
-ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
-ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
-
-IndexContext buildIndexContext(const Tensor::View& src, size_t idx);
-IndexContext validateIndexing(const Tensor::View& src, size_t idx);
-
-MatmulContext buildMatmulContext(const Tensor::View& lhs, const Tensor::View& rhs);
-MatmulContext validateMatmul(const Tensor::View& lhs, const Tensor::View& rhs);
-
-InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
-                                                      const Tensor::View& rhs);
 }  // namespace semantic
 
 #endif  // SEMANTIC_H
