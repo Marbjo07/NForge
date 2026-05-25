@@ -128,51 +128,57 @@ MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& 
 	size_t lhsRank = lhsShape.getNumDims();
 	size_t rhsRank = rhsShape.getNumDims();
 
+	validateRanks(lhsRank, rhsRank);
+	validateInnerDims(lhsShape, rhsShape, lhsRank, rhsRank);
+
+	MatmulContext ctx;
+	ctx.m = lhsShape.getDim(lhsRank - 2);
+	ctx.k = lhsShape.getDim(lhsRank - 1);
+	ctx.p = rhsShape.getDim(rhsRank - 1);
+	ctx.batch = computeBatch(lhsShape, rhsShape, lhsRank, rhsRank);
+
+	ctx.lhs = layoutFromView(lhs);
+	ctx.rhs = layoutFromView(rhs);
+	ctx.out = computeOutputLayout(ctx.batch, ctx.m, ctx.p);
+
+	return ctx;
+}
+
+void MatmulContext::validateRanks(size_t lhsRank, size_t rhsRank) {
 	if (lhsRank < 2 || lhsRank > 3 || rhsRank < 2 || rhsRank > 3) {
 		throw std::runtime_error("matmul: inputs must be 2D or 3D tensors");
 	}
+}
 
-	size_t k_lhs = lhsShape.getDim(lhsRank - 1);
-	size_t k_rhs = rhsShape.getDim(rhsRank - 2);
-	if (k_lhs != k_rhs) {
+void MatmulContext::validateInnerDims(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+                                      size_t lhsRank, size_t rhsRank) {
+	if (lhsShape.getDim(lhsRank - 1) != rhsShape.getDim(rhsRank - 2)) {
 		throw std::runtime_error("matmul: inner dimensions must match, got " + lhsShape.toString() +
 		                         " and " + rhsShape.toString());
 	}
+}
 
-	if (lhsRank == 3 && rhsRank == 3) {
-		size_t lhsBatch = lhsShape.getDim(0);
-		size_t rhsBatch = rhsShape.getDim(0);
-		if (lhsBatch != rhsBatch && lhsBatch != 1 && rhsBatch != 1) {
-			throw std::runtime_error("matmul: batch dimensions must match or be 1, got " +
-			                         lhsShape.toString() + " and " + rhsShape.toString());
-		}
+size_t MatmulContext::computeBatch(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+                                   size_t lhsRank, size_t rhsRank) {
+	const size_t lhsBatch = (lhsRank == 3) ? lhsShape.getDim(0) : 1;
+	const size_t rhsBatch = (rhsRank == 3) ? rhsShape.getDim(0) : 1;
+
+	if (lhsRank == 3 && rhsRank == 3 && lhsBatch != rhsBatch && lhsBatch != 1 && rhsBatch != 1) {
+		throw std::runtime_error("matmul: batch dimensions must match or be 1, got " +
+		                         lhsShape.toString() + " and " + rhsShape.toString());
 	}
+	return std::max(lhsBatch, rhsBatch);
+}
 
-	size_t m = lhsShape.getDim(lhsRank - 2);
-	size_t k = lhsShape.getDim(lhsRank - 1);
-	size_t p = rhsShape.getDim(rhsRank - 1);
-
-	size_t lhsBatch = (lhsRank == 3) ? lhsShape.getDim(0) : 1;
-	size_t rhsBatch = (rhsRank == 3) ? rhsShape.getDim(0) : 1;
-	size_t batch = std::max(lhsBatch, rhsBatch);
-
+TensorLayout MatmulContext::computeOutputLayout(size_t batch, size_t m, size_t p) {
 	std::vector<size_t> outDims;
-	if (batch > 1)
+	if (batch > 1) {
 		outDims.push_back(batch);
+	}
 	outDims.push_back(m);
 	outDims.push_back(p);
 
-	Tensor::Shape outShape(outDims);
-
-	MatmulContext ctx;
-	ctx.lhs = layoutFromView(lhs);
-	ctx.rhs = layoutFromView(rhs);
-	ctx.out = outShape.toContiguousLayout();
-	ctx.batch = batch;
-	ctx.m = m;
-	ctx.k = k;
-	ctx.p = p;
-	return ctx;
+	return Tensor::Shape(outDims).toContiguousLayout();
 }
 
 

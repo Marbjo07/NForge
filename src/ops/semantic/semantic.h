@@ -65,6 +65,13 @@ struct MatmulContext {
 
 private:
 	MatmulContext() = default;  // enforce use of build
+
+	static void validateRanks(size_t lhsRank, size_t rhsRank);
+	static void validateInnerDims(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+	                              size_t lhsRank, size_t rhsRank);
+	static size_t computeBatch(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+	                           size_t lhsRank, size_t rhsRank);
+	static TensorLayout computeOutputLayout(size_t batch, size_t m, size_t p);
 };
 
 }  // namespace semantic
