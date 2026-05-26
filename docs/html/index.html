@@ -217,7 +217,7 @@ Assigning through a view</h3>
 <div class="line">a = b = c;   <span class="comment">// both a and b now equal c</span></div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md13"></a>
 Strided views</h3>
-<p><code>subsample(strides)</code> returns a view that steps through the tensor with the given per-dimension stride. The view shares the original tensor's memory, so assigning through it writes back directly.</p>
+<p><code>subsample(strides)</code> returns a view that steps through the tensor with the given per-dimension stride.</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classTensor.html">Tensor</a> a({6}, 0.0f);</div>
 <div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; 6; i++) a[i] = Tensor(static_cast&lt;float&gt;(i));</div>
 <div class="line"><span class="comment">// a = [0, 1, 2, 3, 4, 5]</span></div>
