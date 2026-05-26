@@ -74,9 +74,9 @@ ReductionContext ReductionContext::build(const Tensor::View& lhs, size_t dim) {
 		                         " with along dim " + std::to_string(dim));
 	}
 
-	Tensor::Shape& lhsShape = lhs.getShape();
-	Tensor::Shape& outShape = lhsShape.getSlice(0, dim);
-	Tensor::Shape& blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
+	const Tensor::Shape& lhsShape = lhs.getShape();
+	const Tensor::Shape& outShape = lhsShape.getSlice(0, dim);
+	const Tensor::Shape& blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
 
 	ReductionContext ctx;
 	ctx.lhs = lhsShape;
