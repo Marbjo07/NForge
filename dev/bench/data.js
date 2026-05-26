@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1779737645538,
+  "lastUpdate": 1779802273370,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -720,6 +720,42 @@ window.BENCHMARK_DATA = {
             "value": 18936323.074324213,
             "unit": "ns/iter",
             "extra": "iterations: 148\ncpu: 18934382.945945945 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "64412113+Marbjo07@users.noreply.github.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3f1aefa7a34d34156e21405f50ceaf94a0349d7c",
+          "message": "docs: update README for subsample function description\n\nClarify the description of `subsample(strides)` in README.",
+          "timestamp": "2026-05-26T15:29:23+02:00",
+          "tree_id": "480001ae080a3c43d18774bfa39749cb30338502",
+          "url": "https://github.com/Marbjo07/NForge/commit/3f1aefa7a34d34156e21405f50ceaf94a0349d7c"
+        },
+        "date": 1779802272871,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ProjectileMotion/min_time:2.000",
+            "value": 501007.39486356074,
+            "unit": "ns/iter",
+            "extra": "iterations: 5607\ncpu: 500855.9163545569 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_SphereSlide/min_time:2.000",
+            "value": 15832356.27528092,
+            "unit": "ns/iter",
+            "extra": "iterations: 178\ncpu: 15828359.089887636 ns\nthreads: 1"
           }
         ]
       }
