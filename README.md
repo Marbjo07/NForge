@@ -163,7 +163,7 @@ a = b = c;   // both a and b now equal c
 
 #### Strided views
 
-`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. The view shares the original tensor's memory, so assigning through it writes back directly.
+`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. 
 
 ```cpp
 Tensor a({6}, 0.0f);
