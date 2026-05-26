@@ -34,8 +34,6 @@ function(nforge_apply_compiler_flags target)
         nforge_cxx_flag (${target} PUBLIC Debug -fsanitize=undefined)
         nforge_link_flag(${target} PUBLIC Debug -fsanitize=address)
         nforge_link_flag(${target} PUBLIC Debug -fsanitize=undefined)
-    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-        nforge_cxx_flag(${target} PUBLIC Debug /fsanitize=address)
     endif()
 
     ## CUDA 

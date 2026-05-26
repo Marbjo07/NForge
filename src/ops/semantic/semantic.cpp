@@ -16,7 +16,7 @@ void ensureSameBackend(const Tensor::View& lhs, const Tensor::View& rhs) {
 	}
 }
 
-Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
+inline Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs) {
 	size_t rankLhs = lhs.getNumDims();
 	size_t rankRhs = rhs.getNumDims();
 	size_t rankOut = std::max(rankLhs, rankRhs);
@@ -41,25 +41,32 @@ Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Shape& rhs
 	return Tensor::Shape(outDims);
 }
 
-TensorLayout broadcastTo(TensorLayout src, const Tensor::Shape& target) {
-	size_t targetRank = target.getNumDims();
-	std::vector<size_t> strides(targetRank, 0);
+inline TensorLayout broadcastTo(const TensorLayout& src, const Tensor::Shape& target) {
+	TensorLayout dst{};
 
-	int pad = (int)targetRank - (int)src.rank;  // align right
-	for (int d = pad; d < targetRank; d++) {
-		// use stride if dim is not size 1
+	dst.rank = target.getNumDims();
+	dst.offset = src.offset;
+
+	for (size_t d = 0; d < dst.rank; d++) {
+		dst.shape[d] = target.getDim(d);
+	}
+
+	int pad = (int)dst.rank - (int)src.rank;
+	for (int d = pad; d < (int)dst.rank; d++) {
 		if (src.shape[d - pad] != 1) {
-			strides[d] = src.strides[d - pad];
+			dst.strides[d] = src.strides[d - pad];
+		} else {
+			dst.strides[d] = 0;
 		}
 	}
 
-	return TensorLayout(target, strides, src.offset);
+	return dst;
 }
 
 BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
 	ensureSameBackend(lhs, rhs);
 
-	Tensor::Shape outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
+	const Tensor::Shape& outShape = broadcastShapes(lhs.getShape(), rhs.getShape());
 
 	BinaryOpContext ctx;
 	ctx.lhs = broadcastTo(lhs.getLayout(), outShape);
@@ -74,9 +81,9 @@ ReductionContext ReductionContext::build(const Tensor::View& lhs, size_t dim) {
 		                         " with along dim " + std::to_string(dim));
 	}
 
-	Tensor::Shape lhsShape = lhs.getShape();
-	Tensor::Shape outShape = lhsShape.getSlice(0, dim);
-	Tensor::Shape blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
+	const Tensor::Shape& lhsShape = lhs.getShape();
+	const Tensor::Shape& outShape = lhsShape.getSlice(0, dim);
+	const Tensor::Shape& blockShape = lhsShape.getSlice(dim, lhsShape.getNumDims());
 
 	ReductionContext ctx;
 	ctx.lhs = lhsShape;
@@ -86,7 +93,7 @@ ReductionContext ReductionContext::build(const Tensor::View& lhs, size_t dim) {
 }
 
 IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
-	Tensor::Shape srcShape = src.getShape();
+	const Tensor::Shape& srcShape = src.getShape();
 	if (idx < 0 || idx >= srcShape.getDim(0)) {
 		throw std::out_of_range("Index " + std::to_string(idx) +
 		                        " is out of bounds. Tensor view shape: " + srcShape.toString());
@@ -94,7 +101,7 @@ IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
 
 	TensorLayout layout = src.getLayout();
 	size_t offset = layout.offset + layout.strides[0] * idx;
-	auto shape = Tensor::Shape(layout)[0];
+	const Tensor::Shape& shape = Tensor::Shape(layout)[0];
 
 	// ensure rank > 0
 	size_t newRank = std::max((int)layout.rank - 1, 1);
@@ -113,22 +120,22 @@ IndexContext IndexContext::build(const Tensor::View& src, size_t idx) {
 }
 
 
-void validateRanksMatmul(size_t lhsRank, size_t rhsRank) {
+inline void validateRanksMatmul(size_t lhsRank, size_t rhsRank) {
 	if (lhsRank < 2 || lhsRank > 3 || rhsRank < 2 || rhsRank > 3) {
 		throw std::runtime_error("matmul: inputs must be 2D or 3D tensors");
 	}
 }
 
-void validateInnerDimsMatmul(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
-                             size_t lhsRank, size_t rhsRank) {
+inline void validateInnerDimsMatmul(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+                                    size_t lhsRank, size_t rhsRank) {
 	if (lhsShape.getDim(lhsRank - 1) != rhsShape.getDim(rhsRank - 2)) {
 		throw std::runtime_error("matmul: inner dimensions must match, got " + lhsShape.toString() +
 		                         " and " + rhsShape.toString());
 	}
 }
 
-size_t computeBatchMatmul(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
-                          size_t lhsRank, size_t rhsRank) {
+inline size_t computeBatchMatmul(const Tensor::Shape& lhsShape, const Tensor::Shape& rhsShape,
+                                 size_t lhsRank, size_t rhsRank) {
 	const size_t lhsBatch = (lhsRank == 3) ? lhsShape.getDim(0) : 1;
 	const size_t rhsBatch = (rhsRank == 3) ? rhsShape.getDim(0) : 1;
 
@@ -139,7 +146,7 @@ size_t computeBatchMatmul(const Tensor::Shape& lhsShape, const Tensor::Shape& rh
 	return std::max(lhsBatch, rhsBatch);
 }
 
-TensorLayout computeOutputLayoutMatmul(size_t batch, size_t m, size_t p) {
+inline TensorLayout computeOutputLayoutMatmul(size_t batch, size_t m, size_t p) {
 	std::vector<size_t> outDims;
 	if (batch > 1) {
 		outDims.push_back(batch);
@@ -154,8 +161,8 @@ TensorLayout computeOutputLayoutMatmul(size_t batch, size_t m, size_t p) {
 MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
 	ensureSameBackend(lhs, rhs);
 
-	Tensor::Shape lhsShape = lhs.getShape();
-	Tensor::Shape rhsShape = rhs.getShape();
+	const Tensor::Shape& lhsShape = lhs.getShape();
+	const Tensor::Shape& rhsShape = rhs.getShape();
 	size_t lhsRank = lhsShape.getNumDims();
 	size_t rhsRank = rhsShape.getNumDims();
 
@@ -178,7 +185,7 @@ MatmulContext MatmulContext::build(const Tensor::View& lhs, const Tensor::View& 
 
 InplaceBinaryOpContext InplaceBinaryOpContext::build(const Tensor::View& lhs,
                                                      const Tensor::View& rhs) {
-	BinaryOpContext ctx = BinaryOpContext::build(lhs, rhs);
+	const BinaryOpContext& ctx = BinaryOpContext::build(lhs, rhs);
 	const TensorLayout& lhsLayout = lhs.getLayout();
 
 	if (lhsLayout != ctx.lhs) {
