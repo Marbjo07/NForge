@@ -42,18 +42,25 @@ inline Tensor::Shape broadcastShapes(const Tensor::Shape& lhs, const Tensor::Sha
 }
 
 inline TensorLayout broadcastTo(const TensorLayout& src, const Tensor::Shape& target) {
-	size_t targetRank = target.getNumDims();
-	std::vector<size_t> strides(targetRank, 0);
+	TensorLayout dst{};
 
-	int pad = (int)targetRank - (int)src.rank;  // align right
-	for (int d = pad; d < targetRank; d++) {
-		// use stride if dim is not size 1
+	dst.rank = target.getNumDims();
+	dst.offset = src.offset;
+
+	for (size_t d = 0; d < dst.rank; d++) {
+		dst.shape[d] = target.getDim(d);
+	}
+
+	int pad = (int)dst.rank - (int)src.rank;
+	for (int d = pad; d < (int)dst.rank; d++) {
 		if (src.shape[d - pad] != 1) {
-			strides[d] = src.strides[d - pad];
+			dst.strides[d] = src.strides[d - pad];
+		} else {
+			dst.strides[d] = 0;
 		}
 	}
 
-	return TensorLayout(target, strides, src.offset);
+	return dst;
 }
 
 BinaryOpContext BinaryOpContext::build(const Tensor::View& lhs, const Tensor::View& rhs) {
