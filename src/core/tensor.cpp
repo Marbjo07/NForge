@@ -115,10 +115,15 @@ template <typename BinaryOp>
 Tensor Tensor::applyBinaryOp(const Tensor::View& rhs, BinaryOp op) const {
 	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 
-	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
-	auto result = (m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs, ctx.out);
+	// trigger performance regression
+	Tensor ret = Tensor(ctx.out);
+	for (size_t i = 0; i < 10; i++) {
+		Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+		auto result = (m_impl.get()->*op)(ctx.lhs, rhsImpl, ctx.rhs, ctx.out);
+		ret = Tensor(std::move(result), m_backend);
+	}
 
-	return Tensor(std::move(result), m_backend);
+	return ret;
 }
 
 Tensor Tensor::operator+(const Tensor::View& rhs) const {
