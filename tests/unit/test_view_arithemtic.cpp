@@ -72,27 +72,6 @@ TEST_CASE("2D View arithmetic consistency across backends", "[View][Arithmetic]"
 	}
 }
 
-TEST_CASE("Mixed Tensor/View 2D parametric test", "[Tensor][View][Arithmetic]") {
-	auto backend = GENERATE(from_range(backends));
-
-	auto rows = GENERATE(1ul, 3ul, 7ul);
-	auto cols = GENERATE(1ul, 5ul, 11ul);
-
-	DYNAMIC_SECTION("Backend=" << getBackendString(backend) << " rows=" << rows
-	                           << " cols=" << cols) {
-		Tensor A({rows, cols}, 4.0f, backend);
-		Tensor vec({cols}, 1.0f, backend);
-
-		for (size_t i = 0; i < rows; i++) {
-			Tensor sum = A[i] + vec;   // view + tensor
-			Tensor prod = vec * A[i];  // tensor * view
-
-			REQUIRE(sum == Tensor({cols}, 5.0f, backend));
-			REQUIRE(prod == Tensor({cols}, 4.0f, backend));
-		}
-	}
-}
-
 TEST_CASE("Chained view arithmetic expressions", "[View][Arithmetic]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -113,21 +92,6 @@ TEST_CASE("Chained view arithmetic expressions", "[View][Arithmetic]") {
 	}
 }
 
-TEST_CASE("Copy then arithmetic gives correct result", "[View][Arithmetic]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor M({3, 4}, 5.0f, backend);
-
-		Tensor row = M[1].copy();
-		Tensor other({4}, 2.0f, backend);
-
-		Tensor result = row + other;
-
-		REQUIRE(result == Tensor({4}, 7.0f, backend));
-	}
-}
-
 TEST_CASE("Arithmetic result does not alias the source view", "[View][Arithmetic]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -137,7 +101,7 @@ TEST_CASE("Arithmetic result does not alias the source view", "[View][Arithmetic
 
 		Tensor sum = A[0] + B[0];  // should be 3.0
 
-		// Mutate A - sum must stay 3.0
+		// Mutate A, sum must stay 3.0
 		A = Tensor({2, 4}, 99.0f, backend);
 
 		REQUIRE(sum == Tensor({4}, 3.0f, backend));

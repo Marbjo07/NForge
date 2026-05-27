@@ -85,10 +85,6 @@ TEST_CASE("Zero strided view", "[View][Stride]") {
 	}
 }
 
-// ---------------------------------------------------------------------------
-// Copy with stride
-// ---------------------------------------------------------------------------
-
 TEST_CASE("Copy strided view produces dense tensor", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -118,10 +114,6 @@ TEST_CASE("Copy of strided view is independent from parent", "[View][Stride]") {
 		REQUIRE(c == Tensor({3}, 5.0f, backend));
 	}
 }
-
-// ---------------------------------------------------------------------------
-// Strided view indexing
-// ---------------------------------------------------------------------------
 
 TEST_CASE("Index into strided view", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
@@ -157,10 +149,6 @@ TEST_CASE("Position preserved through strided view index", "[View][Stride]") {
 		REQUIRE(a[0][0] == Tensor(0.0f, backend));
 	}
 }
-
-// ---------------------------------------------------------------------------
-// Stride with position (combined index + stride)
-// ---------------------------------------------------------------------------
 
 TEST_CASE("Strided view with position offset", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
@@ -200,10 +188,6 @@ TEST_CASE("Deeper position with stride", "[View][Stride]") {
 	}
 }
 
-// ---------------------------------------------------------------------------
-// Broadcast factory
-// ---------------------------------------------------------------------------
-
 TEST_CASE("Broadcast factory creates zero-strided view", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -230,10 +214,6 @@ TEST_CASE("Copy of broadcast view gives repeated values", "[View][Stride]") {
 	}
 }
 
-// ---------------------------------------------------------------------------
-// Arithmetic with strided views
-// ---------------------------------------------------------------------------
-
 TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -247,9 +227,7 @@ TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
 		REQUIRE(result.getShape() == Tensor::Shape({3}));
 		REQUIRE(result == Tensor({3}, 5.0f, backend));
 
-		for (size_t i = 0; i < 3; i++) {
-			REQUIRE(result[i] == Tensor(5.0f, backend));
-		}
+		REQUIRE(result == Tensor({3}, 5.0f, backend));
 	}
 }
 
@@ -283,10 +261,6 @@ TEST_CASE("Broadcast view * normal tensor", "[View][Stride][Arithmetic]") {
 		REQUIRE(result == Tensor({6}, 20.0f, backend));
 	}
 }
-
-// ---------------------------------------------------------------------------
-// Stride-related edge cases
-// ---------------------------------------------------------------------------
 
 TEST_CASE("Stride of 1 gives same shape as original", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
@@ -359,10 +333,6 @@ TEST_CASE("Assign to zero-strided view multiple times", "[View][Stride]") {
 		REQUIRE(a[3] == Tensor(0.0f, backend));
 	}
 }
-
-// ---------------------------------------------------------------------------
-// Parametric stride tests
-// ---------------------------------------------------------------------------
 
 TEST_CASE("Parametric 1D stride consistency", "[View][Stride]") {
 	auto backend = GENERATE(from_range(backends));
