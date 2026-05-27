@@ -73,4 +73,6 @@ jobs:
       env:
         STORE_OUTCOME: ${{ steps.store.outcome }}
       with:
-        script-path: .github/scripts/benchmark-check.js
+        script: |
+          const script = require('./.github/scripts/benchmark-check.js')
+          await script({ github, context, core })
