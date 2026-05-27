@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(NFORGE_ENABLE_CUDA "Enable CUDA support" OFF)
 option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" ON)
+option(NFORGE_BUILD_TESTS "Build tests" ON)
 
 
 ## Sources
@@ -16,6 +17,7 @@ set(NFORGE_SRC
     src/core/tensor_layout.cpp
     src/backend/cpu/tensor_impl_CPU.cpp
     src/ops/semantic/semantic.cpp
+    src/ops/matmul/matmul.cpp
 )
 
 ## Add CUDA sources
@@ -58,8 +60,10 @@ endif()
 
 
 ## Testing
-enable_testing()
-add_subdirectory(tests)
+if (NFORGE_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 
 
 ## Benchmarks

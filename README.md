@@ -30,6 +30,7 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 |---|---|---|
 | `NFORGE_ENABLE_CUDA` | Toggles build CUDA backend | `OFF` |
 | `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `ON` |
+| `NFORGE_BUILD_TESTS` | Toggles build tests | `ON` |
 
 
 ## Quick start
