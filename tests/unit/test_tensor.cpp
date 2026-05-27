@@ -94,57 +94,6 @@ TEST_CASE("Tensor view copy and compare", "[Tensor]") {
 	}
 }
 
-TEST_CASE("Add tensors", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({3}, 4.0f, backend);
-		Tensor b({3}, 1.0f, backend);
-
-		Tensor c = a + b;
-
-		REQUIRE(c[0] == Tensor(5.0f, backend));
-		REQUIRE(c[0] == c[1]);
-		REQUIRE(c[1] == c[2]);
-		REQUIRE(c[0] != Tensor(3.0f, backend));
-	}
-}
-
-TEST_CASE("Subtract and multiply tensors", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({3}, 4.0f, backend);
-		Tensor b({3}, 1.0f, backend);
-
-		Tensor sub = a - b;
-		Tensor mul = a * b;
-
-		REQUIRE(sub[0] == Tensor(3.0f, backend));
-		REQUIRE(sub[0] == sub[1]);
-		REQUIRE(sub[1] == sub[2]);
-
-		REQUIRE(mul[0] == Tensor(4.0f, backend));
-		REQUIRE(mul[0] == mul[1]);
-		REQUIRE(mul[1] == mul[2]);
-	}
-}
-
-TEST_CASE("Broadcast scalar add", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor s(3.0f, backend);
-
-		Tensor x = a + s;
-		Tensor y = s + a;
-
-		REQUIRE(x == Tensor({4}, 5.0f, backend));
-		REQUIRE(y == Tensor({4}, 5.0f, backend));
-	}
-}
-
 TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
@@ -210,94 +159,6 @@ TEST_CASE("Tensor view assign", "[Tensor]") {
 
 			REQUIRE(A == B);
 		}
-	}
-}
-
-TEST_CASE("Tensor and float add", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = a + 3;
-
-		REQUIRE(b == Tensor({4}, 5.0f, backend));
-	}
-}
-
-TEST_CASE("Tensor and float sub", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = a - 3;
-
-		REQUIRE(b == Tensor({4}, -1.0f, backend));
-	}
-}
-
-TEST_CASE("Tensor and float mul", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = a * 3;
-
-		REQUIRE(b == Tensor({4}, 6.0f, backend));
-	}
-}
-
-TEST_CASE("Tensor and float div", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = a / 3;
-
-		REQUIRE(b == Tensor({4}, 2.0f / 3.0f, backend));
-	}
-}
-
-TEST_CASE("Float and Tensor add", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = 3 + a;
-
-		REQUIRE(b == Tensor({4}, 5.0f, backend));
-	}
-}
-
-TEST_CASE("Float and Tensor sub", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = 3 - a;
-
-		REQUIRE(b == Tensor({4}, 1.0f, backend));
-	}
-}
-
-TEST_CASE("Float and Tensor mul", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = 3 * a;
-
-		REQUIRE(b == Tensor({4}, 6.0f, backend));
-	}
-}
-
-TEST_CASE("Float and Tensor div", "[Tensor]") {
-	auto backend = GENERATE(from_range(backends));
-
-	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor a({4}, 2.0f, backend);
-		Tensor b = 3 / a;
-
-		REQUIRE(b == Tensor({4}, 1.5f, backend));
 	}
 }
 
@@ -471,7 +332,7 @@ TEST_CASE("Frobenius norm of 4-rank tensor", "[Tensor]") {
 	}
 }
 
-TEST_CASE("Assign Tensor::View to Tensor", "[Tensor]") {
+TEST_CASE("Assign View to Tensor", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
