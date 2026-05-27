@@ -68,7 +68,7 @@ jobs:
 
     # create a visible Benchmark Results Check Run
     - name: Create Benchmark Results Check
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       if: always()
       env:
         STORE_OUTCOME: ${{ steps.store.outcome }}
