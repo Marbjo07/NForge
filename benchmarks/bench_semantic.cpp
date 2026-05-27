@@ -13,6 +13,7 @@ static void BM_BinaryOpContext_SameShape_1000(benchmark::State& state) {
 }
 BENCHMARK(BM_BinaryOpContext_SameShape_1000)->MinTime(2);
 
+
 static void BM_BinaryOpContext_Broadcast(benchmark::State& state) {
 	Tensor a({3, 1}, 1.0f, Backend::CPU);
 	Tensor b({1, 4}, 2.0f, Backend::CPU);
@@ -22,6 +23,7 @@ static void BM_BinaryOpContext_Broadcast(benchmark::State& state) {
 	}
 }
 BENCHMARK(BM_BinaryOpContext_Broadcast)->MinTime(2);
+
 
 static void BM_BinaryOpContext_Scalar_1000(benchmark::State& state) {
 	Tensor a({1}, 1.0f, Backend::CPU);
@@ -33,6 +35,7 @@ static void BM_BinaryOpContext_Scalar_1000(benchmark::State& state) {
 }
 BENCHMARK(BM_BinaryOpContext_Scalar_1000)->MinTime(2);
 
+
 static void BM_MatmulContext_2D(benchmark::State& state) {
 	Tensor a({100, 200}, 1.0f, Backend::CPU);
 	Tensor b({200, 300}, 2.0f, Backend::CPU);
@@ -42,6 +45,7 @@ static void BM_MatmulContext_2D(benchmark::State& state) {
 	}
 }
 BENCHMARK(BM_MatmulContext_2D)->MinTime(2);
+
 
 static void BM_MatmulContext_3D_Batched(benchmark::State& state) {
 	Tensor a({5, 100, 200}, 1.0f, Backend::CPU);
@@ -53,6 +57,7 @@ static void BM_MatmulContext_3D_Batched(benchmark::State& state) {
 }
 BENCHMARK(BM_MatmulContext_3D_Batched)->MinTime(2);
 
+
 static void BM_ReductionContext_1000(benchmark::State& state) {
 	Tensor a({1000, 1000}, 1.0f, Backend::CPU);
 	for (auto _ : state) {
@@ -61,6 +66,7 @@ static void BM_ReductionContext_1000(benchmark::State& state) {
 	}
 }
 BENCHMARK(BM_ReductionContext_1000)->MinTime(2);
+
 
 static void BM_IndexContext_1000(benchmark::State& state) {
 	Tensor a({1000, 1000}, 1.0f, Backend::CPU);

@@ -17,6 +17,7 @@ static void BM_PhysicalOffset_2D_1000(benchmark::State& state) {
 }
 BENCHMARK(BM_PhysicalOffset_2D_1000)->MinTime(2);
 
+
 static void BM_PhysicalOffset_3D_100(benchmark::State& state) {
 	size_t N = 100ul;
 	TensorLayout layout = Tensor::Shape({N, N, N}).toContiguousLayout();
@@ -31,6 +32,7 @@ static void BM_PhysicalOffset_3D_100(benchmark::State& state) {
 	}
 }
 BENCHMARK(BM_PhysicalOffset_3D_100)->MinTime(2);
+
 
 static void BM_PhysicalOffset_Broadcast_1000(benchmark::State& state) {
 	size_t N = 1000ul;
@@ -48,6 +50,7 @@ static void BM_PhysicalOffset_Broadcast_1000(benchmark::State& state) {
 	}
 }
 BENCHMARK(BM_PhysicalOffset_Broadcast_1000)->MinTime(2);
+
 
 static void BM_PhysicalOffset_Strided_1000(benchmark::State& state) {
 	size_t N = 1000ul;
