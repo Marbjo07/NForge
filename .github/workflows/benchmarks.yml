@@ -21,9 +21,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-bench-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
         restore-keys: |
-          ${{ runner.os }}-deps-
+          ${{ runner.os }}-deps-bench-
 
     - name: Configure CMake with benchmarks
       run: |
