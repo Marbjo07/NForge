@@ -9,7 +9,7 @@ static void BM_Physics_ProjectileMotion(benchmark::State& state) {
 		benchmark::DoNotOptimize(simulateProjectileMotion(params));
 	}
 }
-BENCHMARK(BM_Physics_ProjectileMotion)->MinTime(2);
+BENCHMARK(BM_Physics_ProjectileMotion);
 
 
 static void BM_Physics_SphereSlide(benchmark::State& state) {
@@ -18,4 +18,4 @@ static void BM_Physics_SphereSlide(benchmark::State& state) {
 		benchmark::DoNotOptimize(simulateSphereSlide(params));
 	}
 }
-BENCHMARK(BM_Physics_SphereSlide)->MinTime(2);
+BENCHMARK(BM_Physics_SphereSlide);
