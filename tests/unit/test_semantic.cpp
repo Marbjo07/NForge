@@ -4,7 +4,7 @@
 #include "nforge/nforge.h"
 #include "ops/semantic/semantic.h"
 
-TEST_CASE("Tensor vs Tensor", "[Semantic]") {
+TEST_CASE("Binary operation Tensor vs Tensor", "[Semantic]") {
 	Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CPU);
 
 	auto ctx = semantic::BinaryOpContext::build(a, b);
@@ -15,7 +15,7 @@ TEST_CASE("Tensor vs Tensor", "[Semantic]") {
 	REQUIRE(ctx.out.shape[0] == 3);
 }
 
-TEST_CASE("Tensor view vs Tensor view", "[Semantic]") {
+TEST_CASE("Binary operation View vs View", "[Semantic]") {
 	Tensor a({9, 8}, 4.0f, Backend::CPU), b({11, 8}, 4.0f, Backend::CPU);
 
 	Tensor::View x = a[4];
@@ -29,7 +29,7 @@ TEST_CASE("Tensor view vs Tensor view", "[Semantic]") {
 	REQUIRE(ctx.out.shape[0] == 8);
 }
 
-TEST_CASE("Tensor vs View", "[Semantic]") {
+TEST_CASE("Binary operation Tensor vs View", "[Semantic]") {
 	Tensor a({9, 8}, 4.0f, Backend::CPU);
 	Tensor b({8}, 1.0f, Backend::CPU);
 
@@ -43,7 +43,7 @@ TEST_CASE("Tensor vs View", "[Semantic]") {
 	REQUIRE(ctx.out.shape[0] == 8);
 }
 
-TEST_CASE("View vs Tensor", "[Semantic]") {
+TEST_CASE("Binary operation View vs Tensor", "[Semantic]") {
 	Tensor a({9, 8}, 4.0f, Backend::CPU);
 	Tensor b({8}, 1.0f, Backend::CPU);
 
@@ -57,7 +57,7 @@ TEST_CASE("View vs Tensor", "[Semantic]") {
 	REQUIRE(ctx.out.shape[0] == 8);
 }
 
-TEST_CASE("Scalar vs Tensor shape", "[Semantic]") {
+TEST_CASE("Binary operation Scalar vs Tensor", "[Semantic]") {
 	Tensor a({3, 4}, 1.0f, Backend::CPU);
 	Tensor b({1}, 2.0f, Backend::CPU);
 
@@ -73,7 +73,7 @@ TEST_CASE("Scalar vs Tensor shape", "[Semantic]") {
 	REQUIRE(ctx.rhs.strides[1] == 0);
 }
 
-TEST_CASE("Scalar vs Tensor view", "[Semantic]") {
+TEST_CASE("Binary operation Scalar vs View", "[Semantic]") {
 	Tensor a({1}, 2.0f, Backend::CPU);
 	Tensor b({3, 8, 4}, 1.0f, Backend::CPU);
 
@@ -91,7 +91,7 @@ TEST_CASE("Scalar vs Tensor view", "[Semantic]") {
 	REQUIRE(ctx.lhs.strides[1] == 0);
 }
 
-TEST_CASE("Broadcast (3,1) and (1,4) -> (3,4)", "[Semantic]") {
+TEST_CASE("Binary operation broadcast (3,1) and (1,4) -> (3,4)", "[Semantic]") {
 	Tensor a({3, 1}, 1.0f, Backend::CPU);
 	Tensor b({1, 4}, 1.0f, Backend::CPU);
 
@@ -105,7 +105,7 @@ TEST_CASE("Broadcast (3,1) and (1,4) -> (3,4)", "[Semantic]") {
 	REQUIRE(ctx.rhs.strides[0] == 0);
 }
 
-TEST_CASE("Single element vs Tensor broadcasts", "[Semantic]") {
+TEST_CASE("Binary operation single element vs Tensor broadcasts", "[Semantic]") {
 	Tensor a({1, 1}, 1.0f, Backend::CPU);
 	Tensor b({3, 4}, 1.0f, Backend::CPU);
 
@@ -118,7 +118,7 @@ TEST_CASE("Single element vs Tensor broadcasts", "[Semantic]") {
 }
 
 #ifdef NFORGE_WITH_CUDA
-TEST_CASE("Throw on tensor device mismatch", "[Semantic]") {
+TEST_CASE("Binary operation Throw on tensor device mismatch", "[Semantic]") {
 	Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CUDA);
 
 	REQUIRE_THROWS_AS(semantic::BinaryOpContext::build(a, b), std::runtime_error);
@@ -126,7 +126,7 @@ TEST_CASE("Throw on tensor device mismatch", "[Semantic]") {
 	                  Catch::Matchers::ContainsSubstring("different devices"));
 }
 
-TEST_CASE("Throw on tensor view device mismatch", "[Semantic]") {
+TEST_CASE("Binary operation Throw on tensor view device mismatch", "[Semantic]") {
 	Tensor a({3}, 4.0f, Backend::CPU), b({3}, 4.0f, Backend::CUDA);
 
 	Tensor::View x = a[0];
