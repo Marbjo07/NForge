@@ -55,7 +55,7 @@ jobs:
       with:
         report_paths: "${{ github.workspace }}/build/test-results.xml"
         # Distinguishes a test failure from a build failure in the UI
-        check_name: "Test Results"
+        check_name: "${{ github.workflow }} / Test Results"
         fail_on_failure: true
         include_passed: true
         detailed_summary: true
