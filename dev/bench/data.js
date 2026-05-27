@@ -26,13 +26,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 509892.3310000032,
             "unit": "ns/iter",
             "extra": "iterations: 1000\ncpu: 509880.4540000001 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 15841676.636363579,
             "unit": "ns/iter",
             "extra": "iterations: 44\ncpu: 15838535.818181818 ns\nthreads: 1"
@@ -62,13 +62,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 536017.0999242966,
             "unit": "ns/iter",
             "extra": "iterations: 1321\ncpu: 535981.3141559424 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17027000.000000007,
             "unit": "ns/iter",
             "extra": "iterations: 41\ncpu: 17025665.63414634 ns\nthreads: 1"
@@ -98,13 +98,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 591041.5801704137,
             "unit": "ns/iter",
             "extra": "iterations: 1291\ncpu: 590944.8667699458 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 18041658.33333298,
             "unit": "ns/iter",
             "extra": "iterations: 39\ncpu: 18039982.38461539 ns\nthreads: 1"
@@ -134,13 +134,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 536903.4590000012,
             "unit": "ns/iter",
             "extra": "iterations: 1000\ncpu: 536886.069 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 14681207.250000058,
             "unit": "ns/iter",
             "extra": "iterations: 100\ncpu: 14676706.9 ns\nthreads: 1"
@@ -170,13 +170,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 551381.4373015875,
             "unit": "ns/iter",
             "extra": "iterations: 5040\ncpu: 551247.6426587302 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17173457.650306545,
             "unit": "ns/iter",
             "extra": "iterations: 163\ncpu: 17172282.674846623 ns\nthreads: 1"
@@ -206,13 +206,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 490045.1035451033,
             "unit": "ns/iter",
             "extra": "iterations: 5698\ncpu: 489983.181993682 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 15817802.785310721,
             "unit": "ns/iter",
             "extra": "iterations: 177\ncpu: 15816750.457627121 ns\nthreads: 1"
@@ -242,13 +242,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 565345.2245062485,
             "unit": "ns/iter",
             "extra": "iterations: 4962\ncpu: 565284.5600564289 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17604583.043750033,
             "unit": "ns/iter",
             "extra": "iterations: 160\ncpu: 17602703.993750002 ns\nthreads: 1"
@@ -278,13 +278,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 539725.6162097713,
             "unit": "ns/iter",
             "extra": "iterations: 5034\ncpu: 539682.0746920938 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16472850.623529378,
             "unit": "ns/iter",
             "extra": "iterations: 170\ncpu: 16471846.217647059 ns\nthreads: 1"
@@ -314,13 +314,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 543766.2496597292,
             "unit": "ns/iter",
             "extra": "iterations: 5143\ncpu: 543721.0647482014 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16788117.95757569,
             "unit": "ns/iter",
             "extra": "iterations: 165\ncpu: 16785965.321212117 ns\nthreads: 1"
@@ -350,13 +350,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 551515.5766626839,
             "unit": "ns/iter",
             "extra": "iterations: 5022\ncpu: 551454.7186379929 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16986417.442424364,
             "unit": "ns/iter",
             "extra": "iterations: 165\ncpu: 16983881.36969697 ns\nthreads: 1"
@@ -386,13 +386,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 553599.67440929,
             "unit": "ns/iter",
             "extra": "iterations: 4994\ncpu: 553567.2240688826 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17480956.60869565,
             "unit": "ns/iter",
             "extra": "iterations: 161\ncpu: 17479777.639751546 ns\nthreads: 1"
@@ -422,13 +422,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 578627.0299251908,
             "unit": "ns/iter",
             "extra": "iterations: 4812\ncpu: 578501.6585619284 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17171308.390243974,
             "unit": "ns/iter",
             "extra": "iterations: 164\ncpu: 17169034.10365854 ns\nthreads: 1"
@@ -458,13 +458,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 538148.1641589351,
             "unit": "ns/iter",
             "extra": "iterations: 5184\ncpu: 537973.0881558642 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16613782.357142426,
             "unit": "ns/iter",
             "extra": "iterations: 168\ncpu: 16611596.119047621 ns\nthreads: 1"
@@ -494,13 +494,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 545462.4036421856,
             "unit": "ns/iter",
             "extra": "iterations: 4997\ncpu: 545415.2119271562 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17189240.785276096,
             "unit": "ns/iter",
             "extra": "iterations: 163\ncpu: 17188334.865030672 ns\nthreads: 1"
@@ -530,13 +530,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 525741.5989672993,
             "unit": "ns/iter",
             "extra": "iterations: 5229\ncpu: 525548.0566073819 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16929012.030303083,
             "unit": "ns/iter",
             "extra": "iterations: 165\ncpu: 16927448.618181814 ns\nthreads: 1"
@@ -566,13 +566,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 527194.5209756047,
             "unit": "ns/iter",
             "extra": "iterations: 5125\ncpu: 527156.5578536586 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 16698435.404761774,
             "unit": "ns/iter",
             "extra": "iterations: 168\ncpu: 16696640.059523812 ns\nthreads: 1"
@@ -602,13 +602,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 533559.344057532,
             "unit": "ns/iter",
             "extra": "iterations: 5284\ncpu: 533512.2895533687 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 17314342.85185175,
             "unit": "ns/iter",
             "extra": "iterations: 162\ncpu: 17312916.90740741 ns\nthreads: 1"
@@ -638,13 +638,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 808949.2799013534,
             "unit": "ns/iter",
             "extra": "iterations: 3244\ncpu: 808851.3668310727 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 23964142.230769224,
             "unit": "ns/iter",
             "extra": "iterations: 117\ncpu: 23961035.717948716 ns\nthreads: 1"
@@ -674,13 +674,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 810275.6426296072,
             "unit": "ns/iter",
             "extra": "iterations: 3453\ncpu: 810152.9113814075 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 23490736.21848747,
             "unit": "ns/iter",
             "extra": "iterations: 119\ncpu: 23489023.3697479 ns\nthreads: 1"
@@ -710,13 +710,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 620729.0476973681,
             "unit": "ns/iter",
             "extra": "iterations: 4256\ncpu: 620660.5817669173 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 18936323.074324213,
             "unit": "ns/iter",
             "extra": "iterations: 148\ncpu: 18934382.945945945 ns\nthreads: 1"
@@ -746,13 +746,13 @@ window.BENCHMARK_DATA = {
         "tool": "googlecpp",
         "benches": [
           {
-            "name": "BM_ProjectileMotion/min_time:2.000",
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
             "value": 501007.39486356074,
             "unit": "ns/iter",
             "extra": "iterations: 5607\ncpu: 500855.9163545569 ns\nthreads: 1"
           },
           {
-            "name": "BM_SphereSlide/min_time:2.000",
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
             "value": 15832356.27528092,
             "unit": "ns/iter",
             "extra": "iterations: 178\ncpu: 15828359.089887636 ns\nthreads: 1"
