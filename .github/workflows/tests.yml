@@ -22,9 +22,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-tests-${{ hashFiles('CMakeLists.txt', 'tests/CMakeLists.txt') }}
         restore-keys: |
-          ${{ runner.os }}-deps-
+          ${{ runner.os }}-deps-tests-
 
     - name: Configure CMake
       run: |
@@ -55,7 +55,8 @@ jobs:
       with:
         report_paths: "${{ github.workspace }}/build/test-results.xml"
         # Distinguishes a test failure from a build failure in the UI
-        check_name: "Test Results"
+        check_name: "build-and-test"
+        update_check: true
         fail_on_failure: true
         include_passed: true
         detailed_summary: true

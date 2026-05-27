@@ -9,11 +9,12 @@ on:
 jobs:
   benchmark:
     env:
-      BUILD_TYPE: Release 
+      BUILD_TYPE: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write  # needed to push results to gh-pages
-      
+      pull-requests: write # comment regression alerts on PRs
+
     steps:
     - uses: actions/checkout@v4
 
@@ -21,9 +22,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build/_deps
-        key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
+        key: ${{ runner.os }}-deps-bench-${{ hashFiles('CMakeLists.txt', 'benchmarks/CMakeLists.txt') }}
         restore-keys: |
-          ${{ runner.os }}-deps-
+          ${{ runner.os }}-deps-bench-
 
     - name: Configure CMake with benchmarks
       run: |
@@ -42,13 +43,13 @@ jobs:
 
     - name: Store benchmark results
       uses: benchmark-action/github-action-benchmark@v1
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main' # restrict to only pushes to main
       with:
         tool: googlecpp
         output-file-path: benchmark-results.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
+        auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         alert-threshold: '120%'
         comment-on-alert: true
         fail-on-alert: true
+        summary-always: true
         benchmark-data-dir-path: dev/bench
