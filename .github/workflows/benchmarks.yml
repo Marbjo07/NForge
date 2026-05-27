@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # needed to push results to gh-pages
+      pull-requests: write # comment regression alerts on PRs
 
     steps:
     - uses: actions/checkout@v4
