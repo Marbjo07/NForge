@@ -9,6 +9,7 @@ static void BM_ProjectileMotion(benchmark::State& state) {
 		benchmark::DoNotOptimize(simulateProjectileMotion(params));
 	}
 }
+BENCHMARK(BM_ProjectileMotion)->MinTime(2);
 
 static void BM_SphereSlide(benchmark::State& state) {
 	SphereSlideParams params;
@@ -16,7 +17,4 @@ static void BM_SphereSlide(benchmark::State& state) {
 		benchmark::DoNotOptimize(simulateSphereSlide(params));
 	}
 }
-
-
-BENCHMARK(BM_ProjectileMotion)->MinTime(2);
 BENCHMARK(BM_SphereSlide)->MinTime(2);
