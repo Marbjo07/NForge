@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # needed to push results to gh-pages
-      checks: write    # needed to create Benchmark Results check
 
     steps:
     - uses: actions/checkout@v4
@@ -41,38 +40,15 @@ jobs:
           --benchmark_format=json \
           --benchmark_out=benchmark-results.json
 
-    # On push to main, store results, compare with previous, alert on regression
     - name: Store benchmark results
-      id: store
       uses: benchmark-action/github-action-benchmark@v1
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       with:
         tool: googlecpp
         output-file-path: benchmark-results.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
+        auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         alert-threshold: '120%'
         comment-on-alert: true
         fail-on-alert: true
+        summary-always: true
         benchmark-data-dir-path: dev/bench
-
-    # On PR, fetch baseline from gh-pages branch for comparison
-    - name: Fetch baseline from gh-pages
-      if: github.event_name == 'pull_request'
-      uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-        path: gh-pages-baseline
-        fetch-depth: 1
-      continue-on-error: true
-
-    # create a visible Benchmark Results Check Run
-    - name: Create Benchmark Results Check
-      uses: actions/github-script@v9
-      if: always()
-      env:
-        STORE_OUTCOME: ${{ steps.store.outcome }}
-      with:
-        script: |
-          const script = require('./.github/scripts/benchmark-check.js')
-          await script({ github, context, core })
