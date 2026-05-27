@@ -45,7 +45,7 @@ jobs:
 
     - name: Filter to mean only
       run: | # filter by mean suffix 
-        jq '.benchmarks = [.benchmarks[] | select(.aggregate_name == "mean")' \
+        jq '.benchmarks = [.benchmarks[] | select(.aggregate_name == "mean")]' \
           benchmark-results.json > filtered-results.json
 
     - name: Store benchmark results
