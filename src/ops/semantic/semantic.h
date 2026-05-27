@@ -8,36 +8,63 @@
 
 namespace semantic {
 
-struct BinaryOpContext {
+namespace detail {
+// forces all contexts to use build method.
+class OperationContext {
+protected:
+	OperationContext() = default;
+};
+}  // namespace detail
+
+
+class BinaryOpContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout rhs;
 	TensorLayout out;
+
+	static BinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
 };
 
-struct InplaceBinaryOpContext {
+class InplaceBinaryOpContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout rhs;
+
+	static InplaceBinaryOpContext build(const Tensor::View& lhs, const Tensor::View& rhs);
 };
 
-struct ReductionContext {
+
+class ReductionContext : detail::OperationContext {
+public:
 	TensorLayout lhs;
 	TensorLayout out;
 	TensorLayout block;
+
+	static ReductionContext build(const Tensor::View& lhs, size_t dim);
 };
 
-struct IndexContext {
+
+class IndexContext : detail::OperationContext {
+public:
 	TensorLayout out;
+
+	static IndexContext build(const Tensor::View& src, size_t idx);
 };
 
-BinaryOpContext buildContext(const Tensor::View& lhs, const Tensor::View& rhs);
-ReductionContext buildReductionContext(const Tensor::View& lhs, size_t dim);
-IndexContext buildIndexContext(const Tensor::View& src, size_t idx);
 
-BinaryOpContext validateBinaryOperation(const Tensor::View& lhs, const Tensor::View& rhs);
-InplaceBinaryOpContext validateInplaceBinaryOperation(const Tensor::View& lhs,
-                                                      const Tensor::View& rhs);
-ReductionContext validateReduction(const Tensor::View& lhs, size_t dim);
-IndexContext validateIndexing(const Tensor::View& src, size_t idx);
+class MatmulContext : detail::OperationContext {
+public:
+	TensorLayout lhs;
+	TensorLayout rhs;
+	TensorLayout out;
+	size_t batch;
+	size_t m;
+	size_t k;
+	size_t p;
+
+	static MatmulContext build(const Tensor::View& lhs, const Tensor::View& rhs);
+};
 
 }  // namespace semantic
 

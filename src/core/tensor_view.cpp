@@ -72,16 +72,6 @@ void Tensor::View::print() const {
 	m_parent.print(position);
 }
 
-Tensor& Tensor::View::getParent() const { return m_parent; }
-
-std::vector<size_t> Tensor::View::getPosition() const { return m_position; }
-
-size_t Tensor::View::getOffset() const { return m_layout.offset; }
-
-Tensor::Shape Tensor::View::getShape() const { return Tensor::Shape(m_layout); }
-
-const TensorLayout& Tensor::View::getLayout() const { return m_layout; }
-
 std::vector<size_t> Tensor::View::getStride() const {
 	std::vector<size_t> stride(m_layout.strides.begin(), m_layout.strides.begin() + m_layout.rank);
 	std::vector<size_t> baseStride = m_parent.getShape().getContiguousStrides();
@@ -129,25 +119,25 @@ Tensor Tensor::View::operator/(const Tensor::View& rhs) const {
 }
 
 void Tensor::View::operator+=(const Tensor::View& rhs) {
-	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+	auto ctx = semantic::InplaceBinaryOpContext::build(*this, rhs);
 
 	m_parent.m_impl->iadd(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator-=(const Tensor::View& rhs) {
-	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+	auto ctx = semantic::InplaceBinaryOpContext::build(*this, rhs);
 
 	m_parent.m_impl->isub(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator*=(const Tensor::View& rhs) {
-	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+	auto ctx = semantic::InplaceBinaryOpContext::build(*this, rhs);
 
 	m_parent.m_impl->imul(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
 void Tensor::View::operator/=(const Tensor::View& rhs) {
-	auto ctx = semantic::validateInplaceBinaryOperation(*this, rhs);
+	auto ctx = semantic::InplaceBinaryOpContext::build(*this, rhs);
 
 	m_parent.m_impl->idiv(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
@@ -155,7 +145,7 @@ void Tensor::View::operator/=(const Tensor::View& rhs) {
 Tensor::View Tensor::View::operator=(const Tensor& rhs) {
 	Tensor::View rhsView(rhs);
 
-	auto ctx = semantic::validateBinaryOperation(*this, rhsView);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhsView);
 	if (Tensor::Shape(ctx.out) != getShape()) {
 		throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
 	}
@@ -165,7 +155,7 @@ Tensor::View Tensor::View::operator=(const Tensor& rhs) {
 }
 
 Tensor::View Tensor::View::operator=(const Tensor::View& rhs) {
-	auto ctx = semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 	if (Tensor::Shape(ctx.out) != getShape()) {
 		throw std::invalid_argument("set(): rhs shape does not broadcast to target shape");
 	}
@@ -185,13 +175,18 @@ Tensor::View Tensor::View::operator=(float scalar) {
 }
 
 Tensor::View Tensor::View::operator[](size_t idx) const {
-	auto ctx = semantic::validateIndexing(*this, idx);
+	auto ctx = semantic::IndexContext::build(*this, idx);
 
 	std::vector<size_t> position = m_position;
 	position.push_back(idx);
 
 	Tensor::View out(m_parent, position, ctx.out);
 	return out;
+}
+
+Tensor Tensor::View::matmul(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current.matmul(rhs);
 }
 
 Tensor::View Tensor::View::subsample(const Tensor::View& src, const std::vector<size_t>& factors) {
@@ -242,14 +237,14 @@ bool Tensor::View::operator==(const Tensor& rhs) const {
 	Tensor::View rhsView(rhs);
 	if (getShape() != rhsView.getShape())
 		return false;
-	auto ctx = semantic::validateBinaryOperation(*this, rhsView);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhsView);
 	return m_parent.m_impl->compare(ctx.lhs, rhs.m_impl.get(), ctx.rhs);
 }
 
 bool Tensor::View::operator==(const Tensor::View& rhs) const {
 	if (getShape() != rhs.getShape())
 		return false;
-	auto ctx = semantic::validateBinaryOperation(*this, rhs);
+	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 	return m_parent.m_impl->compare(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 

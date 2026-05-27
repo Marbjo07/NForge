@@ -51,7 +51,7 @@ public:
 	std::string getBackendString() const;
 
 	// Returns backend enum
-	Backend getBackend() const;
+	inline Backend getBackend() const { return m_backend; }
 
 	// Returns the data of the tensor as a string
 	std::string getDataString() const;
@@ -98,6 +98,8 @@ public:
 	Tensor prod(size_t dim = 0) const;
 
 	Tensor norm() const;
+
+	Tensor matmul(const Tensor::View& rhs) const;
 
 	Tensor::View operator[](size_t idx) const;
 

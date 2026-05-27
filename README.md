@@ -1,6 +1,6 @@
 # NForge
 
-[![Build](https://github.com/Marbjo07/NForge/actions/workflows/ci.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
+[![Build](https://github.com/Marbjo07/NForge/actions/workflows/tests.yml/badge.svg)](https://github.com/Marbjo07/NForge/actions)
 [![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
 [![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
 
@@ -163,7 +163,7 @@ a = b = c;   // both a and b now equal c
 
 #### Strided views
 
-`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. The view shares the original tensor's memory, so assigning through it writes back directly.
+`subsample(strides)` returns a view that steps through the tensor with the given per-dimension stride. 
 
 ```cpp
 Tensor a({6}, 0.0f);

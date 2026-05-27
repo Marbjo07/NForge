@@ -299,6 +299,15 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout)
 }
 
 
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::matmul(const TensorLayout& lhsLayout,
+                                                       const Tensor::Impl* rhsImpl,
+                                                       const TensorLayout& rhsLayout,
+                                                       const TensorLayout& outLayout, size_t batch,
+                                                       size_t m, size_t k, size_t p) const {
+	throw std::runtime_error("matmul: CUDA backend not implemented yet");
+}
+
+
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::less(const TensorLayout& lhsLayout,
                                                      const Tensor::Impl* rhsImpl,
                                                      const TensorLayout& rhsLayout,
