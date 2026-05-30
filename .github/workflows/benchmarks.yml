@@ -39,14 +39,21 @@ jobs:
     - name: Run benchmarks
       run: |
         ./build/benchmarks/nforge_benchmarks \
+          --benchmark_repetitions=5 \
+          --benchmark_report_aggregates_only=true \
           --benchmark_format=json \
           --benchmark_out=benchmark-results.json
+
+    - name: Filter to mean only
+      run: | # filter by mean suffix 
+        jq '.benchmarks = [.benchmarks[] | select(.aggregate_name == "mean")]' \
+          benchmark-results.json > filtered-results.json
 
     - name: Store benchmark results
       uses: benchmark-action/github-action-benchmark@v1
       with:
         tool: googlecpp
-        output-file-path: benchmark-results.json
+        output-file-path: filtered-results.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         alert-threshold: '120%'

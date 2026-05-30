@@ -10,7 +10,7 @@ static void BM_TensorAdd_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorAdd_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAdd_1000_1000);
 
 
 static void BM_TensorAdd_Broadcast_1000(benchmark::State& state) {
@@ -21,7 +21,7 @@ static void BM_TensorAdd_Broadcast_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorAdd_Broadcast_1000)->MinTime(2);
+BENCHMARK(BM_TensorAdd_Broadcast_1000);
 
 
 static void BM_TensorAdd_ViewOffset_1000_1000(benchmark::State& state) {
@@ -33,7 +33,7 @@ static void BM_TensorAdd_ViewOffset_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorAdd_ViewOffset_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAdd_ViewOffset_1000_1000);
 
 
 static void BM_TensorAdd_ViewStrided_1000_1000(benchmark::State& state) {
@@ -45,7 +45,7 @@ static void BM_TensorAdd_ViewStrided_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorAdd_ViewStrided_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAdd_ViewStrided_1000_1000);
 
 
 static void BM_TensorAddInplace_1000_1000(benchmark::State& state) {
@@ -56,7 +56,7 @@ static void BM_TensorAddInplace_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(a);
 	}
 }
-BENCHMARK(BM_TensorAddInplace_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAddInplace_1000_1000);
 
 
 static void BM_TensorAddInplace_ViewOffset_1000_1000(benchmark::State& state) {
@@ -68,7 +68,7 @@ static void BM_TensorAddInplace_ViewOffset_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(view);
 	}
 }
-BENCHMARK(BM_TensorAddInplace_ViewOffset_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAddInplace_ViewOffset_1000_1000);
 
 
 static void BM_TensorAddInplace_ViewStrided_1000_1000(benchmark::State& state) {
@@ -80,7 +80,7 @@ static void BM_TensorAddInplace_ViewStrided_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(view);
 	}
 }
-BENCHMARK(BM_TensorAddInplace_ViewStrided_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorAddInplace_ViewStrided_1000_1000);
 
 
 static void BM_TensorReduction_Sum_1000_1000(benchmark::State& state) {
@@ -90,4 +90,4 @@ static void BM_TensorReduction_Sum_1000_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorReduction_Sum_1000_1000)->MinTime(2);
+BENCHMARK(BM_TensorReduction_Sum_1000_1000);

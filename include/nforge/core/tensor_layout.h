@@ -159,9 +159,10 @@ struct TensorLayout {
 static inline size_t physicalOffset(size_t linear, const TensorLayout& L) {
 	size_t off = L.offset;
 	for (int d = L.rank - 1; d >= 0; d--) {
-		size_t coord = linear % L.shape[d];
-		linear /= L.shape[d];
-		off += coord * L.strides[d];
+		std::lldiv_t results = std::lldiv((long long)linear, (long long)L.shape[d]);
+
+		linear = results.quot;
+		off += results.rem * L.strides[d];
 	}
 	return off;
 }
