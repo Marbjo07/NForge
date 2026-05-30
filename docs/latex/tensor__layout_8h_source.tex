@@ -41,13 +41,14 @@
 \DoxyCodeLine{00159\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ physicalOffset(\textcolor{keywordtype}{size\_t}\ linear,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ L)\ \{}
 \DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ off\ =\ L.\mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}};}
 \DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ L.\mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}}\ -\/\ 1;\ d\ >=\ 0;\ d-\/-\/)\ \{}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ coord\ =\ linear\ \%\ L.\mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}[d];}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ linear\ /=\ L.\mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}[d];}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ off\ +=\ coord\ *\ L.\mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}[d];}
-\DoxyCodeLine{00165\ \ \ \ \ \}}
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ off;}
-\DoxyCodeLine{00167\ \}}
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ std::lldiv\_t\ results\ =\ std::lldiv((\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})linear,\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})L.\mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}[d]);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ linear\ =\ results.quot;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ off\ +=\ results.rem\ *\ L.\mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}[d];}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ off;}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_LAYOUT\_H}}
 
 \end{DoxyCode}
