@@ -11,7 +11,7 @@ static void BM_BinaryOpContext_SameShape_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_BinaryOpContext_SameShape_1000);
+BENCHMARK(BM_BinaryOpContext_SameShape_1000)->MinTime(2.0);
 
 
 static void BM_BinaryOpContext_Broadcast(benchmark::State& state) {
@@ -22,7 +22,7 @@ static void BM_BinaryOpContext_Broadcast(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_BinaryOpContext_Broadcast);
+BENCHMARK(BM_BinaryOpContext_Broadcast)->MinTime(2.0);
 
 
 static void BM_BinaryOpContext_Scalar_1000(benchmark::State& state) {
@@ -33,7 +33,7 @@ static void BM_BinaryOpContext_Scalar_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_BinaryOpContext_Scalar_1000);
+BENCHMARK(BM_BinaryOpContext_Scalar_1000)->MinTime(2.0);
 
 
 static void BM_MatmulContext_2D(benchmark::State& state) {
@@ -44,7 +44,7 @@ static void BM_MatmulContext_2D(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_MatmulContext_2D);
+BENCHMARK(BM_MatmulContext_2D)->MinTime(2.0);
 
 
 static void BM_MatmulContext_3D_Batched(benchmark::State& state) {
@@ -55,7 +55,7 @@ static void BM_MatmulContext_3D_Batched(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_MatmulContext_3D_Batched);
+BENCHMARK(BM_MatmulContext_3D_Batched)->MinTime(2.0);
 
 
 static void BM_ReductionContext_1000(benchmark::State& state) {
@@ -65,7 +65,7 @@ static void BM_ReductionContext_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_ReductionContext_1000);
+BENCHMARK(BM_ReductionContext_1000)->MinTime(2.0);
 
 
 static void BM_IndexContext_1000(benchmark::State& state) {
@@ -75,4 +75,4 @@ static void BM_IndexContext_1000(benchmark::State& state) {
 		benchmark::DoNotOptimize(ctx);
 	}
 }
-BENCHMARK(BM_IndexContext_1000);
+BENCHMARK(BM_IndexContext_1000)->MinTime(2.0);

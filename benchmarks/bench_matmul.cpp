@@ -10,7 +10,7 @@ static void BM_TensorMatmul_32_32(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorMatmul_32_32);
+BENCHMARK(BM_TensorMatmul_32_32)->MinTime(2.0);
 
 
 static void BM_TensorMatmul_256_256(benchmark::State& state) {
@@ -21,7 +21,7 @@ static void BM_TensorMatmul_256_256(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorMatmul_256_256);
+BENCHMARK(BM_TensorMatmul_256_256)->MinTime(2.0);
 
 
 static void BM_TensorMatmul_512_512(benchmark::State& state) {
@@ -32,7 +32,7 @@ static void BM_TensorMatmul_512_512(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorMatmul_512_512);
+BENCHMARK(BM_TensorMatmul_512_512)->MinTime(2.0);
 
 
 static void BM_TensorMatmul_ViewOffset_256_256(benchmark::State& state) {
@@ -44,7 +44,7 @@ static void BM_TensorMatmul_ViewOffset_256_256(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorMatmul_ViewOffset_256_256);
+BENCHMARK(BM_TensorMatmul_ViewOffset_256_256)->MinTime(2.0);
 
 
 static void BM_TensorMatmul_ViewStrided_256_256(benchmark::State& state) {
@@ -56,4 +56,4 @@ static void BM_TensorMatmul_ViewStrided_256_256(benchmark::State& state) {
 		benchmark::DoNotOptimize(result);
 	}
 }
-BENCHMARK(BM_TensorMatmul_ViewStrided_256_256);
+BENCHMARK(BM_TensorMatmul_ViewStrided_256_256)->MinTime(2.0);
