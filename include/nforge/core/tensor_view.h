@@ -70,6 +70,8 @@ public:
 	Tensor operator>(const Tensor::View& rhs) const;
 	Tensor operator>=(const Tensor::View& rhs) const;
 
+	Tensor isClose(const Tensor::View& rhs, float tolerance = 1e-5f) const;
+
 private:
 	// resolves ambiguous overload with initializer list
 	struct BroadcastTag {};
