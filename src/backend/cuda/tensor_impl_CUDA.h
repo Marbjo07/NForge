@@ -105,6 +105,11 @@ public:
 	                                           const TensorLayout& rhsLayout,
 	                                           const TensorLayout& outLayout) const override;
 
+	std::unique_ptr<Tensor::Impl> isClose(const TensorLayout& lhsLayout,
+	                                      const Tensor::Impl* rhsImpl,
+	                                      const TensorLayout& rhsLayout,
+	                                      const TensorLayout& outLayout,
+	                                      float tolerance) const override;
 
 private:
 	Tensor::Shape m_shape;

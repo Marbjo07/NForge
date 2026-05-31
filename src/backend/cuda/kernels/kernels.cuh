@@ -52,6 +52,10 @@ __global__ void greaterEqualKernel(const float* __restrict__ lhs, const TensorLa
                                    float* __restrict__ out, const TensorLayout outLayout,
                                    size_t count);
 
+__global__ void isCloseKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                              float* __restrict__ out, const TensorLayout outLayout, size_t count,
+                              float tolerance);
 
 // in-place kernels
 __global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout,

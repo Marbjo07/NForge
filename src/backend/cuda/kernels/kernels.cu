@@ -164,6 +164,22 @@ __global__ void greaterEqualKernel(const float* __restrict__ lhs, const TensorLa
 	out[outIdx] = (float)(lhs[lhsIdx] >= rhs[rhsIdx]);
 }
 
+__global__ void isCloseKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                              float* __restrict__ out, const TensorLayout outLayout, size_t count,
+                              float tolerance) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= count)
+		return;
+
+	size_t lhsIdx = physicalOffsetCUDA(i, lhsLayout);
+	size_t rhsIdx = physicalOffsetCUDA(i, rhsLayout);
+	size_t outIdx = physicalOffsetCUDA(i, outLayout);
+
+	float diff = fabsf(lhs[lhsIdx] - rhs[rhsIdx]);
+	float denom = fmaxf(1.0f, fabsf(rhs[rhsIdx]));
+	out[outIdx] = (float)(diff / denom <= tolerance);
+}
 
 __global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout,
                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
