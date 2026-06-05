@@ -335,3 +335,30 @@ __global__ void prodReductionKernel(const float* __restrict__ data, float* resul
 
 	atomicMul(&result[outIdx], data[dataIdx]);
 }
+
+__global__ void matmulKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                             const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                             float* __restrict__ out, const TensorLayout outLayout, size_t batch,
+                             size_t m, size_t k, size_t p) {
+	size_t total = batch * m * p;
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+
+	if (i >= total)
+		return;
+
+	size_t bat = i / (m * p);
+	size_t ij = i % (m * p);
+	size_t row = ij / p;
+	size_t col = ij % p;
+
+	float sum = 0.0f;
+	for (size_t kk = 0; kk < k; kk++) {
+		size_t lhsIdx = bat * (m * k) + row * k + kk;
+		size_t rhsIdx = bat * (k * p) + kk * p + col;
+		sum +=
+		    lhs[physicalOffsetCUDA(lhsIdx, lhsLayout)] * rhs[physicalOffsetCUDA(rhsIdx, rhsLayout)];
+	}
+
+	size_t outIdx = bat * (m * p) + row * p + col;
+	out[physicalOffsetCUDA(outIdx, outLayout)] = sum;
+}

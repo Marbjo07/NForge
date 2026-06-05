@@ -337,3 +337,41 @@ TEST_CASE("Matrix multiplication non-uniform values", "[Tensor][Matmul]") {
 		REQUIRE(C[1][1] == Tensor(50.0f, backend));
 	}
 }
+
+
+TEST_CASE("Matrix multiplcation equal across backends", "[Tensor][Matmul]") {
+	size_t n = 5;
+	size_t b = 7;
+	Tensor orig({b, n, n}, Backend::CPU);
+	orig.fillRand();
+
+
+	Tensor cpu({b, n, n}, Backend::CPU);
+	Tensor cuda({b, n, n}, Backend::CUDA);
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			for (int k = 0; k < n; k++) {
+				cpu[i][j][k] = orig[i][j][k].copy().toVector()[0];
+				cuda[i][j][k] = orig[i][j][k].copy().toVector()[0];
+			}
+		}
+	}
+
+	for (int iter = 0; iter < 3; iter++) {
+		cpu = cpu.matmul(cpu);
+		cuda = cuda.matmul(cuda);
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			for (int k = 0; k < n; k++) {
+				float lhs = cpu[i][j][k].copy().toVector()[0];
+				float rhs = cuda[i][j][k].copy().toVector()[0];
+
+
+				float dif = abs(lhs - rhs);
+				CHECK(dif < 1e-5);
+			}
+		}
+	}
+}

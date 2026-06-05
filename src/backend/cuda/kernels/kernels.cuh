@@ -95,4 +95,9 @@ __global__ void prodReductionKernel(const float* __restrict__ data, float* resul
                                     const TensorLayout layout, size_t blockCount,
                                     const TensorLayout outLayout, size_t outCount);
 
+__global__ void matmulKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                             const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                             float* __restrict__ out, const TensorLayout outLayout, size_t batch,
+                             size_t m, size_t k, size_t p);
+
 #endif  // KERNELS_CUH
