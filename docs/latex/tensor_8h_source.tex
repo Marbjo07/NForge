@@ -121,21 +121,23 @@
 \DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator>(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ operator>=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00121\ \ \ \ \ Backend\ m\_backend;}
-\DoxyCodeLine{00122\ \ \ \ \ std::unique\_ptr<Impl>\ m\_impl;}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ used\ in\ template\ for\ all\ the\ binary\ operations}}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
-\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ BinaryOp\ op)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ BinaryOp\ op);}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ReductionOp>}
-\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyReduction(\textcolor{keywordtype}{size\_t}\ dim,\ ReductionOp\ op)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00133\ \};}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_H}}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ isClose(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ \textcolor{keywordtype}{float}\ tolerance\ =\ 1e-\/5f)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00123\ \ \ \ \ Backend\ m\_backend;}
+\DoxyCodeLine{00124\ \ \ \ \ std::unique\_ptr<Impl>\ m\_impl;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ used\ in\ template\ for\ all\ the\ binary\ operations}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ BinaryOp\ op)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BinaryOp>}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceBinaryOp(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\&\ rhs,\ BinaryOp\ op);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ReductionOp>}
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{classTensor}{Tensor}}\ applyReduction(\textcolor{keywordtype}{size\_t}\ dim,\ ReductionOp\ op)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_H}}
 
 \end{DoxyCode}

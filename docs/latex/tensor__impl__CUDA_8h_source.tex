@@ -109,31 +109,36 @@
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout)\ \textcolor{keyword}{const\ override};}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ m\_shape;}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{float}*\ d\_data;}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1CUDAImpl}{Tensor::CUDAImpl}}*\ cast(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ p)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Kernel>}
-\DoxyCodeLine{00116\ \ \ \ \ std::unique\_ptr<Tensor::Impl>\ applyKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhsLayout,}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ rhsImpl,}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout,\ Kernel\ kernel)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Kernel>}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhsLayout,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ rhsImpl,}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,\ Kernel\ kernel);}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ reduction\ must\ be\ associative}}
+\DoxyCodeLine{00108\ \ \ \ \ std::unique\_ptr<Tensor::Impl>\ isClose(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhsLayout,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ rhsImpl,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ tolerance)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\ m\_shape;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{float}*\ d\_data;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1CUDAImpl}{Tensor::CUDAImpl}}*\ cast(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ p)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Kernel>}
+\DoxyCodeLine{00121\ \ \ \ \ std::unique\_ptr<Tensor::Impl>\ applyKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhsLayout,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ rhsImpl,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout,\ Kernel\ kernel)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00125\ }
 \DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Kernel>}
-\DoxyCodeLine{00127\ \ \ \ \ std::unique\_ptr<Tensor::Impl>\ applyReductionKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ layout,}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ blockLayout,}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout,}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ initValue,\ Kernel\ kernel)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00131\ \};}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_IMPL\_CUDA\_H}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ applyInplaceKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ lhsLayout,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor::Impl}}*\ rhsImpl,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhsLayout,\ Kernel\ kernel);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//\ reduction\ must\ be\ associative}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Kernel>}
+\DoxyCodeLine{00132\ \ \ \ \ std::unique\_ptr<Tensor::Impl>\ applyReductionKernel(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ layout,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ blockLayout,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ outLayout,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ initValue,\ Kernel\ kernel)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_IMPL\_CUDA\_H}}
 
 \end{DoxyCode}

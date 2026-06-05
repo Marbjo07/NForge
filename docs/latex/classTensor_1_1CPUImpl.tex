@@ -75,6 +75,8 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a2deda7bce3147b2964567c5b2451cdda}{greater}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
 \item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ab73e86fd7552f961c2fc8c399c0a2f9a}{greater\+Equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff}{is\+Close}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout, float tolerance) const override
 \end{DoxyCompactItemize}
 
 
@@ -204,6 +206,16 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 \index{imul@{imul}!Tensor::CPUImpl@{Tensor::CPUImpl}}
 \doxysubsubsection{\texorpdfstring{imul()}{imul()}}
 {\footnotesize\ttfamily void Tensor\+::\+CPUImpl\+::imul (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff}\label{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!isClose@{isClose}}
+\index{isClose@{isClose}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{isClose()}{isClose()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::is\+Close (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout,  }\item[{float}]{tolerance }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
