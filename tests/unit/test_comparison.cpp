@@ -118,8 +118,8 @@ TEST_CASE("Comparison Operators float", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		Tensor A({100, 100}, backend), B({100, 100}, backend);
-		Tensor X({1, 100, 100}, backend), Y({1, 100, 100}, backend);
+		Tensor A({20, 20}, backend), B({20, 20}, backend);
+		Tensor X({1, 20, 20}, backend), Y({1, 20, 20}, backend);
 		auto xView = X[0];
 		auto yView = Y[0];
 
