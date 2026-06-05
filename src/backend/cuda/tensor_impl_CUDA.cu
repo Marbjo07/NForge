@@ -304,7 +304,25 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::matmul(const TensorLayout& lhsLa
                                                        const TensorLayout& rhsLayout,
                                                        const TensorLayout& outLayout, size_t batch,
                                                        size_t m, size_t k, size_t p) const {
-	throw std::runtime_error("matmul: CUDA backend not implemented yet");
+	// create output tensor
+	auto outShape = Tensor::Shape(outLayout);
+	auto* results = new Tensor::CUDAImpl(outShape);
+
+	const Tensor::CUDAImpl* o = cast(rhsImpl);
+
+	// get all data pointers
+	const float* lhs = dataPtr();
+	const float* rhs = o->dataPtr();
+	float* out = results->dataPtr();
+
+	size_t total = batch * m * p;
+
+	// launch matmul kernel
+	matmulKernel<<<getNumCUDABlocks(total), BLOCK_SIZE, 0, CudaContext::get().stream()>>>(
+	    lhs, lhsLayout, rhs, rhsLayout, out, outLayout, batch, m, k, p);
+	CUDA_CHECK(cudaGetLastError());
+
+	return std::unique_ptr<Tensor::Impl>(results);
 }
 
 
