@@ -117,6 +117,8 @@ public:
 	Tensor operator>(const Tensor::View& rhs) const;
 	Tensor operator>=(const Tensor::View& rhs) const;
 
+	Tensor isClose(const Tensor::View& rhs, float tolerance = 1e-5f) const;
+
 private:
 	Backend m_backend;
 	std::unique_ptr<Impl> m_impl;

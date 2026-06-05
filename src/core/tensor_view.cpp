@@ -272,3 +272,8 @@ Tensor Tensor::View::operator>=(const Tensor::View& rhs) const {
 	Tensor current = copy();
 	return current >= rhs;
 }
+
+Tensor Tensor::View::isClose(const Tensor::View& rhs, float tolerance) const {
+	Tensor current = copy();
+	return current.isClose(rhs, tolerance);
+}

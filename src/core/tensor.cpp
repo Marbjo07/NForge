@@ -266,3 +266,12 @@ Tensor Tensor::operator>(const Tensor::View& rhs) const {
 Tensor Tensor::operator>=(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::greaterEqual);
 }
+
+Tensor Tensor::isClose(const Tensor::View& rhs, float tolerance) const {
+	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
+
+	Tensor::Impl* rhsImpl = rhs.getParent().m_impl.get();
+	auto result = m_impl->isClose(ctx.lhs, rhsImpl, ctx.rhs, ctx.out, tolerance);
+
+	return Tensor(std::move(result), m_backend);
+}
