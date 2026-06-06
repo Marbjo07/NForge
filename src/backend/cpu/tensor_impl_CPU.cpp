@@ -401,3 +401,15 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::greaterEqual(const TensorLayout& 
 	return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout,
 	                     [](float a, float b) { return a >= b ? 1.0f : 0.0f; });
 }
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::isClose(const TensorLayout& lhsLayout,
+                                                       const Tensor::Impl* rhsImpl,
+                                                       const TensorLayout& rhsLayout,
+                                                       const TensorLayout& outLayout,
+                                                       float tolerance) const {
+	return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout, [tolerance](float a, float b) {
+		float absDiff = std::abs(a - b);
+		float denom = std::max(1.00f, std::abs(b));
+		return (absDiff / denom <= tolerance) ? 1.0f : 0.0f;
+	});
+}

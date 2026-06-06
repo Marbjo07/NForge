@@ -52,6 +52,10 @@ __global__ void greaterEqualKernel(const float* __restrict__ lhs, const TensorLa
                                    float* __restrict__ out, const TensorLayout outLayout,
                                    size_t count);
 
+__global__ void isCloseKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                              float* __restrict__ out, const TensorLayout outLayout, size_t count,
+                              float tolerance);
 
 // in-place kernels
 __global__ void iaddKernel(float* __restrict__ lhs, const TensorLayout lhsLayout,
@@ -90,5 +94,10 @@ __global__ void maxReductionKernel(const float* __restrict__ data, float* result
 __global__ void prodReductionKernel(const float* __restrict__ data, float* result,
                                     const TensorLayout layout, size_t blockCount,
                                     const TensorLayout outLayout, size_t outCount);
+
+__global__ void matmulKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                             const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                             float* __restrict__ out, const TensorLayout outLayout, size_t batch,
+                             size_t m, size_t k, size_t p);
 
 #endif  // KERNELS_CUH

@@ -304,7 +304,25 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::matmul(const TensorLayout& lhsLa
                                                        const TensorLayout& rhsLayout,
                                                        const TensorLayout& outLayout, size_t batch,
                                                        size_t m, size_t k, size_t p) const {
-	throw std::runtime_error("matmul: CUDA backend not implemented yet");
+	// create output tensor
+	auto outShape = Tensor::Shape(outLayout);
+	auto* results = new Tensor::CUDAImpl(outShape);
+
+	const Tensor::CUDAImpl* o = cast(rhsImpl);
+
+	// get all data pointers
+	const float* lhs = dataPtr();
+	const float* rhs = o->dataPtr();
+	float* out = results->dataPtr();
+
+	size_t total = batch * m * p;
+
+	// launch matmul kernel
+	matmulKernel<<<getNumCUDABlocks(total), BLOCK_SIZE, 0, CudaContext::get().stream()>>>(
+	    lhs, lhsLayout, rhs, rhsLayout, out, outLayout, batch, m, k, p);
+	CUDA_CHECK(cudaGetLastError());
+
+	return std::unique_ptr<Tensor::Impl>(results);
 }
 
 
@@ -337,4 +355,28 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::greaterEqual(const TensorLayout&
                                                              const TensorLayout& rhsLayout,
                                                              const TensorLayout& outLayout) const {
 	return applyKernel(lhsLayout, rhsImpl, rhsLayout, outLayout, greaterEqualKernel);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::isClose(const TensorLayout& lhsLayout,
+                                                        const Tensor::Impl* rhsImpl,
+                                                        const TensorLayout& rhsLayout,
+                                                        const TensorLayout& outLayout,
+                                                        float tolerance) const {
+	auto outShape = Tensor::Shape(outLayout);
+	auto* results = new Tensor::CUDAImpl(outShape);
+
+	const Tensor::CUDAImpl* o = cast(rhsImpl);
+
+	const float* lhs = dataPtr();
+	const float* rhs = o->dataPtr();
+	float* out = results->dataPtr();
+
+	size_t count = 1;
+	for (size_t d = 0; d < outLayout.rank; d++) count *= outLayout.shape[d];
+
+	isCloseKernel<<<getNumCUDABlocks(count), BLOCK_SIZE, 0, CudaContext::get().stream()>>>(
+	    lhs, lhsLayout, rhs, rhsLayout, out, outLayout, count, tolerance);
+	CUDA_CHECK(cudaGetLastError());
+
+	return std::unique_ptr<Tensor::Impl>(results);
 }
