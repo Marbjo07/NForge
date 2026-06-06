@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1780684709045,
+  "lastUpdate": 1780746245296,
   "repoUrl": "https://github.com/Marbjo07/NForge",
   "entries": {
     "Benchmark": [
@@ -1656,6 +1656,186 @@ window.BENCHMARK_DATA = {
             "value": 185.00854328171835,
             "unit": "ns/iter",
             "extra": "iterations: 15115620\ncpu: 184.9968932799316 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "committer": {
+            "email": "marius.bjorhei@gmail.com",
+            "name": "Marbjo07",
+            "username": "Marbjo07"
+          },
+          "distinct": true,
+          "id": "0ec4dcb0980d711794dffe34bdf6c2ff3763b377",
+          "message": "Merge branch 'main' of https://github.com/Marbjo07/NForge",
+          "timestamp": "2026-06-06T13:41:43+02:00",
+          "tree_id": "ec6cc36920c4cf0f202ddee395b4bf0651bd14a5",
+          "url": "https://github.com/Marbjo07/NForge/commit/0ec4dcb0980d711794dffe34bdf6c2ff3763b377"
+        },
+        "date": 1780746244281,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_TensorMatmul_32_32/min_time:2.000",
+            "value": 388830.8742722488,
+            "unit": "ns/iter",
+            "extra": "iterations: 7214\ncpu: 388801.6071527585 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorMatmul_256_256/min_time:2.000",
+            "value": 194634123.21428564,
+            "unit": "ns/iter",
+            "extra": "iterations: 14\ncpu: 194611173.35714284 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorMatmul_512_512/min_time:2.000",
+            "value": 1559165540.9999988,
+            "unit": "ns/iter",
+            "extra": "iterations: 2\ncpu: 1559038402.4999998 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorMatmul_ViewOffset_256_256/min_time:2.000",
+            "value": 194495776.00000063,
+            "unit": "ns/iter",
+            "extra": "iterations: 14\ncpu: 194481721.50000015 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorMatmul_ViewStrided_256_256/min_time:2.000",
+            "value": 203826096.71428654,
+            "unit": "ns/iter",
+            "extra": "iterations: 14\ncpu: 203812959.85714284 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAdd_1000_1000/min_time:2.000",
+            "value": 17688933.880503096,
+            "unit": "ns/iter",
+            "extra": "iterations: 159\ncpu: 17687226.578616347 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAdd_Broadcast_1000/min_time:2.000",
+            "value": 17563083.51250002,
+            "unit": "ns/iter",
+            "extra": "iterations: 160\ncpu: 17561859.424999993 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAdd_ViewOffset_1000_1000/min_time:2.000",
+            "value": 17567452.798742156,
+            "unit": "ns/iter",
+            "extra": "iterations: 159\ncpu: 17565975.496855374 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAdd_ViewStrided_1000_1000/min_time:2.000",
+            "value": 17609666.761006184,
+            "unit": "ns/iter",
+            "extra": "iterations: 159\ncpu: 17608252.30188676 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAddInplace_1000_1000/min_time:2.000",
+            "value": 11586383.165289193,
+            "unit": "ns/iter",
+            "extra": "iterations: 242\ncpu: 11585314.140495878 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAddInplace_ViewOffset_1000_1000/min_time:2.000",
+            "value": 11569156.863636406,
+            "unit": "ns/iter",
+            "extra": "iterations: 242\ncpu: 11568191.570247926 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorAddInplace_ViewStrided_1000_1000/min_time:2.000",
+            "value": 11599173.33609959,
+            "unit": "ns/iter",
+            "extra": "iterations: 241\ncpu: 11598310.813277997 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_TensorReduction_Sum_1000_1000/min_time:2.000",
+            "value": 5795712.277432703,
+            "unit": "ns/iter",
+            "extra": "iterations: 483\ncpu: 5795112.32919254 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_PhysicalOffset_2D_1000/min_time:2.000",
+            "value": 5758213.399176985,
+            "unit": "ns/iter",
+            "extra": "iterations: 486\ncpu: 5757853.987654322 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_PhysicalOffset_3D_100/min_time:2.000",
+            "value": 8639801.743827194,
+            "unit": "ns/iter",
+            "extra": "iterations: 324\ncpu: 8639213.97530863 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_PhysicalOffset_Broadcast_1000/min_time:2.000",
+            "value": 5758366.255144021,
+            "unit": "ns/iter",
+            "extra": "iterations: 486\ncpu: 5757964.0493827155 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_PhysicalOffset_Strided_1000/min_time:2.000",
+            "value": 5757930.508230462,
+            "unit": "ns/iter",
+            "extra": "iterations: 486\ncpu: 5757542.37448559 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_Physics_ProjectileMotion/min_time:2.000",
+            "value": 467029.72066666844,
+            "unit": "ns/iter",
+            "extra": "iterations: 6000\ncpu: 466998.60199999914 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_Physics_SphereSlide/min_time:2.000",
+            "value": 15002522.107526941,
+            "unit": "ns/iter",
+            "extra": "iterations: 186\ncpu: 15001590.241935473 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BinaryOpContext_SameShape_1000/min_time:2.000",
+            "value": 242.6343400411141,
+            "unit": "ns/iter",
+            "extra": "iterations: 11468472\ncpu: 242.61959518233974 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BinaryOpContext_Broadcast/min_time:2.000",
+            "value": 238.51623483447977,
+            "unit": "ns/iter",
+            "extra": "iterations: 11719676\ncpu: 238.49888580537564 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BinaryOpContext_Scalar_1000/min_time:2.000",
+            "value": 232.93119316175057,
+            "unit": "ns/iter",
+            "extra": "iterations: 11898018\ncpu: 232.91580740590587 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_MatmulContext_2D/min_time:2.000",
+            "value": 249.98900570741588,
+            "unit": "ns/iter",
+            "extra": "iterations: 11183348\ncpu: 249.97131583493533 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_MatmulContext_3D_Batched/min_time:2.000",
+            "value": 269.1045359743466,
+            "unit": "ns/iter",
+            "extra": "iterations: 10428917\ncpu: 269.08576873322534 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ReductionContext_1000/min_time:2.000",
+            "value": 296.8744611123424,
+            "unit": "ns/iter",
+            "extra": "iterations: 9459300\ncpu: 296.8634076517295 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_IndexContext_1000/min_time:2.000",
+            "value": 185.30811610832112,
+            "unit": "ns/iter",
+            "extra": "iterations: 15028656\ncpu: 185.29590976065978 ns\nthreads: 1"
           }
         ]
       }
