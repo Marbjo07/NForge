@@ -42,7 +42,7 @@ Shape: { 4 5 }
 ====================
 ```
 
-See [INTRO.md](INTRO.md) for more exampels.
+See [INTRO.md](INTRO.md) for more examples.
 
 ## Installation
 
@@ -60,6 +60,12 @@ FetchContent_MakeAvailable(NForge)
 # Link to your target
 target_link_libraries(${PROJECT_NAME} PRIVATE NForge)
 ```
+
+### Requirments
+
+- C++17 compiler
+- CMake 3.16+
+- Optional: CUDA Toolkit
 
 ## Documentation
 
@@ -91,9 +97,9 @@ Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
 | Build Option | Description | Default Value |
 | --- | --- | --- |
-| `NFORGE_ENABLE_CUDA` | Toggles build CUDA backend | `OFF` |
-| `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `OFF` |
-| `NFORGE_BUILD_TESTS` | Toggles build tests | `OFF` |
+| `NFORGE_ENABLE_CUDA` | Enable CUDA backend | `OFF` |
+| `NFORGE_BUILD_BENCHMARKS` | Build benchmarks | `OFF` |
+| `NFORGE_BUILD_TESTS` | Build tests | `OFF` |
 
 ## Tests
 
@@ -109,9 +115,9 @@ Make sure CMake was configured with `NFORGE_BUILD_TESTS`.
 
 ## Benchmarks
 
-Benchmarks run on merge with `main` branch, after all tests pass.
+Benchmarks run on merge with `main` branch. A performance regression blocks merging.
 
-Current benchmarks are the examples from physics scenarios with default parameters.
+Current benchmarks are the examples from physics scenarios with default parameters and some microbenchmarks for various hotpath functions.
 The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
 
 ## Code Formatting
