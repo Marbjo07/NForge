@@ -4,39 +4,39 @@
 #include "../tensor_impl.h"
 #include "nforge/core/tensor_shape.h"
 
+/// CUDA implementation of Tensor::Impl, backed by device memory.
+///
+/// All operations launch CUDA kernels using TensorLayout descriptors.
+/// The caller is responsible for layout validity, see Tensor::Impl.
+///
+/// Overridden methods follow the same semantics documented in Tensor::Impl.
 class Tensor::CUDAImpl : public Tensor::Impl {
 public:
 	CUDAImpl(const Tensor::Shape& shape);
 	~CUDAImpl();
 
-	// Fill functions
 	void fillAll(float value) override;
 	void fillRand() override;
 
-	// Printing
 	void print() const override;
 	void print(const std::vector<size_t>& position) const override;
 
-	// Tensor shape
 	size_t getNumElements() const override;
 	Tensor::Shape getShape() const override;
 
-	// Data transforms
+	/// Returns a raw pointer to the device data buffer.
 	float* dataPtr() const;
 	std::vector<float> toVector() const override;
 	std::string toString() const override;
 
 	std::unique_ptr<Tensor::Impl> clone() const override;
 
-	// Assignments and indexing
 	void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	         const TensorLayout& rhsLayout) override;
 
-	// Block comparisons
 	bool compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	             const TensorLayout& rhsLayout) const override;
 
-	// Element wise binary tensor operations
 	std::unique_ptr<Tensor::Impl> add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                                  const TensorLayout& rhsLayout,
 	                                  const TensorLayout& outLayout) const override;
@@ -115,6 +115,7 @@ private:
 	Tensor::Shape m_shape;
 	float* d_data;
 
+	/// Downcasts a generic Impl pointer to CUDAImpl. Asserts the type matches.
 	const Tensor::CUDAImpl* cast(const Tensor::Impl* p) const;
 
 	template <typename Kernel>
@@ -127,7 +128,7 @@ private:
 	void applyInplaceKernel(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                        const TensorLayout& rhsLayout, Kernel kernel);
 
-	// reduction must be associative
+	// kernel must be associative
 	template <typename Kernel>
 	std::unique_ptr<Tensor::Impl> applyReductionKernel(const TensorLayout& layout,
 	                                                   const TensorLayout& blockLayout,
