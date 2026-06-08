@@ -5,40 +5,40 @@
 #include "nforge/core/tensor_layout.h"
 #include "nforge/core/tensor_shape.h"
 
+/// CPU implementation of Tensor::Impl, backed by std::vector<float>.
+///
+/// All operations iterate over the data using TensorLayout descriptors.
+/// The caller is responsible for layout validity, see Tensor::Impl.
+///
+/// Overridden methods follow the same semantics documented in Tensor::Impl.
 class Tensor::CPUImpl : public Tensor::Impl {
 public:
 	CPUImpl(const Tensor::Shape& shape);
 	CPUImpl(const Tensor::Shape& shape, float value);
 	~CPUImpl();
 
-	// Fill functions
 	void fillAll(float value) override;
 	void fillRand() override;
 
-	// Printing
 	void print() const override;
 	void print(const std::vector<size_t>& position) const override;
 
-	// Tensor shape
 	size_t getNumElements() const override;
 	Tensor::Shape getShape() const override;
 
-	// Data transforms
+	/// Returns a raw pointer to the internal data buffer.
 	float* dataPtr() const;
 	std::vector<float> toVector() const override;
 	std::string toString() const override;
 
 	std::unique_ptr<Tensor::Impl> clone() const override;
 
-	// Assignments and indexing
 	void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	         const TensorLayout& rhsLayout) override;
 
-	// Block comparisons
 	bool compare(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	             const TensorLayout& rhsLayout) const override;
 
-	// Element wise binary tensor operations
 	std::unique_ptr<Tensor::Impl> add(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                                  const TensorLayout& rhsLayout,
 	                                  const TensorLayout& outLayout) const override;
