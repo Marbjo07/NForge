@@ -4,11 +4,75 @@
 [![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
 [![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
 
-
-
 A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.
 
-## Build
+## Quick start
+
+### Code example
+
+```cpp
+#include <iostream>
+#include <nforge/nforge.h>
+
+int main() {
+    size_t n = 4, m = 5;
+    Tensor a({n, m}); // 2D tensor of zeros
+
+    for (size_t i = 0; i < n; i++) {
+        a[i] = Tensor({m}, (float)i); // fill each row with its index
+    }
+
+    a[0][3] = Tensor(3.14f);
+
+    a.print();
+}
+```
+
+### Output
+
+```text
+====================
+Tensor[CPU], Data:
+0 0 0 3.14 0
+1 1 1 1 1
+2 2 2 2 2
+3 3 3 3 3
+
+Shape: { 4 5 }
+====================
+```
+
+See [INTRO.md](INTRO.md) for more exampels.
+
+## Installation
+
+Using CMake and `FetchContent` with your project.
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+    NForge
+    GIT_REPOSITORY https://github.com/Marbjo07/NForge.git
+    GIT_TAG        main
+)
+FetchContent_MakeAvailable(NForge)
+
+# Link to your target
+target_link_libraries(${PROJECT_NAME} PRIVATE NForge)
+```
+
+## Documentation
+
+Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch `gh-pages`.  
+See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs/html/index.html)
+
+To generate documentation locally, ensure Doxygen is installed, then from project root:
+
+```bash
+doxygen Doxyfile
+```
+
+## Build from source
 
 ```bash
 mkdir build && cd build
@@ -25,61 +89,11 @@ cmake --build .
 
 Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
-
 | Build Option | Description | Default Value |
-|---|---|---|
+| --- | --- | --- |
 | `NFORGE_ENABLE_CUDA` | Toggles build CUDA backend | `OFF` |
-| `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `ON` |
-| `NFORGE_BUILD_TESTS` | Toggles build tests | `ON` |
-
-
-## Quick start
-
-### Code example
-```cpp
-#include <iostream>
-#include "nforge/tensor.h"
-
-int main() {
-    size_t n = 4, m = 5;
-    Tensor a({n, m}); // 2D tensor of zeros
-
-    for (size_t i = 0; i < n; i++) {
-        a[i] = Tensor({m}, (float)i); // fill each row with its index
-    }
-
-    a[0][3] = Tensor(3.14f);
-
-    a.print();
-}
-```
-### Output
-
-```text
-====================
-Tensor[CPU], Data:
-0 0 0 3.14 0
-1 1 1 1 1
-2 2 2 2 2
-3 3 3 3 3
-
-Shape: { 4 5 }
-====================
-```
-
-## Documentation
-
-Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch `gh-pages`.  
-See [marbjo07.github.io/NForge/docs](https://marbjo07.github.io/NForge/docs/html/index.html)
-
-To generate documentation locally, ensure Doxygen is installed, then from project root:
-```bash
-doxygen Doxyfile
-```
-
-The public API (`Tensor`, `Tensor::View`, `Tensor::Shape`) is fully documented with Doxygen.
-
-See [INTRO.md](INTRO.md) for a quick intro.
+| `NFORGE_BUILD_BENCHMARKS` | Toggles build benchmarks | `OFF` |
+| `NFORGE_BUILD_TESTS` | Toggles build tests | `OFF` |
 
 ## Tests
 
@@ -91,13 +105,14 @@ Run after building:
 ctest --progress
 ```
 
+Make sure CMake was configured with `NFORGE_BUILD_TESTS`.
+
 ## Benchmarks
 
 Benchmarks run on merge with `main` branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters.
 The results are published to [marbjo07.github.io/NForge/dev/bench/](https://marbjo07.github.io/NForge/dev/bench/)  
-
 
 ## Code Formatting
 

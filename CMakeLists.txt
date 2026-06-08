@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(NFORGE_ENABLE_CUDA "Enable CUDA support" OFF)
-option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" ON)
-option(NFORGE_BUILD_TESTS "Build tests" ON)
+option(NFORGE_BUILD_BENCHMARKS "Build benchmarks" OFF)
+option(NFORGE_BUILD_TESTS "Build tests" OFF)
 
 
 ## Sources

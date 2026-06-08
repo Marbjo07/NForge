@@ -1,7 +1,7 @@
 # NForge Introduction
 
 ```cpp
-#include "nforge/nforge.h"
+#include <nforge/nforge.h>
 ```
 
 ## Construction
@@ -133,7 +133,7 @@ Tensor a({3, 4}, 2.0f);
 auto n = a.norm();                 // L2 norm
 ```
 
-## Matrix multiply
+## Matrix multiplication
 
 Supports 2D and 3D tensors.  
 2D: `{M, K} @ {K, P} => {M, P}`.  
