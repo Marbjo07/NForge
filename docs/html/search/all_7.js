@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hook_20recommended_0',['Pre-commit Hook (recommended)',['../index.html#autotoc_md10',1,'']]]
+  ['hook_0',['Pre-commit Hook',['../index.html#autotoc_md13',1,'']]]
 ];

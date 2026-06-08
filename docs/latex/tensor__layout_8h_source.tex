@@ -2,53 +2,52 @@
 \hypertarget{tensor__layout_8h_source}{}\label{tensor__layout_8h_source}\index{include/nforge/core/tensor\_layout.h@{include/nforge/core/tensor\_layout.h}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <array>}}
-\DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}nforge/core/tensor\_shape.h"{}}}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
 \DoxyCodeLine{00006\ }
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ TENSOR\_LAYOUT\_H}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ TENSOR\_LAYOUT\_H}}
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MAX\_DIMS\ 8}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ \{}
-\DoxyCodeLine{00018\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ \mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}};}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00021\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ \mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}};}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}}\ =\ 0;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}}\ =\ 0;}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}()\ :\ \mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}\{\},\ \mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}\{\}\ \{\}}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides);}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides,\ \textcolor{keywordtype}{size\_t}\ \_offset);}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(std::array<size\_t,\ MAX\_DIMS>\ \_shape,\ std::array<size\_t,\ MAX\_DIMS>\ \_strides,}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_offset,\ \textcolor{keywordtype}{size\_t}\ \_rank);}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structTensorLayout_a12b960cae08a192daada864f238de811}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhs)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structTensorLayout_a1c04a25da4822e3a356b0746aa59c4ce}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhs)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00056\ \};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ physicalOffset(\textcolor{keywordtype}{size\_t}\ linear,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ L)\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ off\ =\ L.\mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}};}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ L.\mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}}\ -\/\ 1;\ d\ >=\ 0;\ d-\/-\/)\ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::lldiv\_t\ results\ =\ std::lldiv((\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})linear,\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})L.\mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}[d]);}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ linear\ =\ results.quot;}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ off\ +=\ results.rem\ *\ L.\mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}[d];}
-\DoxyCodeLine{00066\ \ \ \ \ \}}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{return}\ off;}
-\DoxyCodeLine{00068\ \}}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_LAYOUT\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}nforge/core/tensor\_shape.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MAX\_DIMS\ 8}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structTensorLayout}{TensorLayout}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ \mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00020\ \ \ \ \ std::array<size\_t,\ MAX\_DIMS>\ \mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}}\ =\ 0;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}}\ =\ 0;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}()\ :\ \mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}\{\},\ \mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}\{\}\ \{\}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classTensor_1_1Shape}{Tensor::Shape}}\&\ \_shape,\ \textcolor{keyword}{const}\ std::vector<size\_t>\&\ \_strides,\ \textcolor{keywordtype}{size\_t}\ \_offset);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{structTensorLayout_a668b582b75563d2274e0d18f4b9d8a67}{TensorLayout}}(std::array<size\_t,\ MAX\_DIMS>\ \_shape,\ std::array<size\_t,\ MAX\_DIMS>\ \_strides,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_offset,\ \textcolor{keywordtype}{size\_t}\ \_rank);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structTensorLayout_a12b960cae08a192daada864f238de811}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structTensorLayout_a1c04a25da4822e3a356b0746aa59c4ce}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ physicalOffset(\textcolor{keywordtype}{size\_t}\ linear,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structTensorLayout}{TensorLayout}}\&\ L)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ off\ =\ L.\mbox{\hyperlink{structTensorLayout_a5d809086add5e2501a47a40742605bf0}{offset}};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ L.\mbox{\hyperlink{structTensorLayout_a048050fa44d9d93fe100625c25bb9bb3}{rank}}\ -\/\ 1;\ d\ >=\ 0;\ d-\/-\/)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::lldiv\_t\ results\ =\ std::lldiv((\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})linear,\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})L.\mbox{\hyperlink{structTensorLayout_a2341cd882f5770c6a76a4626d85ccb14}{shape}}[d]);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ linear\ =\ results.quot;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ off\ +=\ results.rem\ *\ L.\mbox{\hyperlink{structTensorLayout_a9dd7b95b0d73daea5bbed26d72c6a61a}{strides}}[d];}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ off;}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TENSOR\_LAYOUT\_H}}
 
 \end{DoxyCode}

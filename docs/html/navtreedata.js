@@ -25,19 +25,22 @@
 var NAVTREE =
 [
   [ "NForge", "index.html", [
-    [ "Build", "index.html#autotoc_md1", [
-      [ "CUDA support", "index.html#autotoc_md2", null ]
+    [ "Features", "index.html#autotoc_md1", null ],
+    [ "Quick start", "index.html#autotoc_md2", [
+      [ "Code example", "index.html#autotoc_md3", null ],
+      [ "Output", "index.html#autotoc_md4", null ]
     ] ],
-    [ "Quick start", "index.html#autotoc_md3", [
-      [ "Code example", "index.html#autotoc_md4", null ],
-      [ "Output", "index.html#autotoc_md5", null ]
+    [ "Installation", "index.html#autotoc_md5", [
+      [ "Requirments", "index.html#autotoc_md6", null ]
     ] ],
-    [ "Documentation", "index.html#autotoc_md6", null ],
-    [ "Tests", "index.html#autotoc_md7", null ],
-    [ "Benchmarks", "index.html#autotoc_md8", null ],
-    [ "Code Formatting", "index.html#autotoc_md9", [
-      [ "Pre-commit Hook (recommended)", "index.html#autotoc_md10", null ],
-      [ "Manual formatting", "index.html#autotoc_md11", null ]
+    [ "Documentation", "index.html#autotoc_md7", null ],
+    [ "Build from source", "index.html#autotoc_md8", [
+      [ "CUDA support", "index.html#autotoc_md9", null ]
+    ] ],
+    [ "Tests", "index.html#autotoc_md10", null ],
+    [ "Benchmarks", "index.html#autotoc_md11", null ],
+    [ "Code Formatting", "index.html#autotoc_md12", [
+      [ "Pre-commit Hook", "index.html#autotoc_md13", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

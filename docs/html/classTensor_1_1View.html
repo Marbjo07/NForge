@@ -109,7 +109,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a130c771f4626cd0265af9419c64d9117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc6d9860e6206a3cbbda434c8c125a3d" id="r_adc6d9860e6206a3cbbda434c8c125a3d"><td class="memItemLeft" align="right" valign="top"><a id="adc6d9860e6206a3cbbda434c8c125a3d" name="adc6d9860e6206a3cbbda434c8c125a3d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>View</b> (<a class="el" href="classTensor.html">Tensor</a> &amp;parent, const std::vector&lt; size_t &gt; &amp;position)</td></tr>
-<tr class="memdesc:adc6d9860e6206a3cbbda434c8c125a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classTensor_1_1View.html">View</a> of a sub-tensor starting at <code>position</code>. <br /></td></tr>
+<tr class="memdesc:adc6d9860e6206a3cbbda434c8c125a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classTensor_1_1View.html">View</a> of a sub tensor starting at <code>position</code>. <br /></td></tr>
 <tr class="separator:adc6d9860e6206a3cbbda434c8c125a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3927fda4241523c843a5a06016e62e79" id="r_a3927fda4241523c843a5a06016e62e79"><td class="memItemLeft" align="right" valign="top"><a id="a3927fda4241523c843a5a06016e62e79" name="a3927fda4241523c843a5a06016e62e79"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>View</b> (<a class="el" href="classTensor.html">Tensor</a> &amp;parent, const std::vector&lt; size_t &gt; &amp;position, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout)</td></tr>
@@ -201,7 +201,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const
 <tr class="separator:a55a0dc6032269facc635fd7980f4fdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a928e1e240160ab15c643026cc1f858c9" id="r_a928e1e240160ab15c643026cc1f858c9"><td class="memItemLeft" align="right" valign="top"><a id="a928e1e240160ab15c643026cc1f858c9" name="a928e1e240160ab15c643026cc1f858c9"></a>
 <a class="el" href="classTensor_1_1View.html">Tensor::View</a>&#160;</td><td class="memItemRight" valign="bottom"><b>subsample</b> (std::vector&lt; size_t &gt; strides) const</td></tr>
-<tr class="memdesc:a928e1e240160ab15c643026cc1f858c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strided sub-sampling view. Views every <code>strides[i]</code>-th element along dim <code>i</code>. <br /></td></tr>
+<tr class="memdesc:a928e1e240160ab15c643026cc1f858c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strided subsampling view. Views every <code>strides[i]</code>-th element along dim <code>i</code>. <br /></td></tr>
 <tr class="separator:a928e1e240160ab15c643026cc1f858c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac418a1dee07bcdbe6163384c1cabea02" id="r_ac418a1dee07bcdbe6163384c1cabea02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1View.html#ac418a1dee07bcdbe6163384c1cabea02">operator==</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;rhs) const</td></tr>
 <tr class="separator:ac418a1dee07bcdbe6163384c1cabea02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,8 +238,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a58ce18ffc1c03bf41a61ccb25a899fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Non-owning reference to a sub-region of a <a class="el" href="classTensor.html">Tensor</a>.</p>
-<p>A <a class="el" href="classTensor_1_1View.html">View</a> describes a sub-region of a <a class="el" href="classTensor.html">Tensor</a> via an position, shape, and stride layout. Multiple views can reference the same underlying data at different offsets and shapes. </p>
+<div class="textblock"><p>Non-owning reference to a sub region of a <a class="el" href="classTensor.html">Tensor</a>.</p>
+<p>A <a class="el" href="classTensor_1_1View.html">View</a> describes a sub region of a <a class="el" href="classTensor.html">Tensor</a> via an position, shape, and stride layout. Multiple views can reference the same underlying data at different offsets and shapes. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac3cb71de221cbbef52257ffdb65966cb" name="ac3cb71de221cbbef52257ffdb65966cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3cb71de221cbbef52257ffdb65966cb">&#9670;&#160;</a></span>broadcast()</h2>
@@ -461,7 +461,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a sub-sampled view of <code>src</code>. A factor of 0 freezes that dimension to a single element (stride 0). </p>
+<p>Creates a subsampled view of <code>src</code>. A factor of 0 freezes that dimension to a single element (stride 0). </p>
 
 </div>
 </div>

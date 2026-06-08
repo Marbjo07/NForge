@@ -94,33 +94,23 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> <a href="https://github.com/Marbjo07/NForge/actions"><img src="https://github.com/Marbjo07/NForge/actions/workflows/tests.yml/badge.svg" alt="Build" style="pointer-events: none;" class="inline"/></a> <a href="https://marbjo07.github.io/NForge/docs/html/index.html"><img src="https://img.shields.io/badge/docs-github%20pages-blue" alt="Docs" class="inline"/></a> <a href="https://marbjo07.github.io/NForge/dev/bench/"><img src="https://img.shields.io/badge/benchmarks-live-green" alt="Benchmarks" class="inline"/></a></p>
-<p>A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.</p>
+<p>A C++ tensor library meant to feel like NumPy or PyTorch idk.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Build</h1>
-<div class="fragment"><div class="line">mkdir build &amp;&amp; cd build</div>
-<div class="line">cmake ..</div>
-<div class="line">cmake --build .</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
-CUDA support</h2>
-<div class="fragment"><div class="line">cmake .. -DNFORGE_ENABLE_CUDA=on</div>
-<div class="line">cmake --build .</div>
-</div><!-- fragment --><p>Requires the CUDA Toolkit. MSBuild is recommended on Windows.</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Build Option   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Default Value    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>NFORGE_ENABLE_CUDA</code>   </td><td class="markdownTableBodyNone">Toggles build CUDA backend   </td><td class="markdownTableBodyNone"><code>OFF</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>NFORGE_BUILD_BENCHMARKS</code>   </td><td class="markdownTableBodyNone">Toggles build benchmarks   </td><td class="markdownTableBodyNone"><code>ON</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>NFORGE_BUILD_TESTS</code>   </td><td class="markdownTableBodyNone">Toggles build tests   </td><td class="markdownTableBodyNone"><code>ON</code>   </td></tr>
-</table>
-<h1><a class="anchor" id="autotoc_md3"></a>
+Features</h1>
+<ul>
+<li>N-dimensional tensors</li>
+<li><a class="el" href="classTensor.html">Tensor</a> views and strided views</li>
+<li>NumPy-style broadcasting</li>
+<li>Reductions (<code>sum</code>, <code>mean</code>, <code>min</code>, <code>max</code>, <code>prod</code>, <code>norm</code>)</li>
+<li>Matrix multiplication with batched support</li>
+<li>CPU and CUDA backends</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Quick start</h1>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Code example</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;nforge/tensor.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;nforge/nforge.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    <span class="keywordtype">size_t</span> n = 4, m = 5;</div>
@@ -135,7 +125,7 @@ Code example</h2>
 <div class="line">    a.print();</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdef"><b>Definition</b> tensor.h:18</div></div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
 Output</h2>
 <div class="fragment"><div class="line">====================</div>
 <div class="line">Tensor[CPU], Data:</div>
@@ -146,40 +136,75 @@ Output</h2>
 <div class="line"> </div>
 <div class="line">Shape: { 4 5 }</div>
 <div class="line">====================</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><p>See INTRO.md for more examples.</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Installation</h1>
+<p>Using CMake and <code>FetchContent</code> with your project.</p>
+<div class="fragment"><div class="line">include(FetchContent)</div>
+<div class="line">FetchContent_Declare(</div>
+<div class="line">    NForge</div>
+<div class="line">    GIT_REPOSITORY https://github.com/Marbjo07/NForge.git</div>
+<div class="line">    GIT_TAG        main</div>
+<div class="line">)</div>
+<div class="line">FetchContent_MakeAvailable(NForge)</div>
+<div class="line"> </div>
+<div class="line"># Link to your target</div>
+<div class="line">target_link_libraries(${PROJECT_NAME} PRIVATE NForge)</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Requirments</h2>
+<ul>
+<li>C++17 compiler</li>
+<li>CMake 3.16+</li>
+<li>Optional: CUDA Toolkit</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Documentation</h1>
 <p>Documentation is built using Doxygen and Github Actions, then hosted on Github Pages on the branch <code>gh-pages</code>. <br  />
  See <a href="https://marbjo07.github.io/NForge/docs/html/index.html">marbjo07.github.io/NForge/docs</a></p>
-<p>To generate documentation locally, ensure Doxygen is installed, then from project root: </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
-</div><!-- fragment --><p>The public API (<code><a class="el" href="classTensor.html">Tensor</a></code>, <code><a class="el" href="classTensor_1_1View.html">Tensor::View</a></code>, <code><a class="el" href="classTensor_1_1Shape.html">Tensor::Shape</a></code>) is fully documented with Doxygen.</p>
-<p>See INTRO.md for a quick intro.</p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<p>To generate documentation locally, ensure Doxygen is installed, then from project root:</p>
+<div class="fragment"><div class="line">doxygen Doxyfile</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+Build from source</h1>
+<div class="fragment"><div class="line">mkdir build &amp;&amp; cd build</div>
+<div class="line">cmake ..</div>
+<div class="line">cmake --build .</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
+CUDA support</h2>
+<div class="fragment"><div class="line">cmake .. -DNFORGE_ENABLE_CUDA=on</div>
+<div class="line">cmake --build .</div>
+</div><!-- fragment --><p>Requires the CUDA Toolkit. MSBuild is recommended on Windows.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Build Option   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Default Value    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>NFORGE_ENABLE_CUDA</code>   </td><td class="markdownTableBodyNone">Enable CUDA backend   </td><td class="markdownTableBodyNone"><code>OFF</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>NFORGE_BUILD_BENCHMARKS</code>   </td><td class="markdownTableBodyNone">Build benchmarks   </td><td class="markdownTableBodyNone"><code>OFF</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>NFORGE_BUILD_TESTS</code>   </td><td class="markdownTableBodyNone">Build tests   </td><td class="markdownTableBodyNone"><code>OFF</code>   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Tests</h1>
 <p>Unit and integration tests use <a href="https://github.com/catchorg/Catch2">Catch2</a> and live under <code>tests/</code>.</p>
 <p>Run after building:</p>
 <div class="fragment"><div class="line">ctest --progress</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><p>Make sure CMake was configured with <code>NFORGE_BUILD_TESTS</code>.</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Benchmarks</h1>
-<p>Benchmarks run on merge with <code>main</code> branch, after all tests pass.</p>
-<p>Current benchmarks are the examples from physics scenarios with default parameters. The results are published to <a href="https://marbjo07.github.io/NForge/dev/bench/">marbjo07.github.io/NForge/dev/bench/</a> <br  />
+<p>Benchmarks run on merge with <code>main</code> branch. A performance regression blocks merging.</p>
+<p>Current benchmarks are the examples from physics scenarios with default parameters and some microbenchmarks for various hotpath functions. The results are published to <a href="https://marbjo07.github.io/NForge/dev/bench/">marbjo07.github.io/NForge/dev/bench/</a> <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Code Formatting</h1>
 <p>NForge uses <code>clang-format</code> to enforce consistent formatting. Formatting is checked automatically on all pull requests and must pass before merging.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Pre-commit Hook (recommended)</h2>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Pre-commit Hook</h2>
 <p>The easiest way to avoid formatting failures is to install the pre-commit hook, which checks formatting automatically on every commit:</p>
 <div class="fragment"><div class="line"># from project root</div>
 <div class="line">pip install pre-commit</div>
 <div class="line">python -m pre_commit install</div>
 </div><!-- fragment --><p>After installation, any commit that fails formatting will be blocked and fixed in-place. Stage the changes and commit again to proceed.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Manual formatting</h2>
-<p>If you prefer not to use pre-commit, you can format manually via CMake:</p>
-<div class="fragment"><div class="line"># from project root</div>
-<div class="line">cmake --build build --target format        # fix formatting</div>
-<div class="line">cmake --build build --target format-check  # check only</div>
-</div><!-- fragment --><p>Or run clang-format directly through your editor or IDE. </p>
+<p>Or run clang-format directly through your editor or IDE. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

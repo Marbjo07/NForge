@@ -12,7 +12,7 @@
 \begin{DoxyCompactList}\small\item\em Full view at the origin. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d}\label{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d} 
 {\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position)
-\begin{DoxyCompactList}\small\item\em \doxylink{classTensor_1_1View}{View} of a sub-\/tensor starting at {\ttfamily position}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \doxylink{classTensor_1_1View}{View} of a sub tensor starting at {\ttfamily position}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79}\label{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79} 
 {\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout)
 \begin{DoxyCompactList}\small\item\em \doxylink{classTensor_1_1View}{View} with explicit position and {\ttfamily \doxylink{structTensorLayout}{Tensor\+Layout}}. \end{DoxyCompactList}\item 
@@ -82,7 +82,7 @@ void {\bfseries operator/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\
 \item 
 \Hypertarget{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9}\label{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries subsample} (std\+::vector$<$ size\+\_\+t $>$ strides) const
-\begin{DoxyCompactList}\small\item\em Strided sub-\/sampling view. Views every {\ttfamily strides\mbox{[}i\mbox{]}}-\/th element along dim {\ttfamily i}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Strided subsampling view. Views every {\ttfamily strides\mbox{[}i\mbox{]}}-\/th element along dim {\ttfamily i}. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02}{operator==}} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46}{operator==}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
@@ -115,9 +115,9 @@ static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \mbox{\hyperlink
 
 
 \doxysubsection{Detailed Description}
-Non-\/owning reference to a sub-\/region of a \doxylink{classTensor}{Tensor}.
+Non-\/owning reference to a sub region of a \doxylink{classTensor}{Tensor}.
 
-A \doxylink{classTensor_1_1View}{View} describes a sub-\/region of a \doxylink{classTensor}{Tensor} via an position, shape, and stride layout. Multiple views can reference the same underlying data at different offsets and shapes. 
+A \doxylink{classTensor_1_1View}{View} describes a sub region of a \doxylink{classTensor}{Tensor} via an position, shape, and stride layout. Multiple views can reference the same underlying data at different offsets and shapes. 
 
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb}\label{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb} 
@@ -198,7 +198,7 @@ Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{
 \doxysubsubsection{\texorpdfstring{subsample()}{subsample()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} Tensor\+::\+View\+::subsample (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{View}} \&}]{src,  }\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{factors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Creates a sub-\/sampled view of {\ttfamily src}. A factor of 0 freezes that dimension to a single element (stride 0). 
+Creates a subsampled view of {\ttfamily src}. A factor of 0 freezes that dimension to a single element (stride 0). 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
