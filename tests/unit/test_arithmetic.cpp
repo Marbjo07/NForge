@@ -338,7 +338,7 @@ TEST_CASE("Matrix multiplication non-uniform values", "[Tensor][Matmul]") {
 	}
 }
 
-
+#ifdef NFORGE_ENABLE_CUDA
 TEST_CASE("Matrix multiplcation equal across backends", "[Tensor][Matmul]") {
 	size_t n = 5;
 	size_t b = 7;
@@ -375,3 +375,5 @@ TEST_CASE("Matrix multiplcation equal across backends", "[Tensor][Matmul]") {
 		}
 	}
 }
+
+#endif
