@@ -4,7 +4,16 @@
 [![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://marbjo07.github.io/NForge/docs/html/index.html)
 [![Benchmarks](https://img.shields.io/badge/benchmarks-live-green)](https://marbjo07.github.io/NForge/dev/bench/)
 
-A C++ tensor library with a focus on simplicity and ease of use, with optional CUDA support.
+A C++ tensor library meant to feel like NumPy or PyTorch idk.
+
+## Features
+
+- N-dimensional tensors
+- Tensor views and strided views
+- NumPy-style broadcasting
+- Reductions (`sum`, `mean`, `min`, `max`, `prod`, `norm`)
+- Matrix multiplication with batched support
+- CPU and CUDA backends
 
 ## Quick start
 
