@@ -4,7 +4,7 @@
 #include "nforge/core/tensor.h"
 #include "nforge/core/tensor_layout.h"
 
-/// Abstract interface for backend-specific tensor storage and operations.
+/// Abstract interface for backend specific tensor storage and operations.
 ///
 /// All data access goes through TensorLayout descriptors, not raw indices.
 ///
