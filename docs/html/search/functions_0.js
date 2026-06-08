@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['operator_21_3d_0',['operator!=',['../structTensorLayout.html#a1c04a25da4822e3a356b0746aa59c4ce',1,'TensorLayout']]],
-  ['operator_3d_3d_1',['operator==',['../structTensorLayout.html#a12b960cae08a192daada864f238de811',1,'TensorLayout']]]
+  ['add_0',['add',['../classTensor_1_1CPUImpl.html#a24d4ce17b3dbba76e861800579c0fb6a',1,'Tensor::CPUImpl::add()'],['../classTensor_1_1CUDAImpl.html#ad841800d66fa75806ff29a6d3073eca6',1,'Tensor::CUDAImpl::add()'],['../classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a',1,'Tensor::Impl::add()']]]
 ];

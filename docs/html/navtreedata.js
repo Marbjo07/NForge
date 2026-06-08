@@ -33,29 +33,21 @@ var NAVTREE =
       [ "Output", "index.html#autotoc_md5", null ]
     ] ],
     [ "Documentation", "index.html#autotoc_md6", null ],
-    [ "API overview", "index.html#autotoc_md7", [
-      [ "Construction", "index.html#autotoc_md8", null ],
-      [ "Arithmetic", "index.html#autotoc_md9", null ],
-      [ "Views", "index.html#autotoc_md10", [
-        [ "Obtaining a view", "index.html#autotoc_md11", null ],
-        [ "Assigning through a view", "index.html#autotoc_md12", null ],
-        [ "Strided views", "index.html#autotoc_md13", null ]
-      ] ]
-    ] ],
-    [ "Tests", "index.html#autotoc_md14", null ],
-    [ "Benchmarks", "index.html#autotoc_md15", null ],
-    [ "Code Formatting", "index.html#autotoc_md16", [
-      [ "Pre-commit Hook (recommended)", "index.html#autotoc_md17", null ],
-      [ "Manual formatting", "index.html#autotoc_md18", null ]
+    [ "Tests", "index.html#autotoc_md7", null ],
+    [ "Benchmarks", "index.html#autotoc_md8", null ],
+    [ "Code Formatting", "index.html#autotoc_md9", [
+      [ "Pre-commit Hook (recommended)", "index.html#autotoc_md10", null ],
+      [ "Manual formatting", "index.html#autotoc_md11", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -66,7 +58,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"functions_func_o.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['a_20view_0',['a view',['../index.html#autotoc_md12',1,'Assigning through a view'],['../index.html#autotoc_md11',1,'Obtaining a view']]],
-  ['api_20overview_1',['API overview',['../index.html#autotoc_md7',1,'']]],
-  ['arithmetic_2',['Arithmetic',['../index.html#autotoc_md9',1,'']]],
-  ['assigning_20through_20a_20view_3',['Assigning through a view',['../index.html#autotoc_md12',1,'']]]
+  ['add_0',['add',['../classTensor_1_1CPUImpl.html#a24d4ce17b3dbba76e861800579c0fb6a',1,'Tensor::CPUImpl::add()'],['../classTensor_1_1CUDAImpl.html#ad841800d66fa75806ff29a6d3073eca6',1,'Tensor::CUDAImpl::add()'],['../classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a',1,'Tensor::Impl::add()']]]
 ];

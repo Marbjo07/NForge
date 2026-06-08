@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['clone_0',['clone',['../classTensor_1_1CPUImpl.html#a7b164b410682d8543daa5c19d315a2a5',1,'Tensor::CPUImpl::clone()'],['../classTensor_1_1CUDAImpl.html#ab21713c16d56fcebe1cceeaa0567d935',1,'Tensor::CUDAImpl::clone()'],['../classTensor_1_1Impl.html#a0affffc80f13bbcc4a647b06e3b9f3fd',1,'Tensor::Impl::clone()']]],
+  ['compare_1',['compare',['../classTensor_1_1CPUImpl.html#a16cffea186292f67d0f1aa3698c3e60c',1,'Tensor::CPUImpl::compare()'],['../classTensor_1_1CUDAImpl.html#aaf4fa199b5b20cf129ba33db129c4325',1,'Tensor::CUDAImpl::compare()'],['../classTensor_1_1Impl.html#aa3da5cc31659ea349c35dc693890c071',1,'Tensor::Impl::compare()'],['../classTensor.html#a7525093fbcdd8940dbfa1a506de9beaa',1,'Tensor::compare(const Tensor::View &amp;rhs) const'],['../classTensor.html#ae8f9fe80c81298e625d3ddc06d6f68e6',1,'Tensor::compare(const std::vector&lt; size_t &gt; &amp;position, const Tensor::View &amp;rhs) const']]],
+  ['copy_2',['copy',['../classTensor_1_1View.html#a2777c8d2a68046a0dc438167afbad140',1,'Tensor::View']]]
+];

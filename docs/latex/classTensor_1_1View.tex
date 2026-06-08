@@ -1,123 +1,204 @@
 \doxysection{Tensor\+::View Class Reference}
 \hypertarget{classTensor_1_1View}{}\label{classTensor_1_1View}\index{Tensor::View@{Tensor::View}}
+
+
+{\ttfamily \#include $<$tensor\+\_\+view.\+h$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classTensor_1_1View_a130c771f4626cd0265af9419c64d9117}\label{classTensor_1_1View_a130c771f4626cd0265af9419c64d9117} 
 {\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent)
-\item 
+\begin{DoxyCompactList}\small\item\em Full view at the origin. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d}\label{classTensor_1_1View_adc6d9860e6206a3cbbda434c8c125a3d} 
 {\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position)
-\item 
+\begin{DoxyCompactList}\small\item\em \doxylink{classTensor_1_1View}{View} of a sub-\/tensor starting at {\ttfamily position}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79}\label{classTensor_1_1View_a3927fda4241523c843a5a06016e62e79} 
 {\bfseries View} (\mbox{\hyperlink{classTensor}{Tensor}} \&parent, const std\+::vector$<$ size\+\_\+t $>$ \&position, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout)
-\item 
+\begin{DoxyCompactList}\small\item\em \doxylink{classTensor_1_1View}{View} with explicit position and {\ttfamily \doxylink{structTensorLayout}{Tensor\+Layout}}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_af0faf42caa063034668eaa38f42858f0}\label{classTensor_1_1View_af0faf42caa063034668eaa38f42858f0} 
 {\bfseries View} (const \mbox{\hyperlink{classTensor}{Tensor}} \&parent)
-\item 
+\begin{DoxyCompactList}\small\item\em Implicit conversion from \doxylink{classTensor}{Tensor}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a5ca32103ddf90e6ee2b2123f73f93783}\label{classTensor_1_1View_a5ca32103ddf90e6ee2b2123f73f93783} 
 void {\bfseries print} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Prints the view to stdout. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a013946028951eaa4e3e4da409e68fdbe}\label{classTensor_1_1View_a013946028951eaa4e3e4da409e68fdbe} 
 \mbox{\hyperlink{classTensor}{Tensor}} \& {\bfseries get\+Parent} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the referenced tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_abb20cd3f25b956e9a8322f19502165f6}\label{classTensor_1_1View_abb20cd3f25b956e9a8322f19502165f6} 
 std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Position} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the origin position within the parent tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a81b308a902976f8ef5dfd51e645ffb81}\label{classTensor_1_1View_a81b308a902976f8ef5dfd51e645ffb81} 
 size\+\_\+t {\bfseries get\+Offset} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the element offset from the parent\textquotesingle{}s data start. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_aaafc2696ea4eb85802a8165c14225bfe}\label{classTensor_1_1View_aaafc2696ea4eb85802a8165c14225bfe} 
 \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries get\+Shape} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the shape of the viewed region. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_adccf2e4145abd8e5e2e01d6832400662}\label{classTensor_1_1View_adccf2e4145abd8e5e2e01d6832400662} 
 std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Stride} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the logical stride per dimension, normalized by the parent\textquotesingle{}s base stride. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e}\label{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e} 
 const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \& {\bfseries get\+Layout} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the underlying physical layout. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140}\label{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries copy} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Deep copies the viewed region into a new tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b}\label{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator+} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise addition with a tensor or view. Copies then computes. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a4357cd8c9ac2a8d1b858e1c6d00c1f6d}\label{classTensor_1_1View_a4357cd8c9ac2a8d1b858e1c6d00c1f6d} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator-\/} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise subtraction with a tensor or view. Copies then computes. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a7515b4fb91e3fe275f449058b4db920a}\label{classTensor_1_1View_a7515b4fb91e3fe275f449058b4db920a} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise multiplication with a tensor or view. Copies then computes. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a6fc3c91ac6b81919883eff8566671dbb}\label{classTensor_1_1View_a6fc3c91ac6b81919883eff8566671dbb} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator/} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise division by a tensor or view. Copies then computes. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a9ffaa8f22f9668779c02b1151cc99147}\label{classTensor_1_1View_a9ffaa8f22f9668779c02b1151cc99147} 
 void {\bfseries operator+=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise addition with a tensor or view. Modifies the parent tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_ab56e227fc9161f72bb6b2d1fa0e6f5f6}\label{classTensor_1_1View_ab56e227fc9161f72bb6b2d1fa0e6f5f6} 
 void {\bfseries operator-\/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise subtraction with a tensor or view. Modifies the parent tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a6b365827fb99a8820f5a8ee5235825a2}\label{classTensor_1_1View_a6b365827fb99a8820f5a8ee5235825a2} 
 void {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise multiplication with a tensor or view. Modifies the parent tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_ae35869db405324bdc4b897857af090bc}\label{classTensor_1_1View_ae35869db405324bdc4b897857af090bc} 
 void {\bfseries operator/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise division by a tensor or view. Modifies the parent tensor. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb}\label{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs)
-\item 
+\begin{DoxyCompactList}\small\item\em Copies data from a tensor into the referenced position of this view. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a4db72aee019a5ef3def491ce32f35ae2}\label{classTensor_1_1View_a4db72aee019a5ef3def491ce32f35ae2} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
-\item 
-\Hypertarget{classTensor_1_1View_a2df7d98160688daa2c0c99bcb8ba0a67}\label{classTensor_1_1View_a2df7d98160688daa2c0c99bcb8ba0a67} 
-\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (float scalar)
+\begin{DoxyCompactList}\small\item\em Copies data from a view into the referenced position of this view. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \mbox{\hyperlink{classTensor_1_1View_a2df7d98160688daa2c0c99bcb8ba0a67}{operator=}} (float scalar)
 \item 
 \Hypertarget{classTensor_1_1View_a009193fa77b7a32a8ad2cffcd9d1ee7b}\label{classTensor_1_1View_a009193fa77b7a32a8ad2cffcd9d1ee7b} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t idx) const
-\item 
-\Hypertarget{classTensor_1_1View_a55a0dc6032269facc635fd7980f4fdbe}\label{classTensor_1_1View_a55a0dc6032269facc635fd7980f4fdbe} 
-\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries matmul} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Indexes into the first dimension of this view. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTensor}{Tensor}} \mbox{\hyperlink{classTensor_1_1View_a55a0dc6032269facc635fd7980f4fdbe}{matmul}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
 \item 
 \Hypertarget{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9}\label{classTensor_1_1View_a928e1e240160ab15c643026cc1f858c9} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries subsample} (std\+::vector$<$ size\+\_\+t $>$ strides) const
+\begin{DoxyCompactList}\small\item\em Strided sub-\/sampling view. Views every {\ttfamily strides\mbox{[}i\mbox{]}}-\/th element along dim {\ttfamily i}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02}{operator==}} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
 \item 
-\Hypertarget{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02}\label{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
+bool \mbox{\hyperlink{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46}{operator==}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
 \item 
-\Hypertarget{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46}\label{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+bool \mbox{\hyperlink{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51}{operator!=}} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
 \item 
-\Hypertarget{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51}\label{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51} 
-bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs) const
-\item 
-\Hypertarget{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973}\label{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973} 
-bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
+bool \mbox{\hyperlink{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973}{operator!=}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
 \item 
 \Hypertarget{classTensor_1_1View_a24a31c822f7fbffea00f25a78004ec58}\label{classTensor_1_1View_a24a31c822f7fbffea00f25a78004ec58} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator$<$} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise less than. Returns a tensor of 0.\+0 / 1.\+0. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a6e7983b3128be94b4c2adeee7fbfefe8}\label{classTensor_1_1View_a6e7983b3128be94b4c2adeee7fbfefe8} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator$<$=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise less or equal. Returns a tensor of 0.\+0 / 1.\+0. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_ad86b48e0f1026bd1b3170cfc368dc239}\label{classTensor_1_1View_ad86b48e0f1026bd1b3170cfc368dc239} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator$>$} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise greater than. Returns a tensor of 0.\+0 / 1.\+0. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a2fbb68777cdf26bc9a5e1b3ef18f80d2}\label{classTensor_1_1View_a2fbb68777cdf26bc9a5e1b3ef18f80d2} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator$>$=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
-\item 
-\Hypertarget{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}\label{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30} 
-\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries is\+Close} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs, float tolerance=1e-\/5f) const
+\begin{DoxyCompactList}\small\item\em Elementwise greater or equal. Returns a tensor of 0.\+0 / 1.\+0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTensor}{Tensor}} \mbox{\hyperlink{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}{is\+Close}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs, float tolerance=1e-\/5f) const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb}\label{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb} 
-static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries broadcast} (\mbox{\hyperlink{classTensor}{Tensor}} \&source, const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&shape)
+static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \mbox{\hyperlink{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb}{broadcast}} (\mbox{\hyperlink{classTensor}{Tensor}} \&source, const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&shape)
 \item 
-\Hypertarget{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb}\label{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb} 
-static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries subsample} (const \mbox{\hyperlink{classTensor_1_1View}{View}} \&src, const std\+::vector$<$ size\+\_\+t $>$ \&factors)
+static \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \mbox{\hyperlink{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb}{subsample}} (const \mbox{\hyperlink{classTensor_1_1View}{View}} \&src, const std\+::vector$<$ size\+\_\+t $>$ \&factors)
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Non-\/owning reference to a sub-\/region of a \doxylink{classTensor}{Tensor}.
+
+A \doxylink{classTensor_1_1View}{View} describes a sub-\/region of a \doxylink{classTensor}{Tensor} via an position, shape, and stride layout. Multiple views can reference the same underlying data at different offsets and shapes. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb}\label{classTensor_1_1View_ac3cb71de221cbbef52257ffdb65966cb} 
+\index{Tensor::View@{Tensor::View}!broadcast@{broadcast}}
+\index{broadcast@{broadcast}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{broadcast()}{broadcast()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} Tensor\+::\+View\+::broadcast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTensor}{Tensor}} \&}]{source,  }\item[{const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&}]{shape }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Creates a broadcast view of {\ttfamily source} to {\ttfamily shape}. Size-\/1 dimensions are broadcast by setting their stride to 0. \Hypertarget{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}\label{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30} 
+\index{Tensor::View@{Tensor::View}!isClose@{isClose}}
+\index{isClose@{isClose}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{isClose()}{isClose()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor}{Tensor}} Tensor\+::\+View\+::is\+Close (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&}]{rhs,  }\item[{float}]{tolerance = {\ttfamily 1e-\/5f} }\end{DoxyParamCaption}) const}
+
+Elementwise closeness check within {\ttfamily tolerance}. Returns a tensor of 0.\+0 / 1.\+0. 
+\begin{DoxyParams}{Parameters}
+{\em tolerance} & Maximum absolute difference (default\+: 1e-\/5). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classTensor_1_1View_a55a0dc6032269facc635fd7980f4fdbe}\label{classTensor_1_1View_a55a0dc6032269facc635fd7980f4fdbe} 
+\index{Tensor::View@{Tensor::View}!matmul@{matmul}}
+\index{matmul@{matmul}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{matmul()}{matmul()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor}{Tensor}} Tensor\+::\+View\+::matmul (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Matrix multiplication. Inputs must be 2D or 3D tensors. 2D\+: (N, M) @ (M, K) =\texorpdfstring{$>$}{>} (N, K).
+
+3D\+: (B, N, M) @ (B, M, K) =\texorpdfstring{$>$}{>} (B, N, K).
+
+Batch dims must be broadcastable, match or be 1. \Hypertarget{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51}\label{classTensor_1_1View_a37775d4df12ea73e1685de9d214d8e51} 
+\index{Tensor::View@{Tensor::View}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Tensor\+::\+View\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor}{Tensor}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns true if any element differs from {\ttfamily rhs}. \begin{DoxyNote}{Note}
+Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}{is\+Close()}} 
+\end{DoxyNote}
+\Hypertarget{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973}\label{classTensor_1_1View_a3c3dc87e5da44dcc42f842db071eb973} 
+\index{Tensor::View@{Tensor::View}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Tensor\+::\+View\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns true if any element differs from {\ttfamily rhs}. \begin{DoxyNote}{Note}
+Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}{is\+Close()}} 
+\end{DoxyNote}
+\Hypertarget{classTensor_1_1View_a2df7d98160688daa2c0c99bcb8ba0a67}\label{classTensor_1_1View_a2df7d98160688daa2c0c99bcb8ba0a67} 
+\index{Tensor::View@{Tensor::View}!operator=@{operator=}}
+\index{operator=@{operator=}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} Tensor\+::\+View\+::operator= (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})}
+
+Assigns a view to a pure float. \begin{DoxyNote}{Note}
+Only works on scalar-\/shaped views, e.\+g views with only 1 element. 
+\end{DoxyNote}
+\Hypertarget{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02}\label{classTensor_1_1View_ac418a1dee07bcdbe6163384c1cabea02} 
+\index{Tensor::View@{Tensor::View}!operator==@{operator==}}
+\index{operator==@{operator==}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Tensor\+::\+View\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor}{Tensor}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns true if shape and every element matches {\ttfamily rhs}. \begin{DoxyNote}{Note}
+Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}{is\+Close()}} 
+\end{DoxyNote}
+\Hypertarget{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46}\label{classTensor_1_1View_a04561e8d7ac9c3bc4b9288e88f6f9a46} 
+\index{Tensor::View@{Tensor::View}!operator==@{operator==}}
+\index{operator==@{operator==}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Tensor\+::\+View\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+Returns true if shape and every element matches {\ttfamily rhs}. \begin{DoxyNote}{Note}
+Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{classTensor_1_1View_a4cf77a3cd13d350f596316276da42d30}{is\+Close()}} 
+\end{DoxyNote}
+\Hypertarget{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb}\label{classTensor_1_1View_a58ce18ffc1c03bf41a61ccb25a899fcb} 
+\index{Tensor::View@{Tensor::View}!subsample@{subsample}}
+\index{subsample@{subsample}!Tensor::View@{Tensor::View}}
+\doxysubsubsection{\texorpdfstring{subsample()}{subsample()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} Tensor\+::\+View\+::subsample (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTensor_1_1View}{View}} \&}]{src,  }\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{factors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Creates a sub-\/sampled view of {\ttfamily src}. A factor of 0 freezes that dimension to a single element (stride 0). 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

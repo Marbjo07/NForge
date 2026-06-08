@@ -1,63 +1,88 @@
 \doxysection{Tensor\+::Shape Class Reference}
 \hypertarget{classTensor_1_1Shape}{}\label{classTensor_1_1Shape}\index{Tensor::Shape@{Tensor::Shape}}
+
+
+{\ttfamily \#include $<$tensor\+\_\+shape.\+h$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{classTensor_1_1Shape_ae1aad7286e267f78bcaa8e9cf936a0c2}\label{classTensor_1_1Shape_ae1aad7286e267f78bcaa8e9cf936a0c2} 
+{\bfseries Shape} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. Creates an empty (0-\/dim) shape. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a6a961c550f70a7fed611721d92ee12f7}\label{classTensor_1_1Shape_a6a961c550f70a7fed611721d92ee12f7} 
 {\bfseries Shape} (const std\+::vector$<$ size\+\_\+t $>$ \&dims)
-\item 
+\begin{DoxyCompactList}\small\item\em From a vector of dimension sizes. Empty vector becomes \{1\}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_ae7fbf2b04dbd282a47816b8d2b9b52c3}\label{classTensor_1_1Shape_ae7fbf2b04dbd282a47816b8d2b9b52c3} 
 {\bfseries Shape} (const std\+::initializer\+\_\+list$<$ size\+\_\+t $>$ \&dims)
-\item 
+\begin{DoxyCompactList}\small\item\em From an initializer list. Empty list becomes \{1\}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a445fcc4985a40af30159666e157be3d6}\label{classTensor_1_1Shape_a445fcc4985a40af30159666e157be3d6} 
 {\bfseries Shape} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout)
-\item 
+\begin{DoxyCompactList}\small\item\em From a layout\textquotesingle{}s active rank dimensions. Empty layout becomes \{1\}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a91424775625d62381adfcedfe1e1c6c8}\label{classTensor_1_1Shape_a91424775625d62381adfcedfe1e1c6c8} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&other) const
-\item 
+\begin{DoxyCompactList}\small\item\em Equality, ignoring trailing ones. So {\ttfamily \{3, 4, 1\} == \{3, 4\}}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a74d2fa87c5201d03703929034be2f016}\label{classTensor_1_1Shape_a74d2fa87c5201d03703929034be2f016} 
 bool {\bfseries operator!=} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&other) const
-\item 
+\begin{DoxyCompactList}\small\item\em Negation of operator==. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_aa596b4a1ffdc22ba9ecde993039111ae}\label{classTensor_1_1Shape_aa596b4a1ffdc22ba9ecde993039111ae} 
 size\+\_\+t {\bfseries get\+Num\+Dims} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the number of dimensions. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a9ed56d0e13acd4217f528e164cf70e60}\label{classTensor_1_1Shape_a9ed56d0e13acd4217f528e164cf70e60} 
 size\+\_\+t {\bfseries get\+Num\+Elements} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the product of all dimension sizes. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a7971fee976003ed44505201486112b2b}\label{classTensor_1_1Shape_a7971fee976003ed44505201486112b2b} 
 size\+\_\+t {\bfseries get\+Dim} (size\+\_\+t idx) const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the extent of dimension {\ttfamily idx}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a1851f3f5f125bd47cbe2f11962086e98}\label{classTensor_1_1Shape_a1851f3f5f125bd47cbe2f11962086e98} 
 bool {\bfseries is\+Scalar} () const
+\begin{DoxyCompactList}\small\item\em True if the shape is \{1\}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \mbox{\hyperlink{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t index) const
 \item 
-\Hypertarget{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e}\label{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e} 
-\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const
-\item 
-\Hypertarget{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e}\label{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e} 
-\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries operator\mbox{[}$\,$\mbox{]}} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const
+\mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \mbox{\hyperlink{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e}{operator\mbox{[}$\,$\mbox{]}}} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const
 \item 
 \Hypertarget{classTensor_1_1Shape_a624ba8189e61e2ffdeaac02909f3b174}\label{classTensor_1_1Shape_a624ba8189e61e2ffdeaac02909f3b174} 
 \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries remove\+Leading\+Dimension} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Removes the first dimension. Throws if the shape is empty. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_ac4c97409af1b955ab3480a95f2492944}\label{classTensor_1_1Shape_ac4c97409af1b955ab3480a95f2492944} 
 \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} {\bfseries get\+Slice} (size\+\_\+t start, size\+\_\+t end) const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns shape with dimensions in \mbox{[}start, end). \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_ae9895bbdd46e82cb9f922cbced13b417}\label{classTensor_1_1Shape_ae9895bbdd46e82cb9f922cbced13b417} 
 std\+::string {\bfseries to\+String} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a string like "{}\{ 3 4 5 \}"{}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a8cc891aa2d145a7470a5a7bbf68b33ee}\label{classTensor_1_1Shape_a8cc891aa2d145a7470a5a7bbf68b33ee} 
 std\+::vector$<$ size\+\_\+t $>$ {\bfseries to\+Vector} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the dimension sizes as a vector. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_abec87f22390b8424d3a2c46baa00183f}\label{classTensor_1_1Shape_abec87f22390b8424d3a2c46baa00183f} 
 std\+::vector$<$ size\+\_\+t $>$ {\bfseries without\+Trailing\+Ones} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Strips trailing 1s, always keeping at least one dimension. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a3652b59641c12cc9674f4afa51945f39}\label{classTensor_1_1Shape_a3652b59641c12cc9674f4afa51945f39} 
 \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} {\bfseries to\+Contiguous\+Layout} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a row-\/major contiguous layout (last dim stride 1). \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1Shape_a4120a1a632e771111db9db9eb9987731}\label{classTensor_1_1Shape_a4120a1a632e771111db9db9eb9987731} 
 std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Contiguous\+Strides} () const
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the row-\/major strides as a vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Describes the extent of each dimension of a \doxylink{classTensor}{Tensor}.
+
+Trailing ones are stripped during equality comparison, so {\ttfamily \{3, 4, 1\} == \{3, 4\}}. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e}\label{classTensor_1_1Shape_a15b5152c1f01a3765cbc88753eb1116e} 
+\index{Tensor::Shape@{Tensor::Shape}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Tensor::Shape@{Tensor::Shape}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} Tensor\+::\+Shape\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{position }\end{DoxyParamCaption}) const}
+
+\doxylink{classTensor_1_1Shape}{Shape} of the sub-\/tensor after indexing with a multi-\/dim position. Returns \{1\} if no dimensions remain. \Hypertarget{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e}\label{classTensor_1_1Shape_a4d78dc0a0b49b47520472b5defe3d06e} 
+\index{Tensor::Shape@{Tensor::Shape}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Tensor::Shape@{Tensor::Shape}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} Tensor\+::\+Shape\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+\doxylink{classTensor_1_1Shape}{Shape} of the sub-\/tensor after indexing the first dimension. Returns \{1\} if already 1D. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

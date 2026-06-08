@@ -1,5 +1,9 @@
 \doxysection{Tensor\+::CPUImpl Class Reference}
 \hypertarget{classTensor_1_1CPUImpl}{}\label{classTensor_1_1CPUImpl}\index{Tensor::CPUImpl@{Tensor::CPUImpl}}
+
+
+{\ttfamily \#include $<$tensor\+\_\+impl\+\_\+\+CPU.\+h$>$}
+
 Inheritance diagram for Tensor\+::CPUImpl\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,69 +20,76 @@ Inheritance diagram for Tensor\+::CPUImpl\+:\begin{figure}[H]
 {\bfseries CPUImpl} (const \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \&shape, float value)
 \item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_acc6830b7f97924be1dcf75f60e6c0c4d}{fill\+All}} (float value) override
-\item 
+\begin{DoxyCompactList}\small\item\em Fills all elements with {\ttfamily value}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a3ae33e92958b2eb4959b29aea07a3003}{fill\+Rand}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em Fills all elements with random values in \mbox{[}-\/1, 1\mbox{]}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a46113098d6e71940bd16400bca6d4e3e}{print}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Prints the entire tensor to stdout. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_ae536eadbfcc087178a7ef7e854d02b54}{print}} (const std\+::vector$<$ size\+\_\+t $>$ \&position) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Prints the block starting at {\ttfamily position} to stdout. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{classTensor_1_1CPUImpl_ad10d5fd3fc3294acb98d65f0a13a0150}{get\+Num\+Elements}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the total number of elements. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classTensor_1_1Shape}{Tensor\+::\+Shape}} \mbox{\hyperlink{classTensor_1_1CPUImpl_a14f2f5e58e424b0aa5301af706ce7349}{get\+Shape}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the tensor shape. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1CPUImpl_a69022b3cfc67ddea0776037591c5b622}\label{classTensor_1_1CPUImpl_a69022b3cfc67ddea0776037591c5b622} 
 float \texorpdfstring{$\ast$}{*} {\bfseries data\+Ptr} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a raw pointer to the internal data buffer. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_afe6338233928010ad0c6f49a547d999e}{to\+Vector}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Copies all elements into a flat vector (row-\/major order). \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classTensor_1_1CPUImpl_a3ed4a42c58090528d8019ee1b9e0330c}{to\+String}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a string representation of the data. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5}{clone}} () const override
-\item 
+\begin{DoxyCompactList}\small\item\em Deep copies this implementation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a67f65c664ea6e85bd5a6b4d40a618a57}{set}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
-\item 
+\begin{DoxyCompactList}\small\item\em Copies data from {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout} into {\ttfamily this} with {\ttfamily lhs\+Layout}. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classTensor_1_1CPUImpl_a16cffea186292f67d0f1aa3698c3e60c}{compare}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns true if the data with {\ttfamily lhs\+Layout} matches {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a24d4ce17b3dbba76e861800579c0fb6a}{add}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise addition. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ac6d3cc8326c5a6df3907090e1c9cb3cd}{sub}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise subtraction. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_aab66faca16f5e3e9f0617370ce51d461}{mul}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise multiplication. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a254e28015ba00fcacf68c964454b5aca}{div}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise division. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_af0162e3f221b6b29557193a575c3b396}{iadd}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise addition. Modifies {\ttfamily lhs\+Layout} in place. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a2f36bc0334b0630a500c486d31d70c54}{isub}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise subtraction. Modifies {\ttfamily lhs\+Layout} in place. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_ac5d18c769ab14cb17ddc7e281f863f5d}{imul}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise multiplication. Modifies {\ttfamily lhs\+Layout} in place. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a2b6065d9916269067bc3ff19673532b8}{idiv}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
-\item 
+\begin{DoxyCompactList}\small\item\em In-\/place elementwise division. Modifies {\ttfamily lhs\+Layout} in place. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ab9fbee83263701395a60904052e5852d}{sum}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by summation. Output with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_add1b5b49d841e358af8a7a581efb2d20}{min}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the minimum. Output with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a3ac313bcccfc4e724a204bb1e0edb54e}{max}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the maximum. Output with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a3cc3b19c9c9e84954e97edbc48d7c521}{prod}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the product. Output with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a5c0c181b282ec90b01033206f0c69d25}{norm}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em L2 norm of the tensor described by {\ttfamily layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_aec04bd8c58dd45c628b6da2436649bfc}{matmul}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout, size\+\_\+t batch, size\+\_\+t m, size\+\_\+t k, size\+\_\+t p) const override
 \item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ab433021276ae1d9d49abc38e4ebd5372}{less}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise less than. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a2c87834f8b809c918874f8f7e112635b}{less\+Equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise less or equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a2deda7bce3147b2964567c5b2451cdda}{greater}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise greater than. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ab73e86fd7552f961c2fc8c399c0a2f9a}{greater\+Equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Elementwise greater or equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff}{is\+Close}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout, float tolerance) const override
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Elementwise closeness within {\ttfamily tolerance}. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+CPU implementation of \doxylink{classTensor_1_1Impl}{Tensor\+::\+Impl}, backed by std\+::vector$<$float$>$.
+
+All operations iterate over the data using \doxylink{structTensorLayout}{Tensor\+Layout} descriptors. The caller is responsible for layout validity, see \doxylink{classTensor_1_1Impl}{Tensor\+::\+Impl}.
+
+Overridden methods follow the same semantics documented in \doxylink{classTensor_1_1Impl}{Tensor\+::\+Impl}. 
 
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classTensor_1_1CPUImpl_a24d4ce17b3dbba76e861800579c0fb6a}\label{classTensor_1_1CPUImpl_a24d4ce17b3dbba76e861800579c0fb6a} 
@@ -89,7 +100,11 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise addition. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ace7bfa323e2f1528fb3ba2bf96f3024a}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5}\label{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!clone@{clone}}
@@ -99,7 +114,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Deep copies this implementation. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a0affffc80f13bbcc4a647b06e3b9f3fd}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a16cffea186292f67d0f1aa3698c3e60c}\label{classTensor_1_1CPUImpl_a16cffea186292f67d0f1aa3698c3e60c} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!compare@{compare}}
@@ -109,7 +128,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Returns true if the data with {\ttfamily lhs\+Layout} matches {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aa3da5cc31659ea349c35dc693890c071}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a254e28015ba00fcacf68c964454b5aca}\label{classTensor_1_1CPUImpl_a254e28015ba00fcacf68c964454b5aca} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!div@{div}}
@@ -119,7 +142,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise division. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aa6eaaa41a44326e5862ee65ddf681f45}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_acc6830b7f97924be1dcf75f60e6c0c4d}\label{classTensor_1_1CPUImpl_acc6830b7f97924be1dcf75f60e6c0c4d} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!fillAll@{fillAll}}
@@ -129,7 +156,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Fills all elements with {\ttfamily value}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a6942401937978279c5790bf924a84658}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a3ae33e92958b2eb4959b29aea07a3003}\label{classTensor_1_1CPUImpl_a3ae33e92958b2eb4959b29aea07a3003} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!fillRand@{fillRand}}
@@ -139,7 +170,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Fills all elements with random values in \mbox{[}-\/1, 1\mbox{]}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_af8cc28f06c200a08a1de699e6eae8dac}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ad10d5fd3fc3294acb98d65f0a13a0150}\label{classTensor_1_1CPUImpl_ad10d5fd3fc3294acb98d65f0a13a0150} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!getNumElements@{getNumElements}}
@@ -149,7 +184,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Returns the total number of elements. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a6cd95754d9c909ea6ba29cf8884cdb3b}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a14f2f5e58e424b0aa5301af706ce7349}\label{classTensor_1_1CPUImpl_a14f2f5e58e424b0aa5301af706ce7349} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!getShape@{getShape}}
@@ -159,7 +198,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Returns the tensor shape. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aeabc75a4edc0189c2e226251ecb9810a}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a2deda7bce3147b2964567c5b2451cdda}\label{classTensor_1_1CPUImpl_a2deda7bce3147b2964567c5b2451cdda} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!greater@{greater}}
@@ -169,7 +212,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise greater than. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a91158829caf2fe1d6a1ef4d145a9826b}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ab73e86fd7552f961c2fc8c399c0a2f9a}\label{classTensor_1_1CPUImpl_ab73e86fd7552f961c2fc8c399c0a2f9a} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!greaterEqual@{greaterEqual}}
@@ -179,7 +226,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise greater or equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ac93d1fe856eb9963da8796cc10383f90}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_af0162e3f221b6b29557193a575c3b396}\label{classTensor_1_1CPUImpl_af0162e3f221b6b29557193a575c3b396} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!iadd@{iadd}}
@@ -189,7 +240,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+In-\/place elementwise addition. Modifies {\ttfamily lhs\+Layout} in place. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aa65bd8eea439278072fa3a91bd96e1e5}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a2b6065d9916269067bc3ff19673532b8}\label{classTensor_1_1CPUImpl_a2b6065d9916269067bc3ff19673532b8} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!idiv@{idiv}}
@@ -199,7 +254,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+In-\/place elementwise division. Modifies {\ttfamily lhs\+Layout} in place. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a9f7aad3bbe0f8e98eb14559233f8da22}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ac5d18c769ab14cb17ddc7e281f863f5d}\label{classTensor_1_1CPUImpl_ac5d18c769ab14cb17ddc7e281f863f5d} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!imul@{imul}}
@@ -209,7 +268,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+In-\/place elementwise multiplication. Modifies {\ttfamily lhs\+Layout} in place. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a6135f7197fac9c42950c7ed21c93d98f}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff}\label{classTensor_1_1CPUImpl_a3d11de4e852b88eea3fb6951be1349ff} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!isClose@{isClose}}
@@ -219,7 +282,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise closeness within {\ttfamily tolerance}. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ad94aa6e063c0a68eae68e636522000c4}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a2f36bc0334b0630a500c486d31d70c54}\label{classTensor_1_1CPUImpl_a2f36bc0334b0630a500c486d31d70c54} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!isub@{isub}}
@@ -229,7 +296,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+In-\/place elementwise subtraction. Modifies {\ttfamily lhs\+Layout} in place. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ad8aacb8b96f695c42a350ed606bf4cad}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ab433021276ae1d9d49abc38e4ebd5372}\label{classTensor_1_1CPUImpl_ab433021276ae1d9d49abc38e4ebd5372} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!less@{less}}
@@ -239,7 +310,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise less than. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a597c8a835d4a090410a834f609d4c30c}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a2c87834f8b809c918874f8f7e112635b}\label{classTensor_1_1CPUImpl_a2c87834f8b809c918874f8f7e112635b} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!lessEqual@{lessEqual}}
@@ -249,7 +324,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise less or equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a7c96166b18823e3f89f8c9e8ad34b98b}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_aec04bd8c58dd45c628b6da2436649bfc}\label{classTensor_1_1CPUImpl_aec04bd8c58dd45c628b6da2436649bfc} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!matmul@{matmul}}
@@ -257,9 +336,13 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 \doxysubsubsection{\texorpdfstring{matmul()}{matmul()}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::matmul (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout,  }\item[{size\+\_\+t}]{batch,  }\item[{size\+\_\+t}]{m,  }\item[{size\+\_\+t}]{k,  }\item[{size\+\_\+t}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
+Matrix multiplication. The last two dims of each layout are the matrix dims. {\ttfamily batch}, {\ttfamily m}, {\ttfamily k}, {\ttfamily p} describe the decomposition of the matmul problem.
 
+2D\+: (m, k) @ (k, p) =\texorpdfstring{$>$}{>} (m, p).
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+3D\+: (batch, m, k) @ (batch, k, p) =\texorpdfstring{$>$}{>} (batch, m, p). 
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aec5307091df2d0aa27b17dbac595cbb1}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a3ac313bcccfc4e724a204bb1e0edb54e}\label{classTensor_1_1CPUImpl_a3ac313bcccfc4e724a204bb1e0edb54e} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!max@{max}}
@@ -269,7 +352,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Reduces dimensions \mbox{[}dim, rank) by taking the maximum. Output with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ae7c6e4e158daff754d6067320fe1497e}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_add1b5b49d841e358af8a7a581efb2d20}\label{classTensor_1_1CPUImpl_add1b5b49d841e358af8a7a581efb2d20} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!min@{min}}
@@ -279,7 +366,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Reduces dimensions \mbox{[}dim, rank) by taking the minimum. Output with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a286b79bcb1d61f1f17a652c0d2ffb4c9}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_aab66faca16f5e3e9f0617370ce51d461}\label{classTensor_1_1CPUImpl_aab66faca16f5e3e9f0617370ce51d461} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!mul@{mul}}
@@ -289,7 +380,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise multiplication. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ab22c2aa7f13befb2d180e111243c88ff}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a5c0c181b282ec90b01033206f0c69d25}\label{classTensor_1_1CPUImpl_a5c0c181b282ec90b01033206f0c69d25} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!norm@{norm}}
@@ -299,7 +394,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+L2 norm of the tensor described by {\ttfamily layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a9e68f36352eea327d3d20f0c0c8cc662}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a46113098d6e71940bd16400bca6d4e3e}\label{classTensor_1_1CPUImpl_a46113098d6e71940bd16400bca6d4e3e} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!print@{print}}
@@ -309,7 +408,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Prints the entire tensor to stdout. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_acc7078daa586f3a0d2bc8cd148e29655}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ae536eadbfcc087178a7ef7e854d02b54}\label{classTensor_1_1CPUImpl_ae536eadbfcc087178a7ef7e854d02b54} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!print@{print}}
@@ -319,7 +422,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Prints the block starting at {\ttfamily position} to stdout. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aef2343a6e0c2023d43a87ae52d16c988}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a3cc3b19c9c9e84954e97edbc48d7c521}\label{classTensor_1_1CPUImpl_a3cc3b19c9c9e84954e97edbc48d7c521} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!prod@{prod}}
@@ -329,7 +436,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Reduces dimensions \mbox{[}dim, rank) by taking the product. Output with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a80ed4dc18e6d77c84f3dd397a8c57672}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a67f65c664ea6e85bd5a6b4d40a618a57}\label{classTensor_1_1CPUImpl_a67f65c664ea6e85bd5a6b4d40a618a57} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!set@{set}}
@@ -339,7 +450,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Copies data from {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout} into {\ttfamily this} with {\ttfamily lhs\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_ae70c7bb16528b94e10f200586b381830}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ac6d3cc8326c5a6df3907090e1c9cb3cd}\label{classTensor_1_1CPUImpl_ac6d3cc8326c5a6df3907090e1c9cb3cd} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!sub@{sub}}
@@ -349,7 +464,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Elementwise subtraction. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with the result with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a378f2e1cbc574d7a0672f69c46fb05d2}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_ab9fbee83263701395a60904052e5852d}\label{classTensor_1_1CPUImpl_ab9fbee83263701395a60904052e5852d} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!sum@{sum}}
@@ -359,7 +478,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Reduces dimensions \mbox{[}dim, rank) by summation. Output with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a1cd0c32595f322644cee065a1a4e0833}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a3ed4a42c58090528d8019ee1b9e0330c}\label{classTensor_1_1CPUImpl_a3ed4a42c58090528d8019ee1b9e0330c} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!toString@{toString}}
@@ -369,7 +492,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Returns a string representation of the data. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a10ee94e919926d49db05b16bf26b83b3}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_afe6338233928010ad0c6f49a547d999e}\label{classTensor_1_1CPUImpl_afe6338233928010ad0c6f49a547d999e} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!toVector@{toVector}}
@@ -379,7 +506,11 @@ Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
 
 
 
-Implements \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}}.
+Copies all elements into a flat vector (row-\/major order). 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a9a628145160a1bbee39c7799e1a5f89d}{Tensor\+::\+Impl}}.
 
 
 

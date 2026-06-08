@@ -83,137 +83,9 @@ To generate documentation locally, ensure Doxygen is installed, then from projec
 \end{DoxyCode}
 
 
-The project is just starting up with Doxygen, so little is currently documented.\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{API overview}{API overview}}\label{index_autotoc_md7}
-\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{Construction}{Construction}}\label{index_autotoc_md8}
-\tabulinesep=1mm
-\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
-\hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Expression   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
-\endfirsthead
-\hline
-\endfoot
-\hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Expression   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
-\endhead
-{\ttfamily \doxylink{classTensor}{Tensor}(\{n\+\_\+1, n\+\_\+2, ..., n\+\_\+m\}\})}   &Zero-\/initialised tensor of shape {\ttfamily \{n\+\_\+1, n\+\_\+2, ..., n\+\_\+m\}}    \\\cline{1-2}
-{\ttfamily \doxylink{classTensor}{Tensor}(\{n, m\}, v)}   &\doxylink{classTensor}{Tensor} filled with value {\ttfamily v}    \\\cline{1-2}
-{\ttfamily \doxylink{classTensor}{Tensor(v)}}   &Scalar tensor wrapping {\ttfamily v}    \\\cline{1-2}
-{\ttfamily \doxylink{classTensor}{Tensor(t)}}   &Copy of tensor {\ttfamily t}   \\\cline{1-2}
-\end{longtabu}
-\hypertarget{index_autotoc_md9}{}\doxysubsection{\texorpdfstring{Arithmetic}{Arithmetic}}\label{index_autotoc_md9}
-All four operators ({\ttfamily +}, {\ttfamily -\/}, {\ttfamily \texorpdfstring{$\ast$}{*}}, {\ttfamily /}) work between\+:
+The public API ({\ttfamily \doxylink{classTensor}{Tensor}}, {\ttfamily \doxylink{classTensor_1_1View}{Tensor\+::\+View}}, {\ttfamily \doxylink{classTensor_1_1Shape}{Tensor\+::\+Shape}}) is fully documented with Doxygen.
 
-
-\begin{DoxyItemize}
-\item Two {\ttfamily \doxylink{classTensor}{Tensor}}s, element-\/wise, with scalar broadcast
-\item A {\ttfamily \doxylink{classTensor}{Tensor}} and a {\ttfamily \doxylink{classTensor_1_1View}{Tensor\+::\+View}}
-\item A {\ttfamily \doxylink{classTensor}{Tensor}} (or {\ttfamily View}) and a {\ttfamily float}, in either order
-\end{DoxyItemize}
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{4\},\ 2.0f);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ b\ =\ a\ *\ 3.0f;\ \ \ \ \ \ \ \textcolor{comment}{//\ [6,\ 6,\ 6,\ 6]}}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ c\ =\ 10.0f\ -\/\ a;\ \ \ \ \ \ \textcolor{comment}{//\ [8,\ 8,\ 8,\ 8]}}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ d\ =\ a\ +\ \mbox{\hyperlink{classTensor}{Tensor}}(1.0f);\ \textcolor{comment}{//\ scalar\ broadcast\ =>\ [3,\ 3,\ 3,\ 3]}}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md10}{}\doxysubsection{\texorpdfstring{Views}{Views}}\label{index_autotoc_md10}
-A {\ttfamily \doxylink{classTensor_1_1View}{Tensor\+::\+View}} is a non-\/owning window into an existing tensor\textquotesingle{}s data. It shares the same underlying memory, so reads and writes through a view are immediately visible in the original tensor and vice versa.\hypertarget{index_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{Obtaining a view}{Obtaining a view}}\label{index_autotoc_md11}
-{\ttfamily operator\mbox{[}\mbox{]}} steps one dimension into the tensor and returns a view of the remaining dimensions.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{3,\ 4\},\ 0.0f);\ \ \ \textcolor{comment}{//\ shape\ \{3,\ 4\}}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\ row\ \ =\ a[1];\ \ \ \ \ \textcolor{comment}{//\ shape\ \{4\},\ row\ 1}}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor_1_1View}{Tensor::View}}\ cell\ =\ a[1][2];\ \ \textcolor{comment}{//\ shape\ \{1\},\ scalar\ at\ (1,\ 2)}}
-
-\end{DoxyCode}
-
-
-Chaining {\ttfamily \mbox{[}\mbox{]}} calls navigates deeper into the tensor, one axis at a time\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ b(\{2,\ 3,\ 4\},\ 1.0f);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ mat\ \ =\ b[0];\ \ \ \ \ \ \ \textcolor{comment}{//\ shape\ \{3,\ 4\},\ first\ matrix}}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ row\ \ =\ b[0][2];\ \ \ \ \textcolor{comment}{//\ shape\ \{4\},\ \ \ \ third\ row\ of\ first\ matrix}}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ elem\ =\ b[0][2][3];\ \textcolor{comment}{//\ shape\ \{1\},\ \ \ \ \ single\ element}}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{Assigning through a view}{Assigning through a view}}\label{index_autotoc_md12}
-Assigning a {\ttfamily \doxylink{classTensor}{Tensor}} (or another {\ttfamily View}) to a view copies data into that window of the original tensor. The original tensor is mutated; the view itself is not reseated.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{3,\ 4\},\ 0.0f);}
-\DoxyCodeLine{}
-\DoxyCodeLine{a[0]\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{4\},\ 7.0f);\ \ \ \textcolor{comment}{//\ overwrite\ row\ 0\ with\ all\ 7s}}
-\DoxyCodeLine{}
-\DoxyCodeLine{a[2][3]\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(99.0f);\ \ \ \ \textcolor{comment}{//\ set\ element\ (2,\ 3)\ to\ 99}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{//\ Copy\ row\ 1\ from\ another\ tensor}}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ src(\{4\},\ 5.0f);}
-\DoxyCodeLine{a[1]\ =\ src;}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{//\ a\ =\ [[7,\ 7,\ 7,\ 7],}}
-\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [5,\ 5,\ 5,\ 5],}}
-\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [0,\ 0,\ 0,\ 99]]}}
-
-\end{DoxyCode}
-
-
-Chained assignment works as expected\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{3\},\ 1.0f),\ b(\{3\},\ 2.0f),\ c(\{3\},\ 3.0f);}
-\DoxyCodeLine{a\ =\ b\ =\ c;\ \ \ \textcolor{comment}{//\ both\ a\ and\ b\ now\ equal\ c}}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{Strided views}{Strided views}}\label{index_autotoc_md13}
-{\ttfamily subsample(strides)} returns a view that steps through the tensor with the given per-\/dimension stride.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{6\},\ 0.0f);}
-\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ 6;\ i++)\ a[i]\ =\ Tensor(static\_cast<float>(i));}
-\DoxyCodeLine{\textcolor{comment}{//\ a\ =\ [0,\ 1,\ 2,\ 3,\ 4,\ 5]}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ evens\ =\ a.subsample(\{2\});\ \textcolor{comment}{//\ view\ of\ elements\ at\ indices\ 0,\ 2,\ 4}}
-
-\end{DoxyCode}
-
-
-Because the view is backed by the same memory, assigning to it mutates the original tensor in-\/place\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ a(\{6\},\ 0.0f);}
-\DoxyCodeLine{\textcolor{comment}{//\ a\ =\ [0,\ 0,\ 0,\ 0,\ 0,\ 0]}}
-\DoxyCodeLine{}
-\DoxyCodeLine{a.subsample(\{2\})\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{3\},\ 9.0f);}
-\DoxyCodeLine{\textcolor{comment}{//\ a\ =\ [9,\ 0,\ 9,\ 0,\ 9,\ 0],\ only\ the\ even\ indices\ were\ touched}}
-
-\end{DoxyCode}
-
-
-The same principle applies to higher-\/rank tensors. A stride of {\ttfamily \{2, 1\}} on a matrix skips every other row while keeping all columns\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classTensor}{Tensor}}\ m(\{4,\ 3\},\ 0.0f);}
-\DoxyCodeLine{m.subsample(\{2,\ 1\})\ =\ \mbox{\hyperlink{classTensor}{Tensor}}(\{2,\ 3\},\ 1.0f);}
-\DoxyCodeLine{\textcolor{comment}{//\ m\ =\ [[1,\ 1,\ 1],}}
-\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [0,\ 0,\ 0],}}
-\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [1,\ 1,\ 1],}}
-\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ [0,\ 0,\ 0]]}}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md14}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{index_autotoc_md14}
+See INTRO.md for a quick intro.\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{index_autotoc_md7}
 Unit and integration tests use \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} and live under {\ttfamily tests/}.
 
 Run after building\+:
@@ -223,12 +95,12 @@ Run after building\+:
 \DoxyCodeLine{ctest\ -\/-\/progress}
 
 \end{DoxyCode}
-\hypertarget{index_autotoc_md15}{}\doxysection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{index_autotoc_md15}
+\hypertarget{index_autotoc_md8}{}\doxysection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{index_autotoc_md8}
 Benchmarks run on merge with {\ttfamily main} branch, after all tests pass.
 
 Current benchmarks are the examples from physics scenarios with default parameters. The results are published to \href{https://marbjo07.github.io/NForge/dev/bench/}{\texttt{ marbjo07.\+github.\+io/\+NForge/dev/bench/}} ~\newline
-\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{Code Formatting}{Code Formatting}}\label{index_autotoc_md16}
-NForge uses {\ttfamily clang-\/format} to enforce consistent formatting. Formatting is checked automatically on all pull requests and must pass before merging.\hypertarget{index_autotoc_md17}{}\doxysubsection{\texorpdfstring{Pre-\/commit Hook (recommended)}{Pre-commit Hook (recommended)}}\label{index_autotoc_md17}
+\hypertarget{index_autotoc_md9}{}\doxysection{\texorpdfstring{Code Formatting}{Code Formatting}}\label{index_autotoc_md9}
+NForge uses {\ttfamily clang-\/format} to enforce consistent formatting. Formatting is checked automatically on all pull requests and must pass before merging.\hypertarget{index_autotoc_md10}{}\doxysubsection{\texorpdfstring{Pre-\/commit Hook (recommended)}{Pre-commit Hook (recommended)}}\label{index_autotoc_md10}
 The easiest way to avoid formatting failures is to install the pre-\/commit hook, which checks formatting automatically on every commit\+:
 
 
@@ -240,7 +112,7 @@ The easiest way to avoid formatting failures is to install the pre-\/commit hook
 \end{DoxyCode}
 
 
-After installation, any commit that fails formatting will be blocked and fixed in-\/place. Stage the changes and commit again to proceed.\hypertarget{index_autotoc_md18}{}\doxysubsection{\texorpdfstring{Manual formatting}{Manual formatting}}\label{index_autotoc_md18}
+After installation, any commit that fails formatting will be blocked and fixed in-\/place. Stage the changes and commit again to proceed.\hypertarget{index_autotoc_md11}{}\doxysubsection{\texorpdfstring{Manual formatting}{Manual formatting}}\label{index_autotoc_md11}
 If you prefer not to use pre-\/commit, you can format manually via CMake\+:
 
 

@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['obtaining_20a_20view_0',['Obtaining a view',['../index.html#autotoc_md11',1,'']]],
-  ['offset_1',['offset',['../structTensorLayout.html#a5d809086add5e2501a47a40742605bf0',1,'TensorLayout']]],
-  ['operationcontext_2',['OperationContext',['../classsemantic_1_1detail_1_1OperationContext.html',1,'semantic::detail']]],
-  ['operator_21_3d_3',['operator!=',['../structTensorLayout.html#a1c04a25da4822e3a356b0746aa59c4ce',1,'TensorLayout']]],
-  ['operator_3d_3d_4',['operator==',['../structTensorLayout.html#a12b960cae08a192daada864f238de811',1,'TensorLayout']]],
-  ['output_5',['Output',['../index.html#autotoc_md5',1,'']]],
-  ['overview_6',['API overview',['../index.html#autotoc_md7',1,'']]]
+  ['manual_20formatting_0',['Manual formatting',['../index.html#autotoc_md11',1,'']]],
+  ['matmul_1',['matmul',['../classTensor_1_1CPUImpl.html#aec04bd8c58dd45c628b6da2436649bfc',1,'Tensor::CPUImpl::matmul()'],['../classTensor_1_1View.html#a55a0dc6032269facc635fd7980f4fdbe',1,'Tensor::View::matmul()'],['../classTensor.html#a86c4d399056e19b14bfd65a2ee76ddc8',1,'Tensor::matmul()'],['../classTensor_1_1Impl.html#aec5307091df2d0aa27b17dbac595cbb1',1,'Tensor::Impl::matmul()'],['../classTensor_1_1CUDAImpl.html#afdf6206e3deec3763c346fa3d36e9bc1',1,'Tensor::CUDAImpl::matmul()']]],
+  ['matmulcontext_2',['MatmulContext',['../classsemantic_1_1MatmulContext.html',1,'semantic']]],
+  ['max_3',['max',['../classTensor_1_1CPUImpl.html#a3ac313bcccfc4e724a204bb1e0edb54e',1,'Tensor::CPUImpl::max()'],['../classTensor_1_1CUDAImpl.html#a86e8f521424970421c01e80e0ff1b5db',1,'Tensor::CUDAImpl::max()'],['../classTensor_1_1Impl.html#ae7c6e4e158daff754d6067320fe1497e',1,'Tensor::Impl::max()'],['../classTensor.html#a37eb5b07ead6d6156e8771f221bd5468',1,'Tensor::max(size_t dim=0) const']]],
+  ['mean_4',['mean',['../classTensor.html#a7243cb8f4a42b519232438c0eeea325f',1,'Tensor']]],
+  ['min_5',['min',['../classTensor_1_1CPUImpl.html#add1b5b49d841e358af8a7a581efb2d20',1,'Tensor::CPUImpl::min()'],['../classTensor_1_1CUDAImpl.html#a1122b34243e55dbd86565865b6e95334',1,'Tensor::CUDAImpl::min()'],['../classTensor_1_1Impl.html#a286b79bcb1d61f1f17a652c0d2ffb4c9',1,'Tensor::Impl::min()'],['../classTensor.html#a9e336d7fe5193b74758b1353637a7a81',1,'Tensor::min()']]],
+  ['mul_6',['mul',['../classTensor_1_1CPUImpl.html#aab66faca16f5e3e9f0617370ce51d461',1,'Tensor::CPUImpl::mul()'],['../classTensor_1_1CUDAImpl.html#a2f5abf7caa037c022eed2994e3311642',1,'Tensor::CUDAImpl::mul()'],['../classTensor_1_1Impl.html#ab22c2aa7f13befb2d180e111243c88ff',1,'Tensor::Impl::mul()']]]
 ];

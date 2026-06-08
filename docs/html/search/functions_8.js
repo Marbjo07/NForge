@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['matmul_0',['matmul',['../classTensor_1_1CUDAImpl.html#afdf6206e3deec3763c346fa3d36e9bc1',1,'Tensor::CUDAImpl::matmul()'],['../classTensor_1_1Impl.html#aec5307091df2d0aa27b17dbac595cbb1',1,'Tensor::Impl::matmul()'],['../classTensor.html#a86c4d399056e19b14bfd65a2ee76ddc8',1,'Tensor::matmul()'],['../classTensor_1_1View.html#a55a0dc6032269facc635fd7980f4fdbe',1,'Tensor::View::matmul()'],['../classTensor_1_1CPUImpl.html#aec04bd8c58dd45c628b6da2436649bfc',1,'Tensor::CPUImpl::matmul()']]],
+  ['max_1',['max',['../classTensor.html#a37eb5b07ead6d6156e8771f221bd5468',1,'Tensor::max()'],['../classTensor_1_1Impl.html#ae7c6e4e158daff754d6067320fe1497e',1,'Tensor::Impl::max()'],['../classTensor_1_1CUDAImpl.html#a86e8f521424970421c01e80e0ff1b5db',1,'Tensor::CUDAImpl::max()'],['../classTensor_1_1CPUImpl.html#a3ac313bcccfc4e724a204bb1e0edb54e',1,'Tensor::CPUImpl::max()']]],
+  ['mean_2',['mean',['../classTensor.html#a7243cb8f4a42b519232438c0eeea325f',1,'Tensor']]],
+  ['min_3',['min',['../classTensor_1_1CPUImpl.html#add1b5b49d841e358af8a7a581efb2d20',1,'Tensor::CPUImpl::min()'],['../classTensor_1_1CUDAImpl.html#a1122b34243e55dbd86565865b6e95334',1,'Tensor::CUDAImpl::min()'],['../classTensor_1_1Impl.html#a286b79bcb1d61f1f17a652c0d2ffb4c9',1,'Tensor::Impl::min()'],['../classTensor.html#a9e336d7fe5193b74758b1353637a7a81',1,'Tensor::min()']]],
+  ['mul_4',['mul',['../classTensor_1_1CPUImpl.html#aab66faca16f5e3e9f0617370ce51d461',1,'Tensor::CPUImpl::mul()'],['../classTensor_1_1CUDAImpl.html#a2f5abf7caa037c022eed2994e3311642',1,'Tensor::CUDAImpl::mul()'],['../classTensor_1_1Impl.html#ab22c2aa7f13befb2d180e111243c88ff',1,'Tensor::Impl::mul()']]]
+];

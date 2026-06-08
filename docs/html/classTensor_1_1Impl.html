@@ -96,6 +96,8 @@ $(document).ready(function(){initNavTree('classTensor_1_1Impl.html',''); initRes
   <div class="headertitle"><div class="title">Tensor::Impl Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="tensor__impl_8h_source.html">tensor_impl.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Tensor::Impl:</div>
 <div class="dyncontent">
@@ -109,97 +111,1406 @@ Inheritance diagram for Tensor::Impl:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6942401937978279c5790bf924a84658" id="r_a6942401937978279c5790bf924a84658"><td class="memItemLeft" align="right" valign="top"><a id="a6942401937978279c5790bf924a84658" name="a6942401937978279c5790bf924a84658"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>fillAll</b> (float value)=0</td></tr>
+<tr class="memitem:a6942401937978279c5790bf924a84658" id="r_a6942401937978279c5790bf924a84658"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a6942401937978279c5790bf924a84658">fillAll</a> (float value)=0</td></tr>
+<tr class="memdesc:a6942401937978279c5790bf924a84658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills all elements with <code>value</code>.  <br /></td></tr>
 <tr class="separator:a6942401937978279c5790bf924a84658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8cc28f06c200a08a1de699e6eae8dac" id="r_af8cc28f06c200a08a1de699e6eae8dac"><td class="memItemLeft" align="right" valign="top"><a id="af8cc28f06c200a08a1de699e6eae8dac" name="af8cc28f06c200a08a1de699e6eae8dac"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>fillRand</b> ()=0</td></tr>
+<tr class="memitem:af8cc28f06c200a08a1de699e6eae8dac" id="r_af8cc28f06c200a08a1de699e6eae8dac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#af8cc28f06c200a08a1de699e6eae8dac">fillRand</a> ()=0</td></tr>
+<tr class="memdesc:af8cc28f06c200a08a1de699e6eae8dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills all elements with random values in [-1, 1].  <br /></td></tr>
 <tr class="separator:af8cc28f06c200a08a1de699e6eae8dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc7078daa586f3a0d2bc8cd148e29655" id="r_acc7078daa586f3a0d2bc8cd148e29655"><td class="memItemLeft" align="right" valign="top"><a id="acc7078daa586f3a0d2bc8cd148e29655" name="acc7078daa586f3a0d2bc8cd148e29655"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> () const =0</td></tr>
+<tr class="memitem:acc7078daa586f3a0d2bc8cd148e29655" id="r_acc7078daa586f3a0d2bc8cd148e29655"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#acc7078daa586f3a0d2bc8cd148e29655">print</a> () const =0</td></tr>
+<tr class="memdesc:acc7078daa586f3a0d2bc8cd148e29655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the entire tensor to stdout.  <br /></td></tr>
 <tr class="separator:acc7078daa586f3a0d2bc8cd148e29655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef2343a6e0c2023d43a87ae52d16c988" id="r_aef2343a6e0c2023d43a87ae52d16c988"><td class="memItemLeft" align="right" valign="top"><a id="aef2343a6e0c2023d43a87ae52d16c988" name="aef2343a6e0c2023d43a87ae52d16c988"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> (const std::vector&lt; size_t &gt; &amp;position) const =0</td></tr>
+<tr class="memitem:aef2343a6e0c2023d43a87ae52d16c988" id="r_aef2343a6e0c2023d43a87ae52d16c988"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aef2343a6e0c2023d43a87ae52d16c988">print</a> (const std::vector&lt; size_t &gt; &amp;position) const =0</td></tr>
+<tr class="memdesc:aef2343a6e0c2023d43a87ae52d16c988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the block starting at <code>position</code> to stdout.  <br /></td></tr>
 <tr class="separator:aef2343a6e0c2023d43a87ae52d16c988"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cd95754d9c909ea6ba29cf8884cdb3b" id="r_a6cd95754d9c909ea6ba29cf8884cdb3b"><td class="memItemLeft" align="right" valign="top"><a id="a6cd95754d9c909ea6ba29cf8884cdb3b" name="a6cd95754d9c909ea6ba29cf8884cdb3b"></a>
-virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getNumElements</b> () const =0</td></tr>
+<tr class="memitem:a6cd95754d9c909ea6ba29cf8884cdb3b" id="r_a6cd95754d9c909ea6ba29cf8884cdb3b"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a6cd95754d9c909ea6ba29cf8884cdb3b">getNumElements</a> () const =0</td></tr>
+<tr class="memdesc:a6cd95754d9c909ea6ba29cf8884cdb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of elements.  <br /></td></tr>
 <tr class="separator:a6cd95754d9c909ea6ba29cf8884cdb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeabc75a4edc0189c2e226251ecb9810a" id="r_aeabc75a4edc0189c2e226251ecb9810a"><td class="memItemLeft" align="right" valign="top"><a id="aeabc75a4edc0189c2e226251ecb9810a" name="aeabc75a4edc0189c2e226251ecb9810a"></a>
-virtual <a class="el" href="classTensor_1_1Shape.html">Tensor::Shape</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getShape</b> () const =0</td></tr>
+<tr class="memitem:aeabc75a4edc0189c2e226251ecb9810a" id="r_aeabc75a4edc0189c2e226251ecb9810a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classTensor_1_1Shape.html">Tensor::Shape</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aeabc75a4edc0189c2e226251ecb9810a">getShape</a> () const =0</td></tr>
+<tr class="memdesc:aeabc75a4edc0189c2e226251ecb9810a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the tensor shape.  <br /></td></tr>
 <tr class="separator:aeabc75a4edc0189c2e226251ecb9810a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a628145160a1bbee39c7799e1a5f89d" id="r_a9a628145160a1bbee39c7799e1a5f89d"><td class="memItemLeft" align="right" valign="top"><a id="a9a628145160a1bbee39c7799e1a5f89d" name="a9a628145160a1bbee39c7799e1a5f89d"></a>
-virtual std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>toVector</b> () const =0</td></tr>
+<tr class="memitem:a9a628145160a1bbee39c7799e1a5f89d" id="r_a9a628145160a1bbee39c7799e1a5f89d"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a9a628145160a1bbee39c7799e1a5f89d">toVector</a> () const =0</td></tr>
+<tr class="memdesc:a9a628145160a1bbee39c7799e1a5f89d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies all elements into a flat vector (row-major order).  <br /></td></tr>
 <tr class="separator:a9a628145160a1bbee39c7799e1a5f89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10ee94e919926d49db05b16bf26b83b3" id="r_a10ee94e919926d49db05b16bf26b83b3"><td class="memItemLeft" align="right" valign="top"><a id="a10ee94e919926d49db05b16bf26b83b3" name="a10ee94e919926d49db05b16bf26b83b3"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const =0</td></tr>
+<tr class="memitem:a10ee94e919926d49db05b16bf26b83b3" id="r_a10ee94e919926d49db05b16bf26b83b3"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a10ee94e919926d49db05b16bf26b83b3">toString</a> () const =0</td></tr>
+<tr class="memdesc:a10ee94e919926d49db05b16bf26b83b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of the data.  <br /></td></tr>
 <tr class="separator:a10ee94e919926d49db05b16bf26b83b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0affffc80f13bbcc4a647b06e3b9f3fd" id="r_a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="memItemLeft" align="right" valign="top"><a id="a0affffc80f13bbcc4a647b06e3b9f3fd" name="a0affffc80f13bbcc4a647b06e3b9f3fd"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> () const =0</td></tr>
+<tr class="memitem:a0affffc80f13bbcc4a647b06e3b9f3fd" id="r_a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a0affffc80f13bbcc4a647b06e3b9f3fd">clone</a> () const =0</td></tr>
+<tr class="memdesc:a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep copies this implementation.  <br /></td></tr>
 <tr class="separator:a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae70c7bb16528b94e10f200586b381830" id="r_ae70c7bb16528b94e10f200586b381830"><td class="memItemLeft" align="right" valign="top"><a id="ae70c7bb16528b94e10f200586b381830" name="ae70c7bb16528b94e10f200586b381830"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>set</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memitem:ae70c7bb16528b94e10f200586b381830" id="r_ae70c7bb16528b94e10f200586b381830"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ae70c7bb16528b94e10f200586b381830">set</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memdesc:ae70c7bb16528b94e10f200586b381830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from <code>rhsImpl</code> with <code>rhsLayout</code> into <code>this</code> with <code>lhsLayout</code>.  <br /></td></tr>
 <tr class="separator:ae70c7bb16528b94e10f200586b381830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3da5cc31659ea349c35dc693890c071" id="r_aa3da5cc31659ea349c35dc693890c071"><td class="memItemLeft" align="right" valign="top"><a id="aa3da5cc31659ea349c35dc693890c071" name="aa3da5cc31659ea349c35dc693890c071"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>compare</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout) const =0</td></tr>
+<tr class="memitem:aa3da5cc31659ea349c35dc693890c071" id="r_aa3da5cc31659ea349c35dc693890c071"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aa3da5cc31659ea349c35dc693890c071">compare</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout) const =0</td></tr>
+<tr class="memdesc:aa3da5cc31659ea349c35dc693890c071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the data with <code>lhsLayout</code> matches <code>rhsImpl</code> with <code>rhsLayout</code>.  <br /></td></tr>
 <tr class="separator:aa3da5cc31659ea349c35dc693890c071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace7bfa323e2f1528fb3ba2bf96f3024a" id="r_ace7bfa323e2f1528fb3ba2bf96f3024a"><td class="memItemLeft" align="right" valign="top"><a id="ace7bfa323e2f1528fb3ba2bf96f3024a" name="ace7bfa323e2f1528fb3ba2bf96f3024a"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:ace7bfa323e2f1528fb3ba2bf96f3024a" id="r_ace7bfa323e2f1528fb3ba2bf96f3024a"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a">add</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:ace7bfa323e2f1528fb3ba2bf96f3024a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise addition. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ace7bfa323e2f1528fb3ba2bf96f3024a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a378f2e1cbc574d7a0672f69c46fb05d2" id="r_a378f2e1cbc574d7a0672f69c46fb05d2"><td class="memItemLeft" align="right" valign="top"><a id="a378f2e1cbc574d7a0672f69c46fb05d2" name="a378f2e1cbc574d7a0672f69c46fb05d2"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sub</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a378f2e1cbc574d7a0672f69c46fb05d2" id="r_a378f2e1cbc574d7a0672f69c46fb05d2"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a378f2e1cbc574d7a0672f69c46fb05d2">sub</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a378f2e1cbc574d7a0672f69c46fb05d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise subtraction. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a378f2e1cbc574d7a0672f69c46fb05d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab22c2aa7f13befb2d180e111243c88ff" id="r_ab22c2aa7f13befb2d180e111243c88ff"><td class="memItemLeft" align="right" valign="top"><a id="ab22c2aa7f13befb2d180e111243c88ff" name="ab22c2aa7f13befb2d180e111243c88ff"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:ab22c2aa7f13befb2d180e111243c88ff" id="r_ab22c2aa7f13befb2d180e111243c88ff"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ab22c2aa7f13befb2d180e111243c88ff">mul</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:ab22c2aa7f13befb2d180e111243c88ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise multiplication. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ab22c2aa7f13befb2d180e111243c88ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6eaaa41a44326e5862ee65ddf681f45" id="r_aa6eaaa41a44326e5862ee65ddf681f45"><td class="memItemLeft" align="right" valign="top"><a id="aa6eaaa41a44326e5862ee65ddf681f45" name="aa6eaaa41a44326e5862ee65ddf681f45"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>div</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:aa6eaaa41a44326e5862ee65ddf681f45" id="r_aa6eaaa41a44326e5862ee65ddf681f45"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aa6eaaa41a44326e5862ee65ddf681f45">div</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:aa6eaaa41a44326e5862ee65ddf681f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise division. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:aa6eaaa41a44326e5862ee65ddf681f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa65bd8eea439278072fa3a91bd96e1e5" id="r_aa65bd8eea439278072fa3a91bd96e1e5"><td class="memItemLeft" align="right" valign="top"><a id="aa65bd8eea439278072fa3a91bd96e1e5" name="aa65bd8eea439278072fa3a91bd96e1e5"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>iadd</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memitem:aa65bd8eea439278072fa3a91bd96e1e5" id="r_aa65bd8eea439278072fa3a91bd96e1e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aa65bd8eea439278072fa3a91bd96e1e5">iadd</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memdesc:aa65bd8eea439278072fa3a91bd96e1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place elementwise addition. Modifies <code>lhsLayout</code> in place.  <br /></td></tr>
 <tr class="separator:aa65bd8eea439278072fa3a91bd96e1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8aacb8b96f695c42a350ed606bf4cad" id="r_ad8aacb8b96f695c42a350ed606bf4cad"><td class="memItemLeft" align="right" valign="top"><a id="ad8aacb8b96f695c42a350ed606bf4cad" name="ad8aacb8b96f695c42a350ed606bf4cad"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>isub</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memitem:ad8aacb8b96f695c42a350ed606bf4cad" id="r_ad8aacb8b96f695c42a350ed606bf4cad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ad8aacb8b96f695c42a350ed606bf4cad">isub</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memdesc:ad8aacb8b96f695c42a350ed606bf4cad"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place elementwise subtraction. Modifies <code>lhsLayout</code> in place.  <br /></td></tr>
 <tr class="separator:ad8aacb8b96f695c42a350ed606bf4cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6135f7197fac9c42950c7ed21c93d98f" id="r_a6135f7197fac9c42950c7ed21c93d98f"><td class="memItemLeft" align="right" valign="top"><a id="a6135f7197fac9c42950c7ed21c93d98f" name="a6135f7197fac9c42950c7ed21c93d98f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>imul</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memitem:a6135f7197fac9c42950c7ed21c93d98f" id="r_a6135f7197fac9c42950c7ed21c93d98f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a6135f7197fac9c42950c7ed21c93d98f">imul</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memdesc:a6135f7197fac9c42950c7ed21c93d98f"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place elementwise multiplication. Modifies <code>lhsLayout</code> in place.  <br /></td></tr>
 <tr class="separator:a6135f7197fac9c42950c7ed21c93d98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f7aad3bbe0f8e98eb14559233f8da22" id="r_a9f7aad3bbe0f8e98eb14559233f8da22"><td class="memItemLeft" align="right" valign="top"><a id="a9f7aad3bbe0f8e98eb14559233f8da22" name="a9f7aad3bbe0f8e98eb14559233f8da22"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>idiv</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memitem:a9f7aad3bbe0f8e98eb14559233f8da22" id="r_a9f7aad3bbe0f8e98eb14559233f8da22"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a9f7aad3bbe0f8e98eb14559233f8da22">idiv</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
+<tr class="memdesc:a9f7aad3bbe0f8e98eb14559233f8da22"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place elementwise division. Modifies <code>lhsLayout</code> in place.  <br /></td></tr>
 <tr class="separator:a9f7aad3bbe0f8e98eb14559233f8da22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cd0c32595f322644cee065a1a4e0833" id="r_a1cd0c32595f322644cee065a1a4e0833"><td class="memItemLeft" align="right" valign="top"><a id="a1cd0c32595f322644cee065a1a4e0833" name="a1cd0c32595f322644cee065a1a4e0833"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sum</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a1cd0c32595f322644cee065a1a4e0833" id="r_a1cd0c32595f322644cee065a1a4e0833"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a1cd0c32595f322644cee065a1a4e0833">sum</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a1cd0c32595f322644cee065a1a4e0833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by summation. Output with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a1cd0c32595f322644cee065a1a4e0833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a286b79bcb1d61f1f17a652c0d2ffb4c9" id="r_a286b79bcb1d61f1f17a652c0d2ffb4c9"><td class="memItemLeft" align="right" valign="top"><a id="a286b79bcb1d61f1f17a652c0d2ffb4c9" name="a286b79bcb1d61f1f17a652c0d2ffb4c9"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a286b79bcb1d61f1f17a652c0d2ffb4c9" id="r_a286b79bcb1d61f1f17a652c0d2ffb4c9"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a286b79bcb1d61f1f17a652c0d2ffb4c9">min</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a286b79bcb1d61f1f17a652c0d2ffb4c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the minimum. Output with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a286b79bcb1d61f1f17a652c0d2ffb4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7c6e4e158daff754d6067320fe1497e" id="r_ae7c6e4e158daff754d6067320fe1497e"><td class="memItemLeft" align="right" valign="top"><a id="ae7c6e4e158daff754d6067320fe1497e" name="ae7c6e4e158daff754d6067320fe1497e"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>max</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:ae7c6e4e158daff754d6067320fe1497e" id="r_ae7c6e4e158daff754d6067320fe1497e"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ae7c6e4e158daff754d6067320fe1497e">max</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:ae7c6e4e158daff754d6067320fe1497e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the maximum. Output with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ae7c6e4e158daff754d6067320fe1497e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80ed4dc18e6d77c84f3dd397a8c57672" id="r_a80ed4dc18e6d77c84f3dd397a8c57672"><td class="memItemLeft" align="right" valign="top"><a id="a80ed4dc18e6d77c84f3dd397a8c57672" name="a80ed4dc18e6d77c84f3dd397a8c57672"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>prod</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a80ed4dc18e6d77c84f3dd397a8c57672" id="r_a80ed4dc18e6d77c84f3dd397a8c57672"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a80ed4dc18e6d77c84f3dd397a8c57672">prod</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a80ed4dc18e6d77c84f3dd397a8c57672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the product. Output with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a80ed4dc18e6d77c84f3dd397a8c57672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e68f36352eea327d3d20f0c0c8cc662" id="r_a9e68f36352eea327d3d20f0c0c8cc662"><td class="memItemLeft" align="right" valign="top"><a id="a9e68f36352eea327d3d20f0c0c8cc662" name="a9e68f36352eea327d3d20f0c0c8cc662"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>norm</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout) const =0</td></tr>
+<tr class="memitem:a9e68f36352eea327d3d20f0c0c8cc662" id="r_a9e68f36352eea327d3d20f0c0c8cc662"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a9e68f36352eea327d3d20f0c0c8cc662">norm</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout) const =0</td></tr>
+<tr class="memdesc:a9e68f36352eea327d3d20f0c0c8cc662"><td class="mdescLeft">&#160;</td><td class="mdescRight">L2 norm of the tensor described by <code>layout</code>.  <br /></td></tr>
 <tr class="separator:a9e68f36352eea327d3d20f0c0c8cc662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec5307091df2d0aa27b17dbac595cbb1" id="r_aec5307091df2d0aa27b17dbac595cbb1"><td class="memItemLeft" align="right" valign="top"><a id="aec5307091df2d0aa27b17dbac595cbb1" name="aec5307091df2d0aa27b17dbac595cbb1"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>matmul</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, size_t batch, size_t m, size_t k, size_t p) const =0</td></tr>
+<tr class="memitem:aec5307091df2d0aa27b17dbac595cbb1" id="r_aec5307091df2d0aa27b17dbac595cbb1"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aec5307091df2d0aa27b17dbac595cbb1">matmul</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, size_t batch, size_t m, size_t k, size_t p) const =0</td></tr>
 <tr class="separator:aec5307091df2d0aa27b17dbac595cbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a597c8a835d4a090410a834f609d4c30c" id="r_a597c8a835d4a090410a834f609d4c30c"><td class="memItemLeft" align="right" valign="top"><a id="a597c8a835d4a090410a834f609d4c30c" name="a597c8a835d4a090410a834f609d4c30c"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>less</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a597c8a835d4a090410a834f609d4c30c" id="r_a597c8a835d4a090410a834f609d4c30c"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a597c8a835d4a090410a834f609d4c30c">less</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a597c8a835d4a090410a834f609d4c30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise less than. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a597c8a835d4a090410a834f609d4c30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c96166b18823e3f89f8c9e8ad34b98b" id="r_a7c96166b18823e3f89f8c9e8ad34b98b"><td class="memItemLeft" align="right" valign="top"><a id="a7c96166b18823e3f89f8c9e8ad34b98b" name="a7c96166b18823e3f89f8c9e8ad34b98b"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lessEqual</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a7c96166b18823e3f89f8c9e8ad34b98b" id="r_a7c96166b18823e3f89f8c9e8ad34b98b"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a7c96166b18823e3f89f8c9e8ad34b98b">lessEqual</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a7c96166b18823e3f89f8c9e8ad34b98b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise less or equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a7c96166b18823e3f89f8c9e8ad34b98b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91158829caf2fe1d6a1ef4d145a9826b" id="r_a91158829caf2fe1d6a1ef4d145a9826b"><td class="memItemLeft" align="right" valign="top"><a id="a91158829caf2fe1d6a1ef4d145a9826b" name="a91158829caf2fe1d6a1ef4d145a9826b"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>greater</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:a91158829caf2fe1d6a1ef4d145a9826b" id="r_a91158829caf2fe1d6a1ef4d145a9826b"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a91158829caf2fe1d6a1ef4d145a9826b">greater</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:a91158829caf2fe1d6a1ef4d145a9826b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise greater than. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:a91158829caf2fe1d6a1ef4d145a9826b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac93d1fe856eb9963da8796cc10383f90" id="r_ac93d1fe856eb9963da8796cc10383f90"><td class="memItemLeft" align="right" valign="top"><a id="ac93d1fe856eb9963da8796cc10383f90" name="ac93d1fe856eb9963da8796cc10383f90"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>greaterEqual</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memitem:ac93d1fe856eb9963da8796cc10383f90" id="r_ac93d1fe856eb9963da8796cc10383f90"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ac93d1fe856eb9963da8796cc10383f90">greaterEqual</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const =0</td></tr>
+<tr class="memdesc:ac93d1fe856eb9963da8796cc10383f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise greater or equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ac93d1fe856eb9963da8796cc10383f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94aa6e063c0a68eae68e636522000c4" id="r_ad94aa6e063c0a68eae68e636522000c4"><td class="memItemLeft" align="right" valign="top"><a id="ad94aa6e063c0a68eae68e636522000c4" name="ad94aa6e063c0a68eae68e636522000c4"></a>
-virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>isClose</b> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, float tolerance) const =0</td></tr>
+<tr class="memitem:ad94aa6e063c0a68eae68e636522000c4" id="r_ad94aa6e063c0a68eae68e636522000c4"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ad94aa6e063c0a68eae68e636522000c4">isClose</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, float tolerance) const =0</td></tr>
+<tr class="memdesc:ad94aa6e063c0a68eae68e636522000c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise closeness within <code>tolerance</code>. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ad94aa6e063c0a68eae68e636522000c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract interface for backend specific tensor storage and operations.</p>
+<p>All data access goes through <a class="el" href="structTensorLayout.html">TensorLayout</a> descriptors, not raw indices.</p>
+<p>The caller must ensure layouts are valid, since the implementation trusts that <code>rhsLayout</code> is correct for <code>rhsImpl</code> and <code>lhsLayout</code> is correct for its own memory.</p>
+<p>The caller is responsible for broadcasting. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ace7bfa323e2f1528fb3ba2bf96f3024a" name="ace7bfa323e2f1528fb3ba2bf96f3024a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7bfa323e2f1528fb3ba2bf96f3024a">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise addition. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a24d4ce17b3dbba76e861800579c0fb6a">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ad841800d66fa75806ff29a6d3073eca6">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a0affffc80f13bbcc4a647b06e3b9f3fd" name="a0affffc80f13bbcc4a647b06e3b9f3fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0affffc80f13bbcc4a647b06e3b9f3fd">&#9670;&#160;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deep copies this implementation. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a7b164b410682d8543daa5c19d315a2a5">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ab21713c16d56fcebe1cceeaa0567d935">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aa3da5cc31659ea349c35dc693890c071" name="aa3da5cc31659ea349c35dc693890c071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3da5cc31659ea349c35dc693890c071">&#9670;&#160;</a></span>compare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Tensor::Impl::compare </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the data with <code>lhsLayout</code> matches <code>rhsImpl</code> with <code>rhsLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a16cffea186292f67d0f1aa3698c3e60c">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#aaf4fa199b5b20cf129ba33db129c4325">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aa6eaaa41a44326e5862ee65ddf681f45" name="aa6eaaa41a44326e5862ee65ddf681f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6eaaa41a44326e5862ee65ddf681f45">&#9670;&#160;</a></span>div()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::div </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise division. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a254e28015ba00fcacf68c964454b5aca">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a849ac3a4f03dee195c71352933699549">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a6942401937978279c5790bf924a84658" name="a6942401937978279c5790bf924a84658"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6942401937978279c5790bf924a84658">&#9670;&#160;</a></span>fillAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::fillAll </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fills all elements with <code>value</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#acc6830b7f97924be1dcf75f60e6c0c4d">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a2ccedfb3f87a159a7b6ba7548be38980">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="af8cc28f06c200a08a1de699e6eae8dac" name="af8cc28f06c200a08a1de699e6eae8dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8cc28f06c200a08a1de699e6eae8dac">&#9670;&#160;</a></span>fillRand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::fillRand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fills all elements with random values in [-1, 1]. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a3ae33e92958b2eb4959b29aea07a3003">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ab170fbec862138c652c4e6d00481d348">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a6cd95754d9c909ea6ba29cf8884cdb3b" name="a6cd95754d9c909ea6ba29cf8884cdb3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd95754d9c909ea6ba29cf8884cdb3b">&#9670;&#160;</a></span>getNumElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual size_t Tensor::Impl::getNumElements </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the total number of elements. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ad10d5fd3fc3294acb98d65f0a13a0150">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#acd96b91edf00ea465b7e7f9c399b5ad1">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aeabc75a4edc0189c2e226251ecb9810a" name="aeabc75a4edc0189c2e226251ecb9810a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabc75a4edc0189c2e226251ecb9810a">&#9670;&#160;</a></span>getShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classTensor_1_1Shape.html">Tensor::Shape</a> Tensor::Impl::getShape </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the tensor shape. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a14f2f5e58e424b0aa5301af706ce7349">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a9a2cc16848b972aeca5e198e98fd13f7">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a91158829caf2fe1d6a1ef4d145a9826b" name="a91158829caf2fe1d6a1ef4d145a9826b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91158829caf2fe1d6a1ef4d145a9826b">&#9670;&#160;</a></span>greater()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::greater </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise greater than. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a2deda7bce3147b2964567c5b2451cdda">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#abb050913441721fe086778e1885c352c">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ac93d1fe856eb9963da8796cc10383f90" name="ac93d1fe856eb9963da8796cc10383f90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93d1fe856eb9963da8796cc10383f90">&#9670;&#160;</a></span>greaterEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::greaterEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise greater or equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ab73e86fd7552f961c2fc8c399c0a2f9a">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ab17ca4a9817bfe2759e8277fc835ad2a">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aa65bd8eea439278072fa3a91bd96e1e5" name="aa65bd8eea439278072fa3a91bd96e1e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65bd8eea439278072fa3a91bd96e1e5">&#9670;&#160;</a></span>iadd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::iadd </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In-place elementwise addition. Modifies <code>lhsLayout</code> in place. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#af0162e3f221b6b29557193a575c3b396">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a1be5a0320bb74911b776bae0dd7763ef">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a9f7aad3bbe0f8e98eb14559233f8da22" name="a9f7aad3bbe0f8e98eb14559233f8da22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7aad3bbe0f8e98eb14559233f8da22">&#9670;&#160;</a></span>idiv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::idiv </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In-place elementwise division. Modifies <code>lhsLayout</code> in place. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a2b6065d9916269067bc3ff19673532b8">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ab2bc6faadba355231a775303b407a520">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a6135f7197fac9c42950c7ed21c93d98f" name="a6135f7197fac9c42950c7ed21c93d98f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6135f7197fac9c42950c7ed21c93d98f">&#9670;&#160;</a></span>imul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::imul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In-place elementwise multiplication. Modifies <code>lhsLayout</code> in place. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ac5d18c769ab14cb17ddc7e281f863f5d">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#abbe62f48a48e893e2112228d5376746f">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ad94aa6e063c0a68eae68e636522000c4" name="ad94aa6e063c0a68eae68e636522000c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad94aa6e063c0a68eae68e636522000c4">&#9670;&#160;</a></span>isClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::isClose </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>tolerance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise closeness within <code>tolerance</code>. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a3d11de4e852b88eea3fb6951be1349ff">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a943a6a2d996455f58c5d48b32c38aaf8">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ad8aacb8b96f695c42a350ed606bf4cad" name="ad8aacb8b96f695c42a350ed606bf4cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8aacb8b96f695c42a350ed606bf4cad">&#9670;&#160;</a></span>isub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::isub </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In-place elementwise subtraction. Modifies <code>lhsLayout</code> in place. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a2f36bc0334b0630a500c486d31d70c54">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a20156a772b0d54890500585e483e6298">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a597c8a835d4a090410a834f609d4c30c" name="a597c8a835d4a090410a834f609d4c30c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a597c8a835d4a090410a834f609d4c30c">&#9670;&#160;</a></span>less()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::less </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise less than. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ab433021276ae1d9d49abc38e4ebd5372">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#aa7c2799e0fedce241269876ff73605f6">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a7c96166b18823e3f89f8c9e8ad34b98b" name="a7c96166b18823e3f89f8c9e8ad34b98b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c96166b18823e3f89f8c9e8ad34b98b">&#9670;&#160;</a></span>lessEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::lessEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise less or equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a2c87834f8b809c918874f8f7e112635b">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a06c7d516b9209c21bf58a0033d064246">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aec5307091df2d0aa27b17dbac595cbb1" name="aec5307091df2d0aa27b17dbac595cbb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5307091df2d0aa27b17dbac595cbb1">&#9670;&#160;</a></span>matmul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::matmul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>batch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Matrix multiplication. The last two dims of each layout are the matrix dims. <code>batch</code>, <code>m</code>, <code>k</code>, <code>p</code> describe the decomposition of the matmul problem.</p>
+<p>2D: (m, k) @ (k, p) =&gt; (m, p).</p>
+<p>3D: (batch, m, k) @ (batch, k, p) =&gt; (batch, m, p). </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#aec04bd8c58dd45c628b6da2436649bfc">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#afdf6206e3deec3763c346fa3d36e9bc1">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ae7c6e4e158daff754d6067320fe1497e" name="ae7c6e4e158daff754d6067320fe1497e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c6e4e158daff754d6067320fe1497e">&#9670;&#160;</a></span>max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::max </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reduces dimensions [dim, rank) by taking the maximum. Output with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a3ac313bcccfc4e724a204bb1e0edb54e">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a86e8f521424970421c01e80e0ff1b5db">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a286b79bcb1d61f1f17a652c0d2ffb4c9" name="a286b79bcb1d61f1f17a652c0d2ffb4c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a286b79bcb1d61f1f17a652c0d2ffb4c9">&#9670;&#160;</a></span>min()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::min </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reduces dimensions [dim, rank) by taking the minimum. Output with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#add1b5b49d841e358af8a7a581efb2d20">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a1122b34243e55dbd86565865b6e95334">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ab22c2aa7f13befb2d180e111243c88ff" name="ab22c2aa7f13befb2d180e111243c88ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab22c2aa7f13befb2d180e111243c88ff">&#9670;&#160;</a></span>mul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::mul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise multiplication. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#aab66faca16f5e3e9f0617370ce51d461">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a2f5abf7caa037c022eed2994e3311642">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a9e68f36352eea327d3d20f0c0c8cc662" name="a9e68f36352eea327d3d20f0c0c8cc662"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e68f36352eea327d3d20f0c0c8cc662">&#9670;&#160;</a></span>norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::norm </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L2 norm of the tensor described by <code>layout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a5c0c181b282ec90b01033206f0c69d25">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a399eeb564847d0ed523c58d2e158da50">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="acc7078daa586f3a0d2bc8cd148e29655" name="acc7078daa586f3a0d2bc8cd148e29655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc7078daa586f3a0d2bc8cd148e29655">&#9670;&#160;</a></span>print() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::print </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints the entire tensor to stdout. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a46113098d6e71940bd16400bca6d4e3e">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a25b55b3834afa8408d8375eaddb9284c">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aef2343a6e0c2023d43a87ae52d16c988" name="aef2343a6e0c2023d43a87ae52d16c988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef2343a6e0c2023d43a87ae52d16c988">&#9670;&#160;</a></span>print() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::print </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; size_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints the block starting at <code>position</code> to stdout. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ae536eadbfcc087178a7ef7e854d02b54">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ac8fe51c74fa62fb573039fd41d4e0b66">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a80ed4dc18e6d77c84f3dd397a8c57672" name="a80ed4dc18e6d77c84f3dd397a8c57672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80ed4dc18e6d77c84f3dd397a8c57672">&#9670;&#160;</a></span>prod()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::prod </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reduces dimensions [dim, rank) by taking the product. Output with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a3cc3b19c9c9e84954e97edbc48d7c521">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ade1275f7f2fb03b889c27023c4b47387">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="ae70c7bb16528b94e10f200586b381830" name="ae70c7bb16528b94e10f200586b381830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae70c7bb16528b94e10f200586b381830">&#9670;&#160;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::set </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies data from <code>rhsImpl</code> with <code>rhsLayout</code> into <code>this</code> with <code>lhsLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a67f65c664ea6e85bd5a6b4d40a618a57">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a72357dd911eeb02eef7ab1086e0b85bd">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a378f2e1cbc574d7a0672f69c46fb05d2" name="a378f2e1cbc574d7a0672f69c46fb05d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378f2e1cbc574d7a0672f69c46fb05d2">&#9670;&#160;</a></span>sub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::sub </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise subtraction. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ac6d3cc8326c5a6df3907090e1c9cb3cd">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#ae5c3b4fa5a807140bf5c837b3e032b54">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a1cd0c32595f322644cee065a1a4e0833" name="a1cd0c32595f322644cee065a1a4e0833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cd0c32595f322644cee065a1a4e0833">&#9670;&#160;</a></span>sum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::Impl::sum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reduces dimensions [dim, rank) by summation. Output with <code>outLayout</code>. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#ab9fbee83263701395a60904052e5852d">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#aa27da2cdbb39d54bbc7044de62f92d1d">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a10ee94e919926d49db05b16bf26b83b3" name="a10ee94e919926d49db05b16bf26b83b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ee94e919926d49db05b16bf26b83b3">&#9670;&#160;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string Tensor::Impl::toString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a string representation of the data. </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a3ed4a42c58090528d8019ee1b9e0330c">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a34e2044ff1e71d3e1d45dfede2e6b52b">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="a9a628145160a1bbee39c7799e1a5f89d" name="a9a628145160a1bbee39c7799e1a5f89d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a628145160a1bbee39c7799e1a5f89d">&#9670;&#160;</a></span>toVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt; float &gt; Tensor::Impl::toVector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies all elements into a flat vector (row-major order). </p>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#afe6338233928010ad0c6f49a547d999e">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a838373f61212c0485b1a9a01b73a59c5">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/backend/<a class="el" href="tensor__impl_8h_source.html">tensor_impl.h</a></li>
 </ul>

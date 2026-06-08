@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['view_0',['view',['../index.html#autotoc_md12',1,'Assigning through a view'],['../index.html#autotoc_md11',1,'Obtaining a view'],['../classTensor_1_1View.html',1,'Tensor::View']]],
-  ['views_1',['views',['../index.html#autotoc_md13',1,'Strided views'],['../index.html#autotoc_md10',1,'Views']]]
+  ['set_0',['set',['../classTensor_1_1CPUImpl.html#a67f65c664ea6e85bd5a6b4d40a618a57',1,'Tensor::CPUImpl::set()'],['../classTensor_1_1CUDAImpl.html#a72357dd911eeb02eef7ab1086e0b85bd',1,'Tensor::CUDAImpl::set()'],['../classTensor_1_1Impl.html#ae70c7bb16528b94e10f200586b381830',1,'Tensor::Impl::set()'],['../classTensor.html#a2ae3b04edc0bfd32cc3c9906332ff1ec',1,'Tensor::set()']]],
+  ['shape_1',['shape',['../structTensorLayout.html#a2341cd882f5770c6a76a4626d85ccb14',1,'TensorLayout::shape'],['../classTensor_1_1Shape.html#ae1aad7286e267f78bcaa8e9cf936a0c2',1,'Tensor::Shape::Shape()=default'],['../classTensor_1_1Shape.html#a6a961c550f70a7fed611721d92ee12f7',1,'Tensor::Shape::Shape(const std::vector&lt; size_t &gt; &amp;dims)'],['../classTensor_1_1Shape.html#ae7fbf2b04dbd282a47816b8d2b9b52c3',1,'Tensor::Shape::Shape(const std::initializer_list&lt; size_t &gt; &amp;dims)'],['../classTensor_1_1Shape.html#a445fcc4985a40af30159666e157be3d6',1,'Tensor::Shape::Shape(const TensorLayout &amp;layout)'],['../classTensor_1_1Shape.html',1,'Tensor::Shape']]],
+  ['start_2',['Quick start',['../index.html#autotoc_md3',1,'']]],
+  ['strides_3',['strides',['../structTensorLayout.html#a9dd7b95b0d73daea5bbed26d72c6a61a',1,'TensorLayout']]],
+  ['sub_4',['sub',['../classTensor_1_1CPUImpl.html#ac6d3cc8326c5a6df3907090e1c9cb3cd',1,'Tensor::CPUImpl::sub()'],['../classTensor_1_1CUDAImpl.html#ae5c3b4fa5a807140bf5c837b3e032b54',1,'Tensor::CUDAImpl::sub()'],['../classTensor_1_1Impl.html#a378f2e1cbc574d7a0672f69c46fb05d2',1,'Tensor::Impl::sub()']]],
+  ['subsample_5',['subsample',['../classTensor.html#a29bd947cf1c285d10e7e28ebc2df1bd6',1,'Tensor::subsample()'],['../classTensor_1_1View.html#a58ce18ffc1c03bf41a61ccb25a899fcb',1,'Tensor::View::subsample(const View &amp;src, const std::vector&lt; size_t &gt; &amp;factors)'],['../classTensor_1_1View.html#a928e1e240160ab15c643026cc1f858c9',1,'Tensor::View::subsample(std::vector&lt; size_t &gt; strides) const']]],
+  ['sum_6',['sum',['../classTensor_1_1CPUImpl.html#ab9fbee83263701395a60904052e5852d',1,'Tensor::CPUImpl::sum()'],['../classTensor_1_1CUDAImpl.html#aa27da2cdbb39d54bbc7044de62f92d1d',1,'Tensor::CUDAImpl::sum()'],['../classTensor_1_1Impl.html#a1cd0c32595f322644cee065a1a4e0833',1,'Tensor::Impl::sum()'],['../classTensor.html#aae68251868c4d43706ac480e9bd8475b',1,'Tensor::sum()']]],
+  ['support_7',['CUDA support',['../index.html#autotoc_md2',1,'']]]
 ];
