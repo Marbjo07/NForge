@@ -2,18 +2,19 @@
 #define TENSOR_VIEW_H
 
 #include "nforge/core/tensor.h"
+#include "nforge/core/tensor_layout.h"
 #include "nforge/core/tensor_shape.h"
 
-/// Non-owning reference to a sub-region of a Tensor.
+/// Non-owning reference to a sub region of a Tensor.
 ///
-/// A View describes a sub-region of a Tensor via an position, shape, and stride layout.
+/// A View describes a sub region of a Tensor via an position, shape, and stride layout.
 /// Multiple views can reference the same underlying data at different offsets and shapes.
 class Tensor::View {
 public:
 	/// Full view at the origin.
 	View(Tensor& parent);
 
-	/// View of a sub-tensor starting at `position`.
+	/// View of a sub tensor starting at `position`.
 	View(Tensor& parent, const std::vector<size_t>& position);
 
 	/// View with explicit position and `TensorLayout`.
@@ -26,7 +27,7 @@ public:
 	/// Size-1 dimensions are broadcast by setting their stride to 0.
 	static Tensor::View broadcast(Tensor& source, const Tensor::Shape& shape);
 
-	/// Creates a sub-sampled view of `src`.
+	/// Creates a subsampled view of `src`.
 	/// A factor of 0 freezes that dimension to a single element (stride 0).
 	static Tensor::View subsample(const View& src, const std::vector<size_t>& factors);
 
@@ -99,7 +100,7 @@ public:
 	/// Batch dims must be broadcastable, match or be 1.
 	Tensor matmul(const Tensor::View& rhs) const;
 
-	/// Strided sub-sampling view. Views every `strides[i]`-th element along dim `i`.
+	/// Strided subsampling view. Views every `strides[i]`-th element along dim `i`.
 	Tensor::View subsample(std::vector<size_t> strides) const;
 
 	/// Returns true if shape and every element matches `rhs`.

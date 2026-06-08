@@ -4,6 +4,8 @@
 #include <numeric>
 #include <stdexcept>
 
+#include "nforge/core/tensor_layout.h"
+
 Tensor::Shape::Shape(const std::vector<size_t>& dims) : m_dimensions(dims) {
 	if (dims.empty()) {
 		m_dimensions.push_back(1);  // scalar tensors have shape {1}

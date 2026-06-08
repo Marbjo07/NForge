@@ -5,7 +5,8 @@
 #include <vector>
 
 #include "nforge/core/tensor.h"
-#include "nforge/core/tensor_layout.h"
+
+struct TensorLayout;
 
 /// Describes the extent of each dimension of a Tensor.
 ///

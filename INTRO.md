@@ -1,7 +1,7 @@
 # NForge Introduction
 
 ```cpp
-#include "nforge/nforge.h"
+#include <nforge/nforge.h>
 ```
 
 ## Construction
@@ -103,7 +103,7 @@ m.subsample({2, 1}) = Tensor({2, 3}, 1.0f);
 
 ## Broadcast
 
-Operations broadcast following numpy style. Size 1 dimensions are stretched:
+Size 1 dimensions can take any size:
 
 ```cpp
 Tensor a({3, 1}, 2.0f);            // column vector
@@ -119,10 +119,10 @@ Reductions collapse dimensions `[dim, rank)` into a single value. Result shape i
 ```cpp
 Tensor a({3, 4, 5});
 
-auto s = a.sum(1);                 // sum(4*5=20 elements) per leading idx, shape {3}
+auto s = a.sum(1);                 // sum 20 element per leading idx, shape {3}
 auto m = a.mean(0);                // mean of all 60 elements, scalar shape {1}
-auto v = a.min(2);                 // min per 5-element block, shape {3, 4}
-auto x = a.max(1);                 // max per 4x5 block, shape {3}
+auto v = a.min(2);                 // min per block, shape {3, 4}
+auto x = a.max(1);                 // max per block, shape {3}
 auto p = a.prod(0);                // product of all elements, scalar
 ```
 
@@ -133,7 +133,7 @@ Tensor a({3, 4}, 2.0f);
 auto n = a.norm();                 // L2 norm
 ```
 
-## Matrix multiply
+## Matrix multiplication
 
 Supports 2D and 3D tensors.  
 2D: `{M, K} @ {K, P} => {M, P}`.  
