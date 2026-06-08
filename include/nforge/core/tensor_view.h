@@ -93,7 +93,9 @@ public:
 
 	/// Matrix multiplication. Inputs must be 2D or 3D tensors.
 	/// 2D: (N, M) @ (M, K) => (N, K).
+	///
 	/// 3D: (B, N, M) @ (B, M, K) => (B, N, K).
+	///
 	/// Batch dims must be broadcastable, match or be 1.
 	Tensor matmul(const Tensor::View& rhs) const;
 
