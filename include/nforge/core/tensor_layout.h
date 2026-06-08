@@ -1,11 +1,10 @@
-#include <stddef.h>
-
-#include <array>
-
-#include "nforge/core/tensor_shape.h"
-
 #ifndef TENSOR_LAYOUT_H
 #define TENSOR_LAYOUT_H
+
+#include <array>
+#include <cstdlib>
+
+#include "nforge/core/tensor_shape.h"
 
 #define MAX_DIMS 8
 
