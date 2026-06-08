@@ -12,9 +12,9 @@ enum class Backend { CPU, CUDA };
 
 /// Multi-dimensional array with backend specific implementation.
 ///
-/// A `Tensor` owns a contiguous block of float data managed by a backend specific
-/// `Impl` object. Elements can be accessed through `Tensor::View`, which describes
-/// a sub region via offset, shape, and stride layout.
+/// A `Tensor` owns a contiguous block of float data managed by a backend specific `Impl` object.
+/// Elements can be accessed through `Tensor::View`, which describes a sub region via offset, shape,
+/// and stride layout.
 class Tensor {
 public:
 	class Impl;
@@ -168,7 +168,7 @@ public:
 	Tensor::View operator[](size_t idx) const;
 
 	/// Strided sub-sampling view. Views every `strides[i]`-th element along dim `i`.
-	/// strides length must match rank of tensor.
+	/// @param strides Length must match rank of tensor or be scalar 0.
 	Tensor::View subsample(std::vector<size_t> strides) const;
 
 	/// Copies data from another tensor.
@@ -181,21 +181,23 @@ public:
 	Tensor& operator=(float scalar);
 
 	/// Returns true if all elements equal those in `rhs`.
+	/// @note Exact match, which is unstable for floats. Consider using `.isClose()`
 	bool operator==(const Tensor::View& rhs) const;
 
 	/// Returns true if any element differs from `rhs`.
+	/// @note Exact match, which is unstable for floats. Consider using `.isClose()`
 	bool operator!=(const Tensor::View& rhs) const;
 
-	/// Elementwise less-than. Returns a tensor of 0.0 / 1.0.
+	/// Elementwise less than. Returns a tensor of 0.0 / 1.0.
 	Tensor operator<(const Tensor::View& rhs) const;
 
-	/// Elementwise less-or-equal. Returns a tensor of 0.0 / 1.0.
+	/// Elementwise less or equal. Returns a tensor of 0.0 / 1.0.
 	Tensor operator<=(const Tensor::View& rhs) const;
 
-	/// Elementwise greater-than. Returns a tensor of 0.0 / 1.0.
+	/// Elementwise greater than. Returns a tensor of 0.0 / 1.0.
 	Tensor operator>(const Tensor::View& rhs) const;
 
-	/// Elementwise greater-or-equal. Returns a tensor of 0.0 / 1.0.
+	/// Elementwise greater or equal. Returns a tensor of 0.0 / 1.0.
 	Tensor operator>=(const Tensor::View& rhs) const;
 
 	/// Elementwise closeness check within `tolerance`. Returns a tensor of 0.0 / 1.0.
