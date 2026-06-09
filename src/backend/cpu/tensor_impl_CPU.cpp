@@ -123,6 +123,10 @@ size_t Tensor::CPUImpl::getNumElements() const {
 
 std::vector<float> Tensor::CPUImpl::toVector() const { return m_data; }
 
+void Tensor::CPUImpl::copyFromHost(const float* data, size_t count) {
+	std::copy(data, data + count, m_data.begin());
+}
+
 float* Tensor::CPUImpl::dataPtr() const { return (float*)m_data.data(); }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::clone() const {

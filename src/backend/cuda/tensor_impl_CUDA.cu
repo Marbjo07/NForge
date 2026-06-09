@@ -47,6 +47,11 @@ std::vector<float> Tensor::CUDAImpl::toVector() const {
 	return result;
 }
 
+void Tensor::CUDAImpl::copyFromHost(const float* data, size_t count) {
+	CUDA_CHECK(cudaMemcpy(d_data, data, count * sizeof(float), cudaMemcpyHostToDevice));
+	CUDA_CHECK(cudaGetLastError());
+}
+
 std::string Tensor::CUDAImpl::toString() const {
 	std::vector<float> data = toVector();
 

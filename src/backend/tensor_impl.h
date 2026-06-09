@@ -44,6 +44,11 @@ public:
 	/// Deep copies this implementation.
 	virtual std::unique_ptr<Tensor::Impl> clone() const = 0;
 
+	/// Copies data from a host float array into this backend's storage.
+	/// @param data  Source array (must have at least `count` elements).
+	/// @param count  Number of elements to copy.
+	virtual void copyFromHost(const float* data, size_t count) = 0;
+
 	/// Copies data from `rhsImpl` with `rhsLayout` into `this` with `lhsLayout`.
 	virtual void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                 const TensorLayout& rhsLayout) = 0;
