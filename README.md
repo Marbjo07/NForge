@@ -20,7 +20,6 @@ A C++ tensor library meant to feel like NumPy or PyTorch idk.
 ### Code example
 
 ```cpp
-#include <iostream>
 #include <nforge/nforge.h>
 
 int main() {
@@ -104,11 +103,11 @@ cmake --build .
 
 Requires the CUDA Toolkit. MSBuild is recommended on Windows.
 
-| Build Option | Description | Default Value |
-| --- | --- | --- |
-| `NFORGE_ENABLE_CUDA` | Enable CUDA backend | `OFF` |
-| `NFORGE_BUILD_BENCHMARKS` | Build benchmarks | `OFF` |
-| `NFORGE_BUILD_TESTS` | Build tests | `OFF` |
+### Build options
+
+- NFORGE_ENABLE_CUDA, by default off
+- NFORGE_BUILD_BENCHMARKS, by default off
+- NFORGE_BUILD_TESTS, by default off
 
 ## Tests
 

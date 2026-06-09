@@ -1,56 +1,100 @@
 # NForge Introduction
 
+Follow the installation section of [README.md](README.md), then including the library using:
+
 ```cpp
 #include <nforge/nforge.h>
 ```
 
 ## Construction
 
+Constructing a tensor is in its most simple form:
+
 ```cpp
-Tensor a({3, 4});                  // zero-initialized, shape {3, 4}
-Tensor b({2, 3}, 1.5f);            // filled with 1.5, shape {2, 3}
-Tensor c(3.14f);                   // scalar tensor, shape {1}
-Tensor d(b);                       // deep copy
+Tensor a({3, 4}) // shape {3, 4} 
+```
+
+Tensors are by default zero-initialized, or can start with a value:
+
+```cpp
+Tensor a({3, 4}, 1.5f);
+```
+
+If you want a scalar, just exclude the shape. Any tensor with a single element is considered a scalar, including `Tensor({1})` or even `Tensor({1,1})`.
+Scalar dimensions, (dims with size 1) can for most operations be broadcasted to any size. Binary operations is one of them.
+
+```cpp
+Tensor a(3.14f);
+```
+
+Most binary operations also accept a raw float directly, which behaves the same way as a rank-1 scalar.
+
+And for completeness a deep-copy:
+
+```cpp
+Tensor a(b);
+```
+
+To create the tensor on another backend, add the backend as the last parameter. CPU is the default backend.
+
+```cpp
+Tensor a({3, 4}, Backends::CUDA);
 ```
 
 ## Fill and print
 
 ```cpp
 Tensor a({2, 3});
-a.fillAll(7.0f);                   // all elements = 7
-a.fillRand();                      // uniform random in [-1, 1]
+a.fillAll(7.0f);
+
+// uniform random in [-1, 1]
+a.fillRand();                      
 
 a.print();                         // print full tensor
 a.print({1});                      // print block starting at (1), of shape {3}
 ```
 
-## Shape
-
-```cpp
-Tensor a({3, 4, 5});
-a.getShape();                      // {3, 4, 5}
-a.getNumDims();                    // 3
-a.getNumElements();                // 60
-a.getShape().getDim(1);            // 4
-a.getShape().isScalar();           // false (shape {1} is scalar)
-```
-
 ## Arithmetic
+
+Binary operations are elementwise and works as expected:
 
 ```cpp
 Tensor a({3}, 2.0f);
 Tensor b({3}, 3.0f);
 
-Tensor r1 = a + b;                 // [5, 5, 5]
-Tensor r2 = a - b;                 // [-1, -1, -1]
-Tensor r3 = a * b;                 // [6, 6, 6]
-Tensor r4 = a / b;                 // [0.67, 0.67, 0.67]
+a + b;
+// [5, 5, 5]
 
-Tensor r5 = a + 1.0f;              // [3, 3, 3], scalar broadcast
-Tensor r6 = 10.0f - a;             // [8, 8, 8]
+a - b;
+// [-1, -1, -1]
 
-Tensor a2 = a;
-a2 += b;                           // in-place, a2 = [5, 5, 5]
+a * b;
+// [6, 6, 6]
+
+a / b;
+// [0.67, 0.67, 0.67]
+
+(a + b) / b
+// [1.66, 1.66, 1.66]
+```
+
+Pure floats are promoted to scalars. Note that `.f` suffix must be used. This will be fixed in the future.
+
+```cpp
+a + 1.0f;              
+// [3, 3, 3]
+
+10.0f - a;             
+// [8, 8, 8]
+```
+
+In-place operators
+
+```cpp
+Tensor a({3}, 2.0f);
+Tensor b({3}, 3.0f);
+a += b;                           
+// [5, 5, 5]
 ```
 
 ## Views
@@ -193,4 +237,15 @@ std::vector<float> v = a.toVector(); // {3, 3, 3, 3}, row-major
 
 // For views, resolve to a new contiguous tensor first:
 std::vector<float> v = a[1].copy().toVector();
+```
+
+## Shape
+
+```cpp
+Tensor a({3, 4, 5});
+a.getShape();                      // {3, 4, 5}
+a.getNumDims();                    // 3
+a.getNumElements();                // 60
+a.getShape().getDim(1);            // 4
+a.getShape().isScalar();           // false (shape {1} is scalar)
 ```
