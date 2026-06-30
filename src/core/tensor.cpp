@@ -50,6 +50,32 @@ Tensor::Tensor(std::unique_ptr<Tensor::Impl> impl, Backend backend)
 
 Tensor::~Tensor() {}
 
+void Tensor::to(Backend newBackend) {
+	if (m_backend == newBackend)
+		return;
+
+	auto shape = m_impl->getShape();
+	auto data = m_impl->toVector();
+
+	switch (newBackend) {
+		case Backend::CPU:
+			m_impl = std::make_unique<Tensor::CPUImpl>(shape);
+			break;
+		case Backend::CUDA:
+			if constexpr (cudaEnabled) {
+				m_impl = std::make_unique<Tensor::CUDAImpl>(shape);
+			} else {
+				throw std::runtime_error("CUDA backend not available");
+			}
+			break;
+		default:
+			throw std::runtime_error("Unknown backend");
+	}
+
+	m_impl->copyFromHost(data.data(), data.size());
+	m_backend = newBackend;
+}
+
 void Tensor::fillAll(float value) { m_impl->fillAll(value); }
 
 void Tensor::fillRand() { m_impl->fillRand(); }

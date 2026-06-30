@@ -31,6 +31,8 @@ public:
 
 	std::unique_ptr<Tensor::Impl> clone() const override;
 
+	void copyFromHost(const float* data, size_t count) override;
+
 	void set(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	         const TensorLayout& rhsLayout) override;
 

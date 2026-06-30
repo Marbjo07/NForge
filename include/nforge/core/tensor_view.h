@@ -52,8 +52,17 @@ public:
 	/// Returns the underlying physical layout.
 	const TensorLayout& getLayout() const { return m_layout; }
 
+	/// Returns "CPU" or "CUDA".
+	std::string getBackendString() const { return m_parent.getBackendString(); }
+
+	/// Returns the backend enum.
+	inline Backend getBackend() const { return m_parent.getBackend(); }
+
 	/// Deep copies the viewed region into a new tensor.
 	Tensor copy() const;
+
+	/// Copies the viewd elements into a flat vector
+	std::vector<float> toVector() const;
 
 	/// Elementwise addition with a tensor or view. Copies then computes.
 	Tensor operator+(const Tensor::View& rhs) const;
