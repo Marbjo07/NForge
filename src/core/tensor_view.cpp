@@ -98,6 +98,9 @@ Tensor Tensor::View::copy() const {
 	return result;
 }
 
+// TODO: fix double copy
+std::vector<float> Tensor::View::toVector() const { return copy().toVector(); }
+
 Tensor Tensor::View::operator+(const Tensor::View& rhs) const {
 	Tensor current = copy();
 	return current + rhs;
