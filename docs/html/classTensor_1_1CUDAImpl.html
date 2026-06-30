@@ -144,6 +144,8 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <tr class="memitem:ab21713c16d56fcebe1cceeaa0567d935" id="r_ab21713c16d56fcebe1cceeaa0567d935"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CUDAImpl.html#ab21713c16d56fcebe1cceeaa0567d935">clone</a> () const override</td></tr>
 <tr class="memdesc:ab21713c16d56fcebe1cceeaa0567d935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep copies this implementation.  <br /></td></tr>
 <tr class="separator:ab21713c16d56fcebe1cceeaa0567d935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a4c238474c95b0c8845492420ffc016" id="r_a0a4c238474c95b0c8845492420ffc016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CUDAImpl.html#a0a4c238474c95b0c8845492420ffc016">copyFromHost</a> (const float *data, size_t count) override</td></tr>
+<tr class="separator:a0a4c238474c95b0c8845492420ffc016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72357dd911eeb02eef7ab1086e0b85bd" id="r_a72357dd911eeb02eef7ab1086e0b85bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CUDAImpl.html#a72357dd911eeb02eef7ab1086e0b85bd">set</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout) override</td></tr>
 <tr class="memdesc:a72357dd911eeb02eef7ab1086e0b85bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from <code>rhsImpl</code> with <code>rhsLayout</code> into <code>this</code> with <code>lhsLayout</code>.  <br /></td></tr>
 <tr class="separator:a72357dd911eeb02eef7ab1086e0b85bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -336,6 +338,51 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <p>Returns true if the data with <code>lhsLayout</code> matches <code>rhsImpl</code> with <code>rhsLayout</code>. </p>
 
 <p>Implements <a class="el" href="classTensor_1_1Impl.html#aa3da5cc31659ea349c35dc693890c071">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a0a4c238474c95b0c8845492420ffc016" name="a0a4c238474c95b0c8845492420ffc016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a4c238474c95b0c8845492420ffc016">&#9670;&#160;</a></span>copyFromHost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::CUDAImpl::copyFromHost </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copies data from a host float array into this backend's storage. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Source array (must have at least <code>count</code> elements). </td></tr>
+    <tr><td class="paramname">count</td><td>Number of elements to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html#aab03704ef11aaa14fc6dab22fb101db4">Tensor::Impl</a>.</p>
 
 </div>
 </div>

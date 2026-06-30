@@ -5,6 +5,8 @@ var classTensor_1_1View =
     [ "View", "classTensor_1_1View.html#a3927fda4241523c843a5a06016e62e79", null ],
     [ "View", "classTensor_1_1View.html#af0faf42caa063034668eaa38f42858f0", null ],
     [ "copy", "classTensor_1_1View.html#a2777c8d2a68046a0dc438167afbad140", null ],
+    [ "getBackend", "classTensor_1_1View.html#a548dff6b67cfabc32e57752cd05dc8e9", null ],
+    [ "getBackendString", "classTensor_1_1View.html#ab7ef6a999dad92b1e4d0ae648ce334ca", null ],
     [ "getLayout", "classTensor_1_1View.html#a76e40053fd00338b5d2e01641495f93e", null ],
     [ "getOffset", "classTensor_1_1View.html#a81b308a902976f8ef5dfd51e645ffb81", null ],
     [ "getParent", "classTensor_1_1View.html#a013946028951eaa4e3e4da409e68fdbe", null ],
@@ -34,5 +36,6 @@ var classTensor_1_1View =
     [ "operator>=", "classTensor_1_1View.html#a2fbb68777cdf26bc9a5e1b3ef18f80d2", null ],
     [ "operator[]", "classTensor_1_1View.html#a009193fa77b7a32a8ad2cffcd9d1ee7b", null ],
     [ "print", "classTensor_1_1View.html#a5ca32103ddf90e6ee2b2123f73f93783", null ],
-    [ "subsample", "classTensor_1_1View.html#a928e1e240160ab15c643026cc1f858c9", null ]
+    [ "subsample", "classTensor_1_1View.html#a928e1e240160ab15c643026cc1f858c9", null ],
+    [ "toVector", "classTensor_1_1View.html#a17480fb211548fb096b4c660ab390862", null ]
 ];

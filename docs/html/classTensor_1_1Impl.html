@@ -138,6 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0affffc80f13bbcc4a647b06e3b9f3fd" id="r_a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#a0affffc80f13bbcc4a647b06e3b9f3fd">clone</a> () const =0</td></tr>
 <tr class="memdesc:a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep copies this implementation.  <br /></td></tr>
 <tr class="separator:a0affffc80f13bbcc4a647b06e3b9f3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab03704ef11aaa14fc6dab22fb101db4" id="r_aab03704ef11aaa14fc6dab22fb101db4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#aab03704ef11aaa14fc6dab22fb101db4">copyFromHost</a> (const float *data, size_t count)=0</td></tr>
+<tr class="separator:aab03704ef11aaa14fc6dab22fb101db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae70c7bb16528b94e10f200586b381830" id="r_ae70c7bb16528b94e10f200586b381830"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1Impl.html#ae70c7bb16528b94e10f200586b381830">set</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout)=0</td></tr>
 <tr class="memdesc:ae70c7bb16528b94e10f200586b381830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from <code>rhsImpl</code> with <code>rhsLayout</code> into <code>this</code> with <code>lhsLayout</code>.  <br /></td></tr>
 <tr class="separator:ae70c7bb16528b94e10f200586b381830"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -331,6 +333,51 @@ Public Member Functions</h2></td></tr>
 <p>Returns true if the data with <code>lhsLayout</code> matches <code>rhsImpl</code> with <code>rhsLayout</code>. </p>
 
 <p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a16cffea186292f67d0f1aa3698c3e60c">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#aaf4fa199b5b20cf129ba33db129c4325">Tensor::CUDAImpl</a>.</p>
+
+</div>
+</div>
+<a id="aab03704ef11aaa14fc6dab22fb101db4" name="aab03704ef11aaa14fc6dab22fb101db4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab03704ef11aaa14fc6dab22fb101db4">&#9670;&#160;</a></span>copyFromHost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Tensor::Impl::copyFromHost </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copies data from a host float array into this backend's storage. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Source array (must have at least <code>count</code> elements). </td></tr>
+    <tr><td class="paramname">count</td><td>Number of elements to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classTensor_1_1CPUImpl.html#a8279a8264c5e0ea078fd1206f72e521f">Tensor::CPUImpl</a>, and <a class="el" href="classTensor_1_1CUDAImpl.html#a0a4c238474c95b0c8845492420ffc016">Tensor::CUDAImpl</a>.</p>
 
 </div>
 </div>

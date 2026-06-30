@@ -3,6 +3,7 @@ var classTensor_1_1CUDAImpl =
     [ "add", "classTensor_1_1CUDAImpl.html#ad841800d66fa75806ff29a6d3073eca6", null ],
     [ "clone", "classTensor_1_1CUDAImpl.html#ab21713c16d56fcebe1cceeaa0567d935", null ],
     [ "compare", "classTensor_1_1CUDAImpl.html#aaf4fa199b5b20cf129ba33db129c4325", null ],
+    [ "copyFromHost", "classTensor_1_1CUDAImpl.html#a0a4c238474c95b0c8845492420ffc016", null ],
     [ "dataPtr", "classTensor_1_1CUDAImpl.html#a04cc2d1e49078da4310ee523cb622b84", null ],
     [ "div", "classTensor_1_1CUDAImpl.html#a849ac3a4f03dee195c71352933699549", null ],
     [ "fillAll", "classTensor_1_1CUDAImpl.html#a2ccedfb3f87a159a7b6ba7548be38980", null ],

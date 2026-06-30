@@ -40,6 +40,8 @@ std\+::string \mbox{\hyperlink{classTensor_1_1CPUImpl_a3ed4a42c58090528d8019ee1b
 \begin{DoxyCompactList}\small\item\em Returns a string representation of the data. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Deep copies this implementation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTensor_1_1CPUImpl_a8279a8264c5e0ea078fd1206f72e521f}{copy\+From\+Host}} (const float \texorpdfstring{$\ast$}{*}data, size\+\_\+t count) override
+\item 
 void \mbox{\hyperlink{classTensor_1_1CPUImpl_a67f65c664ea6e85bd5a6b4d40a618a57}{set}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
 \begin{DoxyCompactList}\small\item\em Copies data from {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout} into {\ttfamily this} with {\ttfamily lhs\+Layout}. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classTensor_1_1CPUImpl_a16cffea186292f67d0f1aa3698c3e60c}{compare}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) const override
@@ -133,6 +135,23 @@ Returns true if the data with {\ttfamily lhs\+Layout} matches {\ttfamily rhs\+Im
 
 
 Implements \mbox{\hyperlink{classTensor_1_1Impl_aa3da5cc31659ea349c35dc693890c071}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_a8279a8264c5e0ea078fd1206f72e521f}\label{classTensor_1_1CPUImpl_a8279a8264c5e0ea078fd1206f72e521f} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!copyFromHost@{copyFromHost}}
+\index{copyFromHost@{copyFromHost}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{copyFromHost()}{copyFromHost()}}
+{\footnotesize\ttfamily void Tensor\+::\+CPUImpl\+::copy\+From\+Host (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{data,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Copies data from a host float array into this backend\textquotesingle{}s storage. 
+\begin{DoxyParams}{Parameters}
+{\em data} & Source array (must have at least {\ttfamily count} elements). \\
+\hline
+{\em count} & Number of elements to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aab03704ef11aaa14fc6dab22fb101db4}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a254e28015ba00fcacf68c964454b5aca}\label{classTensor_1_1CPUImpl_a254e28015ba00fcacf68c964454b5aca} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!div@{div}}

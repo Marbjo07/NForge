@@ -40,9 +40,18 @@ std\+::vector$<$ size\+\_\+t $>$ {\bfseries get\+Stride} () const
 \Hypertarget{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e}\label{classTensor_1_1View_a76e40053fd00338b5d2e01641495f93e} 
 const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \& {\bfseries get\+Layout} () const
 \begin{DoxyCompactList}\small\item\em Returns the underlying physical layout. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_ab7ef6a999dad92b1e4d0ae648ce334ca}\label{classTensor_1_1View_ab7ef6a999dad92b1e4d0ae648ce334ca} 
+std\+::string {\bfseries get\+Backend\+String} () const
+\begin{DoxyCompactList}\small\item\em Returns "{}\+CPU"{} or "{}\+CUDA"{}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a548dff6b67cfabc32e57752cd05dc8e9}\label{classTensor_1_1View_a548dff6b67cfabc32e57752cd05dc8e9} 
+Backend {\bfseries get\+Backend} () const
+\begin{DoxyCompactList}\small\item\em Returns the backend enum. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140}\label{classTensor_1_1View_a2777c8d2a68046a0dc438167afbad140} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries copy} () const
 \begin{DoxyCompactList}\small\item\em Deep copies the viewed region into a new tensor. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a17480fb211548fb096b4c660ab390862}\label{classTensor_1_1View_a17480fb211548fb096b4c660ab390862} 
+std\+::vector$<$ float $>$ {\bfseries to\+Vector} () const
+\begin{DoxyCompactList}\small\item\em Copies the viewd elements into a flat vector. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b}\label{classTensor_1_1View_ad92a0f02d90891793a641ab95ac80d4b} 
 \mbox{\hyperlink{classTensor}{Tensor}} {\bfseries operator+} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
 \begin{DoxyCompactList}\small\item\em Elementwise addition with a tensor or view. Copies then computes. \end{DoxyCompactList}\item 

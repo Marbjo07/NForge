@@ -35,12 +35,13 @@ var NAVTREE =
     ] ],
     [ "Documentation", "index.html#autotoc_md7", null ],
     [ "Build from source", "index.html#autotoc_md8", [
-      [ "CUDA support", "index.html#autotoc_md9", null ]
+      [ "CUDA support", "index.html#autotoc_md9", null ],
+      [ "Build options", "index.html#autotoc_md10", null ]
     ] ],
-    [ "Tests", "index.html#autotoc_md10", null ],
-    [ "Benchmarks", "index.html#autotoc_md11", null ],
-    [ "Code Formatting", "index.html#autotoc_md12", [
-      [ "Pre-commit Hook", "index.html#autotoc_md13", null ]
+    [ "Tests", "index.html#autotoc_md11", null ],
+    [ "Benchmarks", "index.html#autotoc_md12", null ],
+    [ "Code Formatting", "index.html#autotoc_md13", [
+      [ "Pre-commit Hook", "index.html#autotoc_md14", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -62,7 +63,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"functions_func_o.html"
+"functions_func_f.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

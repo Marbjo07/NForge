@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['getbackend_0',['getBackend',['../classTensor.html#ab293919896c8984f034b7ab509122c53',1,'Tensor']]],
-  ['getbackendstring_1',['getBackendString',['../classTensor.html#af73191324d79a8a5e7e33a2f2fbe9222',1,'Tensor']]],
+  ['getbackend_0',['getbackend',['../classTensor_1_1View.html#a548dff6b67cfabc32e57752cd05dc8e9',1,'Tensor::View::getBackend()'],['../classTensor.html#ab293919896c8984f034b7ab509122c53',1,'Tensor::getBackend() const']]],
+  ['getbackendstring_1',['getbackendstring',['../classTensor.html#af73191324d79a8a5e7e33a2f2fbe9222',1,'Tensor::getBackendString()'],['../classTensor_1_1View.html#ab7ef6a999dad92b1e4d0ae648ce334ca',1,'Tensor::View::getBackendString()']]],
   ['getcontiguousstrides_2',['getContiguousStrides',['../classTensor_1_1Shape.html#a4120a1a632e771111db9db9eb9987731',1,'Tensor::Shape']]],
   ['getdatastring_3',['getDataString',['../classTensor.html#a17171caf6181b9d12450749716474f46',1,'Tensor']]],
   ['getdim_4',['getDim',['../classTensor_1_1Shape.html#a7971fee976003ed44505201486112b2b',1,'Tensor::Shape']]],

@@ -3,6 +3,7 @@ var classTensor_1_1Impl =
     [ "add", "classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a", null ],
     [ "clone", "classTensor_1_1Impl.html#a0affffc80f13bbcc4a647b06e3b9f3fd", null ],
     [ "compare", "classTensor_1_1Impl.html#aa3da5cc31659ea349c35dc693890c071", null ],
+    [ "copyFromHost", "classTensor_1_1Impl.html#aab03704ef11aaa14fc6dab22fb101db4", null ],
     [ "div", "classTensor_1_1Impl.html#aa6eaaa41a44326e5862ee65ddf681f45", null ],
     [ "fillAll", "classTensor_1_1Impl.html#a6942401937978279c5790bf924a84658", null ],
     [ "fillRand", "classTensor_1_1Impl.html#af8cc28f06c200a08a1de699e6eae8dac", null ],

@@ -37,6 +37,8 @@ std\+::string \mbox{\hyperlink{classTensor_1_1CUDAImpl_a34e2044ff1e71d3e1d45dfed
 \begin{DoxyCompactList}\small\item\em Returns a string representation of the data. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CUDAImpl_ab21713c16d56fcebe1cceeaa0567d935}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Deep copies this implementation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTensor_1_1CUDAImpl_a0a4c238474c95b0c8845492420ffc016}{copy\+From\+Host}} (const float \texorpdfstring{$\ast$}{*}data, size\+\_\+t count) override
+\item 
 void \mbox{\hyperlink{classTensor_1_1CUDAImpl_a72357dd911eeb02eef7ab1086e0b85bd}{set}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) override
 \begin{DoxyCompactList}\small\item\em Copies data from {\ttfamily rhs\+Impl} with {\ttfamily rhs\+Layout} into {\ttfamily this} with {\ttfamily lhs\+Layout}. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classTensor_1_1CUDAImpl_aaf4fa199b5b20cf129ba33db129c4325}{compare}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout) const override
@@ -130,6 +132,23 @@ Returns true if the data with {\ttfamily lhs\+Layout} matches {\ttfamily rhs\+Im
 
 
 Implements \mbox{\hyperlink{classTensor_1_1Impl_aa3da5cc31659ea349c35dc693890c071}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CUDAImpl_a0a4c238474c95b0c8845492420ffc016}\label{classTensor_1_1CUDAImpl_a0a4c238474c95b0c8845492420ffc016} 
+\index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!copyFromHost@{copyFromHost}}
+\index{copyFromHost@{copyFromHost}!Tensor::CUDAImpl@{Tensor::CUDAImpl}}
+\doxysubsubsection{\texorpdfstring{copyFromHost()}{copyFromHost()}}
+{\footnotesize\ttfamily void Tensor\+::\+CUDAImpl\+::copy\+From\+Host (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{data,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Copies data from a host float array into this backend\textquotesingle{}s storage. 
+\begin{DoxyParams}{Parameters}
+{\em data} & Source array (must have at least {\ttfamily count} elements). \\
+\hline
+{\em count} & Number of elements to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_aab03704ef11aaa14fc6dab22fb101db4}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CUDAImpl_a849ac3a4f03dee195c71352933699549}\label{classTensor_1_1CUDAImpl_a849ac3a4f03dee195c71352933699549} 
 \index{Tensor::CUDAImpl@{Tensor::CUDAImpl}!div@{div}}

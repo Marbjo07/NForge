@@ -147,10 +147,22 @@ std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getLayout</b> () const</td></tr>
 <tr class="memdesc:a76e40053fd00338b5d2e01641495f93e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying physical layout. <br /></td></tr>
 <tr class="separator:a76e40053fd00338b5d2e01641495f93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7ef6a999dad92b1e4d0ae648ce334ca" id="r_ab7ef6a999dad92b1e4d0ae648ce334ca"><td class="memItemLeft" align="right" valign="top"><a id="ab7ef6a999dad92b1e4d0ae648ce334ca" name="ab7ef6a999dad92b1e4d0ae648ce334ca"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getBackendString</b> () const</td></tr>
+<tr class="memdesc:ab7ef6a999dad92b1e4d0ae648ce334ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "CPU" or "CUDA". <br /></td></tr>
+<tr class="separator:ab7ef6a999dad92b1e4d0ae648ce334ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548dff6b67cfabc32e57752cd05dc8e9" id="r_a548dff6b67cfabc32e57752cd05dc8e9"><td class="memItemLeft" align="right" valign="top"><a id="a548dff6b67cfabc32e57752cd05dc8e9" name="a548dff6b67cfabc32e57752cd05dc8e9"></a>
+Backend&#160;</td><td class="memItemRight" valign="bottom"><b>getBackend</b> () const</td></tr>
+<tr class="memdesc:a548dff6b67cfabc32e57752cd05dc8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the backend enum. <br /></td></tr>
+<tr class="separator:a548dff6b67cfabc32e57752cd05dc8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2777c8d2a68046a0dc438167afbad140" id="r_a2777c8d2a68046a0dc438167afbad140"><td class="memItemLeft" align="right" valign="top"><a id="a2777c8d2a68046a0dc438167afbad140" name="a2777c8d2a68046a0dc438167afbad140"></a>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> () const</td></tr>
 <tr class="memdesc:a2777c8d2a68046a0dc438167afbad140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep copies the viewed region into a new tensor. <br /></td></tr>
 <tr class="separator:a2777c8d2a68046a0dc438167afbad140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17480fb211548fb096b4c660ab390862" id="r_a17480fb211548fb096b4c660ab390862"><td class="memItemLeft" align="right" valign="top"><a id="a17480fb211548fb096b4c660ab390862" name="a17480fb211548fb096b4c660ab390862"></a>
+std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>toVector</b> () const</td></tr>
+<tr class="memdesc:a17480fb211548fb096b4c660ab390862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the viewd elements into a flat vector. <br /></td></tr>
+<tr class="separator:a17480fb211548fb096b4c660ab390862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92a0f02d90891793a641ab95ac80d4b" id="r_ad92a0f02d90891793a641ab95ac80d4b"><td class="memItemLeft" align="right" valign="top"><a id="ad92a0f02d90891793a641ab95ac80d4b" name="ad92a0f02d90891793a641ab95ac80d4b"></a>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
 <tr class="memdesc:ad92a0f02d90891793a641ab95ac80d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise addition with a tensor or view. Copies then computes. <br /></td></tr>
