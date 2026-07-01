@@ -228,6 +228,10 @@ Tensor Tensor::norm() const {
 	return Tensor(std::move(result), m_backend);
 }
 
+Tensor Tensor::all(size_t dim) const { return applyReduction(dim, &Tensor::Impl::all); }
+
+Tensor Tensor::any(size_t dim) const { return applyReduction(dim, &Tensor::Impl::any); }
+
 Tensor Tensor::matmul(const Tensor::View& rhs) const {
 	auto ctx = semantic::MatmulContext::build(*this, rhs);
 

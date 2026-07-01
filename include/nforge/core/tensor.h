@@ -158,6 +158,14 @@ public:
 	/// L2 norm (scalar tensor equal to `sqrt(sum(x^2))`).
 	Tensor norm() const;
 
+	/// For each block, tests whether all element evaluate to True (non-zero).
+	/// Reduces dimensions [dim, rank) by applying logical AND. Result shape is shape[0:dim].
+	Tensor all(size_t dim = 0) const;
+
+	/// For each block, tests whether any element evaluate to True (non-zero).
+	/// Reduces dimensions [dim, rank) by applying logical OR. Result shape is shape[0:dim].
+	Tensor any(size_t dim = 0) const;
+
 	/// Matrix multiplication. Inputs must be 2D or 3D tensors.
 	/// 2D: (N, M) @ (M, K) => (N, K).
 	///

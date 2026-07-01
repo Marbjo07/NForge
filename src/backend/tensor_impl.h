@@ -120,6 +120,19 @@ public:
 	/// L2 norm of the tensor described by `layout`.
 	virtual std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const = 0;
 
+	/// For each block, tests whether all element evaluate to True (non-zero).
+	/// Reduces dimensions [dim, rank) by applying logical AND.
+	/// Returns a tensor of 0.0 / 1.0 with `outLayout`.
+	virtual std::unique_ptr<Tensor::Impl> all(const TensorLayout& layout,
+	                                          const TensorLayout& blockLayout,
+	                                          const TensorLayout& outLayout) const = 0;
+
+	/// For each block, tests whether any element evaluate to True (non-zero).
+	/// Reduces dimensions [dim, rank) by applying logical OR.
+	/// Returns a tensor of 0.0 / 1.0 with `outLayout`.
+	virtual std::unique_ptr<Tensor::Impl> any(const TensorLayout& layout,
+	                                          const TensorLayout& blockLayout,
+	                                          const TensorLayout& outLayout) const = 0;
 
 	/// Matrix multiplication. The last two dims of each layout are the matrix dims.
 	/// `batch`, `m`, `k`, `p` describe the decomposition of the matmul problem.

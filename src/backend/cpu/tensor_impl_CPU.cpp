@@ -265,11 +265,12 @@ void Tensor::CPUImpl::idiv(const TensorLayout& lhsLayout, const Tensor::Impl* rh
 	applyInplaceBinaryOp(lhsLayout, rhsImpl, rhsLayout, [](float a, float b) { return a / b; });
 }
 
-template <typename ReductionOp>
+template <typename ReductionOp, typename Transform>
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyReductionOp(const TensorLayout& layout,
                                                                 const TensorLayout& blockLayout,
                                                                 const TensorLayout& outLayout,
-                                                                ReductionOp op) const {
+                                                                ReductionOp op,
+                                                                Transform transform) const {
 	auto outShape = Tensor::Shape(outLayout);
 
 	auto* result = new Tensor::CPUImpl(outShape);
@@ -284,7 +285,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::applyReductionOp(const TensorLayo
 	for (size_t d = 0; d < blockLayout.rank; d++) blockCount *= blockLayout.shape[d];
 
 	for (size_t i = 0; i < outCount; i++) {
-		float res = a[physicalOffset(i * blockCount, layout)];
+		float res = transform(a[physicalOffset(i * blockCount, layout)]);
 
 		for (size_t j = 1; j < blockCount; j++) {
 			res = op(res, a[physicalOffset(i * blockCount + j, layout)]);
@@ -338,6 +339,25 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::norm(const TensorLayout& layout) 
 	result->m_data[0] = norm;
 
 	return std::unique_ptr<Tensor::Impl>(result);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::all(const TensorLayout& layout,
+                                                   const TensorLayout& blockLayout,
+                                                   const TensorLayout& outLayout) const {
+	return applyReductionOp(
+	    layout, blockLayout, outLayout,
+	    [](float a, float b) { return (a != 0.0f && b != 0.0f) ? 1.0f : 0.0f; },
+	    [](float x) { return x != 0.0; });
+}
+
+
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::any(const TensorLayout& layout,
+                                                   const TensorLayout& blockLayout,
+                                                   const TensorLayout& outLayout) const {
+	return applyReductionOp(
+	    layout, blockLayout, outLayout,
+	    [](float a, float b) { return (a != 0.0f || b != 0.0f) ? 1.0f : 0.0f; },
+	    [](float x) { return x != 0.0; });
 }
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::matmul(const TensorLayout& lhsLayout,

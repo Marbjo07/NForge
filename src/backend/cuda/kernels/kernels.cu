@@ -256,8 +256,11 @@ __device__ static float atomicMin(float* address, float val) {
 	int old = *address_as_i, assumed;
 	do {
 		assumed = old;
-		// Use fminf to find the max of the current value and the new value
-		old = atomicCAS(address_as_i, assumed, __float_as_int(fminf(val, __int_as_float(assumed))));
+
+		// Use fminf to find the min of the current value and the new value
+		float write = fminf(val, __int_as_float(assumed));
+
+		old = atomicCAS(address_as_i, assumed, __float_as_int(write));
 	} while (assumed != old);  // Repeat if another thread updated the memory
 	return __int_as_float(old);
 }
@@ -267,8 +270,11 @@ __device__ static float atomicMax(float* address, float val) {
 	int old = *address_as_i, assumed;
 	do {
 		assumed = old;
+
 		// Use fmaxf to find the max of the current value and the new value
-		old = atomicCAS(address_as_i, assumed, __float_as_int(fmaxf(val, __int_as_float(assumed))));
+		float write = fmaxf(val, __int_as_float(assumed));
+
+		old = atomicCAS(address_as_i, assumed, __float_as_int(write));
 	} while (assumed != old);  // Repeat if another thread updated the memory
 	return __int_as_float(old);
 }
@@ -278,9 +284,38 @@ __device__ static float atomicMul(float* address, float val) {
 	int old = *address_as_i, assumed;
 	do {
 		assumed = old;
+
 		// Multiply the current value and the new value
-		old = atomicCAS(address_as_i, assumed, __float_as_int(val * __int_as_float(assumed)));
+		float write = val * __int_as_float(assumed);
+
+		old = atomicCAS(address_as_i, assumed, __float_as_int(write));
 	} while (assumed != old);  // Repeat if another thread updated the memory
+	return __int_as_float(old);
+}
+
+__device__ static float atomicANDFloat(float* address, float val) {
+	int* address_as_i = (int*)address;
+	int old = *address_as_i, assumed;
+	do {
+		assumed = old;
+
+		float write = (__int_as_float(assumed) != 0.0 && val != 0.0);
+
+		old = atomicCAS(address_as_i, assumed, __float_as_int(write));
+	} while (assumed != old);
+	return __int_as_float(old);
+}
+
+__device__ static float atomicORFloat(float* address, float val) {
+	int* address_as_i = (int*)address;
+	int old = *address_as_i, assumed;
+	do {
+		assumed = old;
+
+		float write = (__int_as_float(assumed) != 0.0 || val != 0.0);
+
+		old = atomicCAS(address_as_i, assumed, __float_as_int(write));
+	} while (assumed != old);
 	return __int_as_float(old);
 }
 
@@ -334,6 +369,32 @@ __global__ void prodReductionKernel(const float* __restrict__ data, float* resul
 	size_t dataIdx = physicalOffsetCUDA(i, layout);
 
 	atomicMul(&result[outIdx], data[dataIdx]);
+}
+
+__global__ void allReductionKernel(const float* __restrict__ data, float* result,
+                                   const TensorLayout layout, size_t blockCount,
+                                   const TensorLayout outLayout, size_t outCount) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= blockCount * outCount)
+		return;
+
+	size_t outIdx = physicalOffsetCUDA(i / blockCount, outLayout);
+	size_t dataIdx = physicalOffsetCUDA(i, layout);
+
+	atomicANDFloat(&result[outIdx], data[dataIdx]);
+}
+
+__global__ void anyReductionKernel(const float* __restrict__ data, float* result,
+                                   const TensorLayout layout, size_t blockCount,
+                                   const TensorLayout outLayout, size_t outCount) {
+	size_t i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i >= blockCount * outCount)
+		return;
+
+	size_t outIdx = physicalOffsetCUDA(i / blockCount, outLayout);
+	size_t dataIdx = physicalOffsetCUDA(i, layout);
+
+	atomicORFloat(&result[outIdx], data[dataIdx]);
 }
 
 __global__ void matmulKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,

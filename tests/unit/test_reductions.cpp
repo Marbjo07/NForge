@@ -189,3 +189,57 @@ TEST_CASE("Tensor reductions respect strides", "[Tensor]") {
 		}
 	}
 }
+
+TEST_CASE("Tensor all reduction", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({4, 6}, backend);
+		for (size_t i = 0; i < 4; i++) {
+			for (size_t j = 0; j < 6; j++) {
+				float value = (i * 6 + j + 4) % 7;
+				a[i][j] = Tensor(value, backend);
+			}
+		}
+		// a = [[4, 5, 6, 0, 1, 2],
+		//      [3, 4, 5, 6, 0, 1],
+		//      [2, 3, 4, 5, 6, 0],
+		//      [1, 2, 3, 4, 5, 6]]
+
+
+		std::vector<float> expected = {1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		                               1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		                               1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+
+		REQUIRE(a.all() == Tensor(0.0f, backend));
+		REQUIRE(a.all(0) == Tensor(0.0f, backend));
+		REQUIRE(a.all(1) == makeVectorTensor({0.0f, 0.0f, 0.0f, 1.0f}, backend));
+		REQUIRE(a.all(2).toVector() == expected);
+	}
+}
+
+
+TEST_CASE("Tensor any reduction", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({4, 6}, backend);
+		for (size_t i = 0; i < 4; i++) {
+			for (size_t j = 0; j < 6; j++) {
+				float value = (i != 2) * ((i * 6 + j) % 5);
+				a[i][j] = Tensor(value, backend);
+			}
+		}
+		// a = [[0, 1, 2, 3, 4, 0],
+		//      [1, 2, 3, 4, 0, 1],
+		// 	    [0, 0, 0, 0, 0, 0],
+		//      [3, 4, 0, 1, 2, 3]]
+
+		std::vector<float> expected = {0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		                               1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		                               0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f};
+
+		REQUIRE(a.any() == Tensor(1.0f, backend));
+		REQUIRE(a.any(0) == Tensor(1.0f, backend));
+		REQUIRE(a.any(1) == makeVectorTensor({1.0f, 1.0f, 0.0f, 1.0f}, backend));
+		REQUIRE(a.any(2).toVector() == expected);
+	}
+}

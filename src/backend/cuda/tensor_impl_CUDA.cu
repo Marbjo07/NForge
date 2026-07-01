@@ -303,6 +303,18 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout)
 	return std::unique_ptr<Tensor::Impl>(results);
 }
 
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::all(const TensorLayout& layout,
+                                                    const TensorLayout& blockLayout,
+                                                    const TensorLayout& outLayout) const {
+	return applyReductionKernel(layout, blockLayout, outLayout, 1.0f, allReductionKernel);
+}
+
+std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::any(const TensorLayout& layout,
+                                                    const TensorLayout& blockLayout,
+                                                    const TensorLayout& outLayout) const {
+	return applyReductionKernel(layout, blockLayout, outLayout, 0.0f, anyReductionKernel);
+}
+
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::matmul(const TensorLayout& lhsLayout,
                                                        const Tensor::Impl* rhsImpl,
