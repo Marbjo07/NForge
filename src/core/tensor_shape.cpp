@@ -6,30 +6,18 @@
 
 #include "nforge/core/tensor_layout.h"
 
-Tensor::Shape::Shape(const std::vector<size_t>& dims) : m_dimensions(dims) {
-	if (dims.empty()) {
-		m_dimensions.push_back(1);  // scalar tensors have shape {1}
-	}
-}
+Tensor::Shape::Shape(const std::vector<size_t>& dims) : m_dimensions(dims) {}
 
-Tensor::Shape::Shape(const std::initializer_list<size_t>& dims) : m_dimensions(dims) {
-	if (dims.size() == 0) {
-		m_dimensions.push_back(1);  // scalar tensors have shape {1}
-	}
-}
+Tensor::Shape::Shape(const std::initializer_list<size_t>& dims) : m_dimensions(dims) {}
 
 Tensor::Shape::Shape(const TensorLayout& layout) {
 	std::vector<size_t> dims(layout.shape.begin(), layout.shape.begin() + layout.rank);
-
-	if (dims.size() == 0) {
-		dims.push_back(1);
-	}
 
 	m_dimensions = dims;
 }
 
 bool Tensor::Shape::operator==(const Shape& other) const {
-	return this->withoutTrailingOnes() == other.withoutTrailingOnes();
+	return this->toVector() == other.toVector();
 }
 
 bool Tensor::Shape::operator!=(const Shape& other) const { return !(this->operator==(other)); }
@@ -37,8 +25,8 @@ bool Tensor::Shape::operator!=(const Shape& other) const { return !(this->operat
 size_t Tensor::Shape::getNumDims() const { return m_dimensions.size(); }
 
 Tensor::Shape Tensor::Shape::operator[](size_t index) const {
-	if (m_dimensions.size() == 1) {
-		return Tensor::Shape({1});
+	if (m_dimensions.size() <= 1) {
+		return Tensor::Shape({});
 	}
 
 	std::vector<size_t> dims(m_dimensions.begin() + 1, m_dimensions.end());
@@ -49,7 +37,7 @@ Tensor::Shape Tensor::Shape::operator[](const std::vector<size_t>& position) con
 	size_t numIndexedDims = position.size();
 	size_t remainDims = m_dimensions.size() - numIndexedDims;
 	if (remainDims <= 0) {
-		return Tensor::Shape({1});
+		return Tensor::Shape({});
 	}
 
 	std::vector<size_t> dims(m_dimensions.begin() + numIndexedDims, m_dimensions.end());
@@ -58,7 +46,7 @@ Tensor::Shape Tensor::Shape::operator[](const std::vector<size_t>& position) con
 
 size_t Tensor::Shape::getNumElements() const {
 	if (m_dimensions.empty()) {
-		return 0;
+		return 1;
 	}
 
 	size_t ac = std::accumulate(m_dimensions.begin(), m_dimensions.end(), size_t(1),
@@ -69,7 +57,7 @@ size_t Tensor::Shape::getNumElements() const {
 
 size_t Tensor::Shape::getDim(size_t idx) const { return m_dimensions[idx]; }
 
-bool Tensor::Shape::isScalar() const { return m_dimensions.size() == 1 && m_dimensions[0] == 1; }
+bool Tensor::Shape::isScalar() const { return m_dimensions.size() == 0; }
 
 Tensor::Shape Tensor::Shape::removeLeadingDimension() const {
 	if (m_dimensions.empty()) {
@@ -102,9 +90,6 @@ std::vector<size_t> Tensor::Shape::withoutTrailingOnes() const {
 		result.pop_back();
 	}
 	// maintain at least one dimension
-	if (result.empty()) {
-		result.push_back(1);
-	}
 	return result;
 }
 

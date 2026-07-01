@@ -41,7 +41,7 @@ Tensor::Tensor(const Tensor::Shape& shape, float value, Backend backend) : Tenso
 Tensor::Tensor(const std::initializer_list<size_t>& shape, float value, Backend backend)
     : Tensor(Tensor::Shape(shape), value, backend) {}
 
-Tensor::Tensor(float value, Backend backend) : Tensor(Tensor::Shape({1}), value, backend) {}
+Tensor::Tensor(float value, Backend backend) : Tensor(Tensor::Shape(), value, backend) {}
 
 Tensor::Tensor(const Tensor& rhs) : m_backend(rhs.m_backend), m_impl(rhs.m_impl->clone()) {}
 

@@ -281,7 +281,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::prod(const TensorLayout& layout,
 
 std::unique_ptr<Tensor::Impl> Tensor::CUDAImpl::norm(const TensorLayout& layout) const {
 	// create output tensor
-	auto outShape = Tensor::Shape({1});
+	auto outShape = Tensor::Shape({});
 	auto* results = new Tensor::CUDAImpl(outShape);
 
 	// get all data pointers

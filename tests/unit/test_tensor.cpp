@@ -198,7 +198,7 @@ TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
 		}
 
 		Tensor a(1.0f, backend);
-		REQUIRE(a.getShape() == Tensor::Shape({1}));
+		REQUIRE(a.getShape() == Tensor::Shape({}));
 	}
 }
 
@@ -235,7 +235,7 @@ TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
 
 		Tensor norm = a.norm();
 
-		REQUIRE(norm.getShape() == Tensor::Shape({1}));
+		REQUIRE(norm.getShape() == Tensor::Shape({}));
 		REQUIRE(norm.getBackend() == backend);
 	}
 }

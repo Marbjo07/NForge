@@ -164,7 +164,7 @@ TEST_CASE("Comparison Operators scalar broadcast", "[Tensor]") {
 		auto view = b[0];
 
 		// init middel of rand distribution
-		Tensor scalar({1}, 0, backend);
+		Tensor scalar(0, backend);
 
 		a.fillRand();
 		b.fillRand();
@@ -186,7 +186,7 @@ TEST_CASE("Comparison Operators scalar broadcast int", "[Tensor]") {
 		auto view = b[0];
 
 		// init middel of rand distribution
-		Tensor scalar({1}, 0, backend);
+		Tensor scalar(0, backend);
 
 		testAllOperators(a, scalar, "Tensor-Scalar");
 		testAllOperators(scalar, a, "Scalar-Tensor");
