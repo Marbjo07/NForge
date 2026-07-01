@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a87d3b2ecd92777f6466532d07c218f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3e277d22591d6e6bd9c7078242fdc2f" id="r_af3e277d22591d6e6bd9c7078242fdc2f"><td class="memItemLeft" align="right" valign="top"><a id="af3e277d22591d6e6bd9c7078242fdc2f" name="af3e277d22591d6e6bd9c7078242fdc2f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Tensor</b> (float value, Backend backend=Backend::CPU)</td></tr>
-<tr class="memdesc:af3e277d22591d6e6bd9c7078242fdc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a scalar tensor, shape (1). <br /></td></tr>
+<tr class="memdesc:af3e277d22591d6e6bd9c7078242fdc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a scalar tensor, shape {}. <br /></td></tr>
 <tr class="separator:af3e277d22591d6e6bd9c7078242fdc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a127562a0fad3d73c672ef0c926a5df02" id="r_a127562a0fad3d73c672ef0c926a5df02"><td class="memItemLeft" align="right" valign="top"><a id="a127562a0fad3d73c672ef0c926a5df02" name="a127562a0fad3d73c672ef0c926a5df02"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Tensor</b> (const <a class="el" href="classTensor.html">Tensor</a> &amp;tensor)</td></tr>
@@ -290,9 +290,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const
 <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs)</td></tr>
 <tr class="memdesc:aa00d3f166c2b807c097cc4e691b37a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a view. <br /></td></tr>
 <tr class="separator:aa00d3f166c2b807c097cc4e691b37a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33e962a19e2e5080808a935aa54861cd" id="r_a33e962a19e2e5080808a935aa54861cd"><td class="memItemLeft" align="right" valign="top"><a id="a33e962a19e2e5080808a935aa54861cd" name="a33e962a19e2e5080808a935aa54861cd"></a>
-<a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (float scalar)</td></tr>
-<tr class="memdesc:a33e962a19e2e5080808a935aa54861cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns <code>scalar</code> to every element. <br /></td></tr>
+<tr class="memitem:a33e962a19e2e5080808a935aa54861cd" id="r_a33e962a19e2e5080808a935aa54861cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a33e962a19e2e5080808a935aa54861cd">operator=</a> (float scalar)</td></tr>
 <tr class="separator:a33e962a19e2e5080808a935aa54861cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bef2836caec277081debaaaa08fc006" id="r_a1bef2836caec277081debaaaa08fc006"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a1bef2836caec277081debaaaa08fc006">operator==</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
 <tr class="separator:a1bef2836caec277081debaaaa08fc006"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -446,6 +444,25 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns true if any element differs from <code>rhs</code>. </p><dl class="section note"><dt>Note</dt><dd>Exact match, which is unstable for floats. Consider using <code>.<a class="el" href="classTensor.html#ab74c29e4028d531d6351df3a959d05ba">isClose()</a></code> </dd></dl>
+
+</div>
+</div>
+<a id="a33e962a19e2e5080808a935aa54861cd" name="a33e962a19e2e5080808a935aa54861cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33e962a19e2e5080808a935aa54861cd">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> &amp; Tensor::operator= </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scalar</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Assigns a pure float to a tensor. </p><dl class="section note"><dt>Note</dt><dd>Only works on scalar-shaped tensors, e.g tensors with only 1 element. </dd></dl>
 
 </div>
 </div>

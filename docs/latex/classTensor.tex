@@ -34,7 +34,7 @@ class \mbox{\hyperlink{classTensor_1_1View}{View}}
 \begin{DoxyCompactList}\small\item\em Constructs a tensor and fills every element with {\ttfamily value}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_af3e277d22591d6e6bd9c7078242fdc2f}\label{classTensor_af3e277d22591d6e6bd9c7078242fdc2f} 
 {\bfseries Tensor} (float value, Backend backend=Backend\+::\+CPU)
-\begin{DoxyCompactList}\small\item\em Constructs a scalar tensor, shape (1). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructs a scalar tensor, shape \{\}. \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_a127562a0fad3d73c672ef0c926a5df02}\label{classTensor_a127562a0fad3d73c672ef0c926a5df02} 
 {\bfseries Tensor} (const \mbox{\hyperlink{classTensor}{Tensor}} \&tensor)
 \begin{DoxyCompactList}\small\item\em Copy constructor. Performs a deep copy. \end{DoxyCompactList}\item 
@@ -152,9 +152,8 @@ void {\bfseries operator/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\
 \Hypertarget{classTensor_aa00d3f166c2b807c097cc4e691b37a23}\label{classTensor_aa00d3f166c2b807c097cc4e691b37a23} 
 \mbox{\hyperlink{classTensor}{Tensor}} \& {\bfseries operator=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
 \begin{DoxyCompactList}\small\item\em Copies data from a view. \end{DoxyCompactList}\item 
-\Hypertarget{classTensor_a33e962a19e2e5080808a935aa54861cd}\label{classTensor_a33e962a19e2e5080808a935aa54861cd} 
-\mbox{\hyperlink{classTensor}{Tensor}} \& {\bfseries operator=} (float scalar)
-\begin{DoxyCompactList}\small\item\em Assigns {\ttfamily scalar} to every element. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTensor}{Tensor}} \& \mbox{\hyperlink{classTensor_a33e962a19e2e5080808a935aa54861cd}{operator=}} (float scalar)
+\item 
 bool \mbox{\hyperlink{classTensor_a1bef2836caec277081debaaaa08fc006}{operator==}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classTensor_ac647c691492dae509ba70c32222543cd}{operator!=}} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs) const
@@ -239,6 +238,15 @@ Batch dims must be broadcastable, match or be 1. \Hypertarget{classTensor_ac647c
 
 Returns true if any element differs from {\ttfamily rhs}. \begin{DoxyNote}{Note}
 Exact match, which is unstable for floats. Consider using {\ttfamily .\doxylink{classTensor_ab74c29e4028d531d6351df3a959d05ba}{is\+Close()}} 
+\end{DoxyNote}
+\Hypertarget{classTensor_a33e962a19e2e5080808a935aa54861cd}\label{classTensor_a33e962a19e2e5080808a935aa54861cd} 
+\index{Tensor@{Tensor}!operator=@{operator=}}
+\index{operator=@{operator=}!Tensor@{Tensor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTensor}{Tensor}} \& Tensor\+::operator= (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})}
+
+Assigns a pure float to a tensor. \begin{DoxyNote}{Note}
+Only works on scalar-\/shaped tensors, e.\+g tensors with only 1 element. 
 \end{DoxyNote}
 \Hypertarget{classTensor_a1bef2836caec277081debaaaa08fc006}\label{classTensor_a1bef2836caec277081debaaaa08fc006} 
 \index{Tensor@{Tensor}!operator==@{operator==}}
