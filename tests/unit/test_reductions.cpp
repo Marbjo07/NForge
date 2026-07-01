@@ -68,6 +68,58 @@ TEST_CASE("Tensor reductions", "[Tensor]") {
 	}
 }
 
+
+TEST_CASE("View reductions", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor orig({3, 2, 3}, backend);
+
+		Tensor::View a = orig[2];
+		for (size_t i = 0; i < 2; i++) {
+			for (size_t j = 0; j < 3; j++) {
+				a[i][j] = Tensor(i * 3 + j, backend);
+			}
+		}
+
+
+		SECTION("sum") {
+			REQUIRE(a.sum() == Tensor(15.0f, backend));
+			REQUIRE(a.sum(0) == Tensor(15.0f, backend));
+			REQUIRE(a.sum(1) == makeVectorTensor({3.0f, 12.0f}, backend));
+			REQUIRE(a.sum(2) == a);
+		}
+
+		SECTION("mean") {
+			REQUIRE(a.mean() == Tensor(2.5f, backend));
+			REQUIRE(a.mean(0) == Tensor(2.5f, backend));
+			REQUIRE(a.mean(1) == makeVectorTensor({1.0f, 4.0f}, backend));
+			REQUIRE(a.mean(2) == a);
+		}
+
+		SECTION("max") {
+			REQUIRE(a.max() == Tensor(5.0f, backend));
+			REQUIRE(a.max(0) == Tensor(5.0f, backend));
+			REQUIRE(a.max(1) == makeVectorTensor({2.0f, 5.0f}, backend));
+			REQUIRE(a.max(2) == a);
+		}
+
+		SECTION("min") {
+			REQUIRE(a.min() == Tensor(0.0f, backend));
+			REQUIRE(a.min(0) == Tensor(0.0f, backend));
+			REQUIRE(a.min(1) == makeVectorTensor({0.0f, 3.0f}, backend));
+			REQUIRE(a.min(2) == a);
+		}
+
+		SECTION("prod") {
+			REQUIRE(a.prod() == Tensor(0.0f, backend));
+			REQUIRE(a.prod(0) == Tensor(0.0f, backend));
+			REQUIRE(a.prod(1) == makeVectorTensor({0.0f, 60.0f}, backend));
+			REQUIRE(a.prod(2) == a);
+		}
+	}
+}
+
+
 TEST_CASE("Tensor mean equals sum divided by count", "[Tensor]") {
 	auto backend = GENERATE(from_range(backends));
 	DYNAMIC_SECTION(getBackendString(backend)) {
@@ -109,7 +161,7 @@ TEST_CASE("Tensor reductions respect strides", "[Tensor]") {
 			}
 		}
 
-		Tensor b = a.subsample({2, 2}).copy();
+		Tensor::View b = a.subsample({2, 2});
 
 		SECTION("mean") {
 			REQUIRE(b.mean(0) == Tensor(8.0f, backend));
