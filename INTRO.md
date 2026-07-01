@@ -20,14 +20,16 @@ Tensors are by default zero-initialized, or can start with a value:
 Tensor a({3, 4}, 1.5f);
 ```
 
-If you want a scalar, just exclude the shape. Any tensor with a single element is considered a scalar, including `Tensor({1})` or even `Tensor({1,1})`.
-Scalar dimensions, (dims with size 1) can for most operations be broadcasted to any size. Binary operations is one of them.
+If you want a scalar, just exclude the shape. 
 
 ```cpp
 Tensor a(3.14f);
 ```
 
-Most binary operations also accept a raw float directly, which behaves the same way as a rank-1 scalar.
+A scalar is a zero-rank tensor. A scalar can take any number of scalar dimensions, e.g. `{1}`, `{1, 1}`, etc.
+Each scalar dimension can for most operations be broadcasted to any size. Binary operations is one of them.
+
+Most binary operations also accept a raw float directly, which behaves the same way as a scalar.
 
 And for completeness a deep-copy:
 
@@ -94,7 +96,7 @@ In-place operators
 Tensor a({3}, 2.0f);
 Tensor b({3}, 3.0f);
 a += b;                           
-// [5, 5, 5]
+// a = [5, 5, 5]
 ```
 
 ## Views
@@ -130,7 +132,8 @@ a[1] = src;                        // copy row 1 from another tensor
 Tensor a({6}, 0.0f);
 for (size_t i = 0; i < 6; i++) a[i] = Tensor((float)i);
 
-auto evens = a.subsample({2});     // indices 0, 2, 4 -> [0, 2, 4]
+auto evens = a.subsample({2});     // indices 0, 2, 4
+// note that offsets are currently not supported, so the first index is always 0
 
 // Assigning a strided view mutates the original:
 a.subsample({2}) = Tensor({3}, 9.0f);
@@ -153,7 +156,7 @@ Size 1 dimensions can take any size:
 Tensor a({3, 1}, 2.0f);            // column vector
 Tensor b({1, 4}, 3.0f);            // row vector
 
-Tensor r = a + b;                  // shape {3, 4}, all entries = 5
+Tensor r = a + b;                  // shape {3, 4}, values 5
 ```
 
 ## Reductions
@@ -163,38 +166,51 @@ Reductions collapse dimensions `[dim, rank)` into a single value. Result shape i
 ```cpp
 Tensor a({3, 4, 5});
 
-auto s = a.sum(1);                 // sum 20 element per leading idx, shape {3}
-auto m = a.mean(0);                // mean of all 60 elements, scalar shape {1}
-auto v = a.min(2);                 // min per block, shape {3, 4}
-auto x = a.max(1);                 // max per block, shape {3}
-auto p = a.prod(0);                // product of all elements, scalar
-```
+// sum 20 element per leading idx, shape {3}
+auto s = a.sum(1);
 
-## Norm
+// mean of all 60 elements, scalar {}
+auto m = a.mean(0);
 
-```cpp
-Tensor a({3, 4}, 2.0f);
-auto n = a.norm();                 // L2 norm
+// min per block, shape {3, 4}
+auto v = a.min(2);
+
+// max per block, shape {3}
+auto x = a.max(1);
+
+// product of all elements, scalar
+auto p = a.prod(0);
+
+// L2 norm of all elements, scalar
+auto n = a.norm();
 ```
 
 ## Matrix multiplication
 
-Supports 2D and 3D tensors.  
 2D: `{M, K} @ {K, P} => {M, P}`.  
-3D: `{batch, M, K} @ {batch, K, P} => {batch, M, P}`.
 
 ```cpp
 Tensor A({2, 3}, 1.0f);
 Tensor B({3, 4}, 2.0f);
-auto C = A.matmul(B);              // shape {2, 4}
+auto C = A.matmul(B); // shape {2, 4}
+```
 
-// Batched matmul:
+3D: `{batch, M, K} @ {batch, K, P} => {batch, M, P}`.
+
+```cpp
 Tensor BA({5, 2, 3}, 1.0f);
 Tensor BB({5, 3, 4}, 2.0f);
-auto BC = BA.matmul(BB);           // shape {5, 2, 4}
+// {5, 2, 3} @ {5, 3, 4} => {5, 2, 4}
+auto BC = BA.matmul(BB); 
+```
 
-// Mixed 2D/3D — 2D is broadcast:
-auto C2 = A.matmul(BB);            // A broadcast from {2,3} to {5,2,3}
+If the batch sizes are different, one of them must be 1, which will be broadcasted to the other batch size.  
+Mixed 2D/3D is supported, a scalar dimension is added to the 2D tensor and then boardcasted to the batch size of the 3D tensor.
+
+```cpp
+// Mixed 2D/3D
+// {2, 3} @ {5, 3, 4} => {5, 2, 4}
+auto C2 = A.matmul(BB);
 ```
 
 ### Functional style
@@ -204,6 +220,11 @@ auto C = nforge::matmul(A, B)
 ```
 
 ## Comparisons
+
+Comparisons are elementwise and return a tensor of 0.0/1.0 values. The shapes must be broadcastable.
+
+`==` and `!=` currently return a single boolean value, which is true if all elements are equal/not equal. This will be changed in the future to return a tensor of 0.0/1.0 values.
+
 
 ```cpp
 Tensor a({3}, 1.0f);
@@ -216,7 +237,11 @@ auto lt = a < b;                   // tensor of 0.0/1.0: [1, 1, 1]
 auto le = a <= b;                  // [1, 1, 1]
 auto gt = a > b;                   // [0, 0, 0]
 auto ge = a >= b;                  // [0, 0, 0]
+```
 
+`.isClose()` returns a tensor of 0.0/1.0 values. It uses relative tolerance for numbers larger than 1 and absolute tolerance for numbers smaller than 1. The default tolerance is 1e-5f.
+
+```cpp
 auto close = a.isClose(b, 1e-5f);  // tensor of 0.0/1.0
 ```
 
@@ -224,18 +249,17 @@ auto close = a.isClose(b, 1e-5f);  // tensor of 0.0/1.0
 
 ```cpp
 Tensor a({3, 4}, 1.0f, Backend::CPU);
-a.to(Backend::CUDA);               // transfer to CUDA (if enabled)
-a.to(Backend::CPU);                // transfer back
+a.to(Backend::CUDA); 
+a.to(Backend::CPU);
 ```
 
 ## Copy to vector
 
 ```cpp
-Tensor a({2, 2});
-a.fillAll(3.0f);
+Tensor a({2, 2}, 3.0f);
 std::vector<float> v = a.toVector(); // {3, 3, 3, 3}, row-major
 
-// For views, resolve to a new contiguous tensor first:
+// For views, resolve to a new contiguous tensor first. This will change in the future.
 std::vector<float> v = a[1].copy().toVector();
 ```
 
@@ -247,5 +271,5 @@ a.getShape();                      // {3, 4, 5}
 a.getNumDims();                    // 3
 a.getNumElements();                // 60
 a.getShape().getDim(1);            // 4
-a.getShape().isScalar();           // false (shape {1} is scalar)
+a.getShape().isScalar();           // false (shape {} is scalar)
 ```
