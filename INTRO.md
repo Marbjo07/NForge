@@ -105,7 +105,7 @@ a += b;
 Tensor a({3, 4}, 0.0f);
 
 Tensor::View row  = a[1];          // shape {4}, row 1
-Tensor::View cell = a[1][2];       // shape {1}, element at (1, 2)
+Tensor::View cell = a[1][2];       // shape {}, element at (1, 2)
 
 auto mat = a[0];                   // shape {4}, first row
 ```
@@ -116,7 +116,7 @@ auto mat = a[0];                   // shape {4}, first row
 Tensor a({3, 4}, 0.0f);
 
 a[0] = Tensor({4}, 7.0f);          // overwrite row 0 with 7s
-a[2][3] = Tensor(99.0f);           // set element (2, 3) to 99
+a[2][3] = 99.0f;           // set element (2, 3) to 99
 
 Tensor src({4}, 5.0f);
 a[1] = src;                        // copy row 1 from another tensor

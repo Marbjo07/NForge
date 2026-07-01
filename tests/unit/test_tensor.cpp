@@ -351,3 +351,15 @@ TEST_CASE("Assign View to Tensor", "[Tensor]") {
 		REQUIRE(a[0] == Tensor(1.0f, backend));
 	}
 }
+
+TEST_CASE("Indexed tensor returns zero-rank view", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({3, 4}, 1.0f, backend);
+
+		Tensor::View cell = a[0][0];
+		REQUIRE(cell.getShape() == Tensor::Shape({}));
+		REQUIRE(cell.getShape().isScalar());
+	}
+}

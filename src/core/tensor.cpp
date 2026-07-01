@@ -266,8 +266,8 @@ Tensor& Tensor::operator=(const Tensor::View& rhs) {
 }
 
 Tensor& Tensor::operator=(float scalar) {
-	if (!this->getShape().isScalar()) {
-		throw std::runtime_error("Cannot assign float to a non-scalar tensor.");
+	if (this->getShape().getNumElements() != 1) {
+		throw std::runtime_error("Cannot assign float to a non-scalar shaped tensor.");
 	}
 
 	*this = Tensor(this->getShape(), scalar, this->m_backend);
