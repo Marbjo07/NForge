@@ -195,6 +195,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const
 void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs)</td></tr>
 <tr class="memdesc:ae35869db405324bdc4b897857af090bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place elementwise division by a tensor or view. Modifies the parent tensor. <br /></td></tr>
 <tr class="separator:ae35869db405324bdc4b897857af090bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b4b775ef034e696509c870fc153df05" id="r_a3b4b775ef034e696509c870fc153df05"><td class="memItemLeft" align="right" valign="top"><a id="a3b4b775ef034e696509c870fc153df05" name="a3b4b775ef034e696509c870fc153df05"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mean</b> (size_t dim=0) const</td></tr>
+<tr class="memdesc:a3b4b775ef034e696509c870fc153df05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by averaging. Result shape is shape[0:dim]. <br /></td></tr>
+<tr class="separator:a3b4b775ef034e696509c870fc153df05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e4cd4d083bf522a813becbcead2e6bb" id="r_a0e4cd4d083bf522a813becbcead2e6bb"><td class="memItemLeft" align="right" valign="top"><a id="a0e4cd4d083bf522a813becbcead2e6bb" name="a0e4cd4d083bf522a813becbcead2e6bb"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sum</b> (size_t dim=0) const</td></tr>
+<tr class="memdesc:a0e4cd4d083bf522a813becbcead2e6bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by summation. Result shape is shape[0:dim]. <br /></td></tr>
+<tr class="separator:a0e4cd4d083bf522a813becbcead2e6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c260e81a2a78c5c4b63f0873b69af8f" id="r_a7c260e81a2a78c5c4b63f0873b69af8f"><td class="memItemLeft" align="right" valign="top"><a id="a7c260e81a2a78c5c4b63f0873b69af8f" name="a7c260e81a2a78c5c4b63f0873b69af8f"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> (size_t dim=0) const</td></tr>
+<tr class="memdesc:a7c260e81a2a78c5c4b63f0873b69af8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the minimum. Result shape is shape[0:dim]. <br /></td></tr>
+<tr class="separator:a7c260e81a2a78c5c4b63f0873b69af8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf8988e9f8a4717d2939aaf5608c6605" id="r_adf8988e9f8a4717d2939aaf5608c6605"><td class="memItemLeft" align="right" valign="top"><a id="adf8988e9f8a4717d2939aaf5608c6605" name="adf8988e9f8a4717d2939aaf5608c6605"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>max</b> (size_t dim=0) const</td></tr>
+<tr class="memdesc:adf8988e9f8a4717d2939aaf5608c6605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the maximum. Result shape is shape[0:dim]. <br /></td></tr>
+<tr class="separator:adf8988e9f8a4717d2939aaf5608c6605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20ee49539e22bfbc69905ceacb86b672" id="r_a20ee49539e22bfbc69905ceacb86b672"><td class="memItemLeft" align="right" valign="top"><a id="a20ee49539e22bfbc69905ceacb86b672" name="a20ee49539e22bfbc69905ceacb86b672"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>prod</b> (size_t dim=0) const</td></tr>
+<tr class="memdesc:a20ee49539e22bfbc69905ceacb86b672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces dimensions [dim, rank) by taking the product. Result shape is shape[0:dim]. <br /></td></tr>
+<tr class="separator:a20ee49539e22bfbc69905ceacb86b672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7014145b3bdf8c0029cdff32e19b0c88" id="r_a7014145b3bdf8c0029cdff32e19b0c88"><td class="memItemLeft" align="right" valign="top"><a id="a7014145b3bdf8c0029cdff32e19b0c88" name="a7014145b3bdf8c0029cdff32e19b0c88"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>norm</b> () const</td></tr>
+<tr class="memdesc:a7014145b3bdf8c0029cdff32e19b0c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">L2 norm (scalar tensor equal to <code>sqrt(sum(x^2))</code>). <br /></td></tr>
+<tr class="separator:a7014145b3bdf8c0029cdff32e19b0c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdc8995f0e40c35198909bcc2a3acafb" id="r_acdc8995f0e40c35198909bcc2a3acafb"><td class="memItemLeft" align="right" valign="top"><a id="acdc8995f0e40c35198909bcc2a3acafb" name="acdc8995f0e40c35198909bcc2a3acafb"></a>
 <a class="el" href="classTensor_1_1View.html">Tensor::View</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classTensor.html">Tensor</a> &amp;rhs)</td></tr>
 <tr class="memdesc:acdc8995f0e40c35198909bcc2a3acafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a tensor into the referenced position of this view. <br /></td></tr>

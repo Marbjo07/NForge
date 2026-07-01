@@ -76,6 +76,24 @@ void {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{cla
 \Hypertarget{classTensor_1_1View_ae35869db405324bdc4b897857af090bc}\label{classTensor_1_1View_ae35869db405324bdc4b897857af090bc} 
 void {\bfseries operator/=} (const \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} \&rhs)
 \begin{DoxyCompactList}\small\item\em In-\/place elementwise division by a tensor or view. Modifies the parent tensor. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a3b4b775ef034e696509c870fc153df05}\label{classTensor_1_1View_a3b4b775ef034e696509c870fc153df05} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries mean} (size\+\_\+t dim=0) const
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by averaging. Result shape is shape\mbox{[}0\+:dim\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a0e4cd4d083bf522a813becbcead2e6bb}\label{classTensor_1_1View_a0e4cd4d083bf522a813becbcead2e6bb} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries sum} (size\+\_\+t dim=0) const
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by summation. Result shape is shape\mbox{[}0\+:dim\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a7c260e81a2a78c5c4b63f0873b69af8f}\label{classTensor_1_1View_a7c260e81a2a78c5c4b63f0873b69af8f} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries min} (size\+\_\+t dim=0) const
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the minimum. Result shape is shape\mbox{[}0\+:dim\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_adf8988e9f8a4717d2939aaf5608c6605}\label{classTensor_1_1View_adf8988e9f8a4717d2939aaf5608c6605} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries max} (size\+\_\+t dim=0) const
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the maximum. Result shape is shape\mbox{[}0\+:dim\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a20ee49539e22bfbc69905ceacb86b672}\label{classTensor_1_1View_a20ee49539e22bfbc69905ceacb86b672} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries prod} (size\+\_\+t dim=0) const
+\begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the product. Result shape is shape\mbox{[}0\+:dim\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{classTensor_1_1View_a7014145b3bdf8c0029cdff32e19b0c88}\label{classTensor_1_1View_a7014145b3bdf8c0029cdff32e19b0c88} 
+\mbox{\hyperlink{classTensor}{Tensor}} {\bfseries norm} () const
+\begin{DoxyCompactList}\small\item\em L2 norm (scalar tensor equal to {\ttfamily sqrt(sum(x\texorpdfstring{$^\wedge$}{\string^}2))}). \end{DoxyCompactList}\item 
 \Hypertarget{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb}\label{classTensor_1_1View_acdc8995f0e40c35198909bcc2a3acafb} 
 \mbox{\hyperlink{classTensor_1_1View}{Tensor\+::\+View}} {\bfseries operator=} (const \mbox{\hyperlink{classTensor}{Tensor}} \&rhs)
 \begin{DoxyCompactList}\small\item\em Copies data from a tensor into the referenced position of this view. \end{DoxyCompactList}\item 

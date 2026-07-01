@@ -15,6 +15,10 @@ var classTensor_1_1View =
     [ "getStride", "classTensor_1_1View.html#adccf2e4145abd8e5e2e01d6832400662", null ],
     [ "isClose", "classTensor_1_1View.html#a4cf77a3cd13d350f596316276da42d30", null ],
     [ "matmul", "classTensor_1_1View.html#a55a0dc6032269facc635fd7980f4fdbe", null ],
+    [ "max", "classTensor_1_1View.html#adf8988e9f8a4717d2939aaf5608c6605", null ],
+    [ "mean", "classTensor_1_1View.html#a3b4b775ef034e696509c870fc153df05", null ],
+    [ "min", "classTensor_1_1View.html#a7c260e81a2a78c5c4b63f0873b69af8f", null ],
+    [ "norm", "classTensor_1_1View.html#a7014145b3bdf8c0029cdff32e19b0c88", null ],
     [ "operator!=", "classTensor_1_1View.html#a37775d4df12ea73e1685de9d214d8e51", null ],
     [ "operator!=", "classTensor_1_1View.html#a3c3dc87e5da44dcc42f842db071eb973", null ],
     [ "operator*", "classTensor_1_1View.html#a7515b4fb91e3fe275f449058b4db920a", null ],
@@ -36,6 +40,8 @@ var classTensor_1_1View =
     [ "operator>=", "classTensor_1_1View.html#a2fbb68777cdf26bc9a5e1b3ef18f80d2", null ],
     [ "operator[]", "classTensor_1_1View.html#a009193fa77b7a32a8ad2cffcd9d1ee7b", null ],
     [ "print", "classTensor_1_1View.html#a5ca32103ddf90e6ee2b2123f73f93783", null ],
+    [ "prod", "classTensor_1_1View.html#a20ee49539e22bfbc69905ceacb86b672", null ],
     [ "subsample", "classTensor_1_1View.html#a928e1e240160ab15c643026cc1f858c9", null ],
+    [ "sum", "classTensor_1_1View.html#a0e4cd4d083bf522a813becbcead2e6bb", null ],
     [ "toVector", "classTensor_1_1View.html#a17480fb211548fb096b4c660ab390862", null ]
 ];
