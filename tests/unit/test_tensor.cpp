@@ -198,7 +198,7 @@ TEST_CASE("Scalar Tensor initialization", "[Tensor]") {
 		}
 
 		Tensor a(1.0f, backend);
-		REQUIRE(a.getShape() == Tensor::Shape({1}));
+		REQUIRE(a.getShape() == Tensor::Shape({}));
 	}
 }
 
@@ -235,7 +235,7 @@ TEST_CASE("Verify frobenius norm return tensor", "[Tensor]") {
 
 		Tensor norm = a.norm();
 
-		REQUIRE(norm.getShape() == Tensor::Shape({1}));
+		REQUIRE(norm.getShape() == Tensor::Shape({}));
 		REQUIRE(norm.getBackend() == backend);
 	}
 }
@@ -349,5 +349,17 @@ TEST_CASE("Assign View to Tensor", "[Tensor]") {
 		// Verify if it acts as a copy
 		b[0][0] = 99.0f;
 		REQUIRE(a[0] == Tensor(1.0f, backend));
+	}
+}
+
+TEST_CASE("Indexed tensor returns zero-rank view", "[Tensor]") {
+	auto backend = GENERATE(from_range(backends));
+
+	DYNAMIC_SECTION(getBackendString(backend)) {
+		Tensor a({3, 4}, 1.0f, backend);
+
+		Tensor::View cell = a[0][0];
+		REQUIRE(cell.getShape() == Tensor::Shape({}));
+		REQUIRE(cell.getShape().isScalar());
 	}
 }

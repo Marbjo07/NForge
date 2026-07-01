@@ -37,7 +37,7 @@ public:
 	/// Constructs a tensor and fills every element with `value`.
 	Tensor(const std::initializer_list<size_t>& shape, float value, Backend backend = Backend::CPU);
 
-	/// Constructs a scalar tensor, shape (1).
+	/// Constructs a scalar tensor, shape {}.
 	Tensor(float value, Backend backend = Backend::CPU);
 
 	/// Copy constructor. Performs a deep copy.
@@ -179,7 +179,8 @@ public:
 	/// Copies data from a view.
 	Tensor& operator=(const Tensor::View& rhs);
 
-	/// Assigns `scalar` to every element.
+	/// Assigns a pure float to a tensor.
+	/// @note Only works on scalar-shaped tensors, e.g tensors with only 1 element.
 	Tensor& operator=(float scalar);
 
 	/// Returns true if all elements equal those in `rhs`.

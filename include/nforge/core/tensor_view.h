@@ -94,7 +94,7 @@ public:
 	/// Copies data from a view into the referenced position of this view.
 	Tensor::View operator=(const Tensor::View& rhs);
 
-	/// Assigns a view to a pure float.
+	/// Assigns a pure float to a View.
 	/// @note Only works on scalar-shaped views, e.g views with only 1 element.
 	Tensor::View operator=(float scalar);
 

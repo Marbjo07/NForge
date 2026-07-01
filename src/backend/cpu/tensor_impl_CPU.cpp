@@ -334,7 +334,7 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::norm(const TensorLayout& layout) 
 	}
 	float norm = std::sqrt(sum);
 
-	auto* result = new Tensor::CPUImpl(Tensor::Shape({1}));
+	auto* result = new Tensor::CPUImpl(Tensor::Shape({}));
 	result->m_data[0] = norm;
 
 	return std::unique_ptr<Tensor::Impl>(result);
