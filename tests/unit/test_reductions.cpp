@@ -161,7 +161,7 @@ TEST_CASE("Tensor reductions respect strides", "[Tensor]") {
 			}
 		}
 
-		Tensor b = a.subsample({2, 2});
+		Tensor::View b = a.subsample({2, 2});
 
 		SECTION("mean") {
 			REQUIRE(b.mean(0) == Tensor(8.0f, backend));

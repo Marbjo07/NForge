@@ -88,6 +88,24 @@ public:
 	/// In-place elementwise division by a tensor or view. Modifies the parent tensor.
 	void operator/=(const Tensor::View& rhs);
 
+	/// Reduces dimensions [dim, rank) by averaging. Result shape is shape[0:dim].
+	Tensor mean(size_t dim = 0) const;
+
+	/// Reduces dimensions [dim, rank) by summation. Result shape is shape[0:dim].
+	Tensor sum(size_t dim = 0) const;
+
+	/// Reduces dimensions [dim, rank) by taking the minimum. Result shape is shape[0:dim].
+	Tensor min(size_t dim = 0) const;
+
+	/// Reduces dimensions [dim, rank) by taking the maximum. Result shape is shape[0:dim].
+	Tensor max(size_t dim = 0) const;
+
+	/// Reduces dimensions [dim, rank) by taking the product. Result shape is shape[0:dim].
+	Tensor prod(size_t dim = 0) const;
+
+	/// L2 norm (scalar tensor equal to `sqrt(sum(x^2))`).
+	Tensor norm() const;
+
 	/// Copies data from a tensor into the referenced position of this view.
 	Tensor::View operator=(const Tensor& rhs);
 

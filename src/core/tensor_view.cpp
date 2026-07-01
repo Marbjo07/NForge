@@ -145,6 +145,37 @@ void Tensor::View::operator/=(const Tensor::View& rhs) {
 	m_parent.m_impl->idiv(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
+
+Tensor Tensor::View::mean(size_t dim) const {
+	Tensor current = this->copy();
+	return current.mean(dim);
+}
+
+Tensor Tensor::View::sum(size_t dim) const {
+	Tensor current = this->copy();
+	return current.sum(dim);
+}
+
+Tensor Tensor::View::min(size_t dim) const {
+	Tensor current = this->copy();
+	return current.min(dim);
+}
+
+Tensor Tensor::View::max(size_t dim) const {
+	Tensor current = this->copy();
+	return current.max(dim);
+}
+
+Tensor Tensor::View::prod(size_t dim) const {
+	Tensor current = this->copy();
+	return current.prod(dim);
+}
+
+Tensor Tensor::View::norm() const {
+	Tensor current = this->copy();
+	return current.norm();
+}
+
 Tensor::View Tensor::View::operator=(const Tensor& rhs) {
 	Tensor::View rhsView(rhs);
 
