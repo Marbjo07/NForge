@@ -147,6 +147,18 @@ public:
 	                                             size_t m, size_t k, size_t p) const = 0;
 
 
+	/// Elementwise equal. Returns a tensor of 0.0 / 1.0 with `outLayout`.
+	virtual std::unique_ptr<Tensor::Impl> equal(const TensorLayout& lhsLayout,
+	                                            const Tensor::Impl* rhsImpl,
+	                                            const TensorLayout& rhsLayout,
+	                                            const TensorLayout& outLayout) const = 0;
+
+	/// Elementwise not equal. Returns a tensor of 0.0 / 1.0 with `outLayout`.
+	virtual std::unique_ptr<Tensor::Impl> notEqual(const TensorLayout& lhsLayout,
+	                                               const Tensor::Impl* rhsImpl,
+	                                               const TensorLayout& rhsLayout,
+	                                               const TensorLayout& outLayout) const = 0;
+
 	/// Elementwise less than. Returns a tensor of 0.0 / 1.0 with `outLayout`.
 	virtual std::unique_ptr<Tensor::Impl> less(const TensorLayout& lhsLayout,
 	                                           const Tensor::Impl* rhsImpl,

@@ -32,38 +32,38 @@ TEST_CASE("Tensor reductions", "[Tensor]") {
 
 
 		SECTION("sum") {
-			REQUIRE(a.sum() == Tensor(15.0f, backend));
-			REQUIRE(a.sum(0) == Tensor(15.0f, backend));
-			REQUIRE(a.sum(1) == makeVectorTensor({3.0f, 12.0f}, backend));
-			REQUIRE(a.sum(2) == a);
+			REQUIRE(tensor_equal(a.sum(), Tensor(15.0f, backend)));
+			REQUIRE(tensor_equal(a.sum(0), Tensor(15.0f, backend)));
+			REQUIRE(tensor_equal(a.sum(1), makeVectorTensor({3.0f, 12.0f}, backend)));
+			REQUIRE(tensor_equal(a.sum(2), a));
 		}
 
 		SECTION("mean") {
-			REQUIRE(a.mean() == Tensor(2.5f, backend));
-			REQUIRE(a.mean(0) == Tensor(2.5f, backend));
-			REQUIRE(a.mean(1) == makeVectorTensor({1.0f, 4.0f}, backend));
-			REQUIRE(a.mean(2) == a);
+			REQUIRE(tensor_equal(a.mean(), Tensor(2.5f, backend)));
+			REQUIRE(tensor_equal(a.mean(0), Tensor(2.5f, backend)));
+			REQUIRE(tensor_equal(a.mean(1), makeVectorTensor({1.0f, 4.0f}, backend)));
+			REQUIRE(tensor_equal(a.mean(2), a));
 		}
 
 		SECTION("max") {
-			REQUIRE(a.max() == Tensor(5.0f, backend));
-			REQUIRE(a.max(0) == Tensor(5.0f, backend));
-			REQUIRE(a.max(1) == makeVectorTensor({2.0f, 5.0f}, backend));
-			REQUIRE(a.max(2) == a);
+			REQUIRE(tensor_equal(a.max(), Tensor(5.0f, backend)));
+			REQUIRE(tensor_equal(a.max(0), Tensor(5.0f, backend)));
+			REQUIRE(tensor_equal(a.max(1), makeVectorTensor({2.0f, 5.0f}, backend)));
+			REQUIRE(tensor_equal(a.max(2), a));
 		}
 
 		SECTION("min") {
-			REQUIRE(a.min() == Tensor(0.0f, backend));
-			REQUIRE(a.min(0) == Tensor(0.0f, backend));
-			REQUIRE(a.min(1) == makeVectorTensor({0.0f, 3.0f}, backend));
-			REQUIRE(a.min(2) == a);
+			REQUIRE(tensor_equal(a.min(), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.min(0), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.min(1), makeVectorTensor({0.0f, 3.0f}, backend)));
+			REQUIRE(tensor_equal(a.min(2), a));
 		}
 
 		SECTION("prod") {
-			REQUIRE(a.prod() == Tensor(0.0f, backend));
-			REQUIRE(a.prod(0) == Tensor(0.0f, backend));
-			REQUIRE(a.prod(1) == makeVectorTensor({0.0f, 60.0f}, backend));
-			REQUIRE(a.prod(2) == a);
+			REQUIRE(tensor_equal(a.prod(), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.prod(0), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.prod(1), makeVectorTensor({0.0f, 60.0f}, backend)));
+			REQUIRE(tensor_equal(a.prod(2), a));
 		}
 	}
 }
@@ -83,38 +83,38 @@ TEST_CASE("View reductions", "[Tensor]") {
 
 
 		SECTION("sum") {
-			REQUIRE(a.sum() == Tensor(15.0f, backend));
-			REQUIRE(a.sum(0) == Tensor(15.0f, backend));
-			REQUIRE(a.sum(1) == makeVectorTensor({3.0f, 12.0f}, backend));
-			REQUIRE(a.sum(2) == a);
+			REQUIRE(tensor_equal(a.sum(), Tensor(15.0f, backend)));
+			REQUIRE(tensor_equal(a.sum(0), Tensor(15.0f, backend)));
+			REQUIRE(tensor_equal(a.sum(1), makeVectorTensor({3.0f, 12.0f}, backend)));
+			REQUIRE(tensor_equal(a.sum(2), a));
 		}
 
 		SECTION("mean") {
-			REQUIRE(a.mean() == Tensor(2.5f, backend));
-			REQUIRE(a.mean(0) == Tensor(2.5f, backend));
-			REQUIRE(a.mean(1) == makeVectorTensor({1.0f, 4.0f}, backend));
-			REQUIRE(a.mean(2) == a);
+			REQUIRE(tensor_equal(a.mean(), Tensor(2.5f, backend)));
+			REQUIRE(tensor_equal(a.mean(0), Tensor(2.5f, backend)));
+			REQUIRE(tensor_equal(a.mean(1), makeVectorTensor({1.0f, 4.0f}, backend)));
+			REQUIRE(tensor_equal(a.mean(2), a));
 		}
 
 		SECTION("max") {
-			REQUIRE(a.max() == Tensor(5.0f, backend));
-			REQUIRE(a.max(0) == Tensor(5.0f, backend));
-			REQUIRE(a.max(1) == makeVectorTensor({2.0f, 5.0f}, backend));
-			REQUIRE(a.max(2) == a);
+			REQUIRE(tensor_equal(a.max(), Tensor(5.0f, backend)));
+			REQUIRE(tensor_equal(a.max(0), Tensor(5.0f, backend)));
+			REQUIRE(tensor_equal(a.max(1), makeVectorTensor({2.0f, 5.0f}, backend)));
+			REQUIRE(tensor_equal(a.max(2), a));
 		}
 
 		SECTION("min") {
-			REQUIRE(a.min() == Tensor(0.0f, backend));
-			REQUIRE(a.min(0) == Tensor(0.0f, backend));
-			REQUIRE(a.min(1) == makeVectorTensor({0.0f, 3.0f}, backend));
-			REQUIRE(a.min(2) == a);
+			REQUIRE(tensor_equal(a.min(), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.min(0), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.min(1), makeVectorTensor({0.0f, 3.0f}, backend)));
+			REQUIRE(tensor_equal(a.min(2), a));
 		}
 
 		SECTION("prod") {
-			REQUIRE(a.prod() == Tensor(0.0f, backend));
-			REQUIRE(a.prod(0) == Tensor(0.0f, backend));
-			REQUIRE(a.prod(1) == makeVectorTensor({0.0f, 60.0f}, backend));
-			REQUIRE(a.prod(2) == a);
+			REQUIRE(tensor_equal(a.prod(), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.prod(0), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(a.prod(1), makeVectorTensor({0.0f, 60.0f}, backend)));
+			REQUIRE(tensor_equal(a.prod(2), a));
 		}
 	}
 }
@@ -164,28 +164,29 @@ TEST_CASE("Tensor reductions respect strides", "[Tensor]") {
 		Tensor::View b = a.subsample({2, 2});
 
 		SECTION("mean") {
-			REQUIRE(b.mean(0) == Tensor(8.0f, backend));
-			REQUIRE(b.mean(1) == makeVectorTensor({2.0f, 14.0f}, backend));
+			REQUIRE(tensor_equal(b.mean(0), Tensor(8.0f, backend)));
+			REQUIRE(tensor_equal(b.mean(1), makeVectorTensor({2.0f, 14.0f}, backend)));
 		}
 
 		SECTION("sum") {
-			REQUIRE(b.sum(0) == Tensor(48.0f, backend));
-			REQUIRE(b.sum(1) == makeVectorTensor({6.0f, 42.0f}, backend));
+			REQUIRE(tensor_equal(b.sum(0), Tensor(48.0f, backend)));
+			REQUIRE(tensor_equal(b.sum(1), makeVectorTensor({6.0f, 42.0f}, backend)));
 		}
 
 		SECTION("max") {
-			REQUIRE(b.max(0) == Tensor(16.0f, backend));
-			REQUIRE(b.max(1) == makeVectorTensor({4.0f, 16.0f}, backend));
+			REQUIRE(tensor_equal(b.max(0), Tensor(16.0f, backend)));
+			REQUIRE(tensor_equal(b.max(1), makeVectorTensor({4.0f, 16.0f}, backend)));
 		}
 
 		SECTION("min") {
-			REQUIRE(b.min(0) == Tensor(0.0f, backend));
-			REQUIRE(b.min(1) == makeVectorTensor({0.0f, 12.0f}, backend));
+			REQUIRE(tensor_equal(b.min(0), Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(b.min(1), makeVectorTensor({0.0f, 12.0f}, backend)));
 		}
 
 		SECTION("prod") {
-			REQUIRE(b.prod(0) == Tensor(0.0f, backend));
-			REQUIRE(b.prod(1) == makeVectorTensor({0.0f, 12.0f * 14.0f * 16.0f}, backend));
+			REQUIRE(tensor_equal(b.prod(0), Tensor(0.0f, backend)));
+			REQUIRE(
+			    tensor_equal(b.prod(1), makeVectorTensor({0.0f, 12.0f * 14.0f * 16.0f}, backend)));
 		}
 	}
 }
@@ -210,9 +211,9 @@ TEST_CASE("Tensor all reduction", "[Tensor]") {
 		                               1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		                               1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
 
-		REQUIRE(a.all() == Tensor(0.0f, backend));
-		REQUIRE(a.all(0) == Tensor(0.0f, backend));
-		REQUIRE(a.all(1) == makeVectorTensor({0.0f, 0.0f, 0.0f, 1.0f}, backend));
+		REQUIRE(tensor_equal(a.all(), Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a.all(0), Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a.all(1), makeVectorTensor({0.0f, 0.0f, 0.0f, 1.0f}, backend)));
 		REQUIRE(a.all(2).toVector() == expected);
 	}
 }
@@ -237,9 +238,9 @@ TEST_CASE("Tensor any reduction", "[Tensor]") {
 		                               1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		                               0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f};
 
-		REQUIRE(a.any() == Tensor(1.0f, backend));
-		REQUIRE(a.any(0) == Tensor(1.0f, backend));
-		REQUIRE(a.any(1) == makeVectorTensor({1.0f, 1.0f, 0.0f, 1.0f}, backend));
+		REQUIRE(tensor_equal(a.any(), Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a.any(0), Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a.any(1), makeVectorTensor({1.0f, 1.0f, 0.0f, 1.0f}, backend)));
 		REQUIRE(a.any(2).toVector() == expected);
 	}
 }

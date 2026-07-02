@@ -279,20 +279,31 @@ Tensor& Tensor::operator=(float scalar) {
 	return *this;
 }
 
-bool Tensor::operator==(const Tensor::View& rhs) const { return compare(rhs); }
+bool Tensor::isEqual(const Tensor::View& rhs) const { return compare(rhs); }
 
-bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs); }
+bool Tensor::isNotEqual(const Tensor::View& rhs) const { return !compare(rhs); }
 
+
+Tensor Tensor::operator==(const Tensor::View& rhs) const {
+	return applyBinaryOp(rhs, &Tensor::Impl::equal);
+}
+
+Tensor Tensor::operator!=(const Tensor::View& rhs) const {
+	return applyBinaryOp(rhs, &Tensor::Impl::notEqual);
+}
 
 Tensor Tensor::operator<(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::less);
 }
+
 Tensor Tensor::operator<=(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::lessEqual);
 }
+
 Tensor Tensor::operator>(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::greater);
 }
+
 Tensor Tensor::operator>=(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::greaterEqual);
 }

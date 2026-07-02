@@ -24,10 +24,10 @@ TEST_CASE("Compare tensor", "[Tensor]") {
 		Tensor b({3, 9, 7}, 19.0f, backend);
 		Tensor c({3, 7, 9}, 19.0f, backend);
 
-		REQUIRE(a == b);
-		REQUIRE(b == a);
-		REQUIRE(c != a);
-		REQUIRE(c != b);
+		REQUIRE(tensor_equal(a, b));
+		REQUIRE(tensor_equal(b, a));
+		REQUIRE(tensor_not_equal(c, a));
+		REQUIRE(tensor_not_equal(c, b));
 	}
 }
 
@@ -41,8 +41,8 @@ TEST_CASE("Compare tensor views", "[Tensor]") {
 		auto x = a[0];
 		auto y = b[0];
 
-		REQUIRE(x == y);
-		REQUIRE(y == x);
+		REQUIRE(tensor_equal(x, y));
+		REQUIRE(tensor_equal(y, x));
 	}
 }
 
@@ -56,14 +56,14 @@ TEST_CASE("Compare tensor and tensor view", "[Tensor]") {
 		auto x = a[0];
 		auto y = a[1];
 
-		REQUIRE(x != b);
-		REQUIRE(x == y);
+		REQUIRE(tensor_not_equal(x, b));
+		REQUIRE(tensor_equal(x, y));
 
-		REQUIRE(b != x);
-		REQUIRE(b != y);
+		REQUIRE(tensor_not_equal(b, x));
+		REQUIRE(tensor_not_equal(b, y));
 
-		REQUIRE(y == x);
-		REQUIRE(y != b);
+		REQUIRE(tensor_equal(y, x));
+		REQUIRE(tensor_not_equal(y, b));
 	}
 }
 
@@ -78,19 +78,19 @@ TEST_CASE("Tensor view copy and compare", "[Tensor]") {
 		a[0] = b;
 		a[1] = b;
 
-		REQUIRE(a != c);
-		REQUIRE(a[0] != c[0]);
-		REQUIRE(a[2] == c[1]);
+		REQUIRE(tensor_not_equal(a, c));
+		REQUIRE(tensor_not_equal(a[0], c[0]));
+		REQUIRE(tensor_equal(a[2], c[1]));
 
-		REQUIRE(c != a);
-		REQUIRE(c[0] != a[0]);
-		REQUIRE(c[0] == a[2]);
+		REQUIRE(tensor_not_equal(c, a));
+		REQUIRE(tensor_not_equal(c[0], a[0]));
+		REQUIRE(tensor_equal(c[0], a[2]));
 
-		REQUIRE(a[1] == b);
-		REQUIRE(a[2] != b);
+		REQUIRE(tensor_equal(a[1], b));
+		REQUIRE(tensor_not_equal(a[2], b));
 
-		REQUIRE(b == a[1]);
-		REQUIRE(b != a[2]);
+		REQUIRE(tensor_equal(b, a[1]));
+		REQUIRE(tensor_not_equal(b, a[2]));
 	}
 }
 
@@ -109,14 +109,14 @@ TEST_CASE("2D tensor shape and indexing", "[Tensor]") {
 			REQUIRE(a.getNumElements() == rows * cols);
 
 			// Compare views
-			REQUIRE(a[0] == Tensor({cols}, val, backend));
-			REQUIRE(a[0][0] == Tensor(val, backend));
-			REQUIRE(a[0][0] != Tensor(val - 1, backend));
+			REQUIRE(tensor_equal(a[0], Tensor({cols}, val, backend)));
+			REQUIRE(tensor_equal(a[0][0], Tensor(val, backend)));
+			REQUIRE(tensor_not_equal(a[0][0], Tensor(val - 1, backend)));
 
-			REQUIRE_FALSE(a[0][0] != Tensor(val, backend));
-			REQUIRE_FALSE(a[0][0] == Tensor(val - 1, backend));
+			REQUIRE_FALSE(tensor_not_equal(a[0][0], Tensor(val, backend)));
+			REQUIRE_FALSE(tensor_equal(a[0][0], Tensor(val - 1, backend)));
 
-			REQUIRE(a[0] == a[rows - 1]);
+			REQUIRE(tensor_equal(a[0], a[rows - 1]));
 		}
 	}
 }
@@ -132,9 +132,9 @@ TEST_CASE("Chained tensor assignment", "[Tensor]") {
 		// a = b = c should make both a and b equal to c
 		a = b = c;
 
-		REQUIRE(b == c);
-		REQUIRE(a == c);
-		REQUIRE(a == b);
+		REQUIRE(tensor_equal(b, c));
+		REQUIRE(tensor_equal(a, c));
+		REQUIRE(tensor_equal(a, b));
 	}
 }
 
@@ -157,7 +157,7 @@ TEST_CASE("Tensor view assign", "[Tensor]") {
 				A[i] = B[i];
 			}
 
-			REQUIRE(A == B);
+			REQUIRE(tensor_equal(A, B));
 		}
 	}
 }
@@ -209,7 +209,7 @@ TEST_CASE("Scalar assignment with float", "[Tensor]") {
 		Tensor a(1.0f, backend);
 		a = 3.0f;
 
-		REQUIRE(a == Tensor(3.0f, backend));
+		REQUIRE(tensor_equal(a, Tensor(3.0f, backend)));
 	}
 }
 
@@ -220,10 +220,10 @@ TEST_CASE("Indexed scalar assignment with float", "[Tensor]") {
 		Tensor a({3, 4}, 0.0f, backend);
 		a[2][3] = 3.0f;
 
-		REQUIRE(a[2][3] == Tensor(3.0f, backend));
-		REQUIRE(a != Tensor({3, 4}, 0.0f, backend));
-		REQUIRE(a[0] == Tensor({4}, 0.0f, backend));
-		REQUIRE(a[1] == Tensor({4}, 0.0f, backend));
+		REQUIRE(tensor_equal(a[2][3], Tensor(3.0f, backend)));
+		REQUIRE(tensor_not_equal(a, Tensor({3, 4}, 0.0f, backend)));
+		REQUIRE(tensor_equal(a[0], Tensor({4}, 0.0f, backend)));
+		REQUIRE(tensor_equal(a[1], Tensor({4}, 0.0f, backend)));
 	}
 }
 
@@ -246,12 +246,12 @@ TEST_CASE("Frobenius norm of scalar", "[Tensor]") {
 	DYNAMIC_SECTION(getBackendString(backend)) {
 		SECTION("Positive scalar") {
 			Tensor a(4.0f, backend);
-			REQUIRE(a.norm() == Tensor(4.0f, backend));
+			REQUIRE(tensor_equal(a.norm(), Tensor(4.0f, backend)));
 		}
 
 		SECTION("Negative scalar") {
 			Tensor b(-4.0f, backend);
-			REQUIRE(b.norm() == Tensor(4.0f, backend));
+			REQUIRE(tensor_equal(b.norm(), Tensor(4.0f, backend)));
 		}
 	}
 }
@@ -283,7 +283,7 @@ TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
 	DYNAMIC_SECTION(getBackendString(backend)) {
 		SECTION("Uniform values") {
 			Tensor a({5, 8}, -4.0f, backend);
-			REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(5.0f * 8.0f), backend));
+			REQUIRE(tensor_equal(a.norm(), Tensor(4.0f * std::sqrt(5.0f * 8.0f), backend)));
 		}
 
 		SECTION("Sequential values") {
@@ -309,7 +309,8 @@ TEST_CASE("Frobenius norm of 4-rank tensor", "[Tensor]") {
 	DYNAMIC_SECTION(getBackendString(backend)) {
 		SECTION("Uniform values") {
 			Tensor a({8, 9, 4, 3}, -4.0f, backend);
-			REQUIRE(a.norm() == Tensor(4.0f * std::sqrt(8.0f * 9.0f * 4.0f * 3.0f), backend));
+			REQUIRE(tensor_equal(a.norm(),
+			                     Tensor(4.0f * std::sqrt(8.0f * 9.0f * 4.0f * 3.0f), backend)));
 		}
 
 		SECTION("Random values") {
@@ -343,10 +344,10 @@ TEST_CASE("Assign View to Tensor", "[Tensor]") {
 		// Correct shape changes
 		REQUIRE(a.getShape() == Tensor::Shape({4}));
 		// Correct data after assignment
-		REQUIRE(a == Tensor({4}, 1.0f, backend));
+		REQUIRE(tensor_equal(a, Tensor({4}, 1.0f, backend)));
 		// Verify if it acts as a copy
 		b[0][0] = 99.0f;
-		REQUIRE(a[0] == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(a[0], Tensor(1.0f, backend)));
 	}
 }
 

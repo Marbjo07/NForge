@@ -66,7 +66,7 @@ void checkComparison(const A& lhs, const B& rhs, const Operand& operand) {
 		}
 	}
 
-	REQUIRE(result == expected);
+	REQUIRE(tensor_equal(result, expected));
 }
 
 template <typename A, typename B>
@@ -210,7 +210,7 @@ void testBroadcastComparison(const Tensor& a, const Tensor::View& b, const Opera
 		}
 	}
 
-	REQUIRE(result == expected);
+	REQUIRE(tensor_equal(result, expected));
 }
 
 
@@ -267,7 +267,7 @@ TEST_CASE("isClose", "[Tensor]") {
 			Tensor b({10, 10}, 3.14f, backend);
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({10, 10}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({10, 10}, 1.0f, backend)));
 		}
 
 		SECTION("Within tolerance") {
@@ -280,7 +280,7 @@ TEST_CASE("isClose", "[Tensor]") {
 			}
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({10}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({10}, 1.0f, backend)));
 		}
 
 		SECTION("Different values") {
@@ -288,7 +288,7 @@ TEST_CASE("isClose", "[Tensor]") {
 			Tensor b({10}, 2.0f, backend);
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({10}, 0.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({10}, 0.0f, backend)));
 		}
 
 		SECTION("Self comparison") {
@@ -296,10 +296,10 @@ TEST_CASE("isClose", "[Tensor]") {
 			a.fillRand();
 
 			Tensor closeResult = a.isClose(a);
-			REQUIRE(closeResult == Tensor({4, 5}, 1.0f, backend));
+			REQUIRE(tensor_equal(closeResult, Tensor({4, 5}, 1.0f, backend)));
 
 			Tensor farResult = a.isClose(a + Tensor({4, 5}, 1.0f, backend));
-			REQUIRE(farResult == Tensor({4, 5}, 0.0f, backend));
+			REQUIRE(tensor_equal(farResult, Tensor({4, 5}, 0.0f, backend)));
 		}
 
 		SECTION("Mixed case") {
@@ -323,11 +323,11 @@ TEST_CASE("isClose", "[Tensor]") {
 
 			Tensor result = a.isClose(b);
 
-			REQUIRE(result[0] == Tensor(1.0f, backend));
-			REQUIRE(result[1] == Tensor(1.0f, backend));
-			REQUIRE(result[2] == Tensor(0.0f, backend));
-			REQUIRE(result[3] == Tensor(1.0f, backend));
-			REQUIRE(result[4] == Tensor(0.0f, backend));
+			REQUIRE(tensor_equal(result[0], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[1], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[2], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(result[3], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[4], Tensor(0.0f, backend)));
 		}
 	}
 }
@@ -345,19 +345,19 @@ TEST_CASE("isClose custom tolerance", "[Tensor]") {
 
 		SECTION("Default tolerance") {
 			Tensor resultDefault = a.isClose(b);
-			REQUIRE(resultDefault[0] == Tensor(0.0f, backend));
-			REQUIRE(resultDefault[1] == Tensor(1.0f, backend));
-			REQUIRE(resultDefault[2] == Tensor(0.0f, backend));
+			REQUIRE(tensor_equal(resultDefault[0], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(resultDefault[1], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(resultDefault[2], Tensor(0.0f, backend)));
 		}
 
 		SECTION("Tight tolerance") {
 			Tensor resultTight = a.isClose(b, 1e-7f);
-			REQUIRE(resultTight == Tensor({3}, 0.0f, backend));
+			REQUIRE(tensor_equal(resultTight, Tensor({3}, 0.0f, backend)));
 		}
 
 		SECTION("Loose tolerance") {
 			Tensor resultLoose = a.isClose(b, 1e-1f);
-			REQUIRE(resultLoose == Tensor({3}, 1.0f, backend));
+			REQUIRE(tensor_equal(resultLoose, Tensor({3}, 1.0f, backend)));
 		}
 	}
 }
@@ -377,10 +377,10 @@ TEST_CASE("isClose edge cases", "[Tensor]") {
 
 			Tensor result = a.isClose(b);
 
-			REQUIRE(result[0] == Tensor(1.0f, backend));
-			REQUIRE(result[1] == Tensor(1.0f, backend));
-			REQUIRE(result[2] == Tensor(0.0f, backend));
-			REQUIRE(result[3] == Tensor(1.0f, backend));
+			REQUIRE(tensor_equal(result[0], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[1], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[2], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(result[3], Tensor(1.0f, backend)));
 		}
 
 		SECTION("Absolute regime boundary") {
@@ -393,10 +393,10 @@ TEST_CASE("isClose edge cases", "[Tensor]") {
 			a[3] = -0.99e-5f;
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result[0] == Tensor(0.0f, backend));
-			REQUIRE(result[1] == Tensor(0.0f, backend));
-			REQUIRE(result[2] == Tensor(1.0f, backend));
-			REQUIRE(result[3] == Tensor(1.0f, backend));
+			REQUIRE(tensor_equal(result[0], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(result[1], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(result[2], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[3], Tensor(1.0f, backend)));
 		}
 
 		SECTION("Negative values") {
@@ -414,9 +414,9 @@ TEST_CASE("isClose edge cases", "[Tensor]") {
 
 			Tensor result = a.isClose(b);
 
-			REQUIRE(result[0] == Tensor(1.0f, backend));
-			REQUIRE(result[1] == Tensor(1.0f, backend));
-			REQUIRE(result[2] == Tensor(0.0f, backend));
+			REQUIRE(tensor_equal(result[0], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[1], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(result[2], Tensor(0.0f, backend)));
 		}
 	}
 }
@@ -435,7 +435,7 @@ TEST_CASE("isClose boundary", "[Tensor]") {
 			b[1] = 1.0f - eps * 0.5f;
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({2}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({2}, 1.0f, backend)));
 		}
 
 		SECTION("Inside tolerance near zero") {
@@ -447,7 +447,7 @@ TEST_CASE("isClose boundary", "[Tensor]") {
 			b[2] = 0.0f;
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({3}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({3}, 1.0f, backend)));
 		}
 
 		SECTION("Outside tolerance") {
@@ -459,7 +459,7 @@ TEST_CASE("isClose boundary", "[Tensor]") {
 			b[2] = 100.0f - eps * 10.0f;
 
 			Tensor result = a.isClose(b);
-			REQUIRE(result == Tensor({3}, 0.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({3}, 0.0f, backend)));
 		}
 
 		SECTION("Relative regime") {
@@ -471,8 +471,8 @@ TEST_CASE("isClose boundary", "[Tensor]") {
 
 			Tensor result = a.isClose(b);
 
-			REQUIRE(result[0] == Tensor(0.0f, backend));
-			REQUIRE(result[1] == Tensor(1.0f, backend));
+			REQUIRE(tensor_equal(result[0], Tensor(0.0f, backend)));
+			REQUIRE(tensor_equal(result[1], Tensor(1.0f, backend)));
 		}
 	}
 }
@@ -485,11 +485,11 @@ TEST_CASE("isClose broadcasting scalar", "[Tensor]") {
 		Tensor scalar(1.0f + 1e-6f, backend);
 
 		Tensor result = a.isClose(scalar);
-		REQUIRE(result == Tensor({5}, 1.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({5}, 1.0f, backend)));
 
 		Tensor farScalar(100.0f, backend);
 		Tensor resultFar = a.isClose(farScalar);
-		REQUIRE(resultFar == Tensor({5}, 0.0f, backend));
+		REQUIRE(tensor_equal(resultFar, Tensor({5}, 0.0f, backend)));
 	}
 }
 
@@ -513,10 +513,10 @@ TEST_CASE("isClose broadcasting non scalar", "[Tensor]") {
 		Tensor result = a.isClose(b);
 		REQUIRE(result.getShape() == Tensor::Shape({n, m}));
 
-		REQUIRE(result[0] == Tensor({m}, 1.0f, backend));
+		REQUIRE(tensor_equal(result[0], Tensor({m}, 1.0f, backend)));
 
 		for (size_t i = 1; i < n; i++) {
-			REQUIRE(result[i] == Tensor({m}, 0.0f, backend));
+			REQUIRE(tensor_equal(result[i], Tensor({m}, 0.0f, backend)));
 		}
 	}
 }
@@ -532,17 +532,17 @@ TEST_CASE("isClose views", "[Tensor]") {
 
 		SECTION("View-View") {
 			Tensor result = a[0].isClose(b[0]);
-			REQUIRE(result == Tensor({10}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({10}, 1.0f, backend)));
 		}
 
 		SECTION("Tensor-View") {
 			Tensor result = a.isClose(b[0]);
-			REQUIRE(result == Tensor({3, 10}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({3, 10}, 1.0f, backend)));
 		}
 
 		SECTION("View-Tensor") {
 			Tensor result = a[0].isClose(b);
-			REQUIRE(result == Tensor({3, 10}, 1.0f, backend));
+			REQUIRE(tensor_equal(result, Tensor({3, 10}, 1.0f, backend)));
 		}
 	}
 }

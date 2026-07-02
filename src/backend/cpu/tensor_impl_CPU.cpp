@@ -392,7 +392,21 @@ std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::matmul(const TensorLayout& lhsLay
 
 	return std::unique_ptr<Tensor::Impl>(result);
 }
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::equal(const TensorLayout& lhsLayout,
+                                                     const Tensor::Impl* rhsImpl,
+                                                     const TensorLayout& rhsLayout,
+                                                     const TensorLayout& outLayout) const {
+	return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout,
+	                     [](float a, float b) { return a == b ? 1.0f : 0.0f; });
+}
 
+std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::notEqual(const TensorLayout& lhsLayout,
+                                                        const Tensor::Impl* rhsImpl,
+                                                        const TensorLayout& rhsLayout,
+                                                        const TensorLayout& outLayout) const {
+	return applyBinaryOp(lhsLayout, rhsImpl, rhsLayout, outLayout,
+	                     [](float a, float b) { return a != b ? 1.0f : 0.0f; });
+}
 
 std::unique_ptr<Tensor::Impl> Tensor::CPUImpl::less(const TensorLayout& lhsLayout,
                                                     const Tensor::Impl* rhsImpl,

@@ -193,11 +193,17 @@ public:
 
 	/// Returns true if all elements equal those in `rhs`.
 	/// @note Exact match, which is unstable for floats. Consider using `.isClose()`
-	bool operator==(const Tensor::View& rhs) const;
+	bool isEqual(const Tensor::View& rhs) const;
 
-	/// Returns true if any element differs from `rhs`.
+	/// Returns true if any element does not equal those in `rhs`.
 	/// @note Exact match, which is unstable for floats. Consider using `.isClose()`
-	bool operator!=(const Tensor::View& rhs) const;
+	bool isNotEqual(const Tensor::View& rhs) const;
+
+	/// Elementwise equal. Returns a tensor of 0.0 / 1.0.
+	Tensor operator==(const Tensor::View& rhs) const;
+
+	/// Elementwise not equal. Returns a tensor of 0.0 / 1.0.
+	Tensor operator!=(const Tensor::View& rhs) const;
 
 	/// Elementwise less than. Returns a tensor of 0.0 / 1.0.
 	Tensor operator<(const Tensor::View& rhs) const;

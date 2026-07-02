@@ -27,8 +27,8 @@ TEST_CASE("Chained view assignment", "[Tensor]") {
 		// A[0] = B[0] = C[0] should make both rows equal to C[0]
 		A[0] = B[0] = C[0];
 
-		REQUIRE(B[0] == C[0]);
-		REQUIRE(A[0] == C[0]);
-		REQUIRE(A[0] == B[0]);
+		REQUIRE(tensor_equal(B[0], C[0]));
+		REQUIRE(tensor_equal(A[0], C[0]));
+		REQUIRE(tensor_equal(A[0], B[0]));
 	}
 }

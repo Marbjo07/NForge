@@ -92,6 +92,14 @@ public:
 	                                     const TensorLayout& outLayout, size_t batch, size_t m,
 	                                     size_t k, size_t p) const override;
 
+	std::unique_ptr<Tensor::Impl> equal(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+	                                    const TensorLayout& rhsLayout,
+	                                    const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> notEqual(const TensorLayout& lhsLayout,
+	                                       const Tensor::Impl* rhsImpl,
+	                                       const TensorLayout& rhsLayout,
+	                                       const TensorLayout& outLayout) const override;
 
 	std::unique_ptr<Tensor::Impl> less(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                                   const TensorLayout& rhsLayout,

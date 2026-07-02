@@ -51,9 +51,9 @@ TEST_CASE("Assign strided view", "[View][Stride]") {
 		for (size_t i = 0; i < 3; i++) {
 			for (size_t j = 0; j < 6; j++) {
 				if (j % 2 == 0) {
-					REQUIRE(a[i][j] == Tensor(2.0f, backend));
+					REQUIRE(tensor_equal(a[i][j], Tensor(2.0f, backend)));
 				} else {
-					REQUIRE(a[i][j] == Tensor(1.0f, backend));
+					REQUIRE(tensor_equal(a[i][j], Tensor(1.0f, backend)));
 				}
 			}
 		}
@@ -71,17 +71,17 @@ TEST_CASE("Zero strided view", "[View][Stride]") {
 		// should only assign the first element in a, a[0][0]
 		b = Tensor(2.0f, backend);
 
-		REQUIRE(a[0][0] == Tensor(2.0f, backend));
-		REQUIRE(a[0][1] == Tensor(1.0f, backend));
-		REQUIRE(a[1][1] == Tensor(1.0f, backend));
-		REQUIRE(a[1][0] == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(a[0][0], Tensor(2.0f, backend)));
+		REQUIRE(tensor_equal(a[0][1], Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a[1][1], Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a[1][0], Tensor(1.0f, backend)));
 
 		// should only assign the first element in a[3], a[3][0]
 		c = Tensor(3.0f, backend);
 
-		REQUIRE(a[3][0] == Tensor(3.0f, backend));
-		REQUIRE(a[3][1] == Tensor(1.0f, backend));
-		REQUIRE(a[3][2] == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(a[3][0], Tensor(3.0f, backend)));
+		REQUIRE(tensor_equal(a[3][1], Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a[3][2], Tensor(1.0f, backend)));
 	}
 }
 
@@ -97,7 +97,7 @@ TEST_CASE("Copy strided view produces dense tensor", "[View][Stride]") {
 		// shape should be the strided shape
 		REQUIRE(c.getShape() == Tensor::Shape({4 / 2, 8 / 4}));
 
-		REQUIRE(c == Tensor({2, 2}, 3.0f, backend));
+		REQUIRE(tensor_equal(c, Tensor({2, 2}, 3.0f, backend)));
 	}
 }
 
@@ -111,7 +111,7 @@ TEST_CASE("Copy of strided view is independent from parent", "[View][Stride]") {
 		Tensor c = b.copy();
 		a = Tensor({6}, 99.0f, backend);
 
-		REQUIRE(c == Tensor({3}, 5.0f, backend));
+		REQUIRE(tensor_equal(c, Tensor({3}, 5.0f, backend)));
 	}
 }
 
@@ -140,13 +140,13 @@ TEST_CASE("Position preserved through strided view index", "[View][Stride]") {
 		Tensor::View row = b[1];
 		row = Tensor({2}, 7.0f, backend);
 
-		REQUIRE(a[3][0] == Tensor(7.0f, backend));
-		REQUIRE(a[3][2] == Tensor(7.0f, backend));
+		REQUIRE(tensor_equal(a[3][0], Tensor(7.0f, backend)));
+		REQUIRE(tensor_equal(a[3][2], Tensor(7.0f, backend)));
 
 		// untouched elements
-		REQUIRE(a[3][1] == Tensor(0.0f, backend));
-		REQUIRE(a[3][3] == Tensor(0.0f, backend));
-		REQUIRE(a[0][0] == Tensor(0.0f, backend));
+		REQUIRE(tensor_equal(a[3][1], Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a[3][3], Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a[0][0], Tensor(0.0f, backend)));
 	}
 }
 
@@ -162,10 +162,10 @@ TEST_CASE("Strided view with position offset", "[View][Stride]") {
 
 		b = Tensor({2}, 9.0f, backend);
 
-		REQUIRE(a[1][0] == Tensor(9.0f, backend));
-		REQUIRE(a[1][4] == Tensor(9.0f, backend));
-		REQUIRE(a[1][1] == Tensor(1.0f, backend));
-		REQUIRE(a[0][0] == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(a[1][0], Tensor(9.0f, backend)));
+		REQUIRE(tensor_equal(a[1][4], Tensor(9.0f, backend)));
+		REQUIRE(tensor_equal(a[1][1], Tensor(1.0f, backend)));
+		REQUIRE(tensor_equal(a[0][0], Tensor(1.0f, backend)));
 	}
 }
 
@@ -181,10 +181,10 @@ TEST_CASE("Deeper position with stride", "[View][Stride]") {
 
 		b = Tensor({2}, 5.0f, backend);
 
-		REQUIRE(a[2][1][0] == Tensor(5.0f, backend));
-		REQUIRE(a[2][1][2] == Tensor(5.0f, backend));
-		REQUIRE(a[2][1][1] == Tensor(0.0f, backend));
-		REQUIRE(a[2][1][3] == Tensor(0.0f, backend));
+		REQUIRE(tensor_equal(a[2][1][0], Tensor(5.0f, backend)));
+		REQUIRE(tensor_equal(a[2][1][2], Tensor(5.0f, backend)));
+		REQUIRE(tensor_equal(a[2][1][1], Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a[2][1][3], Tensor(0.0f, backend)));
 	}
 }
 
@@ -210,7 +210,7 @@ TEST_CASE("Copy of broadcast view gives repeated values", "[View][Stride]") {
 		Tensor result = bcast.copy();
 		REQUIRE(result.getShape() == Tensor::Shape({4}));
 
-		REQUIRE(result == Tensor({4}, 7.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({4}, 7.0f, backend)));
 	}
 }
 
@@ -225,9 +225,9 @@ TEST_CASE("Strided view + strided view", "[View][Stride][Arithmetic]") {
 
 		Tensor result = va + vb;
 		REQUIRE(result.getShape() == Tensor::Shape({3}));
-		REQUIRE(result == Tensor({3}, 5.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({3}, 5.0f, backend)));
 
-		REQUIRE(result == Tensor({3}, 5.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({3}, 5.0f, backend)));
 	}
 }
 
@@ -243,7 +243,7 @@ TEST_CASE("Broadcast view + normal view", "[View][Stride][Arithmetic]") {
 
 		Tensor result = bcast + row;
 
-		REQUIRE(result == Tensor({4}, 13.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({4}, 13.0f, backend)));
 	}
 }
 
@@ -258,7 +258,7 @@ TEST_CASE("Broadcast view * normal tensor", "[View][Stride][Arithmetic]") {
 
 		Tensor result = bcast * a;
 
-		REQUIRE(result == Tensor({6}, 20.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({6}, 20.0f, backend)));
 	}
 }
 
@@ -274,7 +274,7 @@ TEST_CASE("Stride of 1 gives same shape as original", "[View][Stride]") {
 		REQUIRE(b.getShape() == Tensor::Shape({size}));
 
 		Tensor c = b.copy();
-		REQUIRE(c == Tensor({size}, 2.0f, backend));
+		REQUIRE(tensor_equal(c, Tensor({size}, 2.0f, backend)));
 	}
 }
 
@@ -288,7 +288,7 @@ TEST_CASE("Stride equal to dimension gives single element", "[View][Stride]") {
 		REQUIRE(b.getShape() == Tensor::Shape({1}));
 
 		Tensor c = b.copy();
-		REQUIRE(c[0] == Tensor(6.0f, backend));
+		REQUIRE(tensor_equal(c[0], Tensor(6.0f, backend)));
 	}
 }
 
@@ -306,10 +306,10 @@ TEST_CASE("Mixed strides across dimensions", "[View][Stride]") {
 
 		// rows 0 and 2 should be written, rows 1 and 3 untouched
 		for (size_t j = 0; j < 6; j++) {
-			REQUIRE(a[0][j] == Tensor(8.0f, backend));
-			REQUIRE(a[2][j] == Tensor(8.0f, backend));
-			REQUIRE(a[1][j] == Tensor(1.0f, backend));
-			REQUIRE(a[3][j] == Tensor(1.0f, backend));
+			REQUIRE(tensor_equal(a[0][j], Tensor(8.0f, backend)));
+			REQUIRE(tensor_equal(a[2][j], Tensor(8.0f, backend)));
+			REQUIRE(tensor_equal(a[1][j], Tensor(1.0f, backend)));
+			REQUIRE(tensor_equal(a[3][j], Tensor(1.0f, backend)));
 		}
 	}
 }
@@ -322,15 +322,15 @@ TEST_CASE("Assign to zero-strided view multiple times", "[View][Stride]") {
 		Tensor::View b = a.subsample({0});
 
 		b = Tensor(1.0f, backend);
-		REQUIRE(a[0] == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(a[0], Tensor(1.0f, backend)));
 
 		b = Tensor(2.0f, backend);
-		REQUIRE(a[0] == Tensor(2.0f, backend));
+		REQUIRE(tensor_equal(a[0], Tensor(2.0f, backend)));
 
 		// only element 0 was ever touched
-		REQUIRE(a[1] == Tensor(0.0f, backend));
-		REQUIRE(a[2] == Tensor(0.0f, backend));
-		REQUIRE(a[3] == Tensor(0.0f, backend));
+		REQUIRE(tensor_equal(a[1], Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a[2], Tensor(0.0f, backend)));
+		REQUIRE(tensor_equal(a[3], Tensor(0.0f, backend)));
 	}
 }
 
@@ -350,6 +350,6 @@ TEST_CASE("Parametric 1D stride consistency", "[View][Stride]") {
 		REQUIRE(b.getShape() == Tensor::Shape({total / stride}));
 
 		Tensor c = b.copy();
-		REQUIRE(c == Tensor({total / stride}, 4.0f, backend));
+		REQUIRE(tensor_equal(c, Tensor({total / stride}, 4.0f, backend)));
 	}
 }

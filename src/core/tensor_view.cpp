@@ -267,7 +267,7 @@ Tensor::View Tensor::View::subsample(std::vector<size_t> strides) const {
 	return Tensor::View::subsample(*this, strides);
 }
 
-bool Tensor::View::operator==(const Tensor& rhs) const {
+bool Tensor::View::isEqual(const Tensor& rhs) const {
 	Tensor::View rhsView(rhs);
 	if (getShape() != rhsView.getShape())
 		return false;
@@ -275,17 +275,27 @@ bool Tensor::View::operator==(const Tensor& rhs) const {
 	return m_parent.m_impl->compare(ctx.lhs, rhs.m_impl.get(), ctx.rhs);
 }
 
-bool Tensor::View::operator==(const Tensor::View& rhs) const {
+bool Tensor::View::isEqual(const Tensor::View& rhs) const {
 	if (getShape() != rhs.getShape())
 		return false;
 	auto ctx = semantic::BinaryOpContext::build(*this, rhs);
 	return m_parent.m_impl->compare(ctx.lhs, rhs.m_parent.m_impl.get(), ctx.rhs);
 }
 
-bool Tensor::View::operator!=(const Tensor& rhs) const { return !(this->operator==(rhs)); }
+bool Tensor::View::isNotEqual(const Tensor& rhs) const { return !isEqual(rhs); }
 
-bool Tensor::View::operator!=(const Tensor::View& rhs) const { return !(this->operator==(rhs)); }
+bool Tensor::View::isNotEqual(const Tensor::View& rhs) const { return !isEqual(rhs); }
 
+
+Tensor Tensor::View::operator==(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current == rhs;
+}
+
+Tensor Tensor::View::operator!=(const Tensor::View& rhs) const {
+	Tensor current = copy();
+	return current != rhs;
+}
 
 Tensor Tensor::View::operator<(const Tensor::View& rhs) const {
 	Tensor current = copy();

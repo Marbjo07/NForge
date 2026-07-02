@@ -11,14 +11,12 @@ TEST_CASE("View copy produces an independent Tensor", "[View]") {
 	DYNAMIC_SECTION(getBackendString(backend)) {
 		Tensor src({3, 4}, 7.0f, backend);
 
-		auto view = src[1];  // view of row-1 (4 elements)
+		auto view = src[1];
 		Tensor copy = view.copy();
 
-		// Dimensions match the viewed slice
 		REQUIRE(copy.getShape() == Tensor::Shape({4}));
 
-		// Values match
-		REQUIRE(copy == Tensor({4}, 7.0f, backend));
+		REQUIRE(tensor_equal(copy, Tensor({4}, 7.0f, backend)));
 	}
 }
 
@@ -32,7 +30,7 @@ TEST_CASE("View copy is a deep copy", "[View]") {
 
 		// Mutate the source and copy must be unaffected
 		src = Tensor({4}, 99.0f, backend);
-		REQUIRE(copy == Tensor(1.0f, backend));
+		REQUIRE(tensor_equal(copy, Tensor(1.0f, backend)));
 	}
 }
 
@@ -43,7 +41,7 @@ TEST_CASE("Copy of a 2D sub-view preserves values", "[View]") {
 		Tensor src({3, 5}, 4.0f, backend);
 		Tensor row2 = src[2].copy();
 
-		REQUIRE(row2 == Tensor({5}, 4.0f, backend));
+		REQUIRE(tensor_equal(row2, Tensor({5}, 4.0f, backend)));
 	}
 }
 
@@ -64,10 +62,10 @@ TEST_CASE("2D View arithmetic consistency across backends", "[View][Arithmetic]"
 			Tensor prod = A[i] * B[i];
 			Tensor quot = A[i] / B[i];
 
-			REQUIRE(sum == Tensor({cols}, 8.0f, backend));
-			REQUIRE(diff == Tensor({cols}, 4.0f, backend));
-			REQUIRE(prod == Tensor({cols}, 12.0f, backend));
-			REQUIRE(quot == Tensor({cols}, 3.0f, backend));
+			REQUIRE(tensor_equal(sum, Tensor({cols}, 8.0f, backend)));
+			REQUIRE(tensor_equal(diff, Tensor({cols}, 4.0f, backend)));
+			REQUIRE(tensor_equal(prod, Tensor({cols}, 12.0f, backend)));
+			REQUIRE(tensor_equal(quot, Tensor({cols}, 3.0f, backend)));
 		}
 	}
 }
@@ -83,12 +81,12 @@ TEST_CASE("Chained view arithmetic expressions", "[View][Arithmetic]") {
 		// (A[0] + B[0]) * C[0] => (2+3)*4 = 20
 		Tensor result = (A[0] + B[0]) * C[0];
 
-		REQUIRE(result == Tensor({4}, 20.0f, backend));
+		REQUIRE(tensor_equal(result, Tensor({4}, 20.0f, backend)));
 
 		// A, B, C should remain unchanged
-		REQUIRE(A == Tensor({2, 4}, 2.0f, backend));
-		REQUIRE(B == Tensor({2, 4}, 3.0f, backend));
-		REQUIRE(C == Tensor({2, 4}, 4.0f, backend));
+		REQUIRE(tensor_equal(A, Tensor({2, 4}, 2.0f, backend)));
+		REQUIRE(tensor_equal(B, Tensor({2, 4}, 3.0f, backend)));
+		REQUIRE(tensor_equal(C, Tensor({2, 4}, 4.0f, backend)));
 	}
 }
 
@@ -104,6 +102,6 @@ TEST_CASE("Arithmetic result does not alias the source view", "[View][Arithmetic
 		// Mutate A, sum must stay 3.0
 		A = Tensor({2, 4}, 99.0f, backend);
 
-		REQUIRE(sum == Tensor({4}, 3.0f, backend));
+		REQUIRE(tensor_equal(sum, Tensor({4}, 3.0f, backend)));
 	}
 }

@@ -34,6 +34,14 @@ __global__ void checkAllEqualKernel(const float* __restrict__ lhs, const TensorL
                                     int* isEqualFlag, size_t count);
 
 
+__global__ void equalKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                            float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
+__global__ void notEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                               const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                               float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
 __global__ void lessKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
                            float* __restrict__ out, const TensorLayout outLayout, size_t count);
