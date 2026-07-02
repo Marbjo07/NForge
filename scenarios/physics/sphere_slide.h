@@ -31,7 +31,6 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
 	G[1] = -params.mass * params.grav;
 
 	Tensor a = G / params.mass;
-	Tensor radius(params.radius);
 
 	float t = 0;
 
@@ -40,7 +39,7 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
 		Tensor position = s + v * params.dt + a * 0.5 * params.dt * params.dt;
 
 		Tensor dist = position.norm();
-		if ((dist >= radius).toVector()[0]) {  // does not fall into the sphere
+		if (dist.toVector()[0] >= params.radius) {  // does not fall into the sphere
 			break;
 		}
 
