@@ -11,6 +11,16 @@ static constexpr Backend backends[] = {Backend::CPU,
 
 };
 
+template <typename A, typename B>
+bool tensor_equal(const A& a, const B& b) {
+	return a.isEqual(b);
+}
+
+template <typename A, typename B>
+bool tensor_not_equal(const A& a, const B& b) {
+	return a.isNotEqual(b);
+}
+
 static std::string getBackendString(Backend backend) {
 	switch (backend) {
 		case Backend::CPU:

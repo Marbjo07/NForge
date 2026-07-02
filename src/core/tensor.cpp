@@ -228,6 +228,10 @@ Tensor Tensor::norm() const {
 	return Tensor(std::move(result), m_backend);
 }
 
+Tensor Tensor::all(size_t dim) const { return applyReduction(dim, &Tensor::Impl::all); }
+
+Tensor Tensor::any(size_t dim) const { return applyReduction(dim, &Tensor::Impl::any); }
+
 Tensor Tensor::matmul(const Tensor::View& rhs) const {
 	auto ctx = semantic::MatmulContext::build(*this, rhs);
 
@@ -275,20 +279,31 @@ Tensor& Tensor::operator=(float scalar) {
 	return *this;
 }
 
-bool Tensor::operator==(const Tensor::View& rhs) const { return compare(rhs); }
+bool Tensor::isEqual(const Tensor::View& rhs) const { return compare(rhs); }
 
-bool Tensor::operator!=(const Tensor::View& rhs) const { return !operator==(rhs); }
+bool Tensor::isNotEqual(const Tensor::View& rhs) const { return !compare(rhs); }
 
+
+Tensor Tensor::operator==(const Tensor::View& rhs) const {
+	return applyBinaryOp(rhs, &Tensor::Impl::equal);
+}
+
+Tensor Tensor::operator!=(const Tensor::View& rhs) const {
+	return applyBinaryOp(rhs, &Tensor::Impl::notEqual);
+}
 
 Tensor Tensor::operator<(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::less);
 }
+
 Tensor Tensor::operator<=(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::lessEqual);
 }
+
 Tensor Tensor::operator>(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::greater);
 }
+
 Tensor Tensor::operator>=(const Tensor::View& rhs) const {
 	return applyBinaryOp(rhs, &Tensor::Impl::greaterEqual);
 }

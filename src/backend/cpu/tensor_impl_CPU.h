@@ -83,12 +83,27 @@ public:
 
 	std::unique_ptr<Tensor::Impl> norm(const TensorLayout& layout) const override;
 
+	std::unique_ptr<Tensor::Impl> all(const TensorLayout& layout, const TensorLayout& blockLayout,
+	                                  const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> any(const TensorLayout& layout, const TensorLayout& blockLayout,
+	                                  const TensorLayout& outLayout) const override;
+
 
 	std::unique_ptr<Tensor::Impl> matmul(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                                     const TensorLayout& rhsLayout,
 	                                     const TensorLayout& outLayout, size_t batch, size_t m,
 	                                     size_t k, size_t p) const override;
 
+
+	std::unique_ptr<Tensor::Impl> equal(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
+	                                    const TensorLayout& rhsLayout,
+	                                    const TensorLayout& outLayout) const override;
+
+	std::unique_ptr<Tensor::Impl> notEqual(const TensorLayout& lhsLayout,
+	                                       const Tensor::Impl* rhsImpl,
+	                                       const TensorLayout& rhsLayout,
+	                                       const TensorLayout& outLayout) const override;
 
 	std::unique_ptr<Tensor::Impl> less(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                                   const TensorLayout& rhsLayout,
@@ -129,12 +144,22 @@ private:
 	void applyInplaceBinaryOp(const TensorLayout& lhsLayout, const Tensor::Impl* rhsImpl,
 	                          const TensorLayout& rhsLayout, BinaryOp op);
 
+
+	struct Identity {
+		template <typename T>
+		constexpr T&& operator()(T&& t) const noexcept {
+			return std::forward<T>(t);
+		}
+	};
+
 	// reduction must be associative
-	template <typename ReductionOp>
+	// x = f(x) must be true.
+	// transform is applied to the first element, so transform(x) = f(x) must be true.
+	template <typename ReductionOp, typename Transform = Identity>
 	std::unique_ptr<Tensor::Impl> applyReductionOp(const TensorLayout& layout,
 	                                               const TensorLayout& blockLayout,
-	                                               const TensorLayout& outLayout,
-	                                               ReductionOp op) const;
+	                                               const TensorLayout& outLayout, ReductionOp op,
+	                                               Transform transform = {}) const;
 };
 
 #endif  // TENSOR_IMPL_CPU_H

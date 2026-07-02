@@ -34,6 +34,14 @@ __global__ void checkAllEqualKernel(const float* __restrict__ lhs, const TensorL
                                     int* isEqualFlag, size_t count);
 
 
+__global__ void equalKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                            float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
+__global__ void notEqualKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
+                               const float* __restrict__ rhs, const TensorLayout rhsLayout,
+                               float* __restrict__ out, const TensorLayout outLayout, size_t count);
+
 __global__ void lessKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
                            const float* __restrict__ rhs, const TensorLayout rhsLayout,
                            float* __restrict__ out, const TensorLayout outLayout, size_t count);
@@ -94,6 +102,15 @@ __global__ void maxReductionKernel(const float* __restrict__ data, float* result
 __global__ void prodReductionKernel(const float* __restrict__ data, float* result,
                                     const TensorLayout layout, size_t blockCount,
                                     const TensorLayout outLayout, size_t outCount);
+
+__global__ void allReductionKernel(const float* __restrict__ data, float* result,
+                                   const TensorLayout layout, size_t blockCount,
+                                   const TensorLayout outLayout, size_t outCount);
+
+__global__ void anyReductionKernel(const float* __restrict__ data, float* result,
+                                   const TensorLayout layout, size_t blockCount,
+                                   const TensorLayout outLayout, size_t outCount);
+
 
 __global__ void matmulKernel(const float* __restrict__ lhs, const TensorLayout lhsLayout,
                              const float* __restrict__ rhs, const TensorLayout rhsLayout,
