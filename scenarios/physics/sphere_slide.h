@@ -39,12 +39,13 @@ SphereSlideResults simulateSphereSlide(SphereSlideParams params) {
 		// p = s + v * dt + a/2 * dt^2
 		Tensor position = s + v * params.dt + a * 0.5 * params.dt * params.dt;
 
-		if ((position.norm() >= radius).toVector()[0]) {  // does not fall into the sphere
+		Tensor dist = position.norm();
+		if ((dist >= radius).toVector()[0]) {  // does not fall into the sphere
 			break;
 		}
 
 		// Position mapped to sphere
-		position *= params.radius / position.norm();
+		position *= params.radius / dist;
 
 		v = (position - s) * (1 / params.dt);
 		s = position;
