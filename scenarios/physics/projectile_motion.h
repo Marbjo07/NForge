@@ -31,7 +31,7 @@ ProjectileMotionResults simulateProjectileMotion(ProjectileMotionParams params) 
 	a[1] = -params.grav;
 
 	float t = 0;
-	while ((s >= Tensor(0)).toVector()[1]) {
+	while (s.toVector()[1] >= 0) {
 		v += a * params.dt;
 		s += v * params.dt;
 		t += params.dt;
