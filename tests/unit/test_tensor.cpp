@@ -263,18 +263,16 @@ TEST_CASE("Frobenius norm of vector", "[Tensor]") {
 		SECTION("Uniform values") {
 			Tensor a({5}, -4.0f, backend);
 
-			// TODO: refactor with relative comparison and tolerance
-			Tensor diff = a.norm() - Tensor(4.0f * std::sqrt(5.0f), backend);
-			REQUIRE(abs(diff.toVector()[0]) < 1e-6f);
+			Tensor target = Tensor(4.0f * std::sqrt(5.0f), backend);
+			REQUIRE(a.norm().isClose(target).all().toVector()[0]);
 		}
 
 		SECTION("Sequential values [0, 1, 2, 3, 4]") {
 			Tensor a({5}, 0.0f, backend);
 			for (size_t i = 0; i < 5; i++) a[i] = i;
 
-			// TODO: refactor with relative comparison and tolerance
-			Tensor diff = a.norm() - Tensor(std::sqrt(30.0f), backend);
-			REQUIRE(abs(diff.toVector()[0]) < 1e-6f);
+			Tensor target = Tensor(std::sqrt(30.0f), backend);
+			REQUIRE(a.norm().isClose(target).all().toVector()[0]);
 		}
 	}
 }
@@ -299,7 +297,8 @@ TEST_CASE("Frobenius norm of matrix", "[Tensor]") {
 				}
 			}
 
-			REQUIRE(a.norm() == Tensor(std::sqrt(sum), backend));
+			Tensor target = Tensor(std::sqrt(sum), backend);
+			REQUIRE(a.norm().isClose(target).all().toVector()[0]);
 		}
 	}
 }
@@ -325,9 +324,8 @@ TEST_CASE("Frobenius norm of 4-rank tensor", "[Tensor]") {
 			}
 
 			// random tensor has a lot of noise, so use relative error
-			Tensor ratio = a.norm() / std::sqrt(sum);
-			REQUIRE(ratio.toVector()[0] > 0.99);
-			REQUIRE(ratio.toVector()[0] < 1.01);
+			Tensor target = Tensor(std::sqrt(sum), backend);
+			REQUIRE(a.norm().isClose(target).all().toVector()[0]);
 		}
 	}
 }

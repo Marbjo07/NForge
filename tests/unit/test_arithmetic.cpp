@@ -247,7 +247,6 @@ TEST_CASE("Matrix multiplication basic 2D", "[Tensor][Matmul]") {
 
 		Tensor C = A.matmul(B);
 
-		// each element = 1*2 + 1*2 + 1*2 = 6
 		REQUIRE(C == Tensor({2, 2}, 6.0f, backend));
 	}
 }
@@ -267,13 +266,12 @@ TEST_CASE("Matrix multiplication batched 3D", "[Tensor][Matmul]") {
 	auto backend = GENERATE(from_range(backends));
 
 	DYNAMIC_SECTION(getBackendString(backend)) {
-		// A (2x2x3) * B (2x3x2) = C (2x2x2)
+		// A (2x2x3) @ B (2x3x2) = C (2x2x2)
 		Tensor A({2, 2, 3}, 1.0f, backend);
 		Tensor B({2, 3, 2}, 2.0f, backend);
 
 		Tensor C = A.matmul(B);
 
-		// each element = 1*2 + 1*2 + 1*2 = 6
 		REQUIRE(C == Tensor({2, 2, 2}, 6.0f, backend));
 	}
 }
@@ -362,18 +360,8 @@ TEST_CASE("Matrix multiplcation equal across backends", "[Tensor][Matmul]") {
 		cpu = cpu.matmul(cpu);
 		cuda = cuda.matmul(cuda);
 	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			for (int k = 0; k < n; k++) {
-				float lhs = cpu[i][j][k].copy().toVector()[0];
-				float rhs = cuda[i][j][k].copy().toVector()[0];
 
-
-				float dif = abs(lhs - rhs);
-				CHECK(dif < 1e-5);
-			}
-		}
-	}
+	REQUIRE(cpu.isClose(cuda).all().toVector()[0]);
 }
 
 #endif

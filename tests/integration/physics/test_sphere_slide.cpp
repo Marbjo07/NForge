@@ -11,7 +11,8 @@ TEST_CASE("Cube slide of sphere", "[Physics]") {
 	INFO(res.speed.getDataString());
 	INFO(res.t);
 
-	REQUIRE(isSimilar(res.position, create2dVector(0.734628736972809, 0.678469479084015)));
-	REQUIRE(isSimilar(res.speed, create2dVector(1.203298449516296, -1.300454020500183)));
+	REQUIRE(res.position.isClose(create2dVector(0.73462, 0.67846)).toVector()[0]);
+	REQUIRE(res.speed.isClose(create2dVector(1.20329, -1.30045)).toVector()[0]);
+
 	REQUIRE(res.t == 3.712913275f);
 }
