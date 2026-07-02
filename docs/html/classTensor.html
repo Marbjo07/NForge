@@ -274,6 +274,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>norm</b> () const</td></tr>
 <tr class="memdesc:aebbe09c2557ed1783757c43b2e9de61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">L2 norm (scalar tensor equal to <code>sqrt(sum(x^2))</code>). <br /></td></tr>
 <tr class="separator:aebbe09c2557ed1783757c43b2e9de61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab49cea5b2b6936cfa62888d3178c9f" id="r_afab49cea5b2b6936cfa62888d3178c9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afab49cea5b2b6936cfa62888d3178c9f">all</a> (size_t dim=0) const</td></tr>
+<tr class="separator:afab49cea5b2b6936cfa62888d3178c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d6d7d6ed1b5bed64e078b2007df600" id="r_a51d6d7d6ed1b5bed64e078b2007df600"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a51d6d7d6ed1b5bed64e078b2007df600">any</a> (size_t dim=0) const</td></tr>
+<tr class="separator:a51d6d7d6ed1b5bed64e078b2007df600"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86c4d399056e19b14bfd65a2ee76ddc8" id="r_a86c4d399056e19b14bfd65a2ee76ddc8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a86c4d399056e19b14bfd65a2ee76ddc8">matmul</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
 <tr class="separator:a86c4d399056e19b14bfd65a2ee76ddc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a875a1fa468a791ee682361a037a4ccb0" id="r_a875a1fa468a791ee682361a037a4ccb0"><td class="memItemLeft" align="right" valign="top"><a id="a875a1fa468a791ee682361a037a4ccb0" name="a875a1fa468a791ee682361a037a4ccb0"></a>
@@ -292,10 +296,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const
 <tr class="separator:aa00d3f166c2b807c097cc4e691b37a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e962a19e2e5080808a935aa54861cd" id="r_a33e962a19e2e5080808a935aa54861cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a33e962a19e2e5080808a935aa54861cd">operator=</a> (float scalar)</td></tr>
 <tr class="separator:a33e962a19e2e5080808a935aa54861cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bef2836caec277081debaaaa08fc006" id="r_a1bef2836caec277081debaaaa08fc006"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a1bef2836caec277081debaaaa08fc006">operator==</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
-<tr class="separator:a1bef2836caec277081debaaaa08fc006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac647c691492dae509ba70c32222543cd" id="r_ac647c691492dae509ba70c32222543cd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ac647c691492dae509ba70c32222543cd">operator!=</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
-<tr class="separator:ac647c691492dae509ba70c32222543cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab38b16269258ba59978b758b70652a00" id="r_ab38b16269258ba59978b758b70652a00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ab38b16269258ba59978b758b70652a00">isEqual</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
+<tr class="separator:ab38b16269258ba59978b758b70652a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd5b87cd5ad1ee050fb0eede3dd55880" id="r_afd5b87cd5ad1ee050fb0eede3dd55880"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afd5b87cd5ad1ee050fb0eede3dd55880">isNotEqual</a> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
+<tr class="separator:afd5b87cd5ad1ee050fb0eede3dd55880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dcddd1000853c44aa7ba3e4be4f57c9" id="r_a1dcddd1000853c44aa7ba3e4be4f57c9"><td class="memItemLeft" align="right" valign="top"><a id="a1dcddd1000853c44aa7ba3e4be4f57c9" name="a1dcddd1000853c44aa7ba3e4be4f57c9"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
+<tr class="memdesc:a1dcddd1000853c44aa7ba3e4be4f57c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise equal. Returns a tensor of 0.0 / 1.0. <br /></td></tr>
+<tr class="separator:a1dcddd1000853c44aa7ba3e4be4f57c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a166d92aac807942b4cb24fc536b0fa8e" id="r_a166d92aac807942b4cb24fc536b0fa8e"><td class="memItemLeft" align="right" valign="top"><a id="a166d92aac807942b4cb24fc536b0fa8e" name="a166d92aac807942b4cb24fc536b0fa8e"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
+<tr class="memdesc:a166d92aac807942b4cb24fc536b0fa8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise not equal. Returns a tensor of 0.0 / 1.0. <br /></td></tr>
+<tr class="separator:a166d92aac807942b4cb24fc536b0fa8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3249935c45ec163946b8075e0aaa13e9" id="r_a3249935c45ec163946b8075e0aaa13e9"><td class="memItemLeft" align="right" valign="top"><a id="a3249935c45ec163946b8075e0aaa13e9" name="a3249935c45ec163946b8075e0aaa13e9"></a>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;rhs) const</td></tr>
 <tr class="memdesc:a3249935c45ec163946b8075e0aaa13e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise less than. Returns a tensor of 0.0 / 1.0. <br /></td></tr>
@@ -373,6 +385,44 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="afab49cea5b2b6936cfa62888d3178c9f" name="afab49cea5b2b6936cfa62888d3178c9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab49cea5b2b6936cfa62888d3178c9f">&#9670;&#160;</a></span>all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::all </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em> = <code>0</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For each block, tests whether all element evaluate to True (non-zero). Reduces dimensions [dim, rank) by applying logical AND. Result shape is shape[0:dim]. </p>
+
+</div>
+</div>
+<a id="a51d6d7d6ed1b5bed64e078b2007df600" name="a51d6d7d6ed1b5bed64e078b2007df600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d6d7d6ed1b5bed64e078b2007df600">&#9670;&#160;</a></span>any()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::any </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em> = <code>0</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For each block, tests whether any element evaluate to True (non-zero). Reduces dimensions [dim, rank) by applying logical OR. Result shape is shape[0:dim]. </p>
+
+</div>
+</div>
 <a id="ab74c29e4028d531d6351df3a959d05ba" name="ab74c29e4028d531d6351df3a959d05ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab74c29e4028d531d6351df3a959d05ba">&#9670;&#160;</a></span>isClose()</h2>
 
@@ -407,6 +457,44 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="ab38b16269258ba59978b758b70652a00" name="ab38b16269258ba59978b758b70652a00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab38b16269258ba59978b758b70652a00">&#9670;&#160;</a></span>isEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Tensor::isEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns true if all elements equal those in <code>rhs</code>. </p><dl class="section note"><dt>Note</dt><dd>Exact match, which is unstable for floats. Consider using <code>.<a class="el" href="classTensor.html#ab74c29e4028d531d6351df3a959d05ba">isClose()</a></code> </dd></dl>
+
+</div>
+</div>
+<a id="afd5b87cd5ad1ee050fb0eede3dd55880" name="afd5b87cd5ad1ee050fb0eede3dd55880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd5b87cd5ad1ee050fb0eede3dd55880">&#9670;&#160;</a></span>isNotEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Tensor::isNotEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns true if any element does not equal those in <code>rhs</code>. </p><dl class="section note"><dt>Note</dt><dd>Exact match, which is unstable for floats. Consider using <code>.<a class="el" href="classTensor.html#ab74c29e4028d531d6351df3a959d05ba">isClose()</a></code> </dd></dl>
+
+</div>
+</div>
 <a id="a86c4d399056e19b14bfd65a2ee76ddc8" name="a86c4d399056e19b14bfd65a2ee76ddc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86c4d399056e19b14bfd65a2ee76ddc8">&#9670;&#160;</a></span>matmul()</h2>
 
@@ -428,25 +516,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="ac647c691492dae509ba70c32222543cd" name="ac647c691492dae509ba70c32222543cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac647c691492dae509ba70c32222543cd">&#9670;&#160;</a></span>operator!=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Tensor::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns true if any element differs from <code>rhs</code>. </p><dl class="section note"><dt>Note</dt><dd>Exact match, which is unstable for floats. Consider using <code>.<a class="el" href="classTensor.html#ab74c29e4028d531d6351df3a959d05ba">isClose()</a></code> </dd></dl>
-
-</div>
-</div>
 <a id="a33e962a19e2e5080808a935aa54861cd" name="a33e962a19e2e5080808a935aa54861cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33e962a19e2e5080808a935aa54861cd">&#9670;&#160;</a></span>operator=()</h2>
 
@@ -463,25 +532,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Assigns a pure float to a tensor. </p><dl class="section note"><dt>Note</dt><dd>Only works on scalar-shaped tensors, e.g tensors with only 1 element. </dd></dl>
-
-</div>
-</div>
-<a id="a1bef2836caec277081debaaaa08fc006" name="a1bef2836caec277081debaaaa08fc006"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bef2836caec277081debaaaa08fc006">&#9670;&#160;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Tensor::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classTensor_1_1View.html">Tensor::View</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns true if all elements equal those in <code>rhs</code>. </p><dl class="section note"><dt>Note</dt><dd>Exact match, which is unstable for floats. Consider using <code>.<a class="el" href="classTensor.html#ab74c29e4028d531d6351df3a959d05ba">isClose()</a></code> </dd></dl>
 
 </div>
 </div>

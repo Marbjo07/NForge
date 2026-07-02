@@ -72,8 +72,16 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl
 \begin{DoxyCompactList}\small\item\em Reduces dimensions \mbox{[}dim, rank) by taking the product. Output with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a5c0c181b282ec90b01033206f0c69d25}{norm}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout) const override
 \begin{DoxyCompactList}\small\item\em L2 norm of the tensor described by {\ttfamily layout}. \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ac12c830c91e1931c639072ac790d9555}{all}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ae649f9fdf6c6a5e32822ad8046f75a4a}{any}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&block\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_aec04bd8c58dd45c628b6da2436649bfc}{matmul}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout, size\+\_\+t batch, size\+\_\+t m, size\+\_\+t k, size\+\_\+t p) const override
 \item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a633562baa761758ddef795a6ff9fbf07}{equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\begin{DoxyCompactList}\small\item\em Elementwise equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a7bcfa53ecd4bc2c3f4222d3bee3460b9}{not\+Equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
+\begin{DoxyCompactList}\small\item\em Elementwise not equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_ab433021276ae1d9d49abc38e4ebd5372}{less}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
 \begin{DoxyCompactList}\small\item\em Elementwise less than. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ \mbox{\hyperlink{classTensor_1_1CPUImpl_a2c87834f8b809c918874f8f7e112635b}{less\+Equal}} (const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&lhs\+Layout, const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}rhs\+Impl, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&rhs\+Layout, const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&out\+Layout) const override
@@ -107,6 +115,26 @@ Elementwise addition. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with th
 
 
 Implements \mbox{\hyperlink{classTensor_1_1Impl_ace7bfa323e2f1528fb3ba2bf96f3024a}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_ac12c830c91e1931c639072ac790d9555}\label{classTensor_1_1CPUImpl_ac12c830c91e1931c639072ac790d9555} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!all@{all}}
+\index{all@{all}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{all()}{all()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::all (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{block\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+For each block, tests whether all element evaluate to True (non-\/zero). Reduces dimensions \mbox{[}dim, rank) by applying logical AND. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a751dcdbb33b9eadf29a8c812ff707bfc}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_ae649f9fdf6c6a5e32822ad8046f75a4a}\label{classTensor_1_1CPUImpl_ae649f9fdf6c6a5e32822ad8046f75a4a} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!any@{any}}
+\index{any@{any}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{any()}{any()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::any (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{block\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+For each block, tests whether any element evaluate to True (non-\/zero). Reduces dimensions \mbox{[}dim, rank) by applying logical OR. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a7d9e3f994869386b9cc64bfbf23b5f6f}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5}\label{classTensor_1_1CPUImpl_a7b164b410682d8543daa5c19d315a2a5} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!clone@{clone}}
@@ -166,6 +194,20 @@ Elementwise division. Returns a new \doxylink{classTensor_1_1Impl}{Impl} with th
 
 
 Implements \mbox{\hyperlink{classTensor_1_1Impl_aa6eaaa41a44326e5862ee65ddf681f45}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_a633562baa761758ddef795a6ff9fbf07}\label{classTensor_1_1CPUImpl_a633562baa761758ddef795a6ff9fbf07} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!equal@{equal}}
+\index{equal@{equal}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{equal()}{equal()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::equal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Elementwise equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a3540d1077b6edc90175056cc6a9845a2}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_acc6830b7f97924be1dcf75f60e6c0c4d}\label{classTensor_1_1CPUImpl_acc6830b7f97924be1dcf75f60e6c0c4d} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!fillAll@{fillAll}}
@@ -418,6 +460,20 @@ L2 norm of the tensor described by {\ttfamily layout}.
 
 
 Implements \mbox{\hyperlink{classTensor_1_1Impl_a9e68f36352eea327d3d20f0c0c8cc662}{Tensor\+::\+Impl}}.
+
+\Hypertarget{classTensor_1_1CPUImpl_a7bcfa53ecd4bc2c3f4222d3bee3460b9}\label{classTensor_1_1CPUImpl_a7bcfa53ecd4bc2c3f4222d3bee3460b9} 
+\index{Tensor::CPUImpl@{Tensor::CPUImpl}!notEqual@{notEqual}}
+\index{notEqual@{notEqual}!Tensor::CPUImpl@{Tensor::CPUImpl}}
+\doxysubsubsection{\texorpdfstring{notEqual()}{notEqual()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} $>$ Tensor\+::\+CPUImpl\+::not\+Equal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{lhs\+Layout,  }\item[{const \mbox{\hyperlink{classTensor_1_1Impl}{Tensor\+::\+Impl}} \texorpdfstring{$\ast$}{*}}]{rhs\+Impl,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{rhs\+Layout,  }\item[{const \mbox{\hyperlink{structTensorLayout}{Tensor\+Layout}} \&}]{out\+Layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Elementwise not equal. Returns a tensor of 0.\+0 / 1.\+0 with {\ttfamily out\+Layout}. 
+
+
+
+Implements \mbox{\hyperlink{classTensor_1_1Impl_a0e4801b92edb056235a4d43eb241fbe9}{Tensor\+::\+Impl}}.
 
 \Hypertarget{classTensor_1_1CPUImpl_a46113098d6e71940bd16400bca6d4e3e}\label{classTensor_1_1CPUImpl_a46113098d6e71940bd16400bca6d4e3e} 
 \index{Tensor::CPUImpl@{Tensor::CPUImpl}!print@{print}}

@@ -1,10 +1,13 @@
 var classTensor_1_1Impl =
 [
     [ "add", "classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a", null ],
+    [ "all", "classTensor_1_1Impl.html#a751dcdbb33b9eadf29a8c812ff707bfc", null ],
+    [ "any", "classTensor_1_1Impl.html#a7d9e3f994869386b9cc64bfbf23b5f6f", null ],
     [ "clone", "classTensor_1_1Impl.html#a0affffc80f13bbcc4a647b06e3b9f3fd", null ],
     [ "compare", "classTensor_1_1Impl.html#aa3da5cc31659ea349c35dc693890c071", null ],
     [ "copyFromHost", "classTensor_1_1Impl.html#aab03704ef11aaa14fc6dab22fb101db4", null ],
     [ "div", "classTensor_1_1Impl.html#aa6eaaa41a44326e5862ee65ddf681f45", null ],
+    [ "equal", "classTensor_1_1Impl.html#a3540d1077b6edc90175056cc6a9845a2", null ],
     [ "fillAll", "classTensor_1_1Impl.html#a6942401937978279c5790bf924a84658", null ],
     [ "fillRand", "classTensor_1_1Impl.html#af8cc28f06c200a08a1de699e6eae8dac", null ],
     [ "getNumElements", "classTensor_1_1Impl.html#a6cd95754d9c909ea6ba29cf8884cdb3b", null ],
@@ -23,6 +26,7 @@ var classTensor_1_1Impl =
     [ "min", "classTensor_1_1Impl.html#a286b79bcb1d61f1f17a652c0d2ffb4c9", null ],
     [ "mul", "classTensor_1_1Impl.html#ab22c2aa7f13befb2d180e111243c88ff", null ],
     [ "norm", "classTensor_1_1Impl.html#a9e68f36352eea327d3d20f0c0c8cc662", null ],
+    [ "notEqual", "classTensor_1_1Impl.html#a0e4801b92edb056235a4d43eb241fbe9", null ],
     [ "print", "classTensor_1_1Impl.html#acc7078daa586f3a0d2bc8cd148e29655", null ],
     [ "print", "classTensor_1_1Impl.html#aef2343a6e0c2023d43a87ae52d16c988", null ],
     [ "prod", "classTensor_1_1Impl.html#a80ed4dc18e6d77c84f3dd397a8c57672", null ],

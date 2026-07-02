@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classTensor_1_1CPUImpl.html',''); init
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classTensor_1_1CPUImpl-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Tensor::CPUImpl Class Reference</div></div>
@@ -194,8 +195,18 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <tr class="memitem:a5c0c181b282ec90b01033206f0c69d25" id="r_a5c0c181b282ec90b01033206f0c69d25"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#a5c0c181b282ec90b01033206f0c69d25">norm</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout) const override</td></tr>
 <tr class="memdesc:a5c0c181b282ec90b01033206f0c69d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">L2 norm of the tensor described by <code>layout</code>.  <br /></td></tr>
 <tr class="separator:a5c0c181b282ec90b01033206f0c69d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac12c830c91e1931c639072ac790d9555" id="r_ac12c830c91e1931c639072ac790d9555"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#ac12c830c91e1931c639072ac790d9555">all</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
+<tr class="separator:ac12c830c91e1931c639072ac790d9555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae649f9fdf6c6a5e32822ad8046f75a4a" id="r_ae649f9fdf6c6a5e32822ad8046f75a4a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#ae649f9fdf6c6a5e32822ad8046f75a4a">any</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;layout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;blockLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
+<tr class="separator:ae649f9fdf6c6a5e32822ad8046f75a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec04bd8c58dd45c628b6da2436649bfc" id="r_aec04bd8c58dd45c628b6da2436649bfc"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#aec04bd8c58dd45c628b6da2436649bfc">matmul</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout, size_t batch, size_t m, size_t k, size_t p) const override</td></tr>
 <tr class="separator:aec04bd8c58dd45c628b6da2436649bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a633562baa761758ddef795a6ff9fbf07" id="r_a633562baa761758ddef795a6ff9fbf07"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#a633562baa761758ddef795a6ff9fbf07">equal</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
+<tr class="memdesc:a633562baa761758ddef795a6ff9fbf07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
+<tr class="separator:a633562baa761758ddef795a6ff9fbf07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bcfa53ecd4bc2c3f4222d3bee3460b9" id="r_a7bcfa53ecd4bc2c3f4222d3bee3460b9"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#a7bcfa53ecd4bc2c3f4222d3bee3460b9">notEqual</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
+<tr class="memdesc:a7bcfa53ecd4bc2c3f4222d3bee3460b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise not equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
+<tr class="separator:a7bcfa53ecd4bc2c3f4222d3bee3460b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab433021276ae1d9d49abc38e4ebd5372" id="r_ab433021276ae1d9d49abc38e4ebd5372"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor_1_1CPUImpl.html#ab433021276ae1d9d49abc38e4ebd5372">less</a> (const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;lhsLayout, const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *rhsImpl, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;rhsLayout, const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;outLayout) const override</td></tr>
 <tr class="memdesc:ab433021276ae1d9d49abc38e4ebd5372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise less than. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>.  <br /></td></tr>
 <tr class="separator:ab433021276ae1d9d49abc38e4ebd5372"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,6 +277,96 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <p>Elementwise addition. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
 
 <p>Implements <a class="el" href="classTensor_1_1Impl.html#ace7bfa323e2f1528fb3ba2bf96f3024a">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="ac12c830c91e1931c639072ac790d9555" name="ac12c830c91e1931c639072ac790d9555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac12c830c91e1931c639072ac790d9555">&#9670;&#160;</a></span>all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::CPUImpl::all </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>For each block, tests whether all element evaluate to True (non-zero). Reduces dimensions [dim, rank) by applying logical AND. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html#a751dcdbb33b9eadf29a8c812ff707bfc">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="ae649f9fdf6c6a5e32822ad8046f75a4a" name="ae649f9fdf6c6a5e32822ad8046f75a4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae649f9fdf6c6a5e32822ad8046f75a4a">&#9670;&#160;</a></span>any()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::CPUImpl::any </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>blockLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>For each block, tests whether any element evaluate to True (non-zero). Reduces dimensions [dim, rank) by applying logical OR. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html#a7d9e3f994869386b9cc64bfbf23b5f6f">Tensor::Impl</a>.</p>
 
 </div>
 </div>
@@ -438,6 +539,58 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <p>Elementwise division. Returns a new <a class="el" href="classTensor_1_1Impl.html">Impl</a> with the result with <code>outLayout</code>. </p>
 
 <p>Implements <a class="el" href="classTensor_1_1Impl.html#aa6eaaa41a44326e5862ee65ddf681f45">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a633562baa761758ddef795a6ff9fbf07" name="a633562baa761758ddef795a6ff9fbf07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a633562baa761758ddef795a6ff9fbf07">&#9670;&#160;</a></span>equal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::CPUImpl::equal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html#a3540d1077b6edc90175056cc6a9845a2">Tensor::Impl</a>.</p>
 
 </div>
 </div>
@@ -1256,6 +1409,58 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>dataPtr</b> () con
 <p>L2 norm of the tensor described by <code>layout</code>. </p>
 
 <p>Implements <a class="el" href="classTensor_1_1Impl.html#a9e68f36352eea327d3d20f0c0c8cc662">Tensor::Impl</a>.</p>
+
+</div>
+</div>
+<a id="a7bcfa53ecd4bc2c3f4222d3bee3460b9" name="a7bcfa53ecd4bc2c3f4222d3bee3460b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bcfa53ecd4bc2c3f4222d3bee3460b9">&#9670;&#160;</a></span>notEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> &gt; Tensor::CPUImpl::notEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor_1_1Impl.html">Tensor::Impl</a> *&#160;</td>
+          <td class="paramname"><em>rhsImpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhsLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTensorLayout.html">TensorLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>outLayout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elementwise not equal. Returns a tensor of 0.0 / 1.0 with <code>outLayout</code>. </p>
+
+<p>Implements <a class="el" href="classTensor_1_1Impl.html#a0e4801b92edb056235a4d43eb241fbe9">Tensor::Impl</a>.</p>
 
 </div>
 </div>

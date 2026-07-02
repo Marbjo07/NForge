@@ -63,7 +63,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"functions_f.html"
+"cuda__utils_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

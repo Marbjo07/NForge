@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['getbackend_0',['getbackend',['../classTensor_1_1View.html#a548dff6b67cfabc32e57752cd05dc8e9',1,'Tensor::View::getBackend()'],['../classTensor.html#ab293919896c8984f034b7ab509122c53',1,'Tensor::getBackend() const']]],
-  ['getbackendstring_1',['getbackendstring',['../classTensor.html#af73191324d79a8a5e7e33a2f2fbe9222',1,'Tensor::getBackendString()'],['../classTensor_1_1View.html#ab7ef6a999dad92b1e4d0ae648ce334ca',1,'Tensor::View::getBackendString()']]],
-  ['getcontiguousstrides_2',['getContiguousStrides',['../classTensor_1_1Shape.html#a4120a1a632e771111db9db9eb9987731',1,'Tensor::Shape']]],
-  ['getdatastring_3',['getDataString',['../classTensor.html#a17171caf6181b9d12450749716474f46',1,'Tensor']]],
-  ['getdim_4',['getDim',['../classTensor_1_1Shape.html#a7971fee976003ed44505201486112b2b',1,'Tensor::Shape']]],
-  ['getlayout_5',['getLayout',['../classTensor_1_1View.html#a76e40053fd00338b5d2e01641495f93e',1,'Tensor::View']]],
-  ['getnumdims_6',['getNumDims',['../classTensor_1_1Shape.html#aa596b4a1ffdc22ba9ecde993039111ae',1,'Tensor::Shape']]],
-  ['getnumelements_7',['getnumelements',['../classTensor_1_1CPUImpl.html#ad10d5fd3fc3294acb98d65f0a13a0150',1,'Tensor::CPUImpl::getNumElements()'],['../classTensor_1_1CUDAImpl.html#acd96b91edf00ea465b7e7f9c399b5ad1',1,'Tensor::CUDAImpl::getNumElements()'],['../classTensor_1_1Impl.html#a6cd95754d9c909ea6ba29cf8884cdb3b',1,'Tensor::Impl::getNumElements()'],['../classTensor.html#a8a7c97d623b350fa6a3129fe69227995',1,'Tensor::getNumElements()'],['../classTensor_1_1Shape.html#a9ed56d0e13acd4217f528e164cf70e60',1,'Tensor::Shape::getNumElements()']]],
-  ['getoffset_8',['getOffset',['../classTensor_1_1View.html#a81b308a902976f8ef5dfd51e645ffb81',1,'Tensor::View']]],
-  ['getparent_9',['getParent',['../classTensor_1_1View.html#a013946028951eaa4e3e4da409e68fdbe',1,'Tensor::View']]],
-  ['getposition_10',['getPosition',['../classTensor_1_1View.html#abb20cd3f25b956e9a8322f19502165f6',1,'Tensor::View']]],
-  ['getshape_11',['getshape',['../classTensor_1_1CPUImpl.html#a14f2f5e58e424b0aa5301af706ce7349',1,'Tensor::CPUImpl::getShape()'],['../classTensor_1_1CUDAImpl.html#a9a2cc16848b972aeca5e198e98fd13f7',1,'Tensor::CUDAImpl::getShape()'],['../classTensor_1_1Impl.html#aeabc75a4edc0189c2e226251ecb9810a',1,'Tensor::Impl::getShape()'],['../classTensor.html#a8a3f83ba9986342f7c0119eadb7d7d68',1,'Tensor::getShape()'],['../classTensor_1_1View.html#aaafc2696ea4eb85802a8165c14225bfe',1,'Tensor::View::getShape()']]],
-  ['getslice_12',['getSlice',['../classTensor_1_1Shape.html#ac4c97409af1b955ab3480a95f2492944',1,'Tensor::Shape']]],
-  ['getstride_13',['getStride',['../classTensor_1_1View.html#adccf2e4145abd8e5e2e01d6832400662',1,'Tensor::View']]],
-  ['greater_14',['greater',['../classTensor_1_1CPUImpl.html#a2deda7bce3147b2964567c5b2451cdda',1,'Tensor::CPUImpl::greater()'],['../classTensor_1_1CUDAImpl.html#abb050913441721fe086778e1885c352c',1,'Tensor::CUDAImpl::greater()'],['../classTensor_1_1Impl.html#a91158829caf2fe1d6a1ef4d145a9826b',1,'Tensor::Impl::greater()']]],
-  ['greaterequal_15',['greaterequal',['../classTensor_1_1CPUImpl.html#ab73e86fd7552f961c2fc8c399c0a2f9a',1,'Tensor::CPUImpl::greaterEqual()'],['../classTensor_1_1CUDAImpl.html#ab17ca4a9817bfe2759e8277fc835ad2a',1,'Tensor::CUDAImpl::greaterEqual()'],['../classTensor_1_1Impl.html#ac93d1fe856eb9963da8796cc10383f90',1,'Tensor::Impl::greaterEqual()']]]
+  ['fillall_0',['fillall',['../classTensor_1_1CPUImpl.html#acc6830b7f97924be1dcf75f60e6c0c4d',1,'Tensor::CPUImpl::fillAll()'],['../classTensor_1_1CUDAImpl.html#a2ccedfb3f87a159a7b6ba7548be38980',1,'Tensor::CUDAImpl::fillAll()'],['../classTensor_1_1Impl.html#a6942401937978279c5790bf924a84658',1,'Tensor::Impl::fillAll()'],['../classTensor.html#aa03c891f2d711718f98dfd47eaf8a630',1,'Tensor::fillAll()']]],
+  ['fillrand_1',['fillrand',['../classTensor_1_1CPUImpl.html#a3ae33e92958b2eb4959b29aea07a3003',1,'Tensor::CPUImpl::fillRand()'],['../classTensor_1_1CUDAImpl.html#ab170fbec862138c652c4e6d00481d348',1,'Tensor::CUDAImpl::fillRand()'],['../classTensor_1_1Impl.html#af8cc28f06c200a08a1de699e6eae8dac',1,'Tensor::Impl::fillRand()'],['../classTensor.html#a61e82eb9fa04634531d278f7654c940f',1,'Tensor::fillRand()']]]
 ];

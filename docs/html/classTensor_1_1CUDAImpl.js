@@ -1,11 +1,14 @@
 var classTensor_1_1CUDAImpl =
 [
     [ "add", "classTensor_1_1CUDAImpl.html#ad841800d66fa75806ff29a6d3073eca6", null ],
+    [ "all", "classTensor_1_1CUDAImpl.html#a8139e1f96ce66d52bf2aa23537032cf4", null ],
+    [ "any", "classTensor_1_1CUDAImpl.html#a233ea2875cf341f728b0a55c3eb697e5", null ],
     [ "clone", "classTensor_1_1CUDAImpl.html#ab21713c16d56fcebe1cceeaa0567d935", null ],
     [ "compare", "classTensor_1_1CUDAImpl.html#aaf4fa199b5b20cf129ba33db129c4325", null ],
     [ "copyFromHost", "classTensor_1_1CUDAImpl.html#a0a4c238474c95b0c8845492420ffc016", null ],
     [ "dataPtr", "classTensor_1_1CUDAImpl.html#a04cc2d1e49078da4310ee523cb622b84", null ],
     [ "div", "classTensor_1_1CUDAImpl.html#a849ac3a4f03dee195c71352933699549", null ],
+    [ "equal", "classTensor_1_1CUDAImpl.html#aa6963e5cef620cc4245b7908000ec3fa", null ],
     [ "fillAll", "classTensor_1_1CUDAImpl.html#a2ccedfb3f87a159a7b6ba7548be38980", null ],
     [ "fillRand", "classTensor_1_1CUDAImpl.html#ab170fbec862138c652c4e6d00481d348", null ],
     [ "getNumElements", "classTensor_1_1CUDAImpl.html#acd96b91edf00ea465b7e7f9c399b5ad1", null ],
@@ -24,6 +27,7 @@ var classTensor_1_1CUDAImpl =
     [ "min", "classTensor_1_1CUDAImpl.html#a1122b34243e55dbd86565865b6e95334", null ],
     [ "mul", "classTensor_1_1CUDAImpl.html#a2f5abf7caa037c022eed2994e3311642", null ],
     [ "norm", "classTensor_1_1CUDAImpl.html#a399eeb564847d0ed523c58d2e158da50", null ],
+    [ "notEqual", "classTensor_1_1CUDAImpl.html#a765fd9f86c03f50a14c9659fc5228f43", null ],
     [ "print", "classTensor_1_1CUDAImpl.html#a25b55b3834afa8408d8375eaddb9284c", null ],
     [ "print", "classTensor_1_1CUDAImpl.html#ac8fe51c74fa62fb573039fd41d4e0b66", null ],
     [ "prod", "classTensor_1_1CUDAImpl.html#ade1275f7f2fb03b889c27023c4b47387", null ],

@@ -1,11 +1,14 @@
 var classTensor_1_1CPUImpl =
 [
     [ "add", "classTensor_1_1CPUImpl.html#a24d4ce17b3dbba76e861800579c0fb6a", null ],
+    [ "all", "classTensor_1_1CPUImpl.html#ac12c830c91e1931c639072ac790d9555", null ],
+    [ "any", "classTensor_1_1CPUImpl.html#ae649f9fdf6c6a5e32822ad8046f75a4a", null ],
     [ "clone", "classTensor_1_1CPUImpl.html#a7b164b410682d8543daa5c19d315a2a5", null ],
     [ "compare", "classTensor_1_1CPUImpl.html#a16cffea186292f67d0f1aa3698c3e60c", null ],
     [ "copyFromHost", "classTensor_1_1CPUImpl.html#a8279a8264c5e0ea078fd1206f72e521f", null ],
     [ "dataPtr", "classTensor_1_1CPUImpl.html#a69022b3cfc67ddea0776037591c5b622", null ],
     [ "div", "classTensor_1_1CPUImpl.html#a254e28015ba00fcacf68c964454b5aca", null ],
+    [ "equal", "classTensor_1_1CPUImpl.html#a633562baa761758ddef795a6ff9fbf07", null ],
     [ "fillAll", "classTensor_1_1CPUImpl.html#acc6830b7f97924be1dcf75f60e6c0c4d", null ],
     [ "fillRand", "classTensor_1_1CPUImpl.html#a3ae33e92958b2eb4959b29aea07a3003", null ],
     [ "getNumElements", "classTensor_1_1CPUImpl.html#ad10d5fd3fc3294acb98d65f0a13a0150", null ],
@@ -24,6 +27,7 @@ var classTensor_1_1CPUImpl =
     [ "min", "classTensor_1_1CPUImpl.html#add1b5b49d841e358af8a7a581efb2d20", null ],
     [ "mul", "classTensor_1_1CPUImpl.html#aab66faca16f5e3e9f0617370ce51d461", null ],
     [ "norm", "classTensor_1_1CPUImpl.html#a5c0c181b282ec90b01033206f0c69d25", null ],
+    [ "notEqual", "classTensor_1_1CPUImpl.html#a7bcfa53ecd4bc2c3f4222d3bee3460b9", null ],
     [ "print", "classTensor_1_1CPUImpl.html#a46113098d6e71940bd16400bca6d4e3e", null ],
     [ "print", "classTensor_1_1CPUImpl.html#ae536eadbfcc087178a7ef7e854d02b54", null ],
     [ "prod", "classTensor_1_1CPUImpl.html#a3cc3b19c9c9e84954e97edbc48d7c521", null ],
